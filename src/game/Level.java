@@ -10,19 +10,27 @@ public class Level {
 	/**
 	 * Kein Würfel an dieser Stelle
 	 */
-	final static public byte CUBE_NR_EMTPY = 0;
+	final static public int CUBE_NR_EMTPY = 0;
 	/**
 	 * Unzerstörbarer Würfel an dieser Stelle
 	 */
-	final static public byte CUBE_NR_SOLID = 1;
+	final static public int CUBE_NR_SOLID = 1000;
+	/**
+	 * Bome
+	 */
+	final static public int CUBE_NR_BOMB = 2000;
+	/**
+	 * Item
+	 */
+	final static public int CUBE_NR_ITEM = 3000;
 
-	byte[][][] level;
+	int[][][] level;
 
 	/**
 	 * Der Standardkonstruktor erzeugt ein Level der Größe 10x10x10
 	 */
 	public Level() {
-		level = new byte[10][10][10];
+		level = new int[10][10][10];
 		clear();
 	}
 
@@ -36,8 +44,8 @@ public class Level {
 	 * @param z
 	 *            Tiefe des Levels
 	 */
-	public Level(int x, int y, int z) {
-		level = new byte[x][y][z];
+	public Level(byte x, byte y, byte z) {
+		level = new int[x][y][z];
 		clear();
 	}
 
@@ -52,7 +60,7 @@ public class Level {
 	 *            Tiefenwürfelnummer
 	 * @return Gibt die Art eines Würfels an einer bestimmten Position aus
 	 */
-	public byte getCubeNumber(int x, int y, int z) {
+	public int getCubeNumber(int x, int y, int z) {
 		return level[x][y][z];
 	}
 

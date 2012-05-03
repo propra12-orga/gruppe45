@@ -2,5 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/gluegen-rt-1.1.1+dak1.jar"/>
+	<classpathentry kind="lib" path="lib/jogl-1.1.1+dak1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
