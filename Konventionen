@@ -1,0 +1,12 @@
+Programmierung:
+Wichtige TODOs werden mit //FIXME gekennzeichnet
+Unwichtige TODOs werden mit //TODO gekennzeichnet
+Funktionen sollten mit /** beschrieben werden
+
+Spiel:
+Im Spiel bewegt man sich durch ein Level.
+Ein Feld im Level nennen wir Würfel(Cube) mit einer bestimmten Würfelnummer(CUBE_NR)
+Würfelnummern    0- 999:Begehbare Würfel
+Würfelnummern 1000-1999:Nicht begehbare Würfel
+Würfelnummern 2000-2999:Bomben
+Würfelnummern 3000-3999:Items
