@@ -1,3 +1,6 @@
+Eclipse:
+Window->Preferences->Suche:Save Actions->Die ersten drei Haken setzen
+
 Programmierung:
 Wichtige TODOs werden mit //FIXME gekennzeichnet
 Unwichtige TODOs werden mit //TODO gekennzeichnet
