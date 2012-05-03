@@ -33,7 +33,7 @@ public class Window extends JFrame implements WindowListener {
 
 	public Window() {
 		// FIXME Titel des Fensters anpassen
-		super("Bomberman auf Türkisch");
+		super("Bombardiman ücbinikiyüzellibes");   // Bomberman 3255 
 
 		addKeyListener(new Control_Keyboard(player));
 
