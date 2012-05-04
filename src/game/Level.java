@@ -71,10 +71,7 @@ public class Level {
 		for (byte i = 0; i < level.length; i++) {
 			for (byte j = 0; j < level[0].length; j++) {
 				for (byte k = 0; k < level[0][0].length; k++) {
-					if (/*
-						 * i == 9 || j == 9 || k == 9 || i == 0 || j == 0 || k
-						 * == 0 ||
-						 */!(i % 2 == 0 || j % 2 == 0 || k % 2 == 0)) {
+					if (!(i % 2 == 0 || j % 2 == 0 || k % 2 == 0)) {
 						level[i][j][k] = CUBE_NR_SOLID;
 					} else {
 						level[i][j][k] = CUBE_NR_EMTPY;
