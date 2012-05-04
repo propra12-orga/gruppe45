@@ -13,3 +13,8 @@ Würfelnummern    0- 999:Begehbare Würfel
 Würfelnummern 1000-1999:Nicht begehbare Würfel
 Würfelnummern 2000-2999:Bomben
 Würfelnummern 3000-3999:Items
+
+3D:
+X-Achse: Rot
+Y-Achse: Grün
+Z-Achse: Blau
