@@ -10,17 +10,21 @@ package game;
  * 
  */
 public class Player {
+	final private double PI_DIV_2 = (Math.PI / 2);
 	private float x, y, z;
-	private float stepSize = 0.1f;
+	private float stepSize = 1f;
 	private float[] color;
+	private float angleY = 0;
+	private float angleX = 0;
 
 	/**
-	 * Konstruktor, setzt die Spielerposition auf (0,0,0)
+	 * Der Konstruktor verlangt die Anfangsposition
 	 */
-	public Player(float[] color) {
-		this.x = 0;
-		this.y = 0;
-		this.z = 0;
+	public Player(float x, float y, float z) {
+		setPosition(x, y, z);
+	}
+	
+	public void setColor(float[] color) {
 		this.color = color;
 	}
 
@@ -46,6 +50,31 @@ public class Player {
 	}
 
 	/**
+	 * @return X-Position des Camerasichtpunktes
+	 */
+	public float getCamX() {
+		return this.x + (float) Math.sin(angleY);
+	}
+
+	/**
+	 * @return Y-Position des Camerasichtpunktes
+	 */
+	// FIXME Ueberlegen ob die ganze Rechnung sein muss
+	public float getCamY() {
+		return this.y
+				+ (float) (Math.sin(angleX)
+				* Math.sqrt(Math.sin(angleY) * Math.sin(angleY)
+ + Math.cos(angleY)
+						* Math.cos(angleY)));
+	}
+
+	/**
+	 * @return Z-Position des Camerasichtpunktes
+	 */
+	public float getCamZ() {
+		return this.z + (float) Math.cos(angleY);
+	}
+	/**
 	 * Setzt den Spieler an eine bestimmt Position
 	 * 
 	 * @param x
@@ -62,28 +91,53 @@ public class Player {
 		this.z = z;
 	}
 
-	public void moveUp() {
-		move(0, stepSize, 0);
+	public void turnUp() {
+		if (this.angleX < PI_DIV_2) {
+			this.angleX += 0.1;
+		}
 	}
 
-	public void moveDown() {
-		move(0, -stepSize, 0);
+	public void turnDown() {
+		if (this.angleX > -PI_DIV_2) {
+			this.angleX -= 0.1;
+		}
+	}
+
+	public void turnRight() {
+		this.angleY -= 0.1f;
+	}
+
+	public void turnLeft() {
+		this.angleY += 0.1f;
 	}
 
 	public void moveForward() {
-		move(0, 0, stepSize);
+		move((float) Math.sin(angleY) * stepSize,
+				(float) (Math.sin(angleX) * Math.sqrt(Math.sin(angleY)
+						* Math.sin(angleY) + Math.cos(angleY)
+						* Math.cos(angleY)))
+						* stepSize, (float) Math.cos(angleY)
+				* stepSize);
 	}
 
 	public void moveBackward() {
-		move(0, 0, -stepSize);
+		move((float) Math.sin(angleY) * -stepSize,
+				(float) (Math.sin(angleX) * Math.sqrt(Math.sin(angleY)
+						* Math.sin(angleY) + Math.cos(angleY)
+						* Math.cos(angleY)))
+						* -stepSize, (float) Math.cos(angleY) * -stepSize);
 	}
 
 	public void moveLeft() {
-		move(stepSize, 0, 0);
+		move((float) Math.sin(angleY + PI_DIV_2) * stepSize, 0,
+				(float) Math.cos(angleY + PI_DIV_2)
+				* stepSize);
 	}
 
 	public void moveRight() {
-		move(-stepSize, 0, 0);
+		move((float) Math.sin(angleY - PI_DIV_2) * stepSize, 0,
+				(float) Math.cos(angleY - PI_DIV_2)
+				* stepSize);
 	}
 
 	// FIXME PlayerMove() Prüfen ob Platz an der Stelle ist
