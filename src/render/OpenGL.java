@@ -48,7 +48,7 @@ public class OpenGL implements GLEventListener {
 		for (byte i = 0; i < 10; i += 1) {
 			for (byte j = 0; j < 10; j += 1) {
 				for (byte k = 0; k < 10; k += 1) {
-					if (level.getCubeNumber(i, j, k) == Level.CUBE_NR_SOLID) {
+					if (!level.getCube(i, j, k).isWalkable()) {
 						gl.glColor3f(j / 20f + 0.2f, j / 20f + 0.2f, 1f);
 						Primitives.DrawCube(gl, i * 10, j * 10, k * 10, 10f);
 					}

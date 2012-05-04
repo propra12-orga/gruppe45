@@ -7,30 +7,13 @@ package game;
  */
 public class Level {
 
-	/**
-	 * Kein Würfel an dieser Stelle
-	 */
-	final static public int CUBE_NR_EMTPY = 0;
-	/**
-	 * Unzerstörbarer Würfel an dieser Stelle
-	 */
-	final static public int CUBE_NR_SOLID = 1000;
-	/**
-	 * Bome
-	 */
-	final static public int CUBE_NR_BOMB = 2000;
-	/**
-	 * Item
-	 */
-	final static public int CUBE_NR_ITEM = 3000;
-
-	int[][][] level;
+	Cube[][][] level;
 
 	/**
 	 * Der Standardkonstruktor erzeugt ein Level der Größe 10x10x10
 	 */
 	public Level() {
-		level = new int[10][10][10];
+		level = new Cube[10][10][10];
 		clear();
 	}
 
@@ -45,7 +28,7 @@ public class Level {
 	 *            Tiefe des Levels
 	 */
 	public Level(byte x, byte y, byte z) {
-		level = new int[x][y][z];
+		level = new Cube[x][y][z];
 		clear();
 	}
 
@@ -60,7 +43,7 @@ public class Level {
 	 *            Tiefenwürfelnummer
 	 * @return Gibt die Art eines Würfels an einer bestimmten Position aus
 	 */
-	public int getCubeNumber(int x, int y, int z) {
+	public Cube getCube(int x, int y, int z) {
 		return level[x][y][z];
 	}
 
@@ -72,9 +55,9 @@ public class Level {
 			for (byte j = 0; j < level[0].length; j++) {
 				for (byte k = 0; k < level[0][0].length; k++) {
 					if (!(i % 2 == 0 || j % 2 == 0 || k % 2 == 0)) {
-						level[i][j][k] = CUBE_NR_SOLID;
+						level[i][j][k] = new CubeSolid();
 					} else {
-						level[i][j][k] = CUBE_NR_EMTPY;
+						level[i][j][k] = new CubeEmpty();
 					}
 				}
 			}
