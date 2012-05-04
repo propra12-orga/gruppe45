@@ -38,24 +38,31 @@ public class OpenGL implements GLEventListener {
 		gl.glLoadIdentity();
 		float widthHeightRatio = width / height;
 		glu.gluPerspective(45, widthHeightRatio, 1, 1000);
-		glu.gluLookAt(0, 0, 100, 0, 0, 0, 0, 1, 0);
-		gl.glRotated(0, 0.0, 1.0, 0.0);
+		glu.gluLookAt(player.getX(), player.getY(), player.getZ(),
+				player.getCamX(), player.getCamY(),
+				player.getCamZ(), 0,
+				1, 0);
 		gl.glMatrixMode(GL.GL_MODELVIEW);
+		gl.glLoadIdentity();
 		gl.glBegin(GL.GL_QUADS);
-		for (byte i = -5; i < 5; i += 1) {
-			for (byte j = -5; j < 5; j += 1) {
-				for (byte k = -5; k < 5; k += 1) {
-					if (level.getCubeNumber(i + 5, j + 5, k + 5) == Level.CUBE_NR_SOLID) {
-						gl.glColor4b((byte) (i * 10 + 50),
-								(byte) (j * 10 + 50), (byte) (k * 10 + 50),
-								(byte) 127);
-						Primitives.DrawCube(gl, i * 10 + player.getX() * 10, j
-								* 10 + player.getY() * 10,
-								k * 10 + player.getZ() * 10, 10f);
+		for (byte i = 0; i < 10; i += 1) {
+			for (byte j = 0; j < 10; j += 1) {
+				for (byte k = 0; k < 10; k += 1) {
+					if (level.getCubeNumber(i, j, k) == Level.CUBE_NR_SOLID) {
+						gl.glColor3f(j / 20f + 0.2f, j / 20f + 0.2f, 1f);
+						Primitives.DrawCube(gl, i * 10, j * 10, k * 10, 10f);
 					}
 				}
 			}
 		}
+		gl.glColor3f(1, 0, 0);
+		Primitives.DrawCube(gl, 9, 0, 0, 10, 1, 1);
+		gl.glColor3f(0, 1, 0);
+		Primitives.DrawCube(gl, 0, 9, 0, 1, 10, 1);
+		gl.glColor3f(0, 0, 1);
+		Primitives.DrawCube(gl, 0, 0, 9, 1, 1, 10);
+		gl.glColor3f(0.8f, 0.8f, 0.8f);
+		Primitives.DrawCube(gl, 0, 0, 0, 3);
 		gl.glEnd();
 
 		gl.glFlush();
@@ -74,10 +81,12 @@ public class OpenGL implements GLEventListener {
 		float clipsize = 0.8f;
 
 		GL gl = drawable.getGL();
-		// Alpha-Farbkanal, Transparenz, einschalten
 		gl.glEnable(GL.GL_DEPTH_TEST);
-		gl.glEnable(GL.GL_BLEND);
-		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
+		// Alpha-Farbkanal, Transparenz, einschalten
+		// gl.glEnable(GL.GL_BLEND);
+		// gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
+
+		gl.glEnable(GL.GL_LINE_SMOOTH); // Antialiasing für Linien einschalten
 
 		gl.glMatrixMode(GL.GL_PROJECTION);
 		gl.glLoadIdentity();
