@@ -24,7 +24,7 @@ public class Window extends JFrame implements WindowListener {
 
 	final int width = 400;
 	final int height = 400;
-	Player player = new Player(GLColor4f.GL_COLOR4f_RED);
+	Player player = new Player(50, 50, -150);
 	Animator animator;
 	GLCapabilities caps;
 	GLCanvas canvas;
@@ -32,9 +32,9 @@ public class Window extends JFrame implements WindowListener {
 	OpenGL openGl;
 
 	public Window() {
-		// FIXME Titel des Fensters anpassen
-		super("Bombardiman ücbinikiyüzellibes");   // Bomberman 3255 
-
+		super("Bombardiman ücbinikiyüzellibes"); // Bomberman 3255
+		
+		player.setColor(GLColor4f.GL_COLOR4f_RED);
 		addKeyListener(new Control_Keyboard(player));
 
 		setSize(width, height);
@@ -66,20 +66,7 @@ public class Window extends JFrame implements WindowListener {
 
 	@Override
 	public void windowClosing(WindowEvent arg0) {
-		animator.stop();
-		// while (animator.isAnimating())
-		// ;
-		canvas.removeGLEventListener(openGl);
-		caps = null;
-		canvas = null;
-		window = null;
-		try {
-			Thread.sleep(1000);
-			System.exit(1);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		System.exit(1);
 	}
 
 	@Override
