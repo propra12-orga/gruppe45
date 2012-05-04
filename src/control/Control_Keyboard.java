@@ -32,10 +32,16 @@ public class Control_Keyboard implements KeyListener {
 			player.moveRight();
 			break;
 		case KeyEvent.VK_Q:
-			player.moveUp();
+			player.turnLeft();
 			break;
 		case KeyEvent.VK_E:
-			player.moveDown();
+			player.turnRight();
+			break;
+		case KeyEvent.VK_R:
+			player.turnUp();
+			break;
+		case KeyEvent.VK_F:
+			player.turnDown();
 			break;
 		case KeyEvent.VK_T:
 			System.exit(0);
