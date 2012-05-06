@@ -2,9 +2,9 @@ package control;
 
 import game.Player;
 
-public class Control_Keyboard extends Control {
+public class Control_Mouse extends Control {
 
-	public Control_Keyboard(Player player) {
+	public Control_Mouse(Player player) {
 		super(player);
 		// TODO Auto-generated constructor stub
 	}

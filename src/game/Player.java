@@ -28,6 +28,10 @@ public class Player {
 		this.color = color;
 	}
 
+	public float[] getColor() {
+		return this.color;
+	}
+
 	/**
 	 * @return X-Postion des Spielers
 	 */

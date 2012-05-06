@@ -9,6 +9,18 @@ public class Level {
 
 	Cube[][][] level;
 
+	public int getSizeX() {
+		return level.length;
+	}
+
+	public int getSizeY() {
+		return level[0].length;
+	}
+
+	public int getSizeZ() {
+		return level[0][0].length;
+	}
+
 	/**
 	 * Der Standardkonstruktor erzeugt ein Level der Größe 10x10x10
 	 */
@@ -51,9 +63,9 @@ public class Level {
 	 * Setzt das Levelarray auf Anfang
 	 */
 	public void clear() {
-		for (byte i = 0; i < level.length; i++) {
-			for (byte j = 0; j < level[0].length; j++) {
-				for (byte k = 0; k < level[0][0].length; k++) {
+		for (byte i = 0; i < getSizeX(); i++) {
+			for (byte j = 0; j < getSizeY(); j++) {
+				for (byte k = 0; k < getSizeZ(); k++) {
 					if (!(i % 2 == 0 || j % 2 == 0 || k % 2 == 0)) {
 						level[i][j][k] = new CubeSolid();
 					} else {

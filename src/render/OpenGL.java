@@ -6,98 +6,79 @@ package render;
 import game.Level;
 import game.Player;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.GLAutoDrawable;
-import javax.media.opengl.GLEventListener;
-import javax.media.opengl.glu.GLU;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.util.glu.GLU;
 
-public class OpenGL implements GLEventListener {
+public class OpenGL {
 
-	final int width = 400;
-	final int height = 400;
-	float x = 0.0f;
-	float y = 0.0f;
-	float z = 0.0f;
+	int width, height;
+	final static public float sizeOfCube = 10;
+
 	Level level = new Level();
 	Player player;
 
-	public OpenGL(Player player) {
+	public OpenGL(Player player, int width, int height) {
 		this.player = player;
+		this.width = width;
+		this.height = height;
+		init();
 	}
 
-	/**
-	 * Wird ausgeführt solange das Fenster sichtbar ist
-	 */
-	@Override
-	public void display(GLAutoDrawable drawable) {
-		GL gl = drawable.getGL();
-		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+	public void display() {
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 
-		GLU glu = new GLU();
-		gl.glMatrixMode(GL.GL_PROJECTION);
-		gl.glLoadIdentity();
+		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glLoadIdentity();
 		float widthHeightRatio = width / height;
-		glu.gluPerspective(45, widthHeightRatio, 1, 1000);
-		glu.gluLookAt(player.getX(), player.getY(), player.getZ(),
+		GLU.gluPerspective(45, widthHeightRatio, 1, 1000);
+		GLU.gluLookAt(player.getX(), player.getY(), player.getZ(),
 				player.getCamX(), player.getCamY(),
 				player.getCamZ(), 0,
 				1, 0);
-		gl.glMatrixMode(GL.GL_MODELVIEW);
-		gl.glLoadIdentity();
-		gl.glBegin(GL.GL_QUADS);
-		for (byte i = 0; i < 10; i += 1) {
-			for (byte j = 0; j < 10; j += 1) {
-				for (byte k = 0; k < 10; k += 1) {
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+		GL11.glLoadIdentity();
+		// Level
+		for (byte i = 0; i < level.getSizeX(); i += 1) {
+			for (byte j = 0; j < level.getSizeY(); j += 1) {
+				for (byte k = 0; k < level.getSizeZ(); k += 1) {
 					if (!level.getCube(i, j, k).isWalkable()) {
-						gl.glColor3f(j / 20f + 0.2f, j / 20f + 0.2f, 1f);
-						Primitives.DrawCube(gl, i * 10, j * 10, k * 10, 10f);
+						GL11.glColor3f(j / 20f + 0.2f, j / 20f + 0.2f, 1f);
+						Primitives.DrawCube(i * sizeOfCube, j * sizeOfCube, k
+								* sizeOfCube, sizeOfCube);
 					}
 				}
 			}
 		}
-		gl.glColor3f(1, 0, 0);
-		Primitives.DrawCube(gl, 9, 0, 0, 10, 1, 1);
-		gl.glColor3f(0, 1, 0);
-		Primitives.DrawCube(gl, 0, 9, 0, 1, 10, 1);
-		gl.glColor3f(0, 0, 1);
-		Primitives.DrawCube(gl, 0, 0, 9, 1, 1, 10);
-		gl.glColor3f(0.8f, 0.8f, 0.8f);
-		Primitives.DrawCube(gl, 0, 0, 0, 3);
-		gl.glEnd();
+		// Koordinatenachsen
+		GL11.glColor3f(1, 0, 0);// Farbe rot auswählen
+		Primitives.DrawCube(9, 0, 0, 10, 1, 1);
+		GL11.glColor3f(0, 1, 0);// Farbe gruen auswählen
+		Primitives.DrawCube(0, 9, 0, 1, 10, 1);
+		GL11.glColor3f(0, 0, 1);// Farbe blau auswählen
+		Primitives.DrawCube(0, 0, 9, 1, 1, 10);
+		GL11.glColor3f(0.8f, 0.8f, 0.8f);// Farbe weiß auswählen
+		Primitives.DrawCube(0, 0, 0, 3);
+		GL11.glEnd();
 
-		gl.glFlush();
+		GL11.glFlush();
 	}
 
-	@Override
-	public void displayChanged(GLAutoDrawable drawable, boolean modeChanged,
-			boolean deviceChanged) {
-	}
-
-	/**
-	 * Initialisiert OpenGL
-	 */
-	@Override
-	public void init(GLAutoDrawable drawable) {
+	public void init() {
 		float clipsize = 0.8f;
 
-		GL gl = drawable.getGL();
-		gl.glEnable(GL.GL_DEPTH_TEST);
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		// Alpha-Farbkanal, Transparenz, einschalten
-		// gl.glEnable(GL.GL_BLEND);
-		// gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
+		// GL11.glEnable(GL11.GL_BLEND);
+		// GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-		gl.glEnable(GL.GL_LINE_SMOOTH); // Antialiasing für Linien einschalten
+		GL11.glEnable(GL11.GL_LINE_SMOOTH); // Antialiasing für Linien
+											// einschalten
 
-		gl.glMatrixMode(GL.GL_PROJECTION);
-		gl.glLoadIdentity();
-		gl.glOrtho(-clipsize, +clipsize, -clipsize, +clipsize,
+		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glLoadIdentity();
+		GL11.glOrtho(-clipsize, +clipsize, -clipsize, +clipsize,
 				-clipsize * 100.0f, +clipsize * 100.0f);
-		gl.glViewport(0, 0, width, height);
-	}
-
-	@Override
-	public void reshape(GLAutoDrawable drawable, int x, int y, int width,
-			int height) {
+		GL11.glViewport(0, 0, width, height);
 	}
 
 }

@@ -1,4 +1,7 @@
 package render;
+
+import org.lwjgl.opengl.GL11;
+
 /**
  * Diese Klasse stellt OpenGLObjekte die für das Spiel benötigt werden zur Verfügung.
  * -Würfel(Fest,Zerstörbar,...)
@@ -6,7 +9,6 @@ package render;
  * -Bomben
  * -Items(Bonusgegenstände)
  */
-import javax.media.opengl.GL;
 
 public class Primitives {
 	/**
@@ -24,83 +26,83 @@ public class Primitives {
 	 * @param size
 	 *            Kantenlänge des Würfels
 	 */
-	static public void DrawCube(GL gl, float x, float y, float z, float size) {
+	static public void DrawCube(float x, float y, float z, float size) {
 		size /= 2;
-		gl.glBegin(GL.GL_QUADS);
+		GL11.glBegin(GL11.GL_QUADS);
 		// Vorne
-		gl.glVertex3f(x - size, y - size, z - size);
-		gl.glVertex3f(x - size, y + size, z - size);
-		gl.glVertex3f(x + size, y + size, z - size);
-		gl.glVertex3f(x + size, y - size, z - size);
+		GL11.glVertex3f(x - size, y - size, z - size);
+		GL11.glVertex3f(x - size, y + size, z - size);
+		GL11.glVertex3f(x + size, y + size, z - size);
+		GL11.glVertex3f(x + size, y - size, z - size);
 		// Hinten
-		gl.glVertex3f(x - size, y - size, z + size);
-		gl.glVertex3f(x + size, y - size, z + size);
-		gl.glVertex3f(x + size, y + size, z + size);
-		gl.glVertex3f(x - size, y + size, z + size);
+		GL11.glVertex3f(x - size, y - size, z + size);
+		GL11.glVertex3f(x + size, y - size, z + size);
+		GL11.glVertex3f(x + size, y + size, z + size);
+		GL11.glVertex3f(x - size, y + size, z + size);
 		// Rechts
-		gl.glVertex3f(x + size, y - size, z + size);
-		gl.glVertex3f(x + size, y + size, z + size);
-		gl.glVertex3f(x + size, y + size, z - size);
-		gl.glVertex3f(x + size, y - size, z - size);
+		GL11.glVertex3f(x + size, y - size, z + size);
+		GL11.glVertex3f(x + size, y + size, z + size);
+		GL11.glVertex3f(x + size, y + size, z - size);
+		GL11.glVertex3f(x + size, y - size, z - size);
 		// Links
-		gl.glVertex3f(x - size, y - size, z + size);
-		gl.glVertex3f(x - size, y + size, z + size);
-		gl.glVertex3f(x - size, y + size, z - size);
-		gl.glVertex3f(x - size, y - size, z - size);
+		GL11.glVertex3f(x - size, y - size, z + size);
+		GL11.glVertex3f(x - size, y + size, z + size);
+		GL11.glVertex3f(x - size, y + size, z - size);
+		GL11.glVertex3f(x - size, y - size, z - size);
 		// Oben
-		gl.glVertex3f(x - size, y + size, z + size);
-		gl.glVertex3f(x + size, y + size, z + size);
-		gl.glVertex3f(x + size, y + size, z - size);
-		gl.glVertex3f(x - size, y + size, z - size);
+		GL11.glVertex3f(x - size, y + size, z + size);
+		GL11.glVertex3f(x + size, y + size, z + size);
+		GL11.glVertex3f(x + size, y + size, z - size);
+		GL11.glVertex3f(x - size, y + size, z - size);
 		// Unten
-		gl.glVertex3f(x - size, y - size, z + size);
-		gl.glVertex3f(x + size, y - size, z + size);
-		gl.glVertex3f(x + size, y - size, z - size);
-		gl.glVertex3f(x - size, y - size, z - size);
-		gl.glEnd();
-		gl.glColor3f(0, 0, 0);
-		gl.glBegin(GL.GL_LINE_LOOP);
+		GL11.glVertex3f(x - size, y - size, z + size);
+		GL11.glVertex3f(x + size, y - size, z + size);
+		GL11.glVertex3f(x + size, y - size, z - size);
+		GL11.glVertex3f(x - size, y - size, z - size);
+		GL11.glEnd();
+		GL11.glColor3f(0, 0, 0);
+		GL11.glBegin(GL11.GL_LINE_LOOP);
 		// Vorne
-		gl.glVertex3f(x - size, y - size, z - size);
-		gl.glVertex3f(x - size, y + size, z - size);
-		gl.glVertex3f(x + size, y + size, z - size);
-		gl.glVertex3f(x + size, y - size, z - size);
-		gl.glEnd();
-		gl.glBegin(GL.GL_LINE_LOOP);
+		GL11.glVertex3f(x - size, y - size, z - size);
+		GL11.glVertex3f(x - size, y + size, z - size);
+		GL11.glVertex3f(x + size, y + size, z - size);
+		GL11.glVertex3f(x + size, y - size, z - size);
+		GL11.glEnd();
+		GL11.glBegin(GL11.GL_LINE_LOOP);
 		// Hinten
-		gl.glVertex3f(x - size, y - size, z + size);
-		gl.glVertex3f(x + size, y - size, z + size);
-		gl.glVertex3f(x + size, y + size, z + size);
-		gl.glVertex3f(x - size, y + size, z + size);
-		gl.glEnd();
-		gl.glBegin(GL.GL_LINE_LOOP);
+		GL11.glVertex3f(x - size, y - size, z + size);
+		GL11.glVertex3f(x + size, y - size, z + size);
+		GL11.glVertex3f(x + size, y + size, z + size);
+		GL11.glVertex3f(x - size, y + size, z + size);
+		GL11.glEnd();
+		GL11.glBegin(GL11.GL_LINE_LOOP);
 		// Rechts
-		gl.glVertex3f(x + size, y - size, z + size);
-		gl.glVertex3f(x + size, y + size, z + size);
-		gl.glVertex3f(x + size, y + size, z - size);
-		gl.glVertex3f(x + size, y - size, z - size);
-		gl.glEnd();
-		gl.glBegin(GL.GL_LINE_LOOP);
+		GL11.glVertex3f(x + size, y - size, z + size);
+		GL11.glVertex3f(x + size, y + size, z + size);
+		GL11.glVertex3f(x + size, y + size, z - size);
+		GL11.glVertex3f(x + size, y - size, z - size);
+		GL11.glEnd();
+		GL11.glBegin(GL11.GL_LINE_LOOP);
 		// Links
-		gl.glVertex3f(x - size, y - size, z + size);
-		gl.glVertex3f(x - size, y + size, z + size);
-		gl.glVertex3f(x - size, y + size, z - size);
-		gl.glVertex3f(x - size, y - size, z - size);
-		gl.glEnd();
-		gl.glBegin(GL.GL_LINE_LOOP);
+		GL11.glVertex3f(x - size, y - size, z + size);
+		GL11.glVertex3f(x - size, y + size, z + size);
+		GL11.glVertex3f(x - size, y + size, z - size);
+		GL11.glVertex3f(x - size, y - size, z - size);
+		GL11.glEnd();
+		GL11.glBegin(GL11.GL_LINE_LOOP);
 		// Oben
-		gl.glVertex3f(x - size, y + size, z + size);
-		gl.glVertex3f(x + size, y + size, z + size);
-		gl.glVertex3f(x + size, y + size, z - size);
-		gl.glVertex3f(x - size, y + size, z - size);
-		gl.glEnd();
-		gl.glBegin(GL.GL_LINE_LOOP);
+		GL11.glVertex3f(x - size, y + size, z + size);
+		GL11.glVertex3f(x + size, y + size, z + size);
+		GL11.glVertex3f(x + size, y + size, z - size);
+		GL11.glVertex3f(x - size, y + size, z - size);
+		GL11.glEnd();
+		GL11.glBegin(GL11.GL_LINE_LOOP);
 		// Unten
-		gl.glVertex3f(x - size, y - size, z + size);
-		gl.glVertex3f(x + size, y - size, z + size);
-		gl.glVertex3f(x + size, y - size, z - size);
-		gl.glVertex3f(x - size, y - size, z - size);
-		gl.glEnd();
+		GL11.glVertex3f(x - size, y - size, z + size);
+		GL11.glVertex3f(x + size, y - size, z + size);
+		GL11.glVertex3f(x + size, y - size, z - size);
+		GL11.glVertex3f(x - size, y - size, z - size);
+		GL11.glEnd();
 	}
 
 	/**
@@ -122,42 +124,42 @@ public class Primitives {
 	 * @param sizeZ
 	 *            Tiefe
 	 */
-	static public void DrawCube(GL gl, float x, float y, float z, float sizeX,
+	static public void DrawCube(float x, float y, float z, float sizeX,
 			float sizeY, float sizeZ) {
 		sizeX /= 2;
 		sizeY /= 2;
 		sizeZ /= 2;
-		gl.glBegin(GL.GL_QUADS);
+		GL11.glBegin(GL11.GL_QUADS);
 		// Vorne
-		gl.glVertex3f(x - sizeX, y - sizeY, z - sizeZ);
-		gl.glVertex3f(x - sizeX, y + sizeY, z - sizeZ);
-		gl.glVertex3f(x + sizeX, y + sizeY, z - sizeZ);
-		gl.glVertex3f(x + sizeX, y - sizeY, z - sizeZ);
+		GL11.glVertex3f(x - sizeX, y - sizeY, z - sizeZ);
+		GL11.glVertex3f(x - sizeX, y + sizeY, z - sizeZ);
+		GL11.glVertex3f(x + sizeX, y + sizeY, z - sizeZ);
+		GL11.glVertex3f(x + sizeX, y - sizeY, z - sizeZ);
 		// Hinten
-		gl.glVertex3f(x - sizeX, y - sizeY, z + sizeZ);
-		gl.glVertex3f(x + sizeX, y - sizeY, z + sizeZ);
-		gl.glVertex3f(x + sizeX, y + sizeY, z + sizeZ);
-		gl.glVertex3f(x - sizeX, y + sizeY, z + sizeZ);
+		GL11.glVertex3f(x - sizeX, y - sizeY, z + sizeZ);
+		GL11.glVertex3f(x + sizeX, y - sizeY, z + sizeZ);
+		GL11.glVertex3f(x + sizeX, y + sizeY, z + sizeZ);
+		GL11.glVertex3f(x - sizeX, y + sizeY, z + sizeZ);
 		// Rechts
-		gl.glVertex3f(x + sizeX, y - sizeY, z + sizeZ);
-		gl.glVertex3f(x + sizeX, y + sizeY, z + sizeZ);
-		gl.glVertex3f(x + sizeX, y + sizeY, z - sizeZ);
-		gl.glVertex3f(x + sizeX, y - sizeY, z - sizeZ);
+		GL11.glVertex3f(x + sizeX, y - sizeY, z + sizeZ);
+		GL11.glVertex3f(x + sizeX, y + sizeY, z + sizeZ);
+		GL11.glVertex3f(x + sizeX, y + sizeY, z - sizeZ);
+		GL11.glVertex3f(x + sizeX, y - sizeY, z - sizeZ);
 		// Links
-		gl.glVertex3f(x - sizeX, y - sizeY, z + sizeZ);
-		gl.glVertex3f(x - sizeX, y + sizeY, z + sizeZ);
-		gl.glVertex3f(x - sizeX, y + sizeY, z - sizeZ);
-		gl.glVertex3f(x - sizeX, y - sizeY, z - sizeZ);
+		GL11.glVertex3f(x - sizeX, y - sizeY, z + sizeZ);
+		GL11.glVertex3f(x - sizeX, y + sizeY, z + sizeZ);
+		GL11.glVertex3f(x - sizeX, y + sizeY, z - sizeZ);
+		GL11.glVertex3f(x - sizeX, y - sizeY, z - sizeZ);
 		// Oben
-		gl.glVertex3f(x - sizeX, y + sizeY, z + sizeZ);
-		gl.glVertex3f(x + sizeX, y + sizeY, z + sizeZ);
-		gl.glVertex3f(x + sizeX, y + sizeY, z - sizeZ);
-		gl.glVertex3f(x - sizeX, y + sizeY, z - sizeZ);
+		GL11.glVertex3f(x - sizeX, y + sizeY, z + sizeZ);
+		GL11.glVertex3f(x + sizeX, y + sizeY, z + sizeZ);
+		GL11.glVertex3f(x + sizeX, y + sizeY, z - sizeZ);
+		GL11.glVertex3f(x - sizeX, y + sizeY, z - sizeZ);
 		// Unten
-		gl.glVertex3f(x - sizeX, y - sizeY, z + sizeZ);
-		gl.glVertex3f(x + sizeX, y - sizeY, z + sizeZ);
-		gl.glVertex3f(x + sizeX, y - sizeY, z - sizeZ);
-		gl.glVertex3f(x - sizeX, y - sizeY, z - sizeZ);
-		gl.glEnd();
+		GL11.glVertex3f(x - sizeX, y - sizeY, z + sizeZ);
+		GL11.glVertex3f(x + sizeX, y - sizeY, z + sizeZ);
+		GL11.glVertex3f(x + sizeX, y - sizeY, z - sizeZ);
+		GL11.glVertex3f(x - sizeX, y - sizeY, z - sizeZ);
+		GL11.glEnd();
 	}
 }
