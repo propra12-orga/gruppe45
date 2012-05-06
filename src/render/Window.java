@@ -7,12 +7,17 @@ import game.GLColor4f;
 import game.Player;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 import javax.media.opengl.GLCanvas;
 import javax.media.opengl.GLCapabilities;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 import com.sun.opengl.util.Animator;
 
@@ -33,12 +38,60 @@ public class Window extends JFrame implements WindowListener {
 
 	public Window() {
 		super("Bombardiman ücbinikiyüzellibes"); // Bomberman 3255
-		
-		player.setColor(GLColor4f.GL_COLOR4f_RED);
-		addKeyListener(new Control_Keyboard(player));
-
+		InitMenu();
+		pack();
+		setFocusable(true);
+		setVisible(true);
 		setSize(width, height);
+	}
 
+	public static void main(String[] args) {
+		window = new Window();
+	}
+
+	private void InitMenu() {
+
+		final JMenu menuGame = new JMenu("Spiel");
+		final JMenuItem itemNew = new JMenuItem("Neu");
+		menuGame.add(itemNew);
+		final JMenuItem itemExit = new JMenuItem("Exit");
+		menuGame.add(itemExit);
+		final JMenu menuOptions = new JMenu("Einstellungen");
+		final JMenuItem itemName = new JMenuItem("Spielername");
+		menuOptions.add(itemName);
+		final JMenuItem itemColor = new JMenuItem("Spielerfarbe");
+		menuOptions.add(itemColor);
+
+		itemNew.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				InitGL();
+				InitGame();
+				InitListener();
+				itemNew.setEnabled(false);
+				pack();
+				setSize(width, height);
+			}
+		});
+		itemExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(1);
+			}
+		});
+		JMenuBar bar = new JMenuBar();
+		setJMenuBar(bar);
+		bar.add(menuGame);
+	}
+
+	private void InitGame() {
+		player.setColor(GLColor4f.GL_COLOR4f_RED);
+	}
+
+	private void InitListener() {
+		addKeyListener(new Control_Keyboard(player));
+		addWindowListener(this);
+	}
+
+	private void InitGL() {
 		caps = new GLCapabilities();
 		caps.setDoubleBuffered(true);
 		caps.setHardwareAccelerated(true);
@@ -52,16 +105,6 @@ public class Window extends JFrame implements WindowListener {
 
 		animator = new Animator(canvas);
 		animator.start();
-
-		addWindowListener(this);
-
-		pack();
-		setFocusable(true);
-		setVisible(true);
-	}
-
-	public static void main(String[] args) {
-		window = new Window();
 	}
 
 	@Override
