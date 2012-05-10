@@ -14,11 +14,13 @@ public class OpenGL {
 	int width, height;
 	final static public float sizeOfCube = 10;
 
-	Level level = new Level();
+	Level level;
 	Player player;
 
-	public OpenGL(Player player, int width, int height) {
+	public OpenGL(Level level, Player player, int width, int height) {
+		this.level = level;
 		this.player = player;
+		player.setBomb();
 		this.width = width;
 		this.height = height;
 		init();
@@ -32,16 +34,30 @@ public class OpenGL {
 		float widthHeightRatio = width / height;
 		GLU.gluPerspective(45, widthHeightRatio, 1, 1000);
 		GLU.gluLookAt(player.getX(), player.getY(), player.getZ(),
-				player.getCamX(), player.getCamY(),
-				player.getCamZ(), 0,
-				1, 0);
+				player.getCamX(), player.getCamY(), player.getCamZ(), 0, 1, 0);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glLoadIdentity();
 		// Level
 		for (byte i = 0; i < level.getSizeX(); i += 1) {
 			for (byte j = 0; j < level.getSizeY(); j += 1) {
 				for (byte k = 0; k < level.getSizeZ(); k += 1) {
-					if (!level.getCube(i, j, k).isWalkable()) {
+					if (level.getCube(i, j, k).getClass().getName()
+							.equals("game.cube.CubeBomb")) {
+						GL11.glColor3f(0.5f, 0.5f, 0.5f);
+						Primitives.DrawCube(i * sizeOfCube, j * sizeOfCube, k
+								* sizeOfCube, sizeOfCube * 0.5f);
+					} else if (level.getCube(i, j, k).getClass().getName()
+							.equals("game.cube.CubeExplosion")) {
+						GL11.glColor3f(1f, 0f, 0f);
+						Primitives.DrawCube(i * sizeOfCube, j * sizeOfCube, k
+								* sizeOfCube, sizeOfCube * 0.8f);
+					} else if (level.getCube(i, j, k).getClass().getName()
+							.equals("game.cube.CubeItemHealth")) {
+						GL11.glColor3f(1f, 0f, 0f);
+						Primitives.DrawCube(i * sizeOfCube, j * sizeOfCube, k
+								* sizeOfCube, sizeOfCube * 0.1f);
+					} else if (level.getCube(i, j, k).getClass().getName()
+							.equals("game.cube.CubeSolid")) {
 						GL11.glColor3f(j / 20f + 0.2f, j / 20f + 0.2f, 1f);
 						Primitives.DrawCube(i * sizeOfCube, j * sizeOfCube, k
 								* sizeOfCube, sizeOfCube);

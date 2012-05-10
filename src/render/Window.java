@@ -1,7 +1,7 @@
 package render;
 
+import game.Level;
 import game.Player;
-import control.Control_Keyboard;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
@@ -26,9 +26,9 @@ public class Window {// implements Runnable {
 			e.printStackTrace();
 			System.exit(0);
 		}
-
-		Player player = new Player(50, 50, -150);
-		OpenGL openGl = new OpenGL(player, width, height);
+		Level level = new Level();
+		Player player = new Player(level, 50, 50, -150);
+		OpenGL openGl = new OpenGL(level, player, width, height);
 
 		while (!Display.isCloseRequested()) {
 
@@ -69,6 +69,9 @@ public class Window {// implements Runnable {
 				if (Keyboard.getEventKey() == Keyboard.KEY_T) {
 					Display.destroy();
 					System.exit(0);
+				}
+				if (Keyboard.getEventKey() == Keyboard.KEY_SPACE) {
+					player.setBomb();
 				}
 			}
 		}

@@ -1,5 +1,9 @@
 package game;
 
+import game.cube.Cube;
+import game.cube.CubeEmpty;
+import game.cube.CubeSolid;
+
 /**
  * Speichert und verwaltet ein abstraktes Level
  * 
@@ -19,6 +23,13 @@ public class Level {
 
 	public int getSizeZ() {
 		return level[0][0].length;
+	}
+
+	public void setCube(Cube cube, int x, int y, int z) {
+		if (x >= 0 && y >= 0 && z >= 0 && x < getSizeX() && y < getSizeY()
+				&& z < getSizeZ()) {
+			level[x][y][z] = cube;
+		}
 	}
 
 	/**
