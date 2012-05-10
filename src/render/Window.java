@@ -6,7 +6,7 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
-//Das ist ein Test
+//Das ist ein Test telkjd
 
 public class Window {
 	final static public int width = 800;
@@ -14,6 +14,7 @@ public class Window {
 
 	public void start() {
 		try {
+			
 			Display.setDisplayMode(new DisplayMode(width, height));
 			Display.create();
 		} catch (LWJGLException e) {
