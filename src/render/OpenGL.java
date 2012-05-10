@@ -13,14 +13,16 @@ public class OpenGL {
 
 	int width, height;
 	final static public float sizeOfCube = 10;
+	Level level;
 
-	Level level = new Level();
+	//Level level = new Level();
 	Player player;
 
-	public OpenGL(Player player, int width, int height) {
+	public OpenGL(Player player, int width, int height, Level level) {
 		this.player = player;
 		this.width = width;
 		this.height = height;
+		this.level = level;
 		init();
 	}
 

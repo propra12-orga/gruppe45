@@ -1,5 +1,6 @@
 package game;
 
+
 /**
  * Die Klasse Player enthält die Position des Spielers die von Control-Klassen
  * verändert und von der OpenGL-Klasse aufgerufen wird um die Spieler an der
@@ -16,12 +17,14 @@ public class Player {
 	private float[] color;
 	private float angleY = 0;
 	private float angleX = 0;
-
+    private Level level;
+	
 	/**
 	 * Der Konstruktor verlangt die Anfangsposition
 	 */
-	public Player(float x, float y, float z) {
+	public Player(float x, float y, float z, Level level) {
 		setPosition(x, y, z);
+		this.level = level;
 	}
 	
 	public void setColor(float[] color) {
@@ -146,9 +149,14 @@ public class Player {
 
 	// FIXME PlayerMove() Prüfen ob Platz an der Stelle ist
 	private void move(float x, float y, float z) {
-		this.x += x;
-		this.y += y;
-		this.z += z;
+		int tmpCubeX = (int)(this.x + x) / 10;
+		int tmpCubeY = (int)(this.y + y) / 10;
+		int tmpCubeZ = (int)(this.z + z) / 10;
+		if (level.getCube(tmpCubeX, tmpCubeY, tmpCubeZ).isWalkable()){
+		
+		    this.x += x;
+		    this.y += y;
+		    this.z += z;
+		}
 	}
-	 
 }

@@ -1,5 +1,6 @@
 package render;
 
+import game.Level;
 import game.Player;
 
 import org.lwjgl.LWJGLException;
@@ -19,8 +20,9 @@ public class Window {
 			System.exit(0);
 		}
 
-		Player player = new Player(50, 50, -150);
-		OpenGL openGl = new OpenGL(player, width, height);
+		Level level = new Level();
+		Player player = new Player(50, 50, -150, level);
+		OpenGL openGl = new OpenGL(player, width, height, level);
 
 		while (!Display.isCloseRequested()) {
 
