@@ -9,6 +9,8 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
 public class Window {// implements Runnable {
+
+
 	final static public int width = 800;
 	final static public int height = 600;
 
@@ -17,6 +19,7 @@ public class Window {// implements Runnable {
 	public void start() {
 
 		try {
+			
 			Display.setDisplayMode(new DisplayMode(width, height));
 			Display.create();
 		} catch (LWJGLException e) {
