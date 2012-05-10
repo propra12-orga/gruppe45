@@ -6,6 +6,8 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
+//Das ist ein Test
+
 public class Window {
 	final static public int width = 800;
 	final static public int height = 600;
