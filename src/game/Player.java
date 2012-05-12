@@ -18,7 +18,7 @@ import java.util.Timer;
 public class Player {
 	final private double PI_DIV_2 = (Math.PI / 2);
 	private float x, y, z;
-	private float stepSize = 5f;
+	private float stepSize = 1f;
 	private float[] color;
 	private float angleY = 0;
 	private float angleX = 0;
