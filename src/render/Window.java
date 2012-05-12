@@ -50,8 +50,8 @@ public class Window {// implements Runnable {
 	public void move_Control1(Player player) {
 		// TODO Auto-generated method stub
 
-		while (Keyboard.next()) {
-			if (Keyboard.getEventKeyState()) {
+//		while (Keyboard.next()) {
+			while (Keyboard.getEventKeyState()) {
 				if (Keyboard.getEventKey() == Keyboard.KEY_A) {
 //					do {
 						player.moveLeft();
@@ -71,6 +71,6 @@ public class Window {// implements Runnable {
 					System.exit(0);
 				}
 			}
-		}
+//		}
 	}
 }
