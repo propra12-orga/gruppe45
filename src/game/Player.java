@@ -148,22 +148,22 @@ public class Player {
 
 	public void turnUp() {
 		if (this.angleX < PI_DIV_2) {
-			this.angleX += 0.1;
+			this.angleX += 0.006;
 		}
 	}
 
 	public void turnDown() {
 		if (this.angleX > -PI_DIV_2) {
-			this.angleX -= 0.1;
+			this.angleX -= 0.006;
 		}
 	}
 
 	public void turnRight() {
-		this.angleY -= 0.1f;
+		this.angleY -= 0.006f;
 	}
 
 	public void turnLeft() {
-		this.angleY += 0.1f;
+		this.angleY += 0.006f;
 	}
 
 	public void moveForward() {

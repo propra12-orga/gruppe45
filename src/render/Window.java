@@ -48,28 +48,42 @@ public class Window {// implements Runnable {
 
 	public void move_Control1(Player player) {
 
-//		while (Keyboard.next()) {
-//			if (Keyboard.getEventKeyState()) {
-				if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
-					player.moveLeft();
-				}
-				if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
-					player.moveBackward();
-				}
-				if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
-					player.moveRight();
-				}
-				if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
-					player.moveForward();
-				}
-				if (Keyboard.isKeyDown(Keyboard.KEY_T)||Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
-					Display.destroy();
-					System.exit(0);
-				}
-				if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
-					player.setBomb();
-				}
-//			}
-//		}
+		// while (Keyboard.next()) {
+		// if (Keyboard.getEventKeyState()) {
+		if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
+			player.moveLeft();
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
+			player.moveBackward();
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
+			player.moveRight();
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
+			player.moveForward();
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_T)
+				|| Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
+			Display.destroy();
+			System.exit(0);
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+			player.setBomb();
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
+			player.turnRight();
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
+			player.turnLeft();
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_UP)) {
+			player.turnDown();
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
+			player.turnUp();
+		}
+
+		// }
+		// }
 	}
 }
