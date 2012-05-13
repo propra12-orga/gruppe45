@@ -10,7 +10,6 @@ import org.lwjgl.opengl.DisplayMode;
 
 public class Window {// implements Runnable {
 
-
 	final static public int width = 800;
 	final static public int height = 600;
 
@@ -19,7 +18,7 @@ public class Window {// implements Runnable {
 	public void start() {
 
 		try {
-			
+
 			Display.setDisplayMode(new DisplayMode(width, height));
 			Display.create();
 		} catch (LWJGLException e) {
@@ -48,32 +47,43 @@ public class Window {// implements Runnable {
 	}
 
 	public void move_Control1(Player player) {
-		// TODO Auto-generated method stub
 
-		while (Keyboard.next()) {
-			if (Keyboard.getEventKeyState()) {
-				if (Keyboard.getEventKey() == Keyboard.KEY_A) {
-//					do {
-						player.moveLeft();
-//					} while (Keyboard.getEventKeyState());
-				}
-				if (Keyboard.getEventKey() == Keyboard.KEY_S) {
-					player.moveBackward();
-				}
-				if (Keyboard.getEventKey() == Keyboard.KEY_D) {
-					player.moveRight();
-				}
-				if (Keyboard.getEventKey() == Keyboard.KEY_W) {
-					player.moveForward();
-				}
-				if (Keyboard.getEventKey() == Keyboard.KEY_T) {
-					Display.destroy();
-					System.exit(0);
-				}
-				if (Keyboard.getEventKey() == Keyboard.KEY_SPACE) {
-					player.setBomb();
-				}
-			}
+		// while (Keyboard.next()) {
+		// if (Keyboard.getEventKeyState()) {
+		if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
+			player.moveLeft();
 		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
+			player.moveBackward();
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
+			player.moveRight();
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
+			player.moveForward();
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_T)
+				|| Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
+			Display.destroy();
+			System.exit(0);
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+			player.setBomb();
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
+			player.turnRight();
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
+			player.turnLeft();
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_UP)) {
+			player.turnDown();
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
+			player.turnUp();
+		}
+
+		// }
+		// }
 	}
 }

@@ -18,7 +18,7 @@ import java.util.Timer;
 public class Player {
 	final private double PI_DIV_2 = (Math.PI / 2);
 	private float x, y, z;
-	private float stepSize = 5f;
+	private float stepSize = 1f;
 	private float[] color;
 	private float angleY = 0;
 	private float angleX = 0;
@@ -160,22 +160,22 @@ public class Player {
 
 	public void turnUp() {
 		if (this.angleX < PI_DIV_2) {
-			this.angleX += 0.1;
+			this.angleX += 0.006;
 		}
 	}
 
 	public void turnDown() {
 		if (this.angleX > -PI_DIV_2) {
-			this.angleX -= 0.1;
+			this.angleX -= 0.006;
 		}
 	}
 
 	public void turnRight() {
-		this.angleY -= 0.1f;
+		this.angleY -= 0.006f;
 	}
 
 	public void turnLeft() {
-		this.angleY += 0.1f;
+		this.angleY += 0.006f;
 	}
 
 	public void moveForward() {
