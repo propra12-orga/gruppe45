@@ -74,7 +74,6 @@ public class OpenGL {
 		Primitives.DrawCube(0, 0, 9, 1, 1, 10);
 		GL11.glColor3f(0.8f, 0.8f, 0.8f);// Farbe weiß auswählen
 		Primitives.DrawCube(0, 0, 0, 3);
-		GL11.glEnd();
 
 		GL11.glFlush();
 	}

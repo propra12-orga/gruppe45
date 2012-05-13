@@ -50,7 +50,6 @@ public class Player {
 		// TODO Hier wird die Position nur durch abrunden ermittelt,
 		// Druchschnitt waere wohl besser
 		level.setCube(new CubeBomb(), (int) x / 10, (int) y / 10, (int) z / 10);
-		System.out.println((int) x + " " + (int) y + " " + (int) z);
 
 		timer.schedule(new TimeCube(level, new CubeExplosion(), posExp),
 				fuseTime);
@@ -111,6 +110,10 @@ public class Player {
 		return this.x + (float) Math.sin(angleY);
 	}
 
+	public float getDirectionX() {
+		return (float) Math.sin(angleY);
+	}
+
 	/**
 	 * @return Y-Position des Camerasichtpunktes
 	 */
@@ -122,11 +125,20 @@ public class Player {
 						* Math.cos(angleY)));
 	}
 
+	public float getDirectionY() {
+		return (float) (Math.sin(angleX) * Math.sqrt(Math.sin(angleY)
+				* Math.sin(angleY) + Math.cos(angleY) * Math.cos(angleY)));
+	}
+
 	/**
 	 * @return Z-Position des Camerasichtpunktes
 	 */
 	public float getCamZ() {
 		return this.z + (float) Math.cos(angleY);
+	}
+
+	public float getDirectionZ() {
+		return (float) Math.cos(angleY);
 	}
 
 	/**
