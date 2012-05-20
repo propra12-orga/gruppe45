@@ -1,6 +1,13 @@
 package game;
 
 
+import game.cube.CubeBomb;
+import game.cube.CubeEmpty;
+import game.cube.CubeExplosion;
+
+import java.util.Timer;
+
+
 /**
  * Die Klasse Player enthält die Position des Spielers die von Control-Klassen
  * verändert und von der OpenGL-Klasse aufgerufen wird um die Spieler an der
@@ -17,22 +24,73 @@ public class Player {
 	private float[] color;
 	private float angleY = 0;
 	private float angleX = 0;
+
     private Level level;
 	
 	/**
 	 * Der Konstruktor verlangt die Anfangsposition
 	 */
 	public Player(float x, float y, float z, Level level) {
+	private int healthPoints = 100;
+	int radius = 3;
+	int maxBombs = 1;
+	int fuseTime = 3000;
+	int explosionTime = 1000;
+	Level level;
+
+	/**
+	 * Der Konstruktor verlangt die Anfangsposition
+	 */
+	public Player(Level level, float x, float y, float z) {
+>>>>>>> 2833a44ba51f2c2a9904571fc98b74653b9dbff8
 		setPosition(x, y, z);
 		this.level = level;
 	}
-	
+
+	public void setBomb() {
+		ArrayPosition[] posExp = {
+				new ArrayPosition((int) x / 10, (int) y / 10, (int) z / 10),
+				new ArrayPosition((int) x / 10 - 1, (int) y / 10, (int) z / 10),
+				new ArrayPosition((int) x / 10 + 1, (int) y / 10, (int) z / 10),
+				new ArrayPosition((int) x / 10, (int) y / 10 - 1, (int) z / 10),
+				new ArrayPosition((int) x / 10, (int) y / 10 + 1, (int) z / 10),
+				new ArrayPosition((int) x / 10, (int) y / 10, (int) z / 10 - 1),
+				new ArrayPosition((int) x / 10, (int) y / 10, (int) z / 10 + 1) };
+		Timer timer = new Timer();
+		// TODO Hier wird die Position nur durch abrunden ermittelt,
+		// Druchschnitt waere wohl besser
+		level.setCube(new CubeBomb(), (int) x / 10, (int) y / 10, (int) z / 10);
+		System.out.println((int) x + " " + (int) y + " " + (int) z);
+
+		timer.schedule(new TimeCube(level, new CubeExplosion(), posExp),
+				fuseTime);
+		timer.schedule(new TimeCube(level, new CubeEmpty(), posExp), fuseTime
+				+ explosionTime);
+
+	}
+
 	public void setColor(float[] color) {
 		this.color = color;
 	}
 
 	public float[] getColor() {
 		return this.color;
+	}
+
+	public void healPlayer(int healPoints) {
+		healPoints += healPoints;
+	}
+
+	public void hitPlayer(int hitPoints) {
+		healthPoints -= hitPoints;
+	}
+
+	public boolean isLiving() {
+		if (healthPoints > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -69,9 +127,8 @@ public class Player {
 	// FIXME Ueberlegen ob die ganze Rechnung sein muss
 	public float getCamY() {
 		return this.y
-				+ (float) (Math.sin(angleX)
-				* Math.sqrt(Math.sin(angleY) * Math.sin(angleY)
- + Math.cos(angleY)
+				+ (float) (Math.sin(angleX) * Math.sqrt(Math.sin(angleY)
+						* Math.sin(angleY) + Math.cos(angleY)
 						* Math.cos(angleY)));
 	}
 
@@ -81,6 +138,7 @@ public class Player {
 	public float getCamZ() {
 		return this.z + (float) Math.cos(angleY);
 	}
+
 	/**
 	 * Setzt den Spieler an eine bestimmt Position
 	 * 
@@ -100,22 +158,22 @@ public class Player {
 
 	public void turnUp() {
 		if (this.angleX < PI_DIV_2) {
-			this.angleX += 0.1;
+			this.angleX += 0.006;
 		}
 	}
 
 	public void turnDown() {
 		if (this.angleX > -PI_DIV_2) {
-			this.angleX -= 0.1;
+			this.angleX -= 0.006;
 		}
 	}
 
 	public void turnRight() {
-		this.angleY -= 0.1f;
+		this.angleY -= 0.006f;
 	}
 
 	public void turnLeft() {
-		this.angleY += 0.1f;
+		this.angleY += 0.006f;
 	}
 
 	public void moveForward() {
@@ -123,8 +181,7 @@ public class Player {
 				(float) (Math.sin(angleX) * Math.sqrt(Math.sin(angleY)
 						* Math.sin(angleY) + Math.cos(angleY)
 						* Math.cos(angleY)))
-						* stepSize, (float) Math.cos(angleY)
-				* stepSize);
+						* stepSize, (float) Math.cos(angleY) * stepSize);
 	}
 
 	public void moveBackward() {
@@ -137,14 +194,12 @@ public class Player {
 
 	public void moveLeft() {
 		move((float) Math.sin(angleY + PI_DIV_2) * stepSize, 0,
-				(float) Math.cos(angleY + PI_DIV_2)
-				* stepSize);
+				(float) Math.cos(angleY + PI_DIV_2) * stepSize);
 	}
 
 	public void moveRight() {
 		move((float) Math.sin(angleY - PI_DIV_2) * stepSize, 0,
-				(float) Math.cos(angleY - PI_DIV_2)
-				* stepSize);
+				(float) Math.cos(angleY - PI_DIV_2) * stepSize);
 	}
 
 	// FIXME PlayerMove() Prüfen ob Platz an der Stelle ist
@@ -159,4 +214,9 @@ public class Player {
 		    this.z += z;
 		}
 	}
+<<<<<<< HEAD
 }
+=======
+
+}
+>>>>>>> 2833a44ba51f2c2a9904571fc98b74653b9dbff8
