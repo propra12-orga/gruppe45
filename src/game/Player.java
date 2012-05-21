@@ -1,10 +1,12 @@
 package game;
 
+
 import game.cube.CubeBomb;
 import game.cube.CubeEmpty;
 import game.cube.CubeExplosion;
 
 import java.util.Timer;
+
 
 /**
  * Die Klasse Player enthält die Position des Spielers die von Control-Klassen
@@ -22,6 +24,13 @@ public class Player {
 	private float[] color;
 	private float angleY = 0;
 	private float angleX = 0;
+
+    private Level level;
+	
+	/**
+	 * Der Konstruktor verlangt die Anfangsposition
+	 */
+	public Player(float x, float y, float z, Level level) {
 	private int healthPoints = 100;
 	int radius = 3;
 	int maxBombs = 1;
@@ -33,6 +42,7 @@ public class Player {
 	 * Der Konstruktor verlangt die Anfangsposition
 	 */
 	public Player(Level level, float x, float y, float z) {
+>>>>>>> 2833a44ba51f2c2a9904571fc98b74653b9dbff8
 		setPosition(x, y, z);
 		this.level = level;
 	}
@@ -206,9 +216,19 @@ public class Player {
 
 	// FIXME PlayerMove() Prüfen ob Platz an der Stelle ist
 	private void move(float x, float y, float z) {
-		this.x += x;
-		this.y += y;
-		this.z += z;
+		int tmpCubeX = (int)(this.x + x) / 10;
+		int tmpCubeY = (int)(this.y + y) / 10;
+		int tmpCubeZ = (int)(this.z + z) / 10;
+		if (level.getCube(tmpCubeX, tmpCubeY, tmpCubeZ).isWalkable()){
+		
+		    this.x += x;
+		    this.y += y;
+		    this.z += z;
+		}
 	}
+<<<<<<< HEAD
+}
+=======
 
 }
+>>>>>>> 2833a44ba51f2c2a9904571fc98b74653b9dbff8
