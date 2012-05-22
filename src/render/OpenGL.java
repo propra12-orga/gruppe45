@@ -21,7 +21,7 @@ public class OpenGL {
 	public OpenGL(Level level, Player player, int width, int height) {
 		this.level = level;
 		this.player = player;
-		player.setBomb();
+		//player.setBomb();
 		this.width = width;
 		this.height = height;
 		this.level = level;

@@ -17,8 +17,6 @@ public class Control_Mouse extends Control {
 		Mouse.setCursorPosition(400,300);
 		int x=0,y=0;
 		while (Mouse.next()) {
-			//System.out.println("X: " + Mouse.getDX() + "  Y: " + Mouse.getDY());
-			// player.turnLeft();
 			x = x + Mouse.getDX();
 			y = y + Mouse.getDY();
 			if (x > 0) {

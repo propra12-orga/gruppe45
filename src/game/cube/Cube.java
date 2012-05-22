@@ -16,7 +16,7 @@ public abstract class Cube {
 
 	/**
 	 * @param walkable
-	 *            Ist der Würfel begehbar(true) oder nicht(false)
+	 *            Ist der Wuerfel begehbar(true) oder nicht(false)
 	 */
 	Cube(boolean walkable, boolean collectable) {
 		this.walkable = walkable;
@@ -24,7 +24,7 @@ public abstract class Cube {
 	}
 
 	/**
-	 * @return Gibt aus ob der Würfel begehbar ist
+	 * @return Gibt aus ob der Wuerfel begehbar ist
 	 */
 	public boolean isWalkable() {
 		return this.walkable;

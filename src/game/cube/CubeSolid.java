@@ -1,7 +1,7 @@
 package game.cube;
 
 /**
- * Unzerstörbarer Würfel
+ * Unzerstoerbarer Wuerfel
  */
 public class CubeSolid extends Cube {
 
