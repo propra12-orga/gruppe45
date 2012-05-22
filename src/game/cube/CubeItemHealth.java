@@ -9,7 +9,7 @@ public class CubeItemHealth extends Cube {
 	}
 
 	@Override
-	public void changePlayer(Player player) {
+	public void change(Player player) {
 		player.healPlayer(50);
 	}
 

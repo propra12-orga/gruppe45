@@ -1,5 +1,6 @@
 package game;
 
+import game.cube.Cube;
 import game.cube.CubeBomb;
 import game.cube.CubeEmpty;
 import game.cube.CubeExplosion;
@@ -24,8 +25,7 @@ public class Player {
 	private float angleX = 0;
 
 	private Level level;
-	
-	
+
 	private int healthPoints = 100;
 	int radius = 3;
 	int maxBombs = 1;
@@ -39,9 +39,6 @@ public class Player {
 		setPosition(x, y, z);
 		this.level = level;
 	}
-	
-
-	
 
 	public void setBomb() {
 		ArrayPosition[] posExp = {
@@ -168,13 +165,13 @@ public class Player {
 		if (this.angleX < PI_DIV_2) {
 			this.angleX += 0.006;
 		}
-		
+
 	}
 
 	public void turnDown() {
 		if (this.angleX > -PI_DIV_2) {
 			this.angleX -= 0.006;
-		}		
+		}
 	}
 
 	public void turnRight() {
@@ -213,15 +210,24 @@ public class Player {
 
 	// TODO Testen, ob Abfrage funktioniert
 	private void move(float x, float y, float z) {
-		int tmpCubeX = (int) (this.x + x) / 10;		//x-Position des ZielCubes im Level
-		int tmpCubeY = (int) (this.y + y) / 10;     //y-Position des ZielCubes im Level
-		int tmpCubeZ = (int) (this.z + z) / 10;		//z-Position des ZielCubes im Level
-		    if ((level.getCube(tmpCubeX, tmpCubeY, tmpCubeZ).isWalkable()) ||  
-			    //oder nächster Schritt im gleichen Cube -> um geblockte Blöcke zu verlassen
-		    	((tmpCubeX == (int) this.x / 10) && (tmpCubeY == (int) this.y / 10) && (tmpCubeZ == (int) this.z / 10))){
-				this.x += x;
-				this.y += y;
-				this.z += z;
+		int tmpCubeX = (int) (this.x + x) / 10; // x-Position des ZielCubes im
+												// Level
+		int tmpCubeY = (int) (this.y + y) / 10; // y-Position des ZielCubes im
+												// Level
+		int tmpCubeZ = (int) (this.z + z) / 10; // z-Position des ZielCubes im
+												// Level
+		Cube cube = level.getCube(tmpCubeX, tmpCubeY, tmpCubeZ);
+		if ((cube.isWalkable()) ||
+		// oder nächster Schritt im gleichen Cube -> um geblockte Blöcke zu
+		// verlassen
+				((tmpCubeX == (int) this.x / 10)
+						&& (tmpCubeY == (int) this.y / 10) && (tmpCubeZ == (int) this.z / 10))) {
+			this.x += x;
+			this.y += y;
+			this.z += z;
+			if (cube.isColectable()) {
+				cube.change();
 			}
+		}
 	}
 }

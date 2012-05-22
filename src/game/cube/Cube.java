@@ -34,7 +34,11 @@ public abstract class Cube {
 		return this.colectable;
 	}
 
-	public void changePlayer(Player player) {
+	public void change(Player player) {
+
+	}
+
+	public void change() {
 
 	}
 
