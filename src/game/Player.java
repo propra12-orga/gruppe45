@@ -24,7 +24,8 @@ public class Player {
 	private float angleX = 0;
 
 	private Level level;
-
+	
+	
 	private int healthPoints = 100;
 	int radius = 3;
 	int maxBombs = 1;
@@ -38,6 +39,9 @@ public class Player {
 		setPosition(x, y, z);
 		this.level = level;
 	}
+	
+
+	
 
 	public void setBomb() {
 		ArrayPosition[] posExp = {
@@ -164,12 +168,13 @@ public class Player {
 		if (this.angleX < PI_DIV_2) {
 			this.angleX += 0.006;
 		}
+		
 	}
 
 	public void turnDown() {
 		if (this.angleX > -PI_DIV_2) {
 			this.angleX -= 0.006;
-		}
+		}		
 	}
 
 	public void turnRight() {

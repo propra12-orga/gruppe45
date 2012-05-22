@@ -35,15 +35,23 @@ public class Window {// implements Runnable {
 			Display.update();
 
 			move_Control1(player);
+			player.turnLeft();
 		}
 		Display.destroy();
+		
 	}
 
 	public static void main(String[] argv) {
 		Window window = new Window();
 		window.start();
 	}
-
+	
+	
+	
+	
+	
+	
+	
 	// Steuerungskontrolle:
 	public void move_Control1(Player player) {
 		// links:
