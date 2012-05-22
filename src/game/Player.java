@@ -27,16 +27,11 @@ public class Player {
 
     private Level level;
 	
-	/**
-	 * Der Konstruktor verlangt die Anfangsposition
-	 */
-	public Player(float x, float y, float z, Level level){
 	private int healthPoints = 100;
 	int radius = 3;
 	int maxBombs = 1;
 	int fuseTime = 3000;
 	int explosionTime = 1000;
-	Level level;
 
 	/**
 	 * Der Konstruktor verlangt die Anfangsposition
@@ -203,14 +198,14 @@ public class Player {
 
 	// FIXME PlayerMove() Prüfen ob Platz an der Stelle ist
 	private void move(float x, float y, float z) {
-		int tmpCubeX = (int)(this.x + x) / 10;
+		/*int tmpCubeX = (int)(this.x + x) / 10;
 		int tmpCubeY = (int)(this.y + y) / 10;
 		int tmpCubeZ = (int)(this.z + z) / 10;
-		if (level.getCube(tmpCubeX, tmpCubeY, tmpCubeZ).isWalkable()){
+		if (level.getCube(tmpCubeX, tmpCubeY, tmpCubeZ).isWalkable()){*/
 		
 		    this.x += x;
 		    this.y += y;
 		    this.z += z;
-		}
+		//}
 	}
-
+}

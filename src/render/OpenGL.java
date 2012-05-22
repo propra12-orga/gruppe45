@@ -19,11 +19,6 @@ public class OpenGL {
 	//Level level = new Level();
 	Player player;
 
-	public OpenGL(Player player, int width, int height, Level level) {
-		
-	Level level;
-	Player player;
-
 	public OpenGL(Level level, Player player, int width, int height) {
 		this.level = level;
 		this.player = player;

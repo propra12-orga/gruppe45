@@ -29,10 +29,6 @@ public class Window {// implements Runnable {
 		Player player = new Player(level, 50, 50, -150);
 		OpenGL openGl = new OpenGL(level, player, width, height);
 
-		Level level = new Level();
-		Player player = new Player(50, 50, -150, level);
-		OpenGL openGl = new OpenGL(player, width, height, level);
-
 		// Programmschleife:
 		while (!Display.isCloseRequested()) {
 			openGl.display();
