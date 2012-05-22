@@ -28,7 +28,7 @@ public class Window {// implements Runnable {
 			System.exit(0);
 		}
 		Level level = new Level();
-		level.setCube(new CubeExit(), 2, 2, 2);				//POSITION DES AUSGANGS
+		level.setCube(new CubeExit(), 2, 2, 8);				//POSITION DES AUSGANGS
 		Player player = new Player(level, 85, 85, 15); 		//STARTPOSITION SPIELER
 		OpenGL openGl = new OpenGL(level, player, width, height);
 		Control_Keyboard keyboard = new Control_Keyboard(player);
