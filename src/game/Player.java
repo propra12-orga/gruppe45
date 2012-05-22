@@ -206,17 +206,17 @@ public class Player {
 				(float) Math.cos(angleY - PI_DIV_2) * stepSize);
 	}
 
-	// FIXME PlayerMove() Prüfen ob Platz an der Stelle ist
+	// TODO Testen, ob Abfrage funktioniert
 	private void move(float x, float y, float z) {
-		/*
-		 * Wie waere es mal mit TESTEN??? int tmpCubeX = (int) (this.x + x) /
-		 * 10; int tmpCubeY = (int) (this.y + y) / 10; int tmpCubeZ = (int)
-		 * (this.z + z) / 10; if (level.getCube(tmpCubeX, tmpCubeY,
-		 * tmpCubeZ).isWalkable()) {
-		 */
-		this.x += x;
-		this.y += y;
-		this.z += z;
-		/* } */
+		int tmpCubeX = (int) (this.x + x) / 10;		//x-Position des ZielCubes im Level
+		int tmpCubeY = (int) (this.y + y) / 10;     //y-Position des ZielCubes im Level
+		int tmpCubeZ = (int) (this.z + z) / 10;		//z-Position des ZielCubes im Level
+		    if ((level.getCube(tmpCubeX, tmpCubeY, tmpCubeZ).isWalkable()) ||  
+			    //oder nächster Schritt im gleichen Cube -> um geblockte Blöcke zu verlassen
+		    	((tmpCubeX == (int) this.x / 10) && (tmpCubeY == (int) this.y / 10) && (tmpCubeZ == (int) this.z / 10))){
+				this.x += x;
+				this.y += y;
+				this.z += z;
+			}
 	}
 }

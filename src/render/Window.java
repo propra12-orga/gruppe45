@@ -26,7 +26,7 @@ public class Window {// implements Runnable {
 			System.exit(0);
 		}
 		Level level = new Level();
-		Player player = new Player(level, 50, 50, -150);
+		Player player = new Player(level, 50, 50, -150);  //40,50,4
 		OpenGL openGl = new OpenGL(level, player, width, height);
 
 		// Programmschleife:
