@@ -63,6 +63,11 @@ public class OpenGL {
 						GL11.glColor3f(j / 20f + 0.2f, j / 20f + 0.2f, 1f);
 						Primitives.DrawCube(i * sizeOfCube, j * sizeOfCube, k
 								* sizeOfCube, sizeOfCube);
+					} else if (level.getCube(i, j, k).getClass().getName()
+							.equals("game.cube.CubeExit")) {
+						GL11.glColor3f(0f,1f,0f);
+						Primitives.DrawCube(i * sizeOfCube, j * sizeOfCube, k
+								* sizeOfCube, sizeOfCube);
 					}
 				}
 			}
