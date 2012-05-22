@@ -7,9 +7,9 @@ import game.cube.CubeExplosion;
 import java.util.Timer;
 
 /**
- * Die Klasse Player enthält die Position des Spielers die von Control-Klassen
- * verändert und von der OpenGL-Klasse aufgerufen wird um die Spieler an der
- * richtigen Position darstellen zu können. Außerdem wird Farbe und Art der
+ * Die Klasse Player enthaelt die Position des Spielers die von Control-Klassen
+ * veraendert und von der OpenGL-Klasse aufgerufen wird um die Spieler an der
+ * richtigen Position darstellen zu koennen. Ausserdem wird Farbe und Art der
  * eingesammelten Items hier gespeichert.
  * 
  * @author felidosz
@@ -162,22 +162,22 @@ public class Player {
 
 	public void turnUp() {
 		if (this.angleX < PI_DIV_2) {
-			this.angleX += 0.006;
+			this.angleX += 0.009;
 		}
 	}
 
 	public void turnDown() {
 		if (this.angleX > -PI_DIV_2) {
-			this.angleX -= 0.006;
+			this.angleX -= 0.009;
 		}
 	}
 
 	public void turnRight() {
-		this.angleY -= 0.006f;
+		this.angleY -= 0.012f;
 	}
 
 	public void turnLeft() {
-		this.angleY += 0.006f;
+		this.angleY += 0.012f;
 	}
 
 	public void moveForward() {
@@ -206,7 +206,7 @@ public class Player {
 				(float) Math.cos(angleY - PI_DIV_2) * stepSize);
 	}
 
-	// FIXME PlayerMove() Prüfen ob Platz an der Stelle ist
+	// FIXME PlayerMove() Pruefen ob Platz an der Stelle ist
 	private void move(float x, float y, float z) {
 		/*
 		 * Wie waere es mal mit TESTEN??? int tmpCubeX = (int) (this.x + x) /
