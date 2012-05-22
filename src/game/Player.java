@@ -1,12 +1,10 @@
 package game;
 
-
 import game.cube.CubeBomb;
 import game.cube.CubeEmpty;
 import game.cube.CubeExplosion;
 
 import java.util.Timer;
-
 
 /**
  * Die Klasse Player enthält die Position des Spielers die von Control-Klassen
@@ -25,8 +23,8 @@ public class Player {
 	private float angleY = 0;
 	private float angleX = 0;
 
-    private Level level;
-	
+	private Level level;
+
 	private int healthPoints = 100;
 	int radius = 3;
 	int maxBombs = 1;
@@ -54,7 +52,6 @@ public class Player {
 		// TODO Hier wird die Position nur durch abrunden ermittelt,
 		// Druchschnitt waere wohl besser
 		level.setCube(new CubeBomb(), (int) x / 10, (int) y / 10, (int) z / 10);
-		System.out.println((int) x + " " + (int) y + " " + (int) z);
 
 		timer.schedule(new TimeCube(level, new CubeExplosion(), posExp),
 				fuseTime);
@@ -115,6 +112,10 @@ public class Player {
 		return this.x + (float) Math.sin(angleY);
 	}
 
+	public float getDirectionX() {
+		return (float) Math.sin(angleY);
+	}
+
 	/**
 	 * @return Y-Position des Camerasichtpunktes
 	 */
@@ -126,11 +127,20 @@ public class Player {
 						* Math.cos(angleY)));
 	}
 
+	public float getDirectionY() {
+		return (float) (Math.sin(angleX) * Math.sqrt(Math.sin(angleY)
+				* Math.sin(angleY) + Math.cos(angleY) * Math.cos(angleY)));
+	}
+
 	/**
 	 * @return Z-Position des Camerasichtpunktes
 	 */
 	public float getCamZ() {
 		return this.z + (float) Math.cos(angleY);
+	}
+
+	public float getDirectionZ() {
+		return (float) Math.cos(angleY);
 	}
 
 	/**
@@ -198,14 +208,15 @@ public class Player {
 
 	// FIXME PlayerMove() Prüfen ob Platz an der Stelle ist
 	private void move(float x, float y, float z) {
-		/*int tmpCubeX = (int)(this.x + x) / 10;
-		int tmpCubeY = (int)(this.y + y) / 10;
-		int tmpCubeZ = (int)(this.z + z) / 10;
-		if (level.getCube(tmpCubeX, tmpCubeY, tmpCubeZ).isWalkable()){*/
-		
-		    this.x += x;
-		    this.y += y;
-		    this.z += z;
-		//}
+		/*
+		 * Wie waere es mal mit TESTEN??? int tmpCubeX = (int) (this.x + x) /
+		 * 10; int tmpCubeY = (int) (this.y + y) / 10; int tmpCubeZ = (int)
+		 * (this.z + z) / 10; if (level.getCube(tmpCubeX, tmpCubeY,
+		 * tmpCubeZ).isWalkable()) {
+		 */
+		this.x += x;
+		this.y += y;
+		this.z += z;
+		/* } */
 	}
 }

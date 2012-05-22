@@ -33,13 +33,12 @@ public class Window {// implements Runnable {
 		while (!Display.isCloseRequested()) {
 			openGl.display();
 			Display.update();
-			
+
 			move_Control1(player);
 		}
 		Display.destroy();
 	}
 
-	
 	public static void main(String[] argv) {
 		Window window = new Window();
 		window.start();
@@ -51,7 +50,7 @@ public class Window {// implements Runnable {
 		if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
 			player.moveLeft();
 		}
-		// r�ckw�rts:
+		// rueckwaerts:
 		if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
 			player.moveBackward();
 		}
@@ -59,7 +58,7 @@ public class Window {// implements Runnable {
 		if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
 			player.moveRight();
 		}
-		// vorw�rts:
+		// vorwaerts:
 		if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
 			player.moveForward();
 		}
