@@ -33,7 +33,7 @@ public class Level {
 	}
 
 	/**
-	 * Der Standardkonstruktor erzeugt ein Level der Größe 10x10x10
+	 * Der Standardkonstruktor erzeugt ein Level der Groesse 10x10x10
 	 */
 	public Level() {
 		level = new Cube[10][10][10];
@@ -41,12 +41,12 @@ public class Level {
 	}
 
 	/**
-	 * Mit diesem Kontroktor kann die Größe des Levels variiert werden
+	 * Mit diesem Kontroktor kann die Groesse des Levels variiert werden
 	 * 
 	 * @param x
 	 *            Breite des Levels
 	 * @param y
-	 *            Höhe des Levels
+	 *            Hoehe des Levels
 	 * @param z
 	 *            Tiefe des Levels
 	 */
@@ -56,15 +56,15 @@ public class Level {
 	}
 
 	/**
-	 * Gibt die Art eines Würfels an einer bestimmten Position aus
+	 * Gibt die Art eines Wuerfels an einer bestimmten Position aus
 	 * 
 	 * @param x
-	 *            Horizontale Würfelnummer
+	 *            Horizontale Wuerfelnummer
 	 * @param y
-	 *            Senkrechte Würfelnummer
+	 *            Senkrechte Wuerfelnummer
 	 * @param z
-	 *            Tiefenwürfelnummer
-	 * @return Gibt die Art eines Würfels an einer bestimmten Position aus
+	 *            Tiefenwuerfelnummer
+	 * @return Gibt die Art eines Wuerfels an einer bestimmten Position aus
 	 */
 	public Cube getCube(int x, int y, int z) {
 		if ((x >= 0) && (y >= 0) && (z >= 0) && (x < this.getSizeX()) && (y < this.getSizeY()) && (z < this.getSizeZ())) {	

@@ -6,6 +6,7 @@ import game.cube.CubeExit;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import control.Control_Mouse;
 
 import control.Control_Keyboard;
 
@@ -31,6 +32,7 @@ public class Window {// implements Runnable {
 		Player player = new Player(level, 50, 50, -150); // 40,50,4
 		OpenGL openGl = new OpenGL(level, player, width, height);
 		Control_Keyboard keyboard = new Control_Keyboard(player);
+		Control_Mouse mouse  = new Control_Mouse(player);
 
 		// Programmschleife:
 		while (!Display.isCloseRequested()) {
@@ -38,6 +40,7 @@ public class Window {// implements Runnable {
 			Display.update();
 
 			keyboard.move_Control1(player);
+			mouse.mouse_Move(player);
 		}
 		Display.destroy();
 

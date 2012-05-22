@@ -8,9 +8,9 @@ import game.cube.CubeExplosion;
 import java.util.Timer;
 
 /**
- * Die Klasse Player enthält die Position des Spielers die von Control-Klassen
- * verändert und von der OpenGL-Klasse aufgerufen wird um die Spieler an der
- * richtigen Position darstellen zu können. Außerdem wird Farbe und Art der
+ * Die Klasse Player enthaelt die Position des Spielers die von Control-Klassen
+ * veraendert und von der OpenGL-Klasse aufgerufen wird um die Spieler an der
+ * richtigen Position darstellen zu koennen. Ausserdem wird Farbe und Art der
  * eingesammelten Items hier gespeichert.
  * 
  * @author felidosz
@@ -163,23 +163,23 @@ public class Player {
 
 	public void turnUp() {
 		if (this.angleX < PI_DIV_2) {
-			this.angleX += 0.006;
+			this.angleX += 0.009;
 		}
 
 	}
 
 	public void turnDown() {
 		if (this.angleX > -PI_DIV_2) {
-			this.angleX -= 0.006;
+			this.angleX -= 0.009;
 		}
 	}
 
 	public void turnRight() {
-		this.angleY -= 0.006f;
+		this.angleY -= 0.012f;
 	}
 
 	public void turnLeft() {
-		this.angleY += 0.006f;
+		this.angleY += 0.012f;
 	}
 
 	public void moveForward() {
@@ -208,6 +208,7 @@ public class Player {
 				(float) Math.cos(angleY - PI_DIV_2) * stepSize);
 	}
 
+
 	// TODO Testen, ob Abfrage funktioniert
 	private void move(float x, float y, float z) {
 		int tmpCubeX = (int) (this.x + x) / 10; // x-Position des ZielCubes im
@@ -218,14 +219,14 @@ public class Player {
 												// Level
 		Cube cube = level.getCube(tmpCubeX, tmpCubeY, tmpCubeZ);
 		if ((cube.isWalkable()) ||
-		// oder nächsterw Schritt im gleichen Cube -> um geblockte Blöcke zu
+		// oder naechster Schritt im gleichen Cube -> um geblockte Bloecke zu
 		// verlassen
 				((tmpCubeX == (int) this.x / 10)
 						&& (tmpCubeY == (int) this.y / 10) && (tmpCubeZ == (int) this.z / 10))) {
 			this.x += x;
 			this.y += y;
 			this.z += z;
-			if (cube.isColectable()) {
+			if (cube.isCollectable()) {
 				cube.change();
 			}
 		}
