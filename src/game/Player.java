@@ -208,6 +208,8 @@ public class Player {
 				(float) Math.cos(angleY - PI_DIV_2) * stepSize);
 	}
 
+	// FIXME Spielfeldverlassen-Abragen an dynamische Level (getSizeXYZ, Cubesize, ...)
+	//       anpassen
 	// TODO Testen, ob Abfrage funktioniert
 	private void move(float x, float y, float z) {
 		int tmpCubeX = (int) (this.x + x) / 10; // x-Position des ZielCubes im
@@ -220,14 +222,17 @@ public class Player {
 		if ((cube.isWalkable()) ||
 		// oder naechster Schritt im gleichen Cube -> um geblockte Bloecke zu
 		// verlassen
-				((tmpCubeX == (int) this.x / 10)
-						&& (tmpCubeY == (int) this.y / 10) && (tmpCubeZ == (int) this.z / 10))) {
-			this.x += x;
-			this.y += y;
-			this.z += z;
-			if (cube.isCollectable()) {
-				cube.change();
-			}
+			((tmpCubeX == (int) this.x / 10) && (tmpCubeY == (int) this.y / 10) && (tmpCubeZ == (int) this.z / 10))) {
+				if ((this.x + x > 10) && (this.y + y > 10) && (this.z + z > 10)				//Player soll das Spielfeldinnere 
+					 && (this.x + x < 100) && (this.y + y < 100) && (this.z + z < 100)){	//nicht verlassen!
+					
+					this.x += x;
+					this.y += y;
+					this.z += z;
+					if (cube.isCollectable()) {
+						cube.change();
+					}
+				}
 		}
 	}
 }

@@ -28,8 +28,8 @@ public class Window {// implements Runnable {
 			System.exit(0);
 		}
 		Level level = new Level();
-		level.setCube(new CubeExit(), 2, 2, 2);
-		Player player = new Player(level, 50, 50, -150); // 40,50,4
+		level.setCube(new CubeExit(), 2, 2, 2);				//POSITION DES AUSGANGS
+		Player player = new Player(level, 85, 85, 15); 		//STARTPOSITION SPIELER
 		OpenGL openGl = new OpenGL(level, player, width, height);
 		Control_Keyboard keyboard = new Control_Keyboard(player);
 		Control_Mouse mouse  = new Control_Mouse(player);
