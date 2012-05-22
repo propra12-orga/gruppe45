@@ -225,7 +225,7 @@ public class Player {
 			this.x += x;
 			this.y += y;
 			this.z += z;
-			if (cube.isColectable()) {
+			if (cube.isCollectable()) {
 				cube.change();
 			}
 		}
