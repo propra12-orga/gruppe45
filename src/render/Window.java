@@ -2,6 +2,7 @@ package render;
 
 import game.Level;
 import game.Player;
+import control.Control_Keyboard;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
@@ -28,65 +29,21 @@ public class Window {// implements Runnable {
 		Level level = new Level();
 		Player player = new Player(level, 50, 50, -150);  //40,50,4
 		OpenGL openGl = new OpenGL(level, player, width, height);
+		Control_Keyboard keyboard = new Control_Keyboard(player);
 
 		// Programmschleife:
 		while (!Display.isCloseRequested()) {
 			openGl.display();
 			Display.update();
 
-			move_Control1(player);
+			keyboard.move_Control1(player);
 		}
 		Display.destroy();
+		
 	}
 
 	public static void main(String[] argv) {
 		Window window = new Window();
 		window.start();
-	}
-
-	// Steuerungskontrolle:
-	public void move_Control1(Player player) {
-		// links:
-		if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
-			player.moveLeft();
-		}
-		// rueckwaerts:
-		if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
-			player.moveBackward();
-		}
-		// rechts:
-		if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
-			player.moveRight();
-		}
-		// vorwaerts:
-		if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
-			player.moveForward();
-		}
-		// Programm beenden:
-		if (Keyboard.isKeyDown(Keyboard.KEY_T)
-				|| Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
-			Display.destroy();
-			System.exit(0);
-		}
-		// Bombe legen:
-		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
-			player.setBomb();
-		}
-		// nach rechts drehen:
-		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-			player.turnRight();
-		}
-		// nach links drehen:
-		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-			player.turnLeft();
-		}
-		// nach unten neigen:
-		if (Keyboard.isKeyDown(Keyboard.KEY_UP)) {
-			player.turnDown();
-		}
-		// nach oben neigen:
-		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
-			player.turnUp();
-		}
 	}
 }
