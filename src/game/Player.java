@@ -218,7 +218,7 @@ public class Player {
 												// Level
 		Cube cube = level.getCube(tmpCubeX, tmpCubeY, tmpCubeZ);
 		if ((cube.isWalkable()) ||
-		// oder nächster Schritt im gleichen Cube -> um geblockte Blöcke zu
+		// oder nächsterw Schritt im gleichen Cube -> um geblockte Blöcke zu
 		// verlassen
 				((tmpCubeX == (int) this.x / 10)
 						&& (tmpCubeY == (int) this.y / 10) && (tmpCubeZ == (int) this.z / 10))) {

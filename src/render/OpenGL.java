@@ -67,7 +67,7 @@ public class OpenGL {
 							.equals("game.cube.CubeExit")) {
 						GL11.glColor3f(0f,1f,0f);
 						Primitives.DrawCube(i * sizeOfCube, j * sizeOfCube, k
-								* sizeOfCube, sizeOfCube);
+								* sizeOfCube, sizeOfCube * 0.75f);
 					}
 				}
 			}

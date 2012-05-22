@@ -3,7 +3,6 @@ package render;
 import game.Level;
 import game.Player;
 import game.cube.CubeExit;
-
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -28,7 +27,7 @@ public class Window {// implements Runnable {
 			System.exit(0);
 		}
 		Level level = new Level();
-		level.setCube(new CubeExit(), 1, 1, 1);
+		level.setCube(new CubeExit(), 2, 2, 2);
 		Player player = new Player(level, 50, 50, -150); // 40,50,4
 		OpenGL openGl = new OpenGL(level, player, width, height);
 		Control_Keyboard keyboard = new Control_Keyboard(player);
