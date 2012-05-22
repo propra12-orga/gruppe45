@@ -67,7 +67,10 @@ public class Level {
 	 * @return Gibt die Art eines Wuerfels an einer bestimmten Position aus
 	 */
 	public Cube getCube(int x, int y, int z) {
-		return level[x][y][z];
+		if ((x >= 0) && (y >= 0) && (z >= 0) && (x < this.getSizeX()) && (y < this.getSizeY()) && (z < this.getSizeZ())) {	
+			return level[x][y][z];
+		}
+		else return new CubeEmpty();		
 	}
 
 	/**

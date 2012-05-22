@@ -9,8 +9,9 @@ public class Control_Mouse extends Control {
 
 	public Control_Mouse(Player player) {
 		super(player);
-		// TODO Auto-generated constructor stub
+		
 	}
+
 
 	public void mouse_Move(Player player) {
 		Mouse.setCursorPosition(400,300);
@@ -38,3 +39,4 @@ public class Control_Mouse extends Control {
 
 	}
 }
+

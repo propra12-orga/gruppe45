@@ -5,11 +5,11 @@ import game.Player;
 public class CubeExplosion extends Cube {
 
 	public CubeExplosion() {
-		super(Cube.IS_WALKABLE, Cube.IS_NOT_COLECTABLE);
+		super(Cube.IS_WALKABLE, Cube.IS_NOT_COLLECTABLE);
 	}
 
 	@Override
-	public void changePlayer(Player player) {
+	public void change(Player player) {
 		player.hitPlayer(25);
 	}
 
