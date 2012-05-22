@@ -1,9 +1,9 @@
 package render;
 
-/**
- * Hier werden Level- und Playerinformationen zusammengeführt und in OpenGL ausgegeben.
- */
+//Hier werden Level- und Playerinformationen zusammengeführt und in OpenGL ausgegeben.
+
 import game.Level;
+
 import game.Player;
 
 import org.lwjgl.opengl.GL11;
@@ -15,18 +15,17 @@ public class OpenGL {
 	final static public float sizeOfCube = 10;
 	Level level;
 
-<<<<<<< HEAD
+    //HEAD
 	//Level level = new Level();
 	Player player;
 
 	public OpenGL(Player player, int width, int height, Level level) {
-=======
+		
 	Level level;
 	Player player;
 
 	public OpenGL(Level level, Player player, int width, int height) {
 		this.level = level;
->>>>>>> 2833a44ba51f2c2a9904571fc98b74653b9dbff8
 		this.player = player;
 		player.setBomb();
 		this.width = width;

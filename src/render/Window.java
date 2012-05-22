@@ -29,14 +29,11 @@ public class Window {// implements Runnable {
 		Player player = new Player(level, 50, 50, -150);
 		OpenGL openGl = new OpenGL(level, player, width, height);
 
-<<<<<<< HEAD
 		Level level = new Level();
 		Player player = new Player(50, 50, -150, level);
 		OpenGL openGl = new OpenGL(player, width, height, level);
 
-=======
 		// Programmschleife:
->>>>>>> 2833a44ba51f2c2a9904571fc98b74653b9dbff8
 		while (!Display.isCloseRequested()) {
 			openGl.display();
 			Display.update();
@@ -58,7 +55,7 @@ public class Window {// implements Runnable {
 		if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
 			player.moveLeft();
 		}
-		// rückwärts:
+		// rï¿½ckwï¿½rts:
 		if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
 			player.moveBackward();
 		}
@@ -66,7 +63,7 @@ public class Window {// implements Runnable {
 		if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
 			player.moveRight();
 		}
-		// vorwärts:
+		// vorwï¿½rts:
 		if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
 			player.moveForward();
 		}

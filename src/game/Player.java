@@ -30,7 +30,7 @@ public class Player {
 	/**
 	 * Der Konstruktor verlangt die Anfangsposition
 	 */
-	public Player(float x, float y, float z, Level level) {
+	public Player(float x, float y, float z, Level level){
 	private int healthPoints = 100;
 	int radius = 3;
 	int maxBombs = 1;
@@ -42,7 +42,6 @@ public class Player {
 	 * Der Konstruktor verlangt die Anfangsposition
 	 */
 	public Player(Level level, float x, float y, float z) {
->>>>>>> 2833a44ba51f2c2a9904571fc98b74653b9dbff8
 		setPosition(x, y, z);
 		this.level = level;
 	}
@@ -214,9 +213,4 @@ public class Player {
 		    this.z += z;
 		}
 	}
-<<<<<<< HEAD
-}
-=======
 
-}
->>>>>>> 2833a44ba51f2c2a9904571fc98b74653b9dbff8
