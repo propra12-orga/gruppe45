@@ -9,7 +9,7 @@ public class CubeExplosion extends Cube {
 	}
 
 	@Override
-	public void changePlayer(Player player) {
+	public void change(Player player) {
 		player.hitPlayer(25);
 	}
 
