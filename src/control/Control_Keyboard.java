@@ -64,19 +64,19 @@ public class Control_Keyboard extends Control {
 		}
 		// nach rechts drehen:
 		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-			player.turnRight();
+			player.turnRight(0.012f);
 		}
 		// nach links drehen:
 		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-			player.turnLeft();
+			player.turnLeft(0.012f);
 		}
 		// nach unten neigen:
 		if (Keyboard.isKeyDown(Keyboard.KEY_UP)) {
-			player.turnDown();
+			player.turnDown(0.009f);
 		}
 		// nach oben neigen:
 		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
-			player.turnUp();
+			player.turnUp(0.009f);
 		}
 		// Durchlauf neustarten:
 		if (Keyboard.isKeyDown(Keyboard.KEY_N)) {

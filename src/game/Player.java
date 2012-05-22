@@ -161,25 +161,25 @@ public class Player {
 		this.z = z;
 	}
 
-	public void turnUp() {
+	public void turnUp(float p) {
 		if (this.angleX < PI_DIV_2) {
-			this.angleX += 0.009;
+			this.angleX += p;//0.009;
 		}
 
 	}
 
-	public void turnDown() {
+	public void turnDown(float q) {
 		if (this.angleX > -PI_DIV_2) {
-			this.angleX -= 0.009;
+			this.angleX -= q;//0.009;
 		}
 	}
 
-	public void turnRight() {
-		this.angleY -= 0.012f;
+	public void turnRight(float r) {
+		this.angleY -= r;//0.012f;
 	}
 
-	public void turnLeft() {
-		this.angleY += 0.012f;
+	public void turnLeft(float s) {
+		this.angleY += s;//0.012f;
 	}
 
 	public void moveForward() {
