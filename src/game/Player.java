@@ -110,7 +110,7 @@ public class Player {
 	 * @return X-Position des Camerasichtpunktes
 	 */
 	public float getCamX() {
-		return this.x + (float) Math.sin(angleY);
+		return getX() + (float) Math.sin(angleY);
 	}
 
 	public float getDirectionX() {
@@ -122,7 +122,7 @@ public class Player {
 	 */
 	// FIXME Ueberlegen ob die ganze Rechnung sein muss
 	public float getCamY() {
-		return this.y
+		return getY()
 				+ (float) (Math.sin(angleX) * Math.sqrt(Math.sin(angleY)
 						* Math.sin(angleY) + Math.cos(angleY)
 						* Math.cos(angleY)));
@@ -137,7 +137,7 @@ public class Player {
 	 * @return Z-Position des Camerasichtpunktes
 	 */
 	public float getCamZ() {
-		return this.z + (float) Math.cos(angleY);
+		return getZ() + (float) Math.cos(angleY);
 	}
 
 	public float getDirectionZ() {
@@ -207,7 +207,6 @@ public class Player {
 		move((float) Math.sin(angleY - PI_DIV_2) * stepSize, 0,
 				(float) Math.cos(angleY - PI_DIV_2) * stepSize);
 	}
-
 
 	// TODO Testen, ob Abfrage funktioniert
 	private void move(float x, float y, float z) {
