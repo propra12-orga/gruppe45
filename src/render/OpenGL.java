@@ -71,6 +71,12 @@ public class OpenGL {
 								* sizeOfCube);
 						GL11.glDisable(GL11.GL_TEXTURE_2D);
 					} else if (level.getCube(i, j, k).getClass().getName()
+							.equals("game.cube.CubeObstacle")) {
+						GL11.glEnable(GL11.GL_TEXTURE_2D);
+						objects.DrawCubeObstacle(i * sizeOfCube, j * sizeOfCube, k
+								* sizeOfCube);
+						GL11.glDisable(GL11.GL_TEXTURE_2D);						
+					} else if (level.getCube(i, j, k).getClass().getName()
 							.equals("game.cube.CubeExit")) {
 						GL11.glColor3f(0f, 1f, 0f);
 						Primitives.DrawCube(i * sizeOfCube, j * sizeOfCube, k

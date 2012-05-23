@@ -4,6 +4,7 @@ import game.cube.Cube;
 import game.cube.CubeEmpty;
 import game.cube.CubeSolid;
 import game.cube.CubeOutside;
+import game.cube.CubeObstacle;
 
 /**
  * Speichert und verwaltet ein abstraktes Level
@@ -96,5 +97,11 @@ public class Level {
 				}
 			}
 		}
+		//FIXME nur zu Testzwecken/Vorführung: zerstörbare Würfel
+		level[2][2][6] = new CubeObstacle();
+		level[4][4][4] = new CubeObstacle();
+		level[6][6][6] = new CubeObstacle();
+		level[4][8][6] = new CubeObstacle();
+		level[8][2][6] = new CubeObstacle();
 	}
 }
