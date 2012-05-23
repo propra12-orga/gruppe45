@@ -3,7 +3,6 @@ package render;
 //Hier werden Level- und Playerinformationen zusammengeführt und in OpenGL ausgegeben.
 
 import game.Level;
-
 import game.Player;
 
 import org.lwjgl.opengl.GL11;
@@ -14,17 +13,16 @@ public class OpenGL {
 	int width, height;
 	final static public float sizeOfCube = 10;
 	Level level;
-
-	// Level level = new Level();
 	Player player;
+	Objects objects;
 
 	public OpenGL(Level level, Player player, int width, int height) {
 		this.level = level;
 		this.player = player;
-		//player.setBomb();
 		this.width = width;
 		this.height = height;
 		this.level = level;
+		objects = new Objects();
 		init();
 	}
 
@@ -45,14 +43,16 @@ public class OpenGL {
 				for (byte k = 0; k < level.getSizeZ(); k += 1) {
 					if (level.getCube(i, j, k).getClass().getName()
 							.equals("game.cube.CubeBomb")) {
-						GL11.glColor3f(0.5f, 0.5f, 0.5f);
-						Primitives.DrawCube(i * sizeOfCube, j * sizeOfCube, k
-								* sizeOfCube, sizeOfCube * 0.5f);
+						GL11.glEnable(GL11.GL_TEXTURE_2D);
+						objects.DrawCubeBomb(i * sizeOfCube, j * sizeOfCube, k
+								* sizeOfCube);
+						GL11.glDisable(GL11.GL_TEXTURE_2D);
 					} else if (level.getCube(i, j, k).getClass().getName()
 							.equals("game.cube.CubeExplosion")) {
-						GL11.glColor3f(1f, 0f, 0f);
-						Primitives.DrawCube(i * sizeOfCube, j * sizeOfCube, k
-								* sizeOfCube, sizeOfCube * 0.8f);
+						GL11.glEnable(GL11.GL_TEXTURE_2D);
+						objects.DrawCubeExplosion(i * sizeOfCube, j
+								* sizeOfCube, k * sizeOfCube);
+						GL11.glDisable(GL11.GL_TEXTURE_2D);
 					} else if (level.getCube(i, j, k).getClass().getName()
 							.equals("game.cube.CubeItemHealth")) {
 						GL11.glColor3f(1f, 0f, 0f);
@@ -60,12 +60,13 @@ public class OpenGL {
 								* sizeOfCube, sizeOfCube * 0.1f);
 					} else if (level.getCube(i, j, k).getClass().getName()
 							.equals("game.cube.CubeSolid")) {
-						GL11.glColor3f(j / 20f + 0.2f, j / 20f + 0.2f, 1f);
-						Primitives.DrawCube(i * sizeOfCube, j * sizeOfCube, k
-								* sizeOfCube, sizeOfCube);
+						GL11.glEnable(GL11.GL_TEXTURE_2D);
+						objects.DrawCubeSolid(i * sizeOfCube, j * sizeOfCube, k
+								* sizeOfCube);
+						GL11.glDisable(GL11.GL_TEXTURE_2D);
 					} else if (level.getCube(i, j, k).getClass().getName()
 							.equals("game.cube.CubeExit")) {
-						GL11.glColor3f(0f,1f,0f);
+						GL11.glColor3f(0f, 1f, 0f);
 						Primitives.DrawCube(i * sizeOfCube, j * sizeOfCube, k
 								* sizeOfCube, sizeOfCube * 0.75f);
 					}
@@ -89,6 +90,15 @@ public class OpenGL {
 		float clipsize = 0.8f;
 
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
+		GL11.glEnable(GL11.GL_LIGHT0);
+
+		// Textur
+
+		GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER,
+				GL11.GL_LINEAR);
+		GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER,
+				GL11.GL_LINEAR);
+
 		// Alpha-Farbkanal, Transparenz, einschalten
 		// GL11.glEnable(GL11.GL_BLEND);
 		// GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);

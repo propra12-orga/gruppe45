@@ -161,25 +161,43 @@ public class Player {
 		this.z = z;
 	}
 
+	/**
+	 * Sich um die X-Achse drehen
+	 */
+	public void pitch(float pitch) {
+		angleX += pitch;
+		if (angleX > PI_DIV_2) {
+			angleX = (float) PI_DIV_2;
+		} else if (angleX < -PI_DIV_2) {
+			angleX = (float) -PI_DIV_2;
+		}
+	}
+
+	/**
+	 * Sich um die Y-Achse drehen
+	 */
+	public void yaw(float yaw) {
+		this.angleY += yaw;
+	}
+
 	public void turnUp(float p) {
 		if (this.angleX < PI_DIV_2) {
-			this.angleX += p;//0.009;
+			this.angleX += p;// 0.009;
 		}
-
 	}
 
 	public void turnDown(float q) {
 		if (this.angleX > -PI_DIV_2) {
-			this.angleX -= q;//0.009;
+			this.angleX -= q;// 0.009;
 		}
 	}
 
 	public void turnRight(float r) {
-		this.angleY -= r;//0.012f;
+		this.angleY -= r;// 0.012f;
 	}
 
 	public void turnLeft(float s) {
-		this.angleY += s;//0.012f;
+		this.angleY += s;// 0.012f;
 	}
 
 	public void moveForward() {
@@ -208,8 +226,17 @@ public class Player {
 				(float) Math.cos(angleY - PI_DIV_2) * stepSize);
 	}
 
-	// FIXME Spielfeldverlassen-Abragen an dynamische Level (getSizeXYZ, Cubesize, ...)
-	//       anpassen
+	public void moveDown() {
+		move(0, -1, 0);
+	}
+
+	public void moveUp() {
+		move(0, 1, 0);
+	}
+
+	// FIXME Spielfeldverlassen-Abragen an dynamische Level (getSizeXYZ,
+	// Cubesize, ...)
+	// anpassen
 	// TODO Testen, ob Abfrage funktioniert
 	private void move(float x, float y, float z) {
 		int tmpCubeX = (int) (this.x + x) / 10; // x-Position des ZielCubes im
@@ -222,17 +249,14 @@ public class Player {
 		if ((cube.isWalkable()) ||
 		// oder naechster Schritt im gleichen Cube -> um geblockte Bloecke zu
 		// verlassen
-			((tmpCubeX == (int) this.x / 10) && (tmpCubeY == (int) this.y / 10) && (tmpCubeZ == (int) this.z / 10))) {
-				if ((this.x + x > 10) && (this.y + y > 10) && (this.z + z > 10)				//Player soll das Spielfeldinnere 
-					 && (this.x + x < 100) && (this.y + y < 100) && (this.z + z < 100)){	//nicht verlassen!
-					
-					this.x += x;
-					this.y += y;
-					this.z += z;
-					if (cube.isCollectable()) {
-						cube.change();
-					}
-				}
+				((tmpCubeX == (int) this.x / 10)
+						&& (tmpCubeY == (int) this.y / 10) && (tmpCubeZ == (int) this.z / 10))) {
+			this.x += x;
+			this.y += y;
+			this.z += z;
+			if (cube.isCollectable()) {
+				cube.change();
+			}
 		}
 	}
 }

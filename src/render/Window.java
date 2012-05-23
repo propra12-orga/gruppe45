@@ -21,7 +21,6 @@ public class Window {// implements Runnable {
 	public void start() {
 
 		try {
-
 			Display.setDisplayMode(new DisplayMode(width, height));
 			Display.create();
 		} catch (LWJGLException e) {
@@ -32,17 +31,16 @@ public class Window {// implements Runnable {
 		level.setCube(new CubeExit(), 2, 2, 8); // POSITION DES AUSGANGS
 		Player player = new Player(level, 85, 85, 15); // STARTPOSITION SPIELER
 		OpenGL openGl = new OpenGL(level, player, width, height);
-		Control_Keyboard keyboard = new Control_Keyboard(player);
-		Control_Mouse mouse = new Control_Mouse(player);
+		Control_Keyboard controlKeyboard = new Control_Keyboard(player);
+		Control_Mouse controlMouse = new Control_Mouse(player);
 		// Programmschleife:
 		while (!Display.isCloseRequested()) {
 			openGl.display();
 			Display.update();
-			keyboard.move_Control1(player);
-			mouse.mouse_Move(player);
+			// controlKeyboard.move_Control1(player);
+			controlMouse.mouse_Move(player);
 		}
 		Display.destroy();
-
 	}
 
 	public static void main(String[] argv) {
