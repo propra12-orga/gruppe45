@@ -3,6 +3,7 @@ package game;
 import game.cube.Cube;
 import game.cube.CubeEmpty;
 import game.cube.CubeSolid;
+import game.cube.CubeOutside;
 
 /**
  * Speichert und verwaltet ein abstraktes Level
@@ -90,7 +91,7 @@ public class Level {
 					// Aussenseite des Levels
 					if (i == 0 || j == 0 || k == 0 || i == getSizeX() - 1
 							|| j == getSizeY() - 1 || k == getSizeZ() - 1) {
-						level[i][j][k] = new CubeSolid();
+						level[i][j][k] = new CubeOutside();
 					}
 				}
 			}
