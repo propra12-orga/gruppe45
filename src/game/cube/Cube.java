@@ -6,35 +6,39 @@ import game.Player;
  * Abstrakte Klasse von der alle anderen Würfel abgeleitet werden
  */
 public abstract class Cube {
-	final static public boolean IS_COLECTABLE = true;
-	final static public boolean IS_NOT_COLECTABLE = false;
+	final static public boolean IS_COLLECTABLE = true;
+	final static public boolean IS_NOT_COLLECTABLE = false;
 	final static public boolean IS_WALKABLE = true;
 	final static public boolean IS_NOT_WALKABLE = false;
 
 	boolean walkable;
-	boolean colectable;
+	boolean collectable;
 
 	/**
 	 * @param walkable
-	 *            Ist der Würfel begehbar(true) oder nicht(false)
+	 *            Ist der Wuerfel begehbar(true) oder nicht(false)
 	 */
-	Cube(boolean walkable, boolean colectable) {
+	Cube(boolean walkable, boolean collectable) {
 		this.walkable = walkable;
-		this.colectable = colectable;
+		this.collectable = collectable;
 	}
 
 	/**
-	 * @return Gibt aus ob der Würfel begehbar ist
+	 * @return Gibt aus ob der Wuerfel begehbar ist
 	 */
 	public boolean isWalkable() {
 		return this.walkable;
 	}
 
-	public boolean isColectable() {
-		return this.colectable;
+	public boolean isCollectable() {
+		return this.collectable;
 	}
 
-	public void changePlayer(Player player) {
+	public void change(Player player) {
+
+	}
+
+	public void change() {
 
 	}
 

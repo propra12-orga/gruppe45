@@ -1,5 +1,6 @@
 package game;
 
+import game.cube.Cube;
 import game.cube.CubeBomb;
 import game.cube.CubeEmpty;
 import game.cube.CubeExplosion;
@@ -7,9 +8,9 @@ import game.cube.CubeExplosion;
 import java.util.Timer;
 
 /**
- * Die Klasse Player enthält die Position des Spielers die von Control-Klassen
- * verändert und von der OpenGL-Klasse aufgerufen wird um die Spieler an der
- * richtigen Position darstellen zu können. Außerdem wird Farbe und Art der
+ * Die Klasse Player enthaelt die Position des Spielers die von Control-Klassen
+ * veraendert und von der OpenGL-Klasse aufgerufen wird um die Spieler an der
+ * richtigen Position darstellen zu koennen. Ausserdem wird Farbe und Art der
  * eingesammelten Items hier gespeichert.
  * 
  * @author felidosz
@@ -24,8 +25,7 @@ public class Player {
 	private float angleX = 0;
 
 	private Level level;
-	
-	
+
 	private int healthPoints = 100;
 	int radius = 3;
 	int maxBombs = 1;
@@ -39,9 +39,6 @@ public class Player {
 		setPosition(x, y, z);
 		this.level = level;
 	}
-	
-
-	
 
 	public void setBomb() {
 		ArrayPosition[] posExp = {
@@ -113,7 +110,7 @@ public class Player {
 	 * @return X-Position des Camerasichtpunktes
 	 */
 	public float getCamX() {
-		return this.x + (float) Math.sin(angleY);
+		return getX() + (float) Math.sin(angleY);
 	}
 
 	public float getDirectionX() {
@@ -125,7 +122,7 @@ public class Player {
 	 */
 	// FIXME Ueberlegen ob die ganze Rechnung sein muss
 	public float getCamY() {
-		return this.y
+		return getY()
 				+ (float) (Math.sin(angleX) * Math.sqrt(Math.sin(angleY)
 						* Math.sin(angleY) + Math.cos(angleY)
 						* Math.cos(angleY)));
@@ -140,7 +137,7 @@ public class Player {
 	 * @return Z-Position des Camerasichtpunktes
 	 */
 	public float getCamZ() {
-		return this.z + (float) Math.cos(angleY);
+		return getZ() + (float) Math.cos(angleY);
 	}
 
 	public float getDirectionZ() {
@@ -157,32 +154,32 @@ public class Player {
 	 * @param z
 	 *            Tiefenposition
 	 */
-	// FIXME PlayerSetPosition() Prüfen ob Platz an der Stelle ist
+	// FIXME PlayerSetPosition() Pruefen ob Platz an der Stelle ist
 	public void setPosition(float x, float y, float z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
 
-	public void turnUp() {
+	public void turnUp(float p) {
 		if (this.angleX < PI_DIV_2) {
-			this.angleX += 0.006;
+			this.angleX += p;//0.009;
 		}
-		
+
 	}
 
-	public void turnDown() {
+	public void turnDown(float q) {
 		if (this.angleX > -PI_DIV_2) {
-			this.angleX -= 0.006;
-		}		
+			this.angleX -= q;//0.009;
+		}
 	}
 
-	public void turnRight() {
-		this.angleY -= 0.006f;
+	public void turnRight(float r) {
+		this.angleY -= r;//0.012f;
 	}
 
-	public void turnLeft() {
-		this.angleY += 0.006f;
+	public void turnLeft(float s) {
+		this.angleY += s;//0.012f;
 	}
 
 	public void moveForward() {
@@ -211,17 +208,31 @@ public class Player {
 				(float) Math.cos(angleY - PI_DIV_2) * stepSize);
 	}
 
-	// FIXME PlayerMove() Prüfen ob Platz an der Stelle ist
+	// FIXME Spielfeldverlassen-Abragen an dynamische Level (getSizeXYZ, Cubesize, ...)
+	//       anpassen
+	// TODO Testen, ob Abfrage funktioniert
 	private void move(float x, float y, float z) {
-		/*
-		 * Wie waere es mal mit TESTEN??? int tmpCubeX = (int) (this.x + x) /
-		 * 10; int tmpCubeY = (int) (this.y + y) / 10; int tmpCubeZ = (int)
-		 * (this.z + z) / 10; if (level.getCube(tmpCubeX, tmpCubeY,
-		 * tmpCubeZ).isWalkable()) {
-		 */
-		this.x += x;
-		this.y += y;
-		this.z += z;
-		/* } */
+		int tmpCubeX = (int) (this.x + x) / 10; // x-Position des ZielCubes im
+												// Level
+		int tmpCubeY = (int) (this.y + y) / 10; // y-Position des ZielCubes im
+												// Level
+		int tmpCubeZ = (int) (this.z + z) / 10; // z-Position des ZielCubes im
+												// Level
+		Cube cube = level.getCube(tmpCubeX, tmpCubeY, tmpCubeZ);
+		if ((cube.isWalkable()) ||
+		// oder naechster Schritt im gleichen Cube -> um geblockte Bloecke zu
+		// verlassen
+			((tmpCubeX == (int) this.x / 10) && (tmpCubeY == (int) this.y / 10) && (tmpCubeZ == (int) this.z / 10))) {
+				if ((this.x + x > 10) && (this.y + y > 10) && (this.z + z > 10)				//Player soll das Spielfeldinnere 
+					 && (this.x + x < 100) && (this.y + y < 100) && (this.z + z < 100)){	//nicht verlassen!
+					
+					this.x += x;
+					this.y += y;
+					this.z += z;
+					if (cube.isCollectable()) {
+						cube.change();
+					}
+				}
+		}
 	}
 }
