@@ -5,7 +5,7 @@ import game.Player;
 public class CubeItemHealth extends Cube {
 
 	CubeItemHealth() {
-		super(Cube.IS_WALKABLE, Cube.IS_COLLECTABLE, Cube.IS_NOT_DESTROYABLE);
+		super(Cube.IS_WALKABLE, Cube.IS_COLLECTABLE, Cube.IS_NOT_DESTROYABLE); 
 	}
 
 	@Override

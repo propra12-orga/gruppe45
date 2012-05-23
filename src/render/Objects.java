@@ -9,7 +9,7 @@ import org.newdawn.slick.opengl.TextureLoader;
 
 public class Objects {
 
-	private Texture texBomb, texFire, texPaper, texOutside;
+	private Texture texBomb, texFire, texPaper, texOutside, texObstacle;
 
 	public Objects() {
 		// Texturen laden
@@ -22,6 +22,8 @@ public class Objects {
 					"res/solid.png"));
 			texOutside = TextureLoader.getTexture("PNG", new FileInputStream(
 					"res/outsideworld.png"));
+			texObstacle = TextureLoader.getTexture("PNG", new FileInputStream(
+					"res/obstacle.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(0);
@@ -46,6 +48,11 @@ public class Objects {
 	public void DrawCubeOutside(float x, float y, float z) {
 		texOutside.bind();
 		DrawCube(x, y, z, 10, 1);
+	}
+	
+	public void DrawCubeObstacle(float x, float y, float z) {
+		texObstacle.bind();
+		DrawCube(x, y, z, 10, 2.5f);
 	}
 
 	public void DrawCube(float x, float y, float z, float size, float texSize) {

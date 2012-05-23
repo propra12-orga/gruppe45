@@ -1,7 +1,7 @@
 package game.cube;
 
 /**
- * Unzerstoerbarer Wuerfel
+ * Spielfeldbegrenzender Wuerfel
  */
 public class CubeOutside extends Cube {
 
