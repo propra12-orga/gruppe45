@@ -12,7 +12,6 @@ public abstract class Cube {
 	final static public boolean IS_NOT_WALKABLE = false;
 	final static public boolean IS_DESTROYABLE = true;
 	final static public boolean IS_NOT_DESTROYABLE = false;
-	
 
 	boolean walkable;
 	boolean collectable;
@@ -38,7 +37,7 @@ public abstract class Cube {
 	public boolean isCollectable() {
 		return this.collectable;
 	}
-	
+
 	public boolean isDestroyable() {
 		return this.destroyable;
 	}

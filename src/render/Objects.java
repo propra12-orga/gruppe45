@@ -42,10 +42,10 @@ public class Objects {
 		texPaper.bind();
 		DrawCube(x, y, z, 10, 2.5f);
 	}
-	
+
 	public void DrawCubeOutside(float x, float y, float z) {
 		texOutside.bind();
-		DrawCube(x, y, z, 10, 2.5f);
+		DrawCube(x, y, z, 10, 1);
 	}
 
 	public void DrawCube(float x, float y, float z, float size, float texSize) {
