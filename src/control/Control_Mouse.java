@@ -15,6 +15,10 @@ public class Control_Mouse extends Control {
 		while (Mouse.next()) {
 			player.yaw((-Mouse.getDX()) / 100f);
 			player.pitch((Mouse.getDY()) / 100f);
+			
+			if (Mouse.isButtonDown(0)) {
+				player.setBomb();
+			}
 		}
 	}
 
