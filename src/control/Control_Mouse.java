@@ -16,7 +16,7 @@ public class Control_Mouse extends Control {
 			player.yaw((-Mouse.getDX()) / 100f);
 			player.pitch((Mouse.getDY()) / 100f);
 			
-			if (Mouse.isButtonDown(0)) {
+			if (Mouse.isButtonDown(0)) {    //Linksklick legt eine Bombe
 				player.setBomb();
 			}
 		}
