@@ -31,16 +31,16 @@ public class Window {// implements Runnable {
 		level.setCube(new CubeExit(), 2, 2, 8);				//POSITION DES AUSGANGS
 		Player player = new Player(level, 85, 85, 15); 		//STARTPOSITION SPIELER
 		OpenGL openGl = new OpenGL(level, player, width, height);
-		Control_Keyboard keyboard = new Control_Keyboard(player);
-		Control_Mouse mouse  = new Control_Mouse(player);
+		Control_Keyboard keyboard = new Control_Keyboard(player);//Tastaturereignisse
+		Control_Mouse mouse  = new Control_Mouse(player);		//Mausereignisse
 
 		// Programmschleife:
 		while (!Display.isCloseRequested()) {
 			openGl.display();
 			Display.update();
 
-			keyboard.move_Control1(player);
-			mouse.mouse_Move(player);
+			keyboard.move_Control1(player);	//Tastaturereignisse überwachen
+			mouse.mouse_Move(player);		//Mausereignisse überwachen
 		}
 		Display.destroy();
 

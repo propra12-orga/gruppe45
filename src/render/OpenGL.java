@@ -93,7 +93,7 @@ public class OpenGL {
 		// GL11.glEnable(GL11.GL_BLEND);
 		// GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-		GL11.glEnable(GL11.GL_LINE_SMOOTH); // Antialiasing für Linien
+		GL11.glEnable(GL11.GL_LINE_SMOOTH); // Antialiasing fuer Linien
 											// einschalten
 
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
