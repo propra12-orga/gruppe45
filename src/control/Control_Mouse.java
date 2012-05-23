@@ -1,5 +1,7 @@
 package control;
 
+import org.lwjgl.input.Mouse;
+
 import game.Player;
 
 public class Control_Mouse extends Control {
@@ -8,7 +10,12 @@ public class Control_Mouse extends Control {
 		super(player);
 		
 	}
-
+	public void MouseMove(Player player){
+		if(Mouse.getX() > 0 ){
+			player.turnLeft();
+			
+		}
+	}
 	   
 	   
 	   

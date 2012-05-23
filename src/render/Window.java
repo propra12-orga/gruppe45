@@ -3,6 +3,7 @@ package render;
 import game.Level;
 import game.Player;
 import control.Control_Keyboard;
+import control.Control_Mouse;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
@@ -30,12 +31,13 @@ public class Window {// implements Runnable {
 		Player player = new Player(level, 50, 50, -150);
 		OpenGL openGl = new OpenGL(level, player, width, height);
 		Control_Keyboard keyboard = new Control_Keyboard(player);
-
+		Control_Mouse mouse = new Control_Mouse(player);
+		
 		// Programmschleife:
 		while (!Display.isCloseRequested()) {
 			openGl.display();
 			Display.update();
-
+			mouse.MouseMove(player);
 			keyboard.move_Control1(player);
 		}
 		Display.destroy();
