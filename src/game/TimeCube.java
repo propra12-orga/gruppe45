@@ -1,7 +1,7 @@
 package game;
 
 import game.cube.Cube;
-
+import game.Player;
 import java.util.TimerTask;
 
 public class TimeCube extends TimerTask {
