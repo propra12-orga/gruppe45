@@ -15,15 +15,15 @@ public class Objects {
 		// Texturen laden
 		try {
 			texBomb = TextureLoader.getTexture("PNG", new FileInputStream(
-					"res/warning.png"));
+					"res/textures/warning.png"));
 			texFire = TextureLoader.getTexture("PNG", new FileInputStream(
-					"res/fire.png"));
+					"res/textures/fire.png"));
 			texPaper = TextureLoader.getTexture("PNG", new FileInputStream(
-					"res/solid.png"));
+					"res/textures/solid.png"));
 			texOutside = TextureLoader.getTexture("PNG", new FileInputStream(
-					"res/outsideworld.png"));
+					"res/textures/outsideworld.png"));
 			texObstacle = TextureLoader.getTexture("PNG", new FileInputStream(
-					"res/obstacle.png"));
+					"res/textures/obstacle.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(0);
