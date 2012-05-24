@@ -4,8 +4,10 @@ import game.cube.Cube;
 import game.cube.CubeBomb;
 import game.cube.CubeEmpty;
 import game.cube.CubeExplosion;
+import game.BombCount;
 
 import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Die Klasse Player enthaelt die Position des Spielers die von Control-Klassen
@@ -28,9 +30,11 @@ public class Player {
 
 	private int healthPoints = 100;
 	int radius = 3;
-	int maxBombs = 1;
+	int maxBombs = 2;
 	int fuseTime = 3000;
 	int explosionTime = 1000;
+	int bombenzahl = 0;
+	boolean bombable = true;
 
 	/**
 	 * Der Konstruktor verlangt die Anfangsposition
@@ -41,24 +45,37 @@ public class Player {
 	}
 
 	public void setBomb() {
-		ArrayPosition[] posExp = {
-				new ArrayPosition((int) x / 10, (int) y / 10, (int) z / 10),
-				new ArrayPosition((int) x / 10 - 1, (int) y / 10, (int) z / 10),
-				new ArrayPosition((int) x / 10 + 1, (int) y / 10, (int) z / 10),
-				new ArrayPosition((int) x / 10, (int) y / 10 - 1, (int) z / 10),
-				new ArrayPosition((int) x / 10, (int) y / 10 + 1, (int) z / 10),
-				new ArrayPosition((int) x / 10, (int) y / 10, (int) z / 10 - 1),
-				new ArrayPosition((int) x / 10, (int) y / 10, (int) z / 10 + 1) };
-		Timer timer = new Timer();
-		// TODO Hier wird die Position nur durch abrunden ermittelt,
-		// Druchschnitt waere wohl besser
-		level.setCube(new CubeBomb(), (int) x / 10, (int) y / 10, (int) z / 10);
-
-		timer.schedule(new TimeCube(level, new CubeExplosion(), posExp),
-				fuseTime);
-		timer.schedule(new TimeCube(level, new CubeEmpty(), posExp), fuseTime
-				+ explosionTime);
-
+		if (maxBombs > 0) {
+			maxBombs --;
+			ArrayPosition[] posExp = {
+					new ArrayPosition((int) x / 10, (int) y / 10, (int) z / 10),
+					new ArrayPosition((int) x / 10 - 1, (int) y / 10,
+							(int) z / 10),
+					new ArrayPosition((int) x / 10 + 1, (int) y / 10,
+							(int) z / 10),
+					new ArrayPosition((int) x / 10, (int) y / 10 - 1,
+							(int) z / 10),
+					new ArrayPosition((int) x / 10, (int) y / 10 + 1,
+							(int) z / 10),
+					new ArrayPosition((int) x / 10, (int) y / 10,
+							(int) z / 10 - 1),
+					new ArrayPosition((int) x / 10, (int) y / 10,
+							(int) z / 10 + 1) };
+			Timer timer = new Timer();
+			// TODO Hier wird die Position nur durch abrunden ermittelt,
+			// Druchschnitt waere wohl besser
+			level.setCube(new CubeBomb(), (int) x / 10, (int) y / 10,
+					(int) z / 10);
+			
+			//Explosion
+			timer.schedule(new TimeCube(level, new CubeExplosion(), posExp),
+					fuseTime);
+			//Leerer Block
+			timer.schedule(new TimeCube(level, new CubeEmpty(), posExp),
+					fuseTime + explosionTime);
+			//Verhindern, dass mehr Bomben gelegt werden als maxBombs erlaubt.
+			timer.schedule(new BombCount(this, bombenzahl, maxBombs) , fuseTime + explosionTime+10);
+		}
 	}
 
 	public void setColor(float[] color) {
