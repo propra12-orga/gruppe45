@@ -23,5 +23,4 @@ public class TimeCube extends TimerTask {
 					positions[i].getZ());
 		}
 	}
-
 }

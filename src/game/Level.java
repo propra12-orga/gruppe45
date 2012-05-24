@@ -3,6 +3,7 @@ package game;
 import game.cube.Cube;
 import game.cube.CubeEmpty;
 import game.cube.CubeSolid;
+import game.cube.CubeOutside;
 
 /**
  * Speichert und verwaltet ein abstraktes Level
@@ -67,10 +68,11 @@ public class Level {
 	 * @return Gibt die Art eines Wuerfels an einer bestimmten Position aus
 	 */
 	public Cube getCube(int x, int y, int z) {
-		if ((x >= 0) && (y >= 0) && (z >= 0) && (x < this.getSizeX()) && (y < this.getSizeY()) && (z < this.getSizeZ())) {	
+		if ((x >= 0) && (y >= 0) && (z >= 0) && (x < this.getSizeX())
+				&& (y < this.getSizeY()) && (z < this.getSizeZ())) {
 			return level[x][y][z];
-		}
-		else return new CubeEmpty();		
+		} else
+			return new CubeEmpty();
 	}
 
 	/**
@@ -80,10 +82,16 @@ public class Level {
 		for (byte i = 0; i < getSizeX(); i++) {
 			for (byte j = 0; j < getSizeY(); j++) {
 				for (byte k = 0; k < getSizeZ(); k++) {
+					// Festes Blockmuster
 					if (!(i % 2 == 0 || j % 2 == 0 || k % 2 == 0)) {
 						level[i][j][k] = new CubeSolid();
 					} else {
 						level[i][j][k] = new CubeEmpty();
+					}
+					// Aussenseite des Levels
+					if (i == 0 || j == 0 || k == 0 || i == getSizeX() - 1
+							|| j == getSizeY() - 1 || k == getSizeZ() - 1) {
+						level[i][j][k] = new CubeOutside();
 					}
 				}
 			}
