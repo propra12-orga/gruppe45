@@ -33,12 +33,16 @@ public class Window {// implements Runnable {
 		OpenGL openGl = new OpenGL(level, player, width, height);
 		Control_Keyboard controlKeyboard = new Control_Keyboard(player);
 		Control_Mouse controlMouse = new Control_Mouse(player);
+
+		
 		// Programmschleife:
 		while (!Display.isCloseRequested()) {
 			openGl.display();
 			Display.update();
-			// controlKeyboard.move_Control1(player);
+
+			//controlKeyboard.move_Control1(player);
 			controlMouse.mouse_Move(player);
+
 		}
 		Display.destroy();
 	}

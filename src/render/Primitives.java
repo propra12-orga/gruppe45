@@ -3,14 +3,14 @@ package render;
 import org.lwjgl.opengl.GL11;
 
 /**
- * Diese Klasse stellt OpenGLObjekte die für das Spiel benötigt werden zur
- * Verfügung. -Würfel(Fest,Zerstörbar,...) -Spielfiguren -Bomben
- * -Items(Bonusgegenstände)
+ * Diese Klasse stellt OpenGLObjekte die fuer das Spiel benoetigt werden zur
+ * Verfuegung. -Wuerfel(Fest,Zerstoerbar,...) -Spielfiguren -Bomben
+ * -Items(Bonusgegenstaende)
  */
 
 public class Primitives {
 	/**
-	 * Zeichnet einen Würfel dessen Mittelpunkt die übergebene Position ist. Die
+	 * Zeichnet einen Wuerfel dessen Mittelpunkt die uebergebene Position ist. Die
 	 * aktuelle glColor wird verwendet.
 	 * 
 	 * @param gl
@@ -103,7 +103,7 @@ public class Primitives {
 	}
 
 	/**
-	 * Zeichnet einen Würfel dessen Mittelpunkt die übergebene Position ist. Die
+	 * Zeichnet einen Wuerfel dessen Mittelpunkt die uebergebene Position ist. Die
 	 * aktuelle glColor wird verwendet.
 	 * 
 	 * @param gl
@@ -117,7 +117,7 @@ public class Primitives {
 	 * @param sizeX
 	 *            Breite
 	 * @param sizeY
-	 *            Höhe
+	 *            Hoehe
 	 * @param sizeZ
 	 *            Tiefe
 	 */
