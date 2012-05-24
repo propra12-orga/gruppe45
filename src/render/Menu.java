@@ -8,6 +8,7 @@ public class Menu {
 	// TODO Start-Button erst mal ohne Funktion
 
 	public static void main(String[] args) {
+
 	}
 
 }
