@@ -4,6 +4,8 @@ import game.cube.Cube;
 import game.cube.CubeEmpty;
 import game.cube.CubeSolid;
 import game.cube.CubeOutside;
+import game.cube.CubeObstacle;
+import java.util.Random;
 
 /**
  * Speichert und verwaltet ein abstraktes Level
@@ -11,6 +13,8 @@ import game.cube.CubeOutside;
  * @author felidosz
  */
 public class Level {
+	
+	final static public int OBSTACLE_PROBABILITY = 5;    // 0-100 Prozent
 
 	Cube[][][] level;
 
@@ -86,7 +90,16 @@ public class Level {
 					if (!(i % 2 == 0 || j % 2 == 0 || k % 2 == 0)) {
 						level[i][j][k] = new CubeSolid();
 					} else {
-						level[i][j][k] = new CubeEmpty();
+						//FIXME Bessere zufällige Hindernisverteilung einbauen
+						Random r = new Random();
+						int rnd = 1 + Math.abs(r.nextInt()) % 100;
+						
+						if ((rnd <= OBSTACLE_PROBABILITY) && ((i<7) || (j<7) || (k>3)) && ((i!=2) && (j!=2) && (k!=8))) {
+							level[i][j][k] = new CubeObstacle();
+						}
+						else {
+							level[i][j][k] = new CubeEmpty();
+						}
 					}
 					// Aussenseite des Levels
 					if (i == 0 || j == 0 || k == 0 || i == getSizeX() - 1

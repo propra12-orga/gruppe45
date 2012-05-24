@@ -18,9 +18,12 @@ public class TimeCube extends TimerTask {
 
 	@Override
 	public void run() {
-		for (int i = 0; i < positions.length; i++) {
-			level.setCube(cube, positions[i].getX(), positions[i].getY(),
-					positions[i].getZ());
+		for (int i = 0; i < positions.length; i++) {	
+			Cube tmpcube = level.getCube(positions[i].getX(), positions[i].getY(), positions[i].getZ());
+			if (tmpcube.isDestroyable()) {	
+				level.setCube(cube, positions[i].getX(), positions[i].getY(),
+						positions[i].getZ());
+			}	
 		}
 	}
 }

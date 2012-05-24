@@ -1,8 +1,11 @@
 package game.cube;
 
-public class CubeBomb extends Cube {
+/**
+ * Zerstoerbarer Wuerfel
+ */
+public class CubeObstacle extends Cube {
 
-	public CubeBomb() {
+	public CubeObstacle() {
 		super(Cube.IS_NOT_WALKABLE, Cube.IS_NOT_COLLECTABLE, Cube.IS_DESTROYABLE);
 	}
 

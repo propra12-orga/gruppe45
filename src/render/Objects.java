@@ -9,7 +9,7 @@ import org.newdawn.slick.opengl.TextureLoader;
 
 public class Objects {
 
-	private Texture texBomb, texFire, texPaper, texOutside;
+	private Texture texBomb, texFire, texPaper, texOutside, texObstacle;
 
 	public Objects() {
 		// Texturen laden
@@ -22,6 +22,8 @@ public class Objects {
 					"res/solid.png"));
 			texOutside = TextureLoader.getTexture("PNG", new FileInputStream(
 					"res/outsideworld.png"));
+			texObstacle = TextureLoader.getTexture("PNG", new FileInputStream(
+					"res/obstacle.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(0);
@@ -42,12 +44,31 @@ public class Objects {
 		texPaper.bind();
 		DrawCube(x, y, z, 10, 2.5f);
 	}
-	
+
 	public void DrawCubeOutside(float x, float y, float z) {
 		texOutside.bind();
+		DrawCube(x, y, z, 10, 1);
+	}
+
+	public void DrawCubeObstacle(float x, float y, float z) {
+		texObstacle.bind();
 		DrawCube(x, y, z, 10, 2.5f);
 	}
 
+	/**
+	 * Zeichnet einen Wuerfel mit Textur
+	 * 
+	 * @param x
+	 *            x-Position
+	 * @param y
+	 *            y-Position
+	 * @param z
+	 *            z-Position
+	 * @param size
+	 *            Kantenlaenge
+	 * @param texSize
+	 *            Skalierung der Textur
+	 */
 	public void DrawCube(float x, float y, float z, float size, float texSize) {
 		GL11.glColor3f(1, 1, 1);
 		GL11.glBegin(GL11.GL_QUADS);
