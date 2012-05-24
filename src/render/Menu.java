@@ -14,7 +14,7 @@ public class Menu {
 
 		JFrame.setDefaultLookAndFeelDecorated(true); // kann man weglassen,
 		// gibt nur ein anderes Layout
-		JFrame frame = new JFrame("Menü");
+		JFrame frame = new JFrame("Menue");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(300, 200);
 		frame.setVisible(true);
