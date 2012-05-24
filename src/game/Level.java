@@ -14,7 +14,7 @@ import java.util.Random;
  */
 public class Level {
 	
-	final static public int OBSTACLE_PROBABILITY = 8;    // 0-100 Prozent
+	final static public int OBSTACLE_PROBABILITY = 10;    // 0-100 Prozent
 
 	Cube[][][] level;
 

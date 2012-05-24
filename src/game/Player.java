@@ -30,11 +30,9 @@ public class Player {
 
 	private int healthPoints = 100;
 	int radius = 3;
-	int maxBombs = 2;
+	int maxBombs = 1;
 	int fuseTime = 3000;
 	int explosionTime = 1000;
-	int bombenzahl = 0;
-	boolean bombable = true;
 
 	/**
 	 * Der Konstruktor verlangt die Anfangsposition
@@ -74,7 +72,7 @@ public class Player {
 			timer.schedule(new TimeCube(level, new CubeEmpty(), posExp),
 					fuseTime + explosionTime);
 			//Verhindern, dass mehr Bomben gelegt werden als maxBombs erlaubt.
-			timer.schedule(new BombCount(this, bombenzahl, maxBombs) , fuseTime + explosionTime+10);
+			timer.schedule(new BombCount(this, maxBombs) , fuseTime + explosionTime + 10);
 		}
 	}
 
@@ -251,9 +249,6 @@ public class Player {
 		move(0, 1, 0);
 	}
 
-	// FIXME Spielfeldverlassen-Abragen an dynamische Level (getSizeXYZ,
-	// Cubesize, ...)
-	// anpassen
 	// TODO Testen, ob Abfrage funktioniert
 	private void move(float x, float y, float z) {
 		int tmpCubeX = (int) (this.x + x) / 10; // x-Position des ZielCubes im

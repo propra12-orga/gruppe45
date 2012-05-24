@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+
 public class Menu {
 
 	public static void main(String[] args) {
@@ -27,6 +28,7 @@ public class Menu {
 
 				Window window = new Window();
 				window.start();
+
 
 			}
 		});
