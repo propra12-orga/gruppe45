@@ -169,7 +169,6 @@ public class Player {
 	 * @param z
 	 *            Tiefenposition
 	 */
-	// FIXME PlayerSetPosition() Pruefen ob Platz an der Stelle ist
 	public void setPosition(float x, float y, float z) {
 		this.x = x;
 		this.y = y;
