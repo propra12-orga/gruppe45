@@ -124,7 +124,8 @@ public class Level {
 		int rnd = 1 + Math.abs(r.nextInt()) % 6;
 		
 		// rnd = 1;	//zum AUSPROBIEREN: Exit verborgen 
-		
+				
+		// legt den Exit in eine zufällige Ecke
 		switch (rnd) {
 			case 1:  //level[8][1][1] = new CubeExit(); 
 					 if (EXIT_CAN_HIDE_BEHIND_CUBES) {
