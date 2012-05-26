@@ -20,6 +20,7 @@ public class TimeCube extends TimerTask {
 
 	@Override
 	public void run() {
+
 		for (int i = 0; i < positions.length; i++) {	
 			boolean transportExit = false;  
 			
