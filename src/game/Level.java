@@ -164,7 +164,6 @@ public class Level {
 				 	level[exit_x][exit_y][exit_z].sethidesExit(true);
 			}
 			else {
-				 	System.out.println("Ist kein Hinder");
 				 	level[exit_x][exit_y][exit_z] = new CubeExit();
 			}
 		}
