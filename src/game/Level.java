@@ -115,15 +115,15 @@ public class Level {
 			}
 		}
 		// zum AUSPROBIEREN: Exit verborgen 
-		 level[8][1][1] = new CubeObstacle();
-		 level[8][1][1].sethidesExit(true);
+		// level[8][1][1] = new CubeObstacle();
+		// level[8][1][1].sethidesExit(true);
 		
 		// Setze den Ausgang in eine zufällige der sechs Ecken,
 		// die nicht durch Spieler belegt ist!
 		Random r = new Random();
 		int rnd = 1 + Math.abs(r.nextInt()) % 6;
 		
-		 rnd = 1;	//zum AUSPROBIEREN: Exit verborgen 
+		//rnd = 1;	//zum AUSPROBIEREN: Exit verborgen 
 				
 		// legt den Exit in eine zufällige Ecke
 		switch (rnd) {
