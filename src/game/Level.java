@@ -15,7 +15,7 @@ import java.util.Random;
  */
 public class Level {
 	
-	final static public int OBSTACLE_PROBABILITY = 0;    // 0-100 Prozent
+	final static public int OBSTACLE_PROBABILITY = 28;    // 0-100 Prozent
 	final static public boolean EXIT_CAN_HIDE_BEHIND_CUBES = true;
 			// Wenn "true", dann kann sich der Ausgang auch hinter
 			// Blöcken verbergen, sodass dieser erst freibomt werdeb
