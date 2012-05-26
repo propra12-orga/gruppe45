@@ -2,6 +2,7 @@ package game;
 
 import game.cube.Cube;
 import game.cube.CubeEmpty;
+import game.cube.CubeExit;
 import game.cube.CubeSolid;
 import game.cube.CubeOutside;
 import game.cube.CubeObstacle;
@@ -14,8 +15,12 @@ import java.util.Random;
  */
 public class Level {
 	
-	final static public int OBSTACLE_PROBABILITY = 10;    // 0-100 Prozent
-
+	final static public int OBSTACLE_PROBABILITY = 30;    // 0-100 Prozent
+	final static public boolean EXIT_CAN_HIDE_BEHIND_CUBES = true;
+			// Wenn "true", dann kann sich der Ausgang auch hinter
+			// Blöcken verbergen, sodass dieser erst freibomt werdeb
+			// muss! (vgl. 2. Meilenstein Anforderung #5)
+	
 	Cube[][][] level;
 
 	public int getSizeX() {
@@ -94,7 +99,7 @@ public class Level {
 						Random r = new Random();
 						int rnd = 1 + Math.abs(r.nextInt()) % 100;
 						
-						if ((rnd <= OBSTACLE_PROBABILITY) && ((i<7) || (j<7) || (k>3)) && ((i!=2) && (j!=2) && (k!=8))) {
+						if ((rnd <= OBSTACLE_PROBABILITY) && ((i<7) || (j<7) || (k>3))) {
 							level[i][j][k] = new CubeObstacle();
 						}
 						else {
@@ -109,5 +114,103 @@ public class Level {
 				}
 			}
 		}
+		// zum AUSPROBIEREN: Exit verborgen 
+		// level[8][1][1] = new CubeObstacle();
+		// level[8][1][1].sethidesExit(true);
+		
+		// Setze den Ausgang in eine zufällige der sechs Ecken,
+		// die nicht durch Spieler belegt ist!
+		Random r = new Random();
+		int rnd = 1 + Math.abs(r.nextInt()) % 6;
+		
+		// rnd = 1;	//zum AUSPROBIEREN: Exit verborgen 
+		
+		switch (rnd) {
+			case 1:  //level[8][1][1] = new CubeExit(); 
+					 if (EXIT_CAN_HIDE_BEHIND_CUBES) {
+						 if (level[8][1][1].getCubename() == "CubeObstacle") {
+							 	level[8][1][1].sethidesExit(true);
+						 }
+						 else {
+							 	System.out.println("Ist kein Hinder");
+							 	level[8][1][1] = new CubeExit();
+						 }
+					 }
+					 else {
+						 		level[8][1][1] = new CubeExit();
+					 }
+					 break;
+			case 2:  //level[2][1][1] = new CubeExit();
+					 if (EXIT_CAN_HIDE_BEHIND_CUBES) {
+						 if (level[2][1][1].getCubename() == "CubeObstacle") {
+							 	level[2][1][1].sethidesExit(true);
+						 }
+						 else {
+							 	System.out.println("Ist kein Hinder");
+							 	level[2][1][1] = new CubeExit();
+						 }
+					 }
+					 else {
+						 		level[2][1][1] = new CubeExit();
+					 }
+					 break;
+			case 3:  //level[1][8][1] = new CubeExit();
+					 if (EXIT_CAN_HIDE_BEHIND_CUBES) {
+						 if (level[1][8][1].getCubename() == "CubeObstacle") {
+							 	level[1][8][1].sethidesExit(true);
+						 }
+						 else {
+							 	System.out.println("Ist kein Hinder");
+							 	level[1][8][1] = new CubeExit();
+						 }
+					 }
+					 else {
+						 		level[8][1][1] = new CubeExit();
+					 }
+					 break;
+			case 4:  //level[8][8][8] = new CubeExit();
+					 if (EXIT_CAN_HIDE_BEHIND_CUBES) {
+						 if (level[8][8][8].getCubename() == "CubeObstacle") {
+							 	level[8][8][8].sethidesExit(true);
+						 }
+						 else {
+							 	System.out.println("Ist kein Hinder");
+							 	level[8][8][8] = new CubeExit();
+						 }
+					 }
+					 else {
+						 		level[8][8][8] = new CubeExit();
+					 }
+					 break;
+			case 5:  //level[1][8][8] = new CubeExit();
+					 if (EXIT_CAN_HIDE_BEHIND_CUBES) {
+						 if (level[1][8][8].getCubename() == "CubeObstacle") {
+							 	level[1][8][8].sethidesExit(true);
+						 }
+						 else {
+							 	System.out.println("Ist kein Hinder");
+							 	level[1][8][8] = new CubeExit();
+						 }
+					 }
+					 else {
+						 		level[8][1][1] = new CubeExit();
+					 }
+					 break;
+			default: //level[1][1][8] = new CubeExit();
+					 if (EXIT_CAN_HIDE_BEHIND_CUBES) {
+						 if (level[1][1][8].getCubename() == "CubeObstacle") {
+							 	level[1][1][8].sethidesExit(true);
+						 }
+						 else {
+							 	System.out.println("Ist kein Hinder");
+							 	level[1][1][8] = new CubeExit();
+						 }
+					 }
+					 else {
+						 		level[1][1][8] = new CubeExit();
+					 }
+					 break;
+		}
+
 	}
 }

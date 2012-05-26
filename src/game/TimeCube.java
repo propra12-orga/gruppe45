@@ -1,8 +1,10 @@
 package game;
 
 import game.cube.Cube;
+import game.cube.CubeExit;
 import game.Player;
 import java.util.TimerTask;
+import game.Level;
 
 public class TimeCube extends TimerTask {
 
@@ -19,11 +21,21 @@ public class TimeCube extends TimerTask {
 	@Override
 	public void run() {
 		for (int i = 0; i < positions.length; i++) {	
+			boolean transportExit = false;  
+			
 			Cube tmpcube = level.getCube(positions[i].getX(), positions[i].getY(), positions[i].getZ());
+			if (tmpcube.hidesExit()) transportExit = true;	//Merker, ob sich hier der Exit verbirgt
+			
 			if (tmpcube.isDestroyable()) {	
 				level.setCube(cube, positions[i].getX(), positions[i].getY(),
 						positions[i].getZ());
-			}	
+			}
+			
+			if (transportExit) {	// Wenn sich hinter dem Würfel der Exit verborgen hat,
+									// so wird dieser nun freigelegt!
+				level.setCube(new CubeExit(), positions[i].getX(), positions[i].getY(),
+								positions[i].getZ());
+			}
 		}
 	}
 }

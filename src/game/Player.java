@@ -120,6 +120,27 @@ public class Player {
 	public float getZ() {
 		return this.z;
 	}
+	
+	/**
+	 * @return X-Koordinate im Levelarray des Spielers
+	 */
+	public float getCubeX() {
+		return (int) this.x / 10;
+	}
+
+	/**
+	 * @return Y-Koordinate im Levelarray des Spielers
+	 */
+	public float getCubeY() {
+		return (int) this.y / 10;
+	}
+
+	/**
+	 * @return Z-Koordinate im Levelarray des Spielers
+	 */
+	public float getCubeZ() {
+		return (int) this.z / 10;
+	}
 
 	/**
 	 * @return X-Position des Camerasichtpunktes
