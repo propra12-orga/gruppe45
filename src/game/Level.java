@@ -15,7 +15,7 @@ import java.util.Random;
  */
 public class Level {
 	
-	final static public int OBSTACLE_PROBABILITY = 28;    // 0-100 Prozent
+	final static public int OBSTACLE_PROBABILITY = 30;    // 0-100 Prozent
 	final static public boolean EXIT_CAN_HIDE_BEHIND_CUBES = true;
 			// Wenn "true", dann kann sich der Ausgang auch hinter
 			// Blöcken verbergen, sodass dieser erst freibomt werdeb
@@ -88,6 +88,7 @@ public class Level {
 	 * Setzt das Levelarray auf Anfang
 	 */
 	public void clear() {
+		int exit_x, exit_y, exit_z;
 		for (byte i = 0; i < getSizeX(); i++) {
 			for (byte j = 0; j < getSizeY(); j++) {
 				for (byte k = 0; k < getSizeZ(); k++) {
@@ -123,95 +124,52 @@ public class Level {
 		Random r = new Random();
 		int rnd = 1 + Math.abs(r.nextInt()) % 6;
 		
-		//rnd = 1;	//zum AUSPROBIEREN: Exit verborgen 
+		// rnd = 1;	//zum AUSPROBIEREN: Exit verborgen 
 				
 		// legt den Exit in eine zufällige Ecke
 		switch (rnd) {
 			case 1:  //level[8][1][1] = new CubeExit(); 
-					 if (EXIT_CAN_HIDE_BEHIND_CUBES) {
-						 if (level[8][1][1].getCubename() == "CubeObstacle") {
-							 	level[8][1][1].sethidesExit(true);
-						 }
-						 else {
-							 	System.out.println("Ist kein Hinder");
-							 	level[8][1][1] = new CubeExit();
-						 }
-					 }
-					 else {
-						 		level[8][1][1] = new CubeExit();
-					 }
+					 exit_x = 8;
+					 exit_y = 1;
+					 exit_z = 1;
 					 break;
 			case 2:  //level[2][1][1] = new CubeExit();
-					 if (EXIT_CAN_HIDE_BEHIND_CUBES) {
-						 if (level[2][1][1].getCubename() == "CubeObstacle") {
-							 	level[2][1][1].sethidesExit(true);
-						 }
-						 else {
-							 	System.out.println("Ist kein Hinder");
-							 	level[2][1][1] = new CubeExit();
-						 }
-					 }
-					 else {
-						 		level[2][1][1] = new CubeExit();
-					 }
+					 exit_x = 2;
+					 exit_y = 1;
+					 exit_z = 1;
 					 break;
 			case 3:  //level[1][8][1] = new CubeExit();
-					 if (EXIT_CAN_HIDE_BEHIND_CUBES) {
-						 if (level[1][8][1].getCubename() == "CubeObstacle") {
-							 	level[1][8][1].sethidesExit(true);
-						 }
-						 else {
-							 	System.out.println("Ist kein Hinder");
-							 	level[1][8][1] = new CubeExit();
-						 }
-					 }
-					 else {
-						 		level[8][1][1] = new CubeExit();
-					 }
+					 exit_x = 1;
+					 exit_y = 8;
+					 exit_z = 1;
 					 break;
 			case 4:  //level[8][8][8] = new CubeExit();
-					 if (EXIT_CAN_HIDE_BEHIND_CUBES) {
-						 if (level[8][8][8].getCubename() == "CubeObstacle") {
-							 	level[8][8][8].sethidesExit(true);
-						 }
-						 else {
-							 	System.out.println("Ist kein Hinder");
-							 	level[8][8][8] = new CubeExit();
-						 }
-					 }
-					 else {
-						 		level[8][8][8] = new CubeExit();
-					 }
+					 exit_x = 8;
+					 exit_y = 8;
+					 exit_z = 8;
 					 break;
 			case 5:  //level[1][8][8] = new CubeExit();
-					 if (EXIT_CAN_HIDE_BEHIND_CUBES) {
-						 if (level[1][8][8].getCubename() == "CubeObstacle") {
-							 	level[1][8][8].sethidesExit(true);
-						 }
-						 else {
-							 	System.out.println("Ist kein Hinder");
-							 	level[1][8][8] = new CubeExit();
-						 }
-					 }
-					 else {
-						 		level[8][1][1] = new CubeExit();
-					 }
+					 exit_x = 1;
+					 exit_y = 8;
+					 exit_z = 8;
 					 break;
 			default: //level[1][1][8] = new CubeExit();
-					 if (EXIT_CAN_HIDE_BEHIND_CUBES) {
-						 if (level[1][1][8].getCubename() == "CubeObstacle") {
-							 	level[1][1][8].sethidesExit(true);
-						 }
-						 else {
-							 	System.out.println("Ist kein Hinder");
-							 	level[1][1][8] = new CubeExit();
-						 }
-					 }
-					 else {
-						 		level[1][1][8] = new CubeExit();
-					 }
+					 exit_x = 1;
+					 exit_y = 1;
+					 exit_z = 8;
 					 break;
 		}
-
+		if (EXIT_CAN_HIDE_BEHIND_CUBES) {
+			if (level[exit_x][exit_y][exit_z].getCubename() == "CubeObstacle") {
+				 	level[exit_x][exit_y][exit_z].sethidesExit(true);
+			}
+			else {
+				 	System.out.println("Ist kein Hinder");
+				 	level[exit_x][exit_y][exit_z] = new CubeExit();
+			}
+		}
+		else {
+			 		level[exit_x][exit_y][exit_z] = new CubeExit();
+		}
 	}
 }
