@@ -66,10 +66,10 @@ public class Player {
 					(int) z / 10);
 			
 			//Explosion
-			timer.schedule(new TimeCube(level, new CubeExplosion(), posExp),
+			timer.schedule(new TimeCube(level, new CubeExplosion(), posExp, this),
 					fuseTime);
 			//Leerer Block
-			timer.schedule(new TimeCube(level, new CubeEmpty(), posExp),
+			timer.schedule(new TimeCube(level, new CubeEmpty(), posExp, this),
 					fuseTime + explosionTime);
 			//Verhindern, dass mehr Bomben gelegt werden als maxBombs erlaubt.
 			timer.schedule(new BombCount(this, maxBombs) , fuseTime + explosionTime + 10);
@@ -124,21 +124,21 @@ public class Player {
 	/**
 	 * @return X-Koordinate im Levelarray des Spielers
 	 */
-	public float getCubeX() {
+	public int getCubeX() {
 		return (int) this.x / 10;
 	}
 
 	/**
 	 * @return Y-Koordinate im Levelarray des Spielers
 	 */
-	public float getCubeY() {
+	public int getCubeY() {
 		return (int) this.y / 10;
 	}
 
 	/**
 	 * @return Z-Koordinate im Levelarray des Spielers
 	 */
-	public float getCubeZ() {
+	public int getCubeZ() {
 		return (int) this.z / 10;
 	}
 
@@ -178,6 +178,13 @@ public class Player {
 
 	public float getDirectionZ() {
 		return (float) Math.cos(angleY);
+	}
+	
+	/**
+	 * @return Anzahl der Healthpoints
+	 */
+	public int gethealthPoints(){
+		return this.healthPoints;
 	}
 
 	/**
@@ -267,6 +274,12 @@ public class Player {
 
 	public void moveUp() {
 		move(0, 1, 0);
+	}
+	
+	//FIXME Player stirbt -> Programmende
+	public void dies(){
+		System.out.println("Du bist jetzt tot!");
+		System.exit(0);
 	}
 
 	// TODO Testen, ob Abfrage funktioniert
