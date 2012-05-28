@@ -15,10 +15,12 @@ import java.util.Random;
  */
 public class Level {
 	
-	final static public int OBSTACLE_PROBABILITY = 30;    // 0-100 Prozent
+	final static public int OBSTACLE_PROBABILITY = 30;		// Wahrscheinlichkeit eines Hindernisses
+															// an leerer Stelle des Levels (0..100 %)
+						
 	final static public boolean EXIT_CAN_HIDE_BEHIND_CUBES = true;
 			// Wenn "true", dann kann sich der Ausgang auch hinter
-			// Blöcken verbergen, sodass dieser erst freibomt werdeb
+			// Blöcken verbergen, sodass dieser erst freigebomt werden
 			// muss! (vgl. 2. Meilenstein Anforderung #5)
 	
 	Cube[][][] level;
@@ -100,7 +102,7 @@ public class Level {
 						Random r = new Random();
 						int rnd = 1 + Math.abs(r.nextInt()) % 100;
 						
-						if ((rnd <= OBSTACLE_PROBABILITY) && ((i<7) || (j<7) || (k>3))) {
+						if ((rnd <= OBSTACLE_PROBABILITY) && ((i<7) || (j<7) || (k>3)) && ((i>2) || (j>2) || (k<6))) {
 							level[i][j][k] = new CubeObstacle();
 						}
 						else {
@@ -126,7 +128,6 @@ public class Level {
 		
 		// rnd = 1;	//zum AUSPROBIEREN: Exit verborgen 
 				
-		// legt den Exit in eine zufällige Ecke
 		switch (rnd) {
 			case 1:  //level[8][1][1] = new CubeExit(); 
 					 exit_x = 8;
@@ -159,16 +160,20 @@ public class Level {
 					 exit_z = 8;
 					 break;
 		}
-		if (EXIT_CAN_HIDE_BEHIND_CUBES) {
+		
+		// Setze den Ausgang
+		if (EXIT_CAN_HIDE_BEHIND_CUBES) {	// Option: Ausgang darf hinter Hindernissen liegen
 			if (level[exit_x][exit_y][exit_z].getCubename() == "CubeObstacle") {
-				 	level[exit_x][exit_y][exit_z].sethidesExit(true);
+				// Wenn Cube ein Hindernisse, dann verberge den Ausgang hinter diesem 	
+				level[exit_x][exit_y][exit_z].sethidesExit(true);
 			}
 			else {
-				 	level[exit_x][exit_y][exit_z] = new CubeExit();
+				// Wenn Cube leer ist, setze Ausgang direkt
+				level[exit_x][exit_y][exit_z] = new CubeExit();
 			}
 		}
-		else {
-			 		level[exit_x][exit_y][exit_z] = new CubeExit();
+		else {								// Option: Ausgang kann nicht hinter Hindernissen liegen
+			 	level[exit_x][exit_y][exit_z] = new CubeExit();
 		}
 	}
 }
