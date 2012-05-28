@@ -15,7 +15,7 @@ import java.util.Random;
  */
 public class Level {
 	
-	final static public int OBSTACLE_PROBABILITY = 30;		// Wahrscheinlichkeit eines Hindernisses
+	final static public int OBSTACLE_PROBABILITY = 28;		// Wahrscheinlichkeit eines Hindernisses
 															// an leerer Stelle des Levels (0..100 %)
 						
 	final static public boolean EXIT_CAN_HIDE_BEHIND_CUBES = true;
@@ -102,14 +102,23 @@ public class Level {
 						Random r = new Random();
 						int rnd = 1 + Math.abs(r.nextInt()) % 100;
 						
+						// Setze zufällig Hindernisse; lasse dabei die Startpositionen der Spieler frei
 						if ((rnd <= OBSTACLE_PROBABILITY) && ((i<7) || (j<7) || (k>3)) && ((i>2) || (j>2) || (k<6))) {
 							level[i][j][k] = new CubeObstacle();
 						}
 						else {
-							level[i][j][k] = new CubeEmpty();
+							// Die raumteilenden Ebenden werden mit deutlich erhöhter Wahrscheinlichkeit
+							// mit Hindernissen gefüllt
+							if ((rnd <= OBSTACLE_PROBABILITY * 2.0f) && ((i==5) || (j==5) || (k==5))) {
+								level[i][j][k] = new CubeObstacle();
+							}
+							else {
+								// Wenn kein Hindernis gesetzt wird, so setze einen leere Würfel
+								level[i][j][k] = new CubeEmpty();
+							}
 						}
 					}
-					// Aussenseite des Levels
+					// Aussenseite des Levels wird ausgefüllt
 					if (i == 0 || j == 0 || k == 0 || i == getSizeX() - 1
 							|| j == getSizeY() - 1 || k == getSizeZ() - 1) {
 						level[i][j][k] = new CubeOutside();
@@ -129,33 +138,27 @@ public class Level {
 		// rnd = 1;	//zum AUSPROBIEREN: Exit verborgen 
 				
 		switch (rnd) {
-			case 1:  //level[8][1][1] = new CubeExit(); 
-					 exit_x = 8;
+			case 1:  exit_x = 8;
 					 exit_y = 1;
 					 exit_z = 1;
 					 break;
-			case 2:  //level[2][1][1] = new CubeExit();
-					 exit_x = 2;
+			case 2:  exit_x = 2;
 					 exit_y = 1;
 					 exit_z = 1;
 					 break;
-			case 3:  //level[1][8][1] = new CubeExit();
-					 exit_x = 1;
+			case 3:  exit_x = 1;
 					 exit_y = 8;
 					 exit_z = 1;
 					 break;
-			case 4:  //level[8][8][8] = new CubeExit();
-					 exit_x = 8;
+			case 4:  exit_x = 8;
 					 exit_y = 8;
 					 exit_z = 8;
 					 break;
-			case 5:  //level[1][8][8] = new CubeExit();
-					 exit_x = 1;
+			case 5:  exit_x = 1;
 					 exit_y = 8;
 					 exit_z = 8;
 					 break;
-			default: //level[1][1][8] = new CubeExit();
-					 exit_x = 1;
+			default: exit_x = 1;
 					 exit_y = 1;
 					 exit_z = 8;
 					 break;
