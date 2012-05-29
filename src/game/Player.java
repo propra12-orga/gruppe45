@@ -30,7 +30,7 @@ public class Player {
 
 	private int healthPoints = 100;
 	int radius = 3;
-	int maxBombs = 2;
+	int maxBombs = 1;
 	int fuseTime = 3000;
 	int explosionTime = 1000;
 	int bombenzahl = 0;
