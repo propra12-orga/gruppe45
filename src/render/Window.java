@@ -2,7 +2,6 @@ package render;
 
 import game.Level;
 import game.Player;
-import game.cube.CubeExit;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
@@ -27,9 +26,10 @@ public class Window {// implements Runnable {
 			e.printStackTrace();
 			System.exit(0);
 		}
-		Level level = new Level();
+		Level level = new Level(20, 20, 20);
 		Player player = new Player(level, 85, 85, 15); // STARTPOSITION SPIELER
-														//Zweiter Spieler (25,15,85)
+														// Zweiter Spieler
+														// (25,15,85)
 		OpenGL openGl = new OpenGL(level, player, width, height);
 		Control_Keyboard controlKeyboard = new Control_Keyboard(player);
 		Control_Mouse controlMouse = new Control_Mouse(player);
