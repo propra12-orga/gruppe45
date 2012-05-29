@@ -33,8 +33,6 @@ public class Player {
 	int maxBombs = 1;
 	int fuseTime = 3000;
 	int explosionTime = 1000;
-	int bombenzahl = 0;
-	boolean bombable = true;
 
 	/**
 	 * Der Konstruktor verlangt die Anfangsposition
@@ -68,13 +66,13 @@ public class Player {
 					(int) z / 10);
 			
 			//Explosion
-			timer.schedule(new TimeCube(level, new CubeExplosion(), posExp),
+			timer.schedule(new TimeCube(level, new CubeExplosion(), posExp, this),
 					fuseTime);
 			//Leerer Block
-			timer.schedule(new TimeCube(level, new CubeEmpty(), posExp),
+			timer.schedule(new TimeCube(level, new CubeEmpty(), posExp, this),
 					fuseTime + explosionTime);
 			//Verhindern, dass mehr Bomben gelegt werden als maxBombs erlaubt.
-			timer.schedule(new BombCount(this, bombenzahl, maxBombs) , fuseTime + explosionTime+10);
+			timer.schedule(new BombCount(this, maxBombs) , fuseTime + explosionTime + 10);
 		}
 	}
 
@@ -122,6 +120,27 @@ public class Player {
 	public float getZ() {
 		return this.z;
 	}
+	
+	/**
+	 * @return X-Koordinate im Levelarray des Spielers
+	 */
+	public int getCubeX() {
+		return (int) this.x / 10;
+	}
+
+	/**
+	 * @return Y-Koordinate im Levelarray des Spielers
+	 */
+	public int getCubeY() {
+		return (int) this.y / 10;
+	}
+
+	/**
+	 * @return Z-Koordinate im Levelarray des Spielers
+	 */
+	public int getCubeZ() {
+		return (int) this.z / 10;
+	}
 
 	/**
 	 * @return X-Position des Camerasichtpunktes
@@ -160,6 +179,13 @@ public class Player {
 	public float getDirectionZ() {
 		return (float) Math.cos(angleY);
 	}
+	
+	/**
+	 * @return Anzahl der Healthpoints
+	 */
+	public int gethealthPoints(){
+		return this.healthPoints;
+	}
 
 	/**
 	 * Setzt den Spieler an eine bestimmt Position
@@ -171,7 +197,6 @@ public class Player {
 	 * @param z
 	 *            Tiefenposition
 	 */
-	// FIXME PlayerSetPosition() Pruefen ob Platz an der Stelle ist
 	public void setPosition(float x, float y, float z) {
 		this.x = x;
 		this.y = y;
@@ -250,10 +275,13 @@ public class Player {
 	public void moveUp() {
 		move(0, 1, 0);
 	}
+	
+	//FIXME Player stirbt -> Programmende
+	public void dies(){
+		System.out.println("Du bist jetzt tot!");
+		System.exit(0);
+	}
 
-	// FIXME Spielfeldverlassen-Abragen an dynamische Level (getSizeXYZ,
-	// Cubesize, ...)
-	// anpassen
 	// TODO Testen, ob Abfrage funktioniert
 	private void move(float x, float y, float z) {
 		int tmpCubeX = (int) (this.x + x) / 10; // x-Position des ZielCubes im
