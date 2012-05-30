@@ -1,15 +1,17 @@
+Um Bomberman ausführen zu können, bitte 
+
 Steuerung:
 W - vorne
 S - hinten
 A - links
 D - rechts
-<<<<<<< HEAD
+
 Pfeil link / Maus - links drehen
 Pfeil rechts / Maus - rechts drehen
 Pfeil unten / Maus - oben kippen
 Pfeil ober / Maus - unten neigen
-=======
+
 Q - nach oben
 E - nach unten
-SPACE - Bombe legen
->>>>>>> dcd9d4598d838ddbe4453754fe343714fbe58108
+SPACE / Linksklick - Bombe legen
+
