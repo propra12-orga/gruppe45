@@ -2,7 +2,6 @@ package render;
 
 import game.Level;
 import game.Player;
-import game.cube.CubeExit;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
@@ -33,7 +32,6 @@ public class Window {// implements Runnable {
 			e.printStackTrace();
 			System.exit(0);
 		}
-		
 		
 		Level level = new Level(level_size_x,level_size_y,level_size_z);
 

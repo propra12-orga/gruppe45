@@ -3,9 +3,10 @@ package game;
 import game.cube.Cube;
 import game.cube.CubeEmpty;
 import game.cube.CubeExit;
-import game.cube.CubeSolid;
-import game.cube.CubeOutside;
 import game.cube.CubeObstacle;
+import game.cube.CubeOutside;
+import game.cube.CubeSolid;
+
 import java.util.Random;
 
 /**
@@ -17,12 +18,12 @@ public class Level {
 	
 	final static public int OBSTACLE_PROBABILITY = 25;		// Wahrscheinlichkeit eines Hindernisses
 															// an leerer Stelle des Levels (0..100 %)
-			
+
 	final static public boolean EXIT_CAN_HIDE_BEHIND_CUBES = true;
-			// Wenn "true", dann kann sich der Ausgang auch hinter
-			// Blöcken verbergen, sodass dieser erst freigebomt werden
-			// muss! (vgl. 2. Meilenstein Anforderung #5)
-	
+	// Wenn "true", dann kann sich der Ausgang auch hinter
+	// Blöcken verbergen, sodass dieser erst freigebomt werden
+	// muss! (vgl. 2. Meilenstein Anforderung #5)
+
 	Cube[][][] level;
 
 	public int getSizeX() {
@@ -42,14 +43,6 @@ public class Level {
 				&& z < getSizeZ()) {
 			level[x][y][z] = cube;
 		}
-	}
-
-	/**
-	 * Der Standardkonstruktor erzeugt ein Level der Groesse 10x10x10
-	 */
-	public Level() {
-		level = new Cube[10][10][10];
-		clear();
 	}
 
 	/**
@@ -99,6 +92,7 @@ public class Level {
 					if (!(i % 2 == 0 || j % 2 == 0 || k % 2 == 0)) {
 						level[i][j][k] = new CubeSolid();
 					} else {
+
 						//FIXME Bessere zufällige Hindernisverteilung einbauen
 						Random random = new Random();
 						int rnd = 1 + Math.abs(random.nextInt()) % 100;
@@ -106,15 +100,15 @@ public class Level {
 						// Setze zufällig Hindernisse; lasse dabei die Startpositionen der Spieler frei
 						if ((rnd <= OBSTACLE_PROBABILITY) && ((i<this.getSizeX()-3) || (j<this.getSizeY()-3) || (k>3)) && ((i>2) || (j>2) || (k<this.getSizeZ()-4))) {
 							level[i][j][k] = new CubeObstacle();
-						}
-						else {
-							// Die raumteilenden Ebenden werden mit deutlich erhöhter Wahrscheinlichkeit
+						} else {
+							// Die raumteilenden Ebenden werden mit deutlich
+							// erhöhter Wahrscheinlichkeit
 							// mit Hindernissen gefüllt
 							if ((rnd <= OBSTACLE_PROBABILITY * 2.0f) && ((i==this.getSizeX()/2) || (j==this.getSizeY()/2) || (k==this.getSizeZ()/2))) {
 								level[i][j][k] = new CubeObstacle();
-							}
-							else {
-								// Wenn kein Hindernis gesetzt wird, so setze einen leere Würfel
+							} else {
+								// Wenn kein Hindernis gesetzt wird, so setze
+								// einen leere Würfel
 								level[i][j][k] = new CubeEmpty();
 							}
 						}
@@ -127,6 +121,7 @@ public class Level {
 				}
 			}
 		}
+
 		// TODO zum AUSPROBIEREN: Exit verborgen 
 		// level[this.getSizeX()-2][this.getSizeY()-2][this.getSizeZ()-2] = new CubeObstacle();
 		// level[this.getSizeX()-2][this.getSizeY()-2][this.getSizeZ()-2].sethidesExit(true);
@@ -177,21 +172,21 @@ public class Level {
 			else {
 				exit_x = 2;
 			}
-		}
-		
+		}		
+
 		// Setze den Ausgang
-		if (EXIT_CAN_HIDE_BEHIND_CUBES) {	// Option: Ausgang darf hinter Hindernissen liegen
+		if (EXIT_CAN_HIDE_BEHIND_CUBES) { // Option: Ausgang darf hinter
+											// Hindernissen liegen
 			if (level[exit_x][exit_y][exit_z].getCubename() == "CubeObstacle") {
-				// Wenn Cube ein Hindernisse, dann verberge den Ausgang hinter diesem 	
+				// Wenn Cube ein Hindernisse, dann verberge den Ausgang hinter
+				// diesem
 				level[exit_x][exit_y][exit_z].sethidesExit(true);
-			}
-			else {
+			} else {
 				// Wenn Cube leer ist, setze Ausgang direkt
 				level[exit_x][exit_y][exit_z] = new CubeExit();
 			}
-		}
-		else {								// Option: Ausgang kann nicht hinter Hindernissen liegen
-			 	level[exit_x][exit_y][exit_z] = new CubeExit();
+		} else { // Option: Ausgang kann nicht hinter Hindernissen liegen
+			level[exit_x][exit_y][exit_z] = new CubeExit();
 		}
 	}
 }
