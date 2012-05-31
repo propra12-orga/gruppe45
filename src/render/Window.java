@@ -26,7 +26,7 @@ public class Window {// implements Runnable {
 			e.printStackTrace();
 			System.exit(0);
 		}
-		Level level = new Level(20, 20, 20);
+		Level level = new Level(10,10,10);
 		Player player = new Player(level, 85, 85, 15); // STARTPOSITION SPIELER
 														// Zweiter Spieler
 														// (25,15,85)
