@@ -16,7 +16,7 @@ import java.util.Random;
  */
 public class Level {
 	
-	final static public int OBSTACLE_PROBABILITY = 25;		// Wahrscheinlichkeit eines Hindernisses
+	final static public int OBSTACLE_PROBABILITY = 30;		// Wahrscheinlichkeit eines Hindernisses
 															// an leerer Stelle des Levels (0..100 %)
 
 	final static public boolean EXIT_CAN_HIDE_BEHIND_CUBES = true;
@@ -123,8 +123,8 @@ public class Level {
 		}
 
 		// TODO zum AUSPROBIEREN: Exit verborgen 
-		// level[this.getSizeX()-2][this.getSizeY()-2][this.getSizeZ()-2] = new CubeObstacle();
-		// level[this.getSizeX()-2][this.getSizeY()-2][this.getSizeZ()-2].sethidesExit(true);
+		 level[this.getSizeX()-2][this.getSizeY()-2][this.getSizeZ()-2] = new CubeObstacle();
+		 level[this.getSizeX()-2][this.getSizeY()-2][this.getSizeZ()-2].sethidesExit(true);
 		
 		// Setze den Ausgang in eine zufällige der sechs Ecken,
 		// die nicht durch Spieler belegt ist!
