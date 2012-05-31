@@ -13,10 +13,15 @@ import javax.swing.JFrame;
 public class Menu {
 
 	public static void main(String[] args) {
+
 		JFrame.setDefaultLookAndFeelDecorated(true); // kann man weglassen, gibt
 														// nur ein anderes
 														// Layout
-		JFrame frame = new JFrame("Menü");
+
+		JFrame.setDefaultLookAndFeelDecorated(true); // kann man weglassen,
+		// gibt nur ein anderes Layout
+		JFrame frame = new JFrame("Men�");
+
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(300, 200);
 		frame.setVisible(true);
