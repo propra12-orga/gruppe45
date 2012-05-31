@@ -15,11 +15,17 @@ import java.util.Random;
  * @author felidosz
  */
 public class Level {
+<<<<<<< HEAD
 
 	final static public int OBSTACLE_PROBABILITY = 0; // Wahrscheinlichkeit
 														// eines Hindernisses
 														// an leerer Stelle des
 														// Levels (0..100 %)
+=======
+	
+	final static public int OBSTACLE_PROBABILITY = 25;		// Wahrscheinlichkeit eines Hindernisses
+															// an leerer Stelle des Levels (0..100 %)
+>>>>>>> 86ca0c6d347ef191c6ceea4e8e3911e4d490f781
 
 	final static public boolean EXIT_CAN_HIDE_BEHIND_CUBES = true;
 	// Wenn "true", dann kann sich der Ausgang auch hinter
@@ -85,6 +91,7 @@ public class Level {
 	 * Setzt das Levelarray auf Anfang
 	 */
 	public void clear() {
+		//FIXME Philipp: Levelverteilung an skalierbare Levelgröße anpassen
 		int exit_x, exit_y, exit_z;
 		for (byte i = 0; i < getSizeX(); i++) {
 			for (byte j = 0; j < getSizeY(); j++) {
@@ -93,22 +100,19 @@ public class Level {
 					if (!(i % 2 == 0 || j % 2 == 0 || k % 2 == 0)) {
 						level[i][j][k] = new CubeSolid();
 					} else {
-						// FIXME Bessere zufällige Hindernisverteilung einbauen
-						Random r = new Random();
-						int rnd = 1 + Math.abs(r.nextInt()) % 100;
 
-						// Setze zufällig Hindernisse; lasse dabei die
-						// Startpositionen der Spieler frei
-						if ((rnd <= OBSTACLE_PROBABILITY)
-								&& ((i < 7) || (j < 7) || (k > 3))
-								&& ((i > 2) || (j > 2) || (k < 6))) {
+						//FIXME Bessere zufällige Hindernisverteilung einbauen
+						Random random = new Random();
+						int rnd = 1 + Math.abs(random.nextInt()) % 100;
+						
+						// Setze zufällig Hindernisse; lasse dabei die Startpositionen der Spieler frei
+						if ((rnd <= OBSTACLE_PROBABILITY) && ((i<this.getSizeX()-3) || (j<this.getSizeY()-3) || (k>3)) && ((i>2) || (j>2) || (k<this.getSizeZ()-4))) {
 							level[i][j][k] = new CubeObstacle();
 						} else {
 							// Die raumteilenden Ebenden werden mit deutlich
 							// erhöhter Wahrscheinlichkeit
 							// mit Hindernissen gefüllt
-							if ((rnd <= OBSTACLE_PROBABILITY * 2.0f)
-									&& ((i == 5) || (j == 5) || (k == 5))) {
+							if ((rnd <= OBSTACLE_PROBABILITY * 2.0f) && ((i==this.getSizeX()/2) || (j==this.getSizeY()/2) || (k==this.getSizeZ()/2))) {
 								level[i][j][k] = new CubeObstacle();
 							} else {
 								// Wenn kein Hindernis gesetzt wird, so setze
@@ -125,49 +129,58 @@ public class Level {
 				}
 			}
 		}
-		// zum AUSPROBIEREN: Exit verborgen
-		// level[8][1][1] = new CubeObstacle();
-		// level[8][1][1].sethidesExit(true);
 
+		// TODO zum AUSPROBIEREN: Exit verborgen 
+		// level[this.getSizeX()-2][this.getSizeY()-2][this.getSizeZ()-2] = new CubeObstacle();
+		// level[this.getSizeX()-2][this.getSizeY()-2][this.getSizeZ()-2].sethidesExit(true);
+		
 		// Setze den Ausgang in eine zufällige der sechs Ecken,
 		// die nicht durch Spieler belegt ist!
-		Random r = new Random();
-		int rnd = 1 + Math.abs(r.nextInt()) % 6;
+		Random random = new Random();
+		int rnd = 1 + Math.abs(random.nextInt()) % 6;
+		
+		// rnd = 4;	//TODO zum AUSPROBIEREN: Exit verborgen 
 
-		// rnd = 1; //zum AUSPROBIEREN: Exit verborgen
-
+		// Skalierbares Level:
+		// Der Ausgang wird bei freiwählbaren Levelausdehnungen in X,Y,Z 
+		// immer in die Ecken des Levels gelegt
 		switch (rnd) {
-		case 1:
-			exit_x = 8;
-			exit_y = 1;
-			exit_z = 1;
-			break;
-		case 2:
-			exit_x = 2;
-			exit_y = 1;
-			exit_z = 1;
-			break;
-		case 3:
-			exit_x = 1;
-			exit_y = 8;
-			exit_z = 1;
-			break;
-		case 4:
-			exit_x = 8;
-			exit_y = 8;
-			exit_z = 8;
-			break;
-		case 5:
-			exit_x = 1;
-			exit_y = 8;
-			exit_z = 8;
-			break;
-		default:
-			exit_x = 1;
-			exit_y = 1;
-			exit_z = 8;
-			break;
+			case 1:  exit_x = this.getSizeX()-2;
+					 exit_y = 1;
+					 exit_z = 1;
+					 break;
+			case 2:  exit_x = 2;
+					 exit_y = 1;
+					 exit_z = 1;
+					 break;
+			case 3:  exit_x = 1;
+					 exit_y = this.getSizeY()-2;
+					 exit_z = 1;
+					 break;
+			case 4:  exit_x = this.getSizeX()-2;
+					 exit_y = this.getSizeY()-2;
+					 exit_z = this.getSizeZ()-2;
+					 break;
+			case 5:  exit_x = 1;
+					 exit_y = this.getSizeY()-2;
+					 exit_z = this.getSizeZ()-2;
+					 break;
+			default: exit_x = 1;
+					 exit_y = 1;
+					 exit_z = this.getSizeZ()-2;
+					 break;
 		}
+		
+		// Wenn der Exit in einem unzerstörbaren Würfel liegen, verschiebe den
+		// Exit auf der x-Achse in einen leeren/zerstörbaren Würfel
+		if (level[exit_x][exit_y][exit_z].getCubename() == "CubeSolid") {
+			if (exit_x == this.getSizeX()-2) {
+				exit_x -= 1;
+			}
+			else {
+				exit_x = 2;
+			}
+		}		
 
 		// Setze den Ausgang
 		if (EXIT_CAN_HIDE_BEHIND_CUBES) { // Option: Ausgang darf hinter

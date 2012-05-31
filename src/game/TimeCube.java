@@ -2,6 +2,7 @@ package game;
 
 import game.cube.Cube;
 import game.cube.CubeExit;
+import game.cube.CubeExplosion;
 import game.Player;
 import java.util.TimerTask;
 import game.Level;
@@ -38,6 +39,8 @@ public class TimeCube extends TimerTask {
 				if (cube.getCubename() == "CubeExplosion") {
 					if ((positions[i].getX() == player.getCubeX()) && (positions[i].getY() == player.getCubeY()) && (positions[i].getZ() == player.getCubeZ())){
 						cube.change(player);
+							
+							// TODO Testausgabe entfernen!
 							System.out.println("Player getroffen! -25  HealthPoints: " + player.gethealthPoints());
 						
 						// Abfrage, ob Player noch lebt oder getötet wurde
@@ -49,9 +52,14 @@ public class TimeCube extends TimerTask {
 			}
 			
 			if (transportExit) {	// Wenn sich hinter dem Würfel der Exit verborgen hat,
-									// so wird dieser nun freigelegt!
-				level.setCube(new CubeExit(), positions[i].getX(), positions[i].getY(),
+									// so wird dieser nun freigelegt bzw. weitergegeben!
+				if (cube.getCubename() == "CubeEmpty") {
+					level.setCube(new CubeExit(), positions[i].getX(), positions[i].getY(),
 								positions[i].getZ());
+				}
+				else {
+					level.setCube(new CubeExplosion(true),positions[i].getX(),positions[i].getX(),positions[i].getX());
+				}
 			}
 		}
 	}
