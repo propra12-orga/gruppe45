@@ -85,7 +85,7 @@ public class Player {
 	}
 
 	public void healPlayer(int healPoints) {
-		healPoints += healPoints;
+		healthPoints += healPoints;
 	}
 
 	public void hitPlayer(int hitPoints) {
@@ -183,7 +183,7 @@ public class Player {
 	/**
 	 * @return Anzahl der Healthpoints
 	 */
-	public int gethealthPoints(){
+	public int getHealthPoints(){
 		return this.healthPoints;
 	}
 
@@ -300,7 +300,7 @@ public class Player {
 			this.y += y;
 			this.z += z;
 			if (cube.isCollectable()) {
-				cube.change();
+				cube.change(this, level);
 			}
 		}
 	}

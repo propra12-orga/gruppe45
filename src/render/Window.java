@@ -15,9 +15,9 @@ public class Window {// implements Runnable {
 	final static public int width = 800; //Größe des Darstellungsfensters
 	final static public int height = 600;
 
-	final static public int level_size_x = 12;	// X-Ausdehnung der Spielwelt
-	final static public int level_size_y = 12;	// Y-Ausdehnung der Spielwelt
-	final static public int level_size_z = 12;	// Z-Ausdehnung der Spielwelt
+	final static public int level_size_x = 10;	// X-Ausdehnung der Spielwelt
+	final static public int level_size_y = 10;	// Y-Ausdehnung der Spielwelt
+	final static public int level_size_z = 10;	// Z-Ausdehnung der Spielwelt
 	
 	// Thread t = new Thread();
 	

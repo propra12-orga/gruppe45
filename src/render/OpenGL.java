@@ -56,8 +56,8 @@ public class OpenGL {
 					} else if (level.getCube(i, j, k).getClass().getName()
 							.equals("game.cube.CubeItemHealth")) {
 						GL11.glColor3f(1f, 0f, 0f);
-						Primitives.DrawCube(i * sizeOfCube, j * sizeOfCube, k
-								* sizeOfCube, sizeOfCube * 0.1f);
+						Primitives.DrawCube(i * sizeOfCube+5, j * sizeOfCube+5, k
+								* sizeOfCube+5, sizeOfCube * 0.1f);
 					} else if (level.getCube(i, j, k).getClass().getName()
 							.equals("game.cube.CubeSolid")) {
 						GL11.glEnable(GL11.GL_TEXTURE_2D);
@@ -67,15 +67,15 @@ public class OpenGL {
 					} else if (level.getCube(i, j, k).getClass().getName()
 							.equals("game.cube.CubeOutside")) {
 						GL11.glEnable(GL11.GL_TEXTURE_2D);
-						objects.DrawCubeOutside(i * sizeOfCube, j * sizeOfCube, k
-								* sizeOfCube);
+						objects.DrawCubeOutside(i * sizeOfCube, j * sizeOfCube,
+								k * sizeOfCube);
 						GL11.glDisable(GL11.GL_TEXTURE_2D);
 					} else if (level.getCube(i, j, k).getClass().getName()
 							.equals("game.cube.CubeObstacle")) {
 						GL11.glEnable(GL11.GL_TEXTURE_2D);
-						objects.DrawCubeObstacle(i * sizeOfCube, j * sizeOfCube, k
-								* sizeOfCube);
-						GL11.glDisable(GL11.GL_TEXTURE_2D);						
+						objects.DrawCubeObstacle(i * sizeOfCube,
+								j * sizeOfCube, k * sizeOfCube);
+						GL11.glDisable(GL11.GL_TEXTURE_2D);
 					} else if (level.getCube(i, j, k).getClass().getName()
 							.equals("game.cube.CubeExit")) {
 						GL11.glColor3f(0f, 1f, 0f);

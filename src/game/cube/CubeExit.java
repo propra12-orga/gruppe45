@@ -1,4 +1,7 @@
 package game.cube;
+import game.Level;
+import game.Player;
+
 
 public class CubeExit extends Cube {
 
@@ -7,7 +10,7 @@ public class CubeExit extends Cube {
 	}
 
 	@Override
-	public void change() {
+	public void change(Player player, Level level) {
 		System.exit(1);
 	}
 
