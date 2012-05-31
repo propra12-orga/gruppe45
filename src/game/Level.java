@@ -136,7 +136,7 @@ public class Level {
 		Random random = new Random();
 		int rnd = 1 + Math.abs(random.nextInt()) % 6;
 		
-		level[8][8][5]=new CubeItemHealth();
+		//level[8][8][5]=new CubeItemHealth();
 		
 		// rnd = 4;	//TODO zum AUSPROBIEREN: Exit verborgen 
 
@@ -191,9 +191,11 @@ public class Level {
 			} else {
 				// Wenn Cube leer ist, setze Ausgang direkt
 				level[exit_x][exit_y][exit_z] = new CubeExit();
+				System.out.println("Level Zeile 193");
 			}
 		} else { // Option: Ausgang kann nicht hinter Hindernissen liegen
 			level[exit_x][exit_y][exit_z] = new CubeExit();
+			System.out.println("Level Zeile 197");			
 		}
 	}
 }

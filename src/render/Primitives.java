@@ -10,8 +10,8 @@ import org.lwjgl.opengl.GL11;
 
 public class Primitives {
 	/**
-	 * Zeichnet einen Wuerfel dessen Mittelpunkt die uebergebene Position ist. Die
-	 * aktuelle glColor wird verwendet.
+	 * Zeichnet einen Wuerfel dessen Mittelpunkt die uebergebene Position ist.
+	 * Die aktuelle glColor wird verwendet.
 	 * 
 	 * @param gl
 	 *            GL-Drawable
@@ -57,54 +57,34 @@ public class Primitives {
 		GL11.glVertex3f(x + size, y, z);
 		GL11.glVertex3f(x, y, z);
 		GL11.glEnd();
-		GL11.glColor3f(0, 0, 0);
-		GL11.glBegin(GL11.GL_LINE_LOOP);
-		// Vorne
-		GL11.glVertex3f(x, y, z);
-		GL11.glVertex3f(x, y + size, z);
-		GL11.glVertex3f(x + size, y + size, z);
-		GL11.glVertex3f(x + size, y, z);
-		GL11.glEnd();
-		GL11.glBegin(GL11.GL_LINE_LOOP);
-		// Hinten
-		GL11.glVertex3f(x, y, z + size);
-		GL11.glVertex3f(x + size, y, z + size);
-		GL11.glVertex3f(x + size, y + size, z + size);
-		GL11.glVertex3f(x, y + size, z + size);
-		GL11.glEnd();
-		GL11.glBegin(GL11.GL_LINE_LOOP);
-		// Rechts
-		GL11.glVertex3f(x + size, y, z + size);
-		GL11.glVertex3f(x + size, y + size, z + size);
-		GL11.glVertex3f(x + size, y + size, z);
-		GL11.glVertex3f(x + size, y, z);
-		GL11.glEnd();
-		GL11.glBegin(GL11.GL_LINE_LOOP);
-		// Links
-		GL11.glVertex3f(x, y, z + size);
-		GL11.glVertex3f(x, y + size, z + size);
-		GL11.glVertex3f(x, y + size, z);
-		GL11.glVertex3f(x, y, z);
-		GL11.glEnd();
-		GL11.glBegin(GL11.GL_LINE_LOOP);
-		// Oben
-		GL11.glVertex3f(x, y + size, z + size);
-		GL11.glVertex3f(x + size, y + size, z + size);
-		GL11.glVertex3f(x + size, y + size, z);
-		GL11.glVertex3f(x, y + size, z);
-		GL11.glEnd();
-		GL11.glBegin(GL11.GL_LINE_LOOP);
-		// Unten
-		GL11.glVertex3f(x, y, z + size);
-		GL11.glVertex3f(x + size, y, z + size);
-		GL11.glVertex3f(x + size, y, z);
-		GL11.glVertex3f(x, y, z);
-		GL11.glEnd();
+		/*
+		 * Rand am Wuerfel GL11.glColor3f(0, 0, 0);
+		 * GL11.glBegin(GL11.GL_LINE_LOOP); // Vorne GL11.glVertex3f(x, y, z);
+		 * GL11.glVertex3f(x, y + size, z); GL11.glVertex3f(x + size, y + size,
+		 * z); GL11.glVertex3f(x + size, y, z); GL11.glEnd();
+		 * GL11.glBegin(GL11.GL_LINE_LOOP); // Hinten GL11.glVertex3f(x, y, z +
+		 * size); GL11.glVertex3f(x + size, y, z + size); GL11.glVertex3f(x +
+		 * size, y + size, z + size); GL11.glVertex3f(x, y + size, z + size);
+		 * GL11.glEnd(); GL11.glBegin(GL11.GL_LINE_LOOP); // Rechts
+		 * GL11.glVertex3f(x + size, y, z + size); GL11.glVertex3f(x + size, y +
+		 * size, z + size); GL11.glVertex3f(x + size, y + size, z);
+		 * GL11.glVertex3f(x + size, y, z); GL11.glEnd();
+		 * GL11.glBegin(GL11.GL_LINE_LOOP); // Links GL11.glVertex3f(x, y, z +
+		 * size); GL11.glVertex3f(x, y + size, z + size); GL11.glVertex3f(x, y +
+		 * size, z); GL11.glVertex3f(x, y, z); GL11.glEnd();
+		 * GL11.glBegin(GL11.GL_LINE_LOOP); // Oben GL11.glVertex3f(x, y + size,
+		 * z + size); GL11.glVertex3f(x + size, y + size, z + size);
+		 * GL11.glVertex3f(x + size, y + size, z); GL11.glVertex3f(x, y + size,
+		 * z); GL11.glEnd(); GL11.glBegin(GL11.GL_LINE_LOOP); // Unten
+		 * GL11.glVertex3f(x, y, z + size); GL11.glVertex3f(x + size, y, z +
+		 * size); GL11.glVertex3f(x + size, y, z); GL11.glVertex3f(x, y, z);
+		 * GL11.glEnd();
+		 */
 	}
 
 	/**
-	 * Zeichnet einen Wuerfel dessen Mittelpunkt die uebergebene Position ist. Die
-	 * aktuelle glColor wird verwendet.
+	 * Zeichnet einen Wuerfel dessen Mittelpunkt die uebergebene Position ist.
+	 * Die aktuelle glColor wird verwendet.
 	 * 
 	 * @param gl
 	 *            GL-Drawable

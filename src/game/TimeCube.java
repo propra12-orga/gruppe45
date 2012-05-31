@@ -56,6 +56,7 @@ public class TimeCube extends TimerTask {
 				if (cube.getCubename() == "CubeEmpty") {
 					level.setCube(new CubeExit(), positions[i].getX(), positions[i].getY(),
 								positions[i].getZ());
+					System.out.println("TimeCube Zeile 57");					
 				}
 				else {
 					level.setCube(new CubeExplosion(true),positions[i].getX(),positions[i].getX(),positions[i].getX());
