@@ -8,6 +8,8 @@ public class CubeExit extends Cube {
 
 	@Override
 	public void change() {
+		// TODO Println-Zeile löschen! Ausgabe nur zu Probezwecken!
+		System.out.println("Du hast den Ausgang erreicht - Glückwunsch!");
 		System.exit(1);
 	}
 
