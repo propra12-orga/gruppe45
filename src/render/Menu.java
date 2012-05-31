@@ -20,7 +20,8 @@ public class Menu {
 
 		JFrame.setDefaultLookAndFeelDecorated(true); // kann man weglassen,
 		// gibt nur ein anderes Layout
-		JFrame frame = new JFrame("Men�");
+
+		JFrame frame = new JFrame("Menue");
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(300, 200);
