@@ -47,6 +47,10 @@ public class Player {
 		this.level = level;
 	}
 
+	public int getNumber() {
+		return number;
+	}
+
 	/**
 	 * Nur zum Speichern der Spielerposition im Server
 	 */
