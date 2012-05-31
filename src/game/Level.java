@@ -15,17 +15,9 @@ import java.util.Random;
  * @author felidosz
  */
 public class Level {
-<<<<<<< HEAD
 
-	final static public int OBSTACLE_PROBABILITY = 0; // Wahrscheinlichkeit
-														// eines Hindernisses
-														// an leerer Stelle des
-														// Levels (0..100 %)
-=======
-	
 	final static public int OBSTACLE_PROBABILITY = 25;		// Wahrscheinlichkeit eines Hindernisses
 															// an leerer Stelle des Levels (0..100 %)
->>>>>>> 86ca0c6d347ef191c6ceea4e8e3911e4d490f781
 
 	final static public boolean EXIT_CAN_HIDE_BEHIND_CUBES = true;
 	// Wenn "true", dann kann sich der Ausgang auch hinter

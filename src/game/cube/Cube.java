@@ -61,7 +61,7 @@ public abstract class Cube {
 	}
 
 	public void change(Player player) {
-
+			player.healPlayer(25);
 	}
 
 	public void change() {

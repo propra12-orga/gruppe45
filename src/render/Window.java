@@ -32,12 +32,6 @@ public class Window {// implements Runnable {
 			e.printStackTrace();
 			System.exit(0);
 		}
-<<<<<<< HEAD
-		Level level = new Level(10,10,10);
-		Player player = new Player(level, 85, 85, 15); // STARTPOSITION SPIELER
-														// Zweiter Spieler
-														// (25,15,85)
-=======
 		
 		Level level = new Level(level_size_x,level_size_y,level_size_z);
 
@@ -58,7 +52,6 @@ public class Window {// implements Runnable {
 		Player player = new Player(level, player1_start_x, level_size_y*10-15, 15); // STARTPOSITION SPIELER
 		//Player player = new Player(level, 25, 15, level_size_z*10-15);
 
->>>>>>> 86ca0c6d347ef191c6ceea4e8e3911e4d490f781
 		OpenGL openGl = new OpenGL(level, player, width, height);
 		Control_Keyboard controlKeyboard = new Control_Keyboard(player);
 		Control_Mouse controlMouse = new Control_Mouse(player);
