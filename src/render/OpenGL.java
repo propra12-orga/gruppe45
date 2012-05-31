@@ -10,11 +10,16 @@ import org.lwjgl.util.glu.GLU;
 
 public class OpenGL {
 
-	int width, height;
+	final static public byte EFFECT_OFF = 0x00; // 0000 0000
+	final static public byte EFFECT_RED = 0x01; // 0000 0001
+	final static public byte EFFECT_TRANSPARENT = 0x02; // 0000 0010
 	final static public float sizeOfCube = 10;
+	int width, height;
 	Level level;
 	Player player;
 	Objects objects;
+
+	private byte effect = EFFECT_OFF;
 
 	public OpenGL(Level level, Player player, int width, int height) {
 		this.level = level;
@@ -27,6 +32,9 @@ public class OpenGL {
 	}
 
 	public void display() {
+
+		GL11.glClearColor(0.5f, 0.5f, 0.5f, 0.1f);
+
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
@@ -41,43 +49,46 @@ public class OpenGL {
 		for (byte i = 0; i < level.getSizeX(); i += 1) {
 			for (byte j = 0; j < level.getSizeY(); j += 1) {
 				for (byte k = 0; k < level.getSizeZ(); k += 1) {
-					if (level.getCube(i, j, k).getClass().getName()
-							.equals("game.cube.CubeBomb")) {
+					if (level.getCube(i, j, k).getCubename().equals("CubeBomb")) {
 						GL11.glEnable(GL11.GL_TEXTURE_2D);
 						objects.DrawCubeBomb(i * sizeOfCube, j * sizeOfCube, k
 								* sizeOfCube);
 						GL11.glDisable(GL11.GL_TEXTURE_2D);
-					} else if (level.getCube(i, j, k).getClass().getName()
-							.equals("game.cube.CubeExplosion")) {
+					} else if (level.getCube(i, j, k).getCubename()
+							.equals("CubeExplosion")) {
 						GL11.glEnable(GL11.GL_TEXTURE_2D);
 						objects.DrawCubeExplosion(i * sizeOfCube, j
 								* sizeOfCube, k * sizeOfCube);
 						GL11.glDisable(GL11.GL_TEXTURE_2D);
-					} else if (level.getCube(i, j, k).getClass().getName()
-							.equals("game.cube.CubeItemHealth")) {
+					} else if (level.getCube(i, j, k).getCubename()
+							.equals("CubeItemHealth")) {
 						GL11.glColor3f(1f, 0f, 0f);
 						Primitives.DrawCube(i * sizeOfCube, j * sizeOfCube, k
 								* sizeOfCube, sizeOfCube * 0.1f);
-					} else if (level.getCube(i, j, k).getClass().getName()
-							.equals("game.cube.CubeSolid")) {
+					} else if (level.getCube(i, j, k).getCubename()
+							.equals("CubeSolid")) {
 						GL11.glEnable(GL11.GL_TEXTURE_2D);
 						objects.DrawCubeSolid(i * sizeOfCube, j * sizeOfCube, k
 								* sizeOfCube);
 						GL11.glDisable(GL11.GL_TEXTURE_2D);
-					} else if (level.getCube(i, j, k).getClass().getName()
-							.equals("game.cube.CubeOutside")) {
+					} else if (level.getCube(i, j, k).getCubename()
+							.equals("CubeOutside")) {
+
+						// GL11.glColor3f(0f, 1f, 0f);
+						// GL11.glEnable(GL11.GL_TEXTURE_2D);
+						// objects.DrawCubeOutside(i * sizeOfCube, j *
+						// sizeOfCube,
+						// k * sizeOfCube);
+						// GL11.glDisable(GL11.GL_TEXTURE_2D);
+
+					} else if (level.getCube(i, j, k).getCubename()
+							.equals("CubeObstacle")) {
 						GL11.glEnable(GL11.GL_TEXTURE_2D);
-						objects.DrawCubeOutside(i * sizeOfCube, j * sizeOfCube, k
-								* sizeOfCube);
+						objects.DrawCubeObstacle(i * sizeOfCube,
+								j * sizeOfCube, k * sizeOfCube);
 						GL11.glDisable(GL11.GL_TEXTURE_2D);
-					} else if (level.getCube(i, j, k).getClass().getName()
-							.equals("game.cube.CubeObstacle")) {
-						GL11.glEnable(GL11.GL_TEXTURE_2D);
-						objects.DrawCubeObstacle(i * sizeOfCube, j * sizeOfCube, k
-								* sizeOfCube);
-						GL11.glDisable(GL11.GL_TEXTURE_2D);						
-					} else if (level.getCube(i, j, k).getClass().getName()
-							.equals("game.cube.CubeExit")) {
+					} else if (level.getCube(i, j, k).getCubename()
+							.equals("CubeExit")) {
 						GL11.glColor3f(0f, 1f, 0f);
 						Primitives.DrawCube(i * sizeOfCube, j * sizeOfCube, k
 								* sizeOfCube, sizeOfCube * 0.75f);
@@ -85,16 +96,12 @@ public class OpenGL {
 				}
 			}
 		}
-		// Koordinatenachsen
-		GL11.glColor3f(1, 0, 0);// Farbe rot auswählen
-		Primitives.DrawCube(9, 0, 0, 10, 1, 1);
-		GL11.glColor3f(0, 1, 0);// Farbe gruen auswählen
-		Primitives.DrawCube(0, 9, 0, 1, 10, 1);
-		GL11.glColor3f(0, 0, 1);// Farbe blau auswählen
-		Primitives.DrawCube(0, 0, 9, 1, 1, 10);
-		GL11.glColor3f(0.8f, 0.8f, 0.8f);// Farbe weiß auswählen
-		Primitives.DrawCube(0, 0, 0, 3);
-
+		// TODO Effektprogrammierung ist kein Meilenstein
+		// if ((effect & EFFECT_RED) == 0) {
+		// GL11.glColor4f(1f, 0f, 0f, 0.1f);
+		// Primitives.DrawCube(player.getX() - 1f, player.getY() - 1f,
+		// player.getZ() - 1f, 3f);
+		// }
 		GL11.glFlush();
 	}
 
@@ -112,8 +119,8 @@ public class OpenGL {
 				GL11.GL_LINEAR);
 
 		// Alpha-Farbkanal, Transparenz, einschalten
-		// GL11.glEnable(GL11.GL_BLEND);
-		// GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		GL11.glEnable(GL11.GL_LINE_SMOOTH); // Antialiasing fuer Linien
 											// einschalten

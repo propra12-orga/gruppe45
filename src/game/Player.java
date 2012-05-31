@@ -4,10 +4,8 @@ import game.cube.Cube;
 import game.cube.CubeBomb;
 import game.cube.CubeEmpty;
 import game.cube.CubeExplosion;
-import game.BombCount;
 
 import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Die Klasse Player enthaelt die Position des Spielers die von Control-Klassen
@@ -19,8 +17,10 @@ import java.util.TimerTask;
  * 
  */
 public class Player {
+	private int number = 0;
+
 	final private double PI_DIV_2 = (Math.PI / 2);
-	private float x, y, z;
+	private float x = 0, y = 0, z = 0;
 	private float stepSize = 1f;
 	private float[] color;
 	private float angleY = 0;
@@ -30,11 +30,9 @@ public class Player {
 
 	private int healthPoints = 100;
 	int radius = 3;
-	int maxBombs = 2;
+	int maxBombs = 1;
 	int fuseTime = 3000;
 	int explosionTime = 1000;
-	int bombenzahl = 0;
-	boolean bombable = true;
 
 	/**
 	 * Der Konstruktor verlangt die Anfangsposition
@@ -44,9 +42,18 @@ public class Player {
 		this.level = level;
 	}
 
+	public Player(Level level, float x, float y, float z, int number) {
+		setPosition(x, y, z);
+		this.level = level;
+	}
+
+	/**
+	 * Nur zum Speichern der Spielerposition im Server
+	 */
+
 	public void setBomb() {
 		if (maxBombs > 0) {
-			maxBombs --;
+			maxBombs--;
 			ArrayPosition[] posExp = {
 					new ArrayPosition((int) x / 10, (int) y / 10, (int) z / 10),
 					new ArrayPosition((int) x / 10 - 1, (int) y / 10,
@@ -62,19 +69,18 @@ public class Player {
 					new ArrayPosition((int) x / 10, (int) y / 10,
 							(int) z / 10 + 1) };
 			Timer timer = new Timer();
-			// TODO Hier wird die Position nur durch abrunden ermittelt,
-			// Druchschnitt waere wohl besser
 			level.setCube(new CubeBomb(), (int) x / 10, (int) y / 10,
 					(int) z / 10);
-			
-			//Explosion
-			timer.schedule(new TimeCube(level, new CubeExplosion(), posExp),
-					fuseTime);
-			//Leerer Block
-			timer.schedule(new TimeCube(level, new CubeEmpty(), posExp),
+
+			// Explosion
+			timer.schedule(new TimeCube(level, new CubeExplosion(), posExp,
+					this), fuseTime);
+			// Leerer Block
+			timer.schedule(new TimeCube(level, new CubeEmpty(), posExp, this),
 					fuseTime + explosionTime);
-			//Verhindern, dass mehr Bomben gelegt werden als maxBombs erlaubt.
-			timer.schedule(new BombCount(this, bombenzahl, maxBombs) , fuseTime + explosionTime+10);
+			// Verhindern, dass mehr Bomben gelegt werden als maxBombs erlaubt.
+			timer.schedule(new BombCount(this, maxBombs), fuseTime
+					+ explosionTime + 10);
 		}
 	}
 
@@ -124,6 +130,27 @@ public class Player {
 	}
 
 	/**
+	 * @return X-Koordinate im Levelarray des Spielers
+	 */
+	public int getCubeX() {
+		return (int) this.x / 10;
+	}
+
+	/**
+	 * @return Y-Koordinate im Levelarray des Spielers
+	 */
+	public int getCubeY() {
+		return (int) this.y / 10;
+	}
+
+	/**
+	 * @return Z-Koordinate im Levelarray des Spielers
+	 */
+	public int getCubeZ() {
+		return (int) this.z / 10;
+	}
+
+	/**
 	 * @return X-Position des Camerasichtpunktes
 	 */
 	public float getCamX() {
@@ -162,6 +189,13 @@ public class Player {
 	}
 
 	/**
+	 * @return Anzahl der Healthpoints
+	 */
+	public int gethealthPoints() {
+		return this.healthPoints;
+	}
+
+	/**
 	 * Setzt den Spieler an eine bestimmt Position
 	 * 
 	 * @param x
@@ -171,7 +205,6 @@ public class Player {
 	 * @param z
 	 *            Tiefenposition
 	 */
-	// FIXME PlayerSetPosition() Pruefen ob Platz an der Stelle ist
 	public void setPosition(float x, float y, float z) {
 		this.x = x;
 		this.y = y;
@@ -247,13 +280,20 @@ public class Player {
 		move(0, -1, 0);
 	}
 
+	public void moveDown(float i) {
+		move(0, -i, 0);
+	}
+
 	public void moveUp() {
 		move(0, 1, 0);
 	}
 
-	// FIXME Spielfeldverlassen-Abragen an dynamische Level (getSizeXYZ,
-	// Cubesize, ...)
-	// anpassen
+	// FIXME Player stirbt -> Programmende
+	public void dies() {
+		System.out.println("Du bist jetzt tot!");
+		System.exit(0);
+	}
+
 	// TODO Testen, ob Abfrage funktioniert
 	private void move(float x, float y, float z) {
 		int tmpCubeX = (int) (this.x + x) / 10; // x-Position des ZielCubes im
