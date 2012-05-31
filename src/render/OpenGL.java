@@ -4,6 +4,7 @@ package render;
 
 import game.Level;
 import game.Player;
+import game.cube.Cube;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
@@ -41,38 +42,26 @@ public class OpenGL {
 		GL11.glLoadIdentity();
 		float widthHeightRatio = width / height;
 		GLU.gluPerspective(45, widthHeightRatio, 1, 1000);
-		GLU.gluLookAt(player.getX(), player.getY(), player.getZ(),
-				player.getCamX(), player.getCamY(), player.getCamZ(), 0, 1, 0);
+		GLU.gluLookAt(player.getX(), player.getY(), player.getZ(), player.getCamX(), player.getCamY(), player.getCamZ(), 0, 1,
+				0);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glLoadIdentity();
 		// Level
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		for (byte i = 0; i < level.getSizeX(); i += 1) {
 			for (byte j = 0; j < level.getSizeY(); j += 1) {
 				for (byte k = 0; k < level.getSizeZ(); k += 1) {
-					if (level.getCube(i, j, k).getCubename().equals("CubeBomb")) {
-						GL11.glEnable(GL11.GL_TEXTURE_2D);
-						objects.DrawCubeBomb(i * sizeOfCube, j * sizeOfCube, k
-								* sizeOfCube);
-						GL11.glDisable(GL11.GL_TEXTURE_2D);
-					} else if (level.getCube(i, j, k).getCubename()
-							.equals("CubeExplosion")) {
-						GL11.glEnable(GL11.GL_TEXTURE_2D);
-						objects.DrawCubeExplosion(i * sizeOfCube, j
-								* sizeOfCube, k * sizeOfCube);
-						GL11.glDisable(GL11.GL_TEXTURE_2D);
-					} else if (level.getCube(i, j, k).getCubename()
-							.equals("CubeItemHealth")) {
-						GL11.glColor3f(1f, 0f, 0f);
-						Primitives.DrawCube(i * sizeOfCube, j * sizeOfCube, k
-								* sizeOfCube, sizeOfCube * 0.1f);
-					} else if (level.getCube(i, j, k).getCubename()
-							.equals("CubeSolid")) {
-						GL11.glEnable(GL11.GL_TEXTURE_2D);
-						objects.DrawCubeSolid(i * sizeOfCube, j * sizeOfCube, k
-								* sizeOfCube);
-						GL11.glDisable(GL11.GL_TEXTURE_2D);
-					} else if (level.getCube(i, j, k).getCubename()
-							.equals("CubeOutside")) {
+					if (level.getCubeName(i, j, k).equals(Cube.CUBE_BOMB)) {
+						objects.DrawCubeBomb(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
+					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_EXPLOSION)) {
+						objects.DrawCubeExplosion(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
+					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_EXPLOSION_HIDE_EXIT)) {
+						objects.DrawCubeExplosion(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
+					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_ITEM_HEALTH)) {
+						objects.DrawCubeItemHealth(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
+					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_SOLID)) {
+						objects.DrawCubeSolid(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
+					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_OUTSIDE)) {
 
 						// GL11.glColor3f(0f, 1f, 0f);
 						// GL11.glEnable(GL11.GL_TEXTURE_2D);
@@ -81,21 +70,15 @@ public class OpenGL {
 						// k * sizeOfCube);
 						// GL11.glDisable(GL11.GL_TEXTURE_2D);
 
-					} else if (level.getCube(i, j, k).getCubename()
-							.equals("CubeObstacle")) {
-						GL11.glEnable(GL11.GL_TEXTURE_2D);
-						objects.DrawCubeObstacle(i * sizeOfCube,
-								j * sizeOfCube, k * sizeOfCube);
-						GL11.glDisable(GL11.GL_TEXTURE_2D);
-					} else if (level.getCube(i, j, k).getCubename()
-							.equals("CubeExit")) {
-						GL11.glColor3f(0f, 1f, 0f);
-						Primitives.DrawCube(i * sizeOfCube, j * sizeOfCube, k
-								* sizeOfCube, sizeOfCube * 0.75f);
+					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_OBSTACLE)) {
+						objects.DrawCubeObstacle(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
+					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_EXIT)) {
+						objects.DrawCubeExit(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					}
 				}
 			}
 		}
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		// TODO Effektprogrammierung ist kein Meilenstein
 		// if ((effect & EFFECT_RED) == 0) {
 		// GL11.glColor4f(1f, 0f, 0f, 0.1f);
@@ -113,22 +96,19 @@ public class OpenGL {
 
 		// Textur
 
-		GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER,
-				GL11.GL_LINEAR);
-		GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER,
-				GL11.GL_LINEAR);
+		GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
+		GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
 
 		// Alpha-Farbkanal, Transparenz, einschalten
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		// GL11.glEnable(GL11.GL_BLEND);
+		// GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		GL11.glEnable(GL11.GL_LINE_SMOOTH); // Antialiasing fuer Linien
 											// einschalten
 
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
-		GL11.glOrtho(-clipsize, +clipsize, -clipsize, +clipsize,
-				-clipsize * 100.0f, +clipsize * 100.0f);
+		GL11.glOrtho(-clipsize, +clipsize, -clipsize, +clipsize, -clipsize * 100.0f, +clipsize * 100.0f);
 		GL11.glViewport(0, 0, width, height);
 	}
 

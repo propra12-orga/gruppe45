@@ -1,9 +1,6 @@
 package game;
 
 import game.cube.Cube;
-import game.cube.CubeBomb;
-import game.cube.CubeEmpty;
-import game.cube.CubeExplosion;
 
 import java.util.Timer;
 
@@ -67,12 +64,12 @@ public class Player {
 					new ArrayPosition((int) x, (int) y - 1, (int) z), new ArrayPosition((int) x, (int) y + 1, (int) z),
 					new ArrayPosition((int) x, (int) y, (int) z - 1), new ArrayPosition((int) x, (int) y, (int) z + 1) };
 			Timer timer = new Timer();
-			level.setCube(new CubeBomb(), (int) x, (int) y, (int) z);
+			level.setCube(Cube.getCubeByName(Cube.CUBE_BOMB), (int) x, (int) y, (int) z);
 
 			// Explosion
-			timer.schedule(new TimeCube(level, new CubeExplosion(), posExp, this), fuseTime);
+			timer.schedule(new TimeCube(level, Cube.getCubeByName(Cube.CUBE_EXPLOSION), posExp, this), fuseTime);
 			// Leerer Block
-			timer.schedule(new TimeCube(level, new CubeEmpty(), posExp, this), fuseTime + explosionTime);
+			timer.schedule(new TimeCube(level, Cube.getCubeByName(Cube.CUBE_EMPTY), posExp, this), fuseTime + explosionTime);
 			// Verhindern, dass mehr Bomben gelegt werden als maxBombs erlaubt.
 			timer.schedule(new BombCount(this, maxBombs), fuseTime + explosionTime + 10);
 		}

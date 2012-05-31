@@ -3,7 +3,8 @@ package game.cube;
 public class CubeExit extends Cube {
 
 	public CubeExit() {
-		super(Cube.IS_WALKABLE, Cube.IS_COLLECTABLE, Cube.IS_NOT_DESTROYABLE, Cube.HIDES_EXIT, "CubeExit");
+		super(Cube.IS_WALKABLE, Cube.IS_COLLECTABLE, Cube.IS_NOT_DESTROYABLE);
+		this.hidesExit = true;
 	}
 
 	@Override
