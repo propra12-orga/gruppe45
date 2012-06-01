@@ -48,9 +48,9 @@ public class Primitives {
 		GL11.glVertex3f(x, y, z);
 		// Oben
 		GL11.glVertex3f(x, y + size, z + size);
-		GL11.glVertex3f(x + size, y + size, z + size);
-		GL11.glVertex3f(x + size, y + size, z);
 		GL11.glVertex3f(x, y + size, z);
+		GL11.glVertex3f(x + size, y + size, z);
+		GL11.glVertex3f(x + size, y + size, z + size);
 		// Unten
 		GL11.glVertex3f(x, y, z + size);
 		GL11.glVertex3f(x + size, y, z + size);
@@ -101,8 +101,7 @@ public class Primitives {
 	 * @param sizeZ
 	 *            Tiefe
 	 */
-	static public void DrawCube(float x, float y, float z, float sizeX,
-			float sizeY, float sizeZ) {
+	static public void DrawCube(float x, float y, float z, float sizeX, float sizeY, float sizeZ) {
 		GL11.glBegin(GL11.GL_QUADS);
 		// Vorne
 		GL11.glVertex3f(x, y, z);
@@ -126,9 +125,9 @@ public class Primitives {
 		GL11.glVertex3f(x, y, z);
 		// Oben
 		GL11.glVertex3f(x, y + sizeY, z + sizeZ);
-		GL11.glVertex3f(x + sizeX, y + sizeY, z + sizeZ);
-		GL11.glVertex3f(x + sizeX, y + sizeY, z);
 		GL11.glVertex3f(x, y + sizeY, z);
+		GL11.glVertex3f(x + sizeX, y + sizeY, z);
+		GL11.glVertex3f(x + sizeX, y + sizeY, z + sizeZ);
 		// Unten
 		GL11.glVertex3f(x, y, z + sizeZ);
 		GL11.glVertex3f(x + sizeX, y, z + sizeZ);
