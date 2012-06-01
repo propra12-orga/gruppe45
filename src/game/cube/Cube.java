@@ -123,6 +123,7 @@ public abstract class Cube {
 
 	public void change(Player player, Level level) {
 		player.healPlayer(25);
+
 	}
 
 	public void change() {

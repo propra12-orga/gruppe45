@@ -1,6 +1,7 @@
 package game;
 
 import game.cube.Cube;
+import game.cube.CubeEmpty;
 
 import java.util.Timer;
 

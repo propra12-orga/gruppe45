@@ -1,6 +1,7 @@
 package game;
 
 import game.cube.Cube;
+import game.cube.CubeItemHealth;
 
 import java.util.Random;
 
@@ -11,7 +12,7 @@ import java.util.Random;
  */
 public class Level {
 
-	final static public int OBSTACLE_PROBABILITY = 0; // Wahrscheinlichkeit
+	final static public int OBSTACLE_PROBABILITY = 5; // Wahrscheinlichkeit
 														// eines Hindernisses
 														// an leerer Stelle des
 														// Levels (0..100 %)
@@ -46,7 +47,13 @@ public class Level {
 			return null;
 		}
 	}
-
+/**
+ * 
+ * @param cube
+ * @param x
+ * @param y
+ * @param z
+ */
 	public void setCube(Cube cube, int x, int y, int z) {
 		if (x >= 0 && y >= 0 && z >= 0 && x < getSizeX() && y < getSizeY() && z < getSizeZ()) {
 			level[x][y][z] = cube;
@@ -157,9 +164,7 @@ public class Level {
 		Random random = new Random();
 		int rnd = 1 + Math.abs(random.nextInt()) % 6;
 		
-		//level[8][8][5]=new CubeItemHealth();
-		
-
+//		this.setCube(cube, x, y, z)
 		// rnd = 4; //TODO zum AUSPROBIEREN: Exit verborgen
 
 		// Skalierbares Level:
