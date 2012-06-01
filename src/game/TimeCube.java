@@ -36,13 +36,13 @@ public class TimeCube extends TimerTask {
 				if (cube.getCubeName().equals(Cube.CUBE_EXPLOSION) || cube.getCubeName().equals(Cube.CUBE_EXPLOSION_HIDE_EXIT)) {
 					if ((positions[i].getX() == player.getCubeX()) && (positions[i].getY() == player.getCubeY())
 							&& (positions[i].getZ() == player.getCubeZ())) {
-						cube.change(player);
+						cube.change(player, level);
 
 						// TODO Testausgabe entfernen!
-						System.out.println("Player getroffen! -25  HealthPoints: " + player.gethealthPoints());
+						System.out.println("Player getroffen! -25  HealthPoints: " + player.getHealthPoints());
 
 						// Abfrage, ob Player noch lebt oder getötet wurde
-						if (player.gethealthPoints() <= 0) {
+						if (player.getHealthPoints() <= 0) {
 							player.dies();
 						}
 					}

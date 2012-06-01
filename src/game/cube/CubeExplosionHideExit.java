@@ -1,5 +1,6 @@
 package game.cube;
 
+import game.Level;
 import game.Player;
 
 public class CubeExplosionHideExit extends Cube {
@@ -10,7 +11,7 @@ public class CubeExplosionHideExit extends Cube {
 	}
 
 	@Override
-	public void change(Player player) {
+	public void change(Player player, Level level) {
 		player.hitPlayer(25);
 	}
 

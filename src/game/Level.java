@@ -11,9 +11,17 @@ import java.util.Random;
  */
 public class Level {
 
+
 	final static public int OBSTACLE_PROBABILITY = 0;		// Wahrscheinlichkeit eines Hindernisses
 															// an leerer Stelle des Levels (0..100 %)
 
+
+//final static public int HEALTH_ITEM_PROBABILITY = 10;		// Wahrscheinlichkeit eines Health-Items im Spiel (%)
+
+
+/**
+ * Ermöglicht das Verstecken des Ausgangs in einem zerstörbaren Block
+ */
 	final static public boolean EXIT_CAN_HIDE_BEHIND_CUBES = true;
 	// Wenn "true", dann kann sich der Ausgang auch hinter
 	// Blöcken verbergen, sodass dieser erst freigebomt werden
@@ -48,7 +56,7 @@ public class Level {
 	}
 
 	/**
-	 * Mit diesem Kontroktor kann die Groesse des Levels variiert werden
+	 * Mit diesem Konstruktor kann die Groesse des Levels variiert werden
 	 * 
 	 * @param x
 	 *            Breite des Levels
@@ -150,6 +158,9 @@ public class Level {
 		// die nicht durch Spieler belegt ist!
 		Random random = new Random();
 		int rnd = 1 + Math.abs(random.nextInt()) % 6;
+		
+		//level[8][8][5]=new CubeItemHealth();
+		
 
 		// rnd = 4; //TODO zum AUSPROBIEREN: Exit verborgen
 

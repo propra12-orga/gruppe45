@@ -1,7 +1,8 @@
 package game.cube;
-
-import game.Player;
 import game.Level;
+import game.Player;
+
+
 
 public class CubeItemHealth extends Cube {
 	
@@ -13,16 +14,16 @@ public class CubeItemHealth extends Cube {
 
 	@Override
 	public void change(Player player, Level level) {		
-		if (player.gethealthPoints() + HEAL_POINTS < player.MAX_HEALTH_POINTS) {		
+		if (player.getHealthPoints() + HEAL_POINTS < player.MAX_HEALTH_POINTS) {		
 			player.healPlayer(HEAL_POINTS);
 			
 			// TODO Testausgabe entfernen!
-			System.out.println("Player geheilt! +50  HealthPoints: " + player.gethealthPoints());
+			System.out.println("Player geheilt! +50  HealthPoints: " + player.getHealthPoints());
 		}
 		else {
 			player.setMaxHealth();
 			// TODO Testausgabe entfernen!
-			System.out.println("Player geheilt! HealthPoints maximal: " + player.gethealthPoints());
+			System.out.println("Player geheilt! HealthPoints maximal: " + player.getHealthPoints());
 		}			
 		level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), player.getCubeX(), player.getCubeY(), player.getCubeZ());
 

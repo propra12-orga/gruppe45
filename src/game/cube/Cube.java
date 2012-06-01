@@ -1,5 +1,6 @@
 package game.cube;
 
+import game.Level;
 import game.Player;
 import game.Level;
 
@@ -124,9 +125,6 @@ public abstract class Cube {
 		this.hidesExit = hidesexit;
 	}
 
-	public void change(Player player) {
-		player.healPlayer(25);
-	}
 
 	public void change() {
 

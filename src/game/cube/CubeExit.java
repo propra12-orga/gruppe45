@@ -1,7 +1,6 @@
 package game.cube;
-
-import game.Player;
 import game.Level;
+import game.Player;
 
 public class CubeExit extends Cube {
 

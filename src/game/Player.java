@@ -188,7 +188,8 @@ public class Player {
 	/**
 	 * @return Anzahl der Healthpoints
 	 */
-	public int gethealthPoints() {
+
+	public int getHealthPoints(){
 		return this.healthPoints;
 	}
 
