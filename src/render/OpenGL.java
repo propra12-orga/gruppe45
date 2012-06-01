@@ -51,32 +51,6 @@ public class OpenGL {
 		for (byte i = 0; i < level.getSizeX(); i += 1) {
 			for (byte j = 0; j < level.getSizeY(); j += 1) {
 				for (byte k = 0; k < level.getSizeZ(); k += 1) {
-//<<<<<<< HEAD
-//					if (level.getCube(i, j, k).getCubename().equals("CubeBomb")) {
-//						GL11.glEnable(GL11.GL_TEXTURE_2D);
-//						objects.DrawCubeBomb(i * sizeOfCube, j * sizeOfCube, k
-//								* sizeOfCube);
-//						GL11.glDisable(GL11.GL_TEXTURE_2D);
-//					} else if (level.getCube(i, j, k).getCubename()
-//							.equals("CubeExplosion")) {
-//						GL11.glEnable(GL11.GL_TEXTURE_2D);
-//						objects.DrawCubeExplosion(i * sizeOfCube, j
-//								* sizeOfCube, k * sizeOfCube);
-//						GL11.glDisable(GL11.GL_TEXTURE_2D);
-//					} else if (level.getCube(i, j, k).getCubename()
-//							.equals("CubeItemHealth")) {
-//						GL11.glColor3f(1f, 0f, 0f);
-//						Primitives.DrawCube(i * sizeOfCube+5, j * sizeOfCube+5, k
-//								* sizeOfCube+5, sizeOfCube * 0.1f);
-//					} else if (level.getCube(i, j, k).getCubename()
-//							.equals("CubeSolid")) {
-//						GL11.glEnable(GL11.GL_TEXTURE_2D);
-//						objects.DrawCubeSolid(i * sizeOfCube, j * sizeOfCube, k
-//								* sizeOfCube);
-//						GL11.glDisable(GL11.GL_TEXTURE_2D);
-//					} else if (level.getCube(i, j, k).getCubename()
-//							.equals("CubeOutside")) {
-//=======
 					if (level.getCubeName(i, j, k).equals(Cube.CUBE_BOMB)) {
 						objects.DrawCubeBomb(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_EXPLOSION)) {
@@ -97,38 +71,10 @@ public class OpenGL {
 						// k * sizeOfCube);
 						// GL11.glDisable(GL11.GL_TEXTURE_2D);
 
-//<<<<<<< HEAD
-//					} else if (level.getCube(i, j, k).getCubename()
-//							.equals("CubeObstacle")) {
-//						GL11.glEnable(GL11.GL_TEXTURE_2D);
-//////<<<<<<< HEAD
-////						objects.DrawCubeOutside(i * sizeOfCube, j * sizeOfCube,
-////								k * sizeOfCube);
-////						GL11.glDisable(GL11.GL_TEXTURE_2D);
-////					} else if (level.getCube(i, j, k).getClass().getName()
-////							.equals("game.cube.CubeObstacle")) {
-////						GL11.glEnable(GL11.GL_TEXTURE_2D);
-////						objects.DrawCubeObstacle(i * sizeOfCube,
-////								j * sizeOfCube, k * sizeOfCube);
-////						GL11.glDisable(GL11.GL_TEXTURE_2D);
-////					} else if (level.getCube(i, j, k).getClass().getName()
-////							.equals("game.cube.CubeExit")) {
-////=======
-//						objects.DrawCubeObstacle(i * sizeOfCube,
-//								j * sizeOfCube, k * sizeOfCube);
-//						GL11.glDisable(GL11.GL_TEXTURE_2D);
-//					} else if (level.getCube(i, j, k).getCubename()
-//							.equals("CubeExit")) {
-//////////////////////////////////						
-//						GL11.glColor3f(0f, 1f, 0f);
-//						Primitives.DrawCube(i * sizeOfCube, j * sizeOfCube, k
-//								* sizeOfCube, sizeOfCube * 0.75f);
-//=======
 					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_OBSTACLE)) {
 						objects.DrawCubeObstacle(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_EXIT)) {
 						objects.DrawCubeExit(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
-//>>>>>>> 4a2c8bed93ae88ad1e79b299c0cb5d788520ef46
 					}
 				}
 			}

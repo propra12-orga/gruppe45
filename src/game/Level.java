@@ -1,16 +1,6 @@
 package game;
 
 import game.cube.Cube;
-//<<<<<<< HEAD
-//import game.cube.CubeEmpty;
-//import game.cube.CubeExit;
-//import game.cube.CubeItemHealth;
-//import game.cube.CubeObstacle;
-//import game.cube.CubeOutside;
-//import game.cube.CubeSolid;
-//=======
-//>>>>>>> 4a2c8bed93ae88ad1e79b299c0cb5d788520ef46
-
 
 import java.util.Random;
 
@@ -27,7 +17,9 @@ public class Level {
 														// Levels (0..100 %)
 //final static public int HEALTH_ITEM_PROBABILITY = 10;		// Wahrscheinlichkeit eines Health-Items im Spiel (%)
 
-
+/**
+ * Ermöglicht das Verstecken des Ausgangs in einem zerstörbaren Block
+ */
 	final static public boolean EXIT_CAN_HIDE_BEHIND_CUBES = true;
 	// Wenn "true", dann kann sich der Ausgang auch hinter
 	// Blöcken verbergen, sodass dieser erst freigebomt werden

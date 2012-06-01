@@ -5,13 +5,8 @@ import game.cube.CubeEmpty;
 
 public class CubeItemHealth extends Cube {
 
-//<<<<<<< HEAD
-//	public CubeItemHealth() {
-//		super(Cube.IS_WALKABLE, Cube.IS_COLLECTABLE, Cube.IS_NOT_DESTROYABLE, Cube.DOES_NOT_HIDE_EXIT, "CubeItemHealth"); 
-//=======
 	CubeItemHealth() {
 		super(Cube.IS_WALKABLE, Cube.IS_COLLECTABLE, Cube.IS_NOT_DESTROYABLE);
-//>>>>>>> 4a2c8bed93ae88ad1e79b299c0cb5d788520ef46
 	}
 
 	@Override
