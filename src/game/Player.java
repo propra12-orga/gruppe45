@@ -1,9 +1,6 @@
 package game;
 
 import game.cube.Cube;
-import game.cube.CubeBomb;
-import game.cube.CubeEmpty;
-import game.cube.CubeExplosion;
 
 import java.util.Timer;
 
@@ -20,7 +17,7 @@ public class Player {
 	private int number = 0;
 
 	final private double PI_DIV_2 = (Math.PI / 2);
-	private float x = 0, y = 0, z = 0;
+	protected float x = 0, y = 0, z = 0;
 	private float stepSize = 1f;
 	private float[] color;
 	private float angleY = 0;
@@ -47,40 +44,34 @@ public class Player {
 		this.level = level;
 	}
 
+	public int getNumber() {
+		return number;
+	}
+
 	/**
 	 * Nur zum Speichern der Spielerposition im Server
 	 */
 
 	public void setBomb() {
+		setBomb((int) (x / 10), (int) (y / 10), (int) (z / 10));
+	}
+
+	public void setBomb(int x, int y, int z) {
 		if (maxBombs > 0) {
 			maxBombs--;
-			ArrayPosition[] posExp = {
-					new ArrayPosition((int) x / 10, (int) y / 10, (int) z / 10),
-					new ArrayPosition((int) x / 10 - 1, (int) y / 10,
-							(int) z / 10),
-					new ArrayPosition((int) x / 10 + 1, (int) y / 10,
-							(int) z / 10),
-					new ArrayPosition((int) x / 10, (int) y / 10 - 1,
-							(int) z / 10),
-					new ArrayPosition((int) x / 10, (int) y / 10 + 1,
-							(int) z / 10),
-					new ArrayPosition((int) x / 10, (int) y / 10,
-							(int) z / 10 - 1),
-					new ArrayPosition((int) x / 10, (int) y / 10,
-							(int) z / 10 + 1) };
+			ArrayPosition[] posExp = { new ArrayPosition((int) x, (int) y, (int) z),
+					new ArrayPosition((int) x - 1, (int) y, (int) z), new ArrayPosition((int) x + 1, (int) y, (int) z),
+					new ArrayPosition((int) x, (int) y - 1, (int) z), new ArrayPosition((int) x, (int) y + 1, (int) z),
+					new ArrayPosition((int) x, (int) y, (int) z - 1), new ArrayPosition((int) x, (int) y, (int) z + 1) };
 			Timer timer = new Timer();
-			level.setCube(new CubeBomb(), (int) x / 10, (int) y / 10,
-					(int) z / 10);
+			level.setCube(Cube.getCubeByName(Cube.CUBE_BOMB), (int) x, (int) y, (int) z);
 
 			// Explosion
-			timer.schedule(new TimeCube(level, new CubeExplosion(), posExp,
-					this), fuseTime);
+			timer.schedule(new TimeCube(level, Cube.getCubeByName(Cube.CUBE_EXPLOSION), posExp, this), fuseTime);
 			// Leerer Block
-			timer.schedule(new TimeCube(level, new CubeEmpty(), posExp, this),
-					fuseTime + explosionTime);
+			timer.schedule(new TimeCube(level, Cube.getCubeByName(Cube.CUBE_EMPTY), posExp, this), fuseTime + explosionTime);
 			// Verhindern, dass mehr Bomben gelegt werden als maxBombs erlaubt.
-			timer.schedule(new BombCount(this, maxBombs), fuseTime
-					+ explosionTime + 10);
+			timer.schedule(new BombCount(this, maxBombs), fuseTime + explosionTime + 10);
 		}
 	}
 
@@ -167,14 +158,12 @@ public class Player {
 	// FIXME Ueberlegen ob die ganze Rechnung sein muss
 	public float getCamY() {
 		return getY()
-				+ (float) (Math.sin(angleX) * Math.sqrt(Math.sin(angleY)
-						* Math.sin(angleY) + Math.cos(angleY)
+				+ (float) (Math.sin(angleX) * Math.sqrt(Math.sin(angleY) * Math.sin(angleY) + Math.cos(angleY)
 						* Math.cos(angleY)));
 	}
 
 	public float getDirectionY() {
-		return (float) (Math.sin(angleX) * Math.sqrt(Math.sin(angleY)
-				* Math.sin(angleY) + Math.cos(angleY) * Math.cos(angleY)));
+		return (float) (Math.sin(angleX) * Math.sqrt(Math.sin(angleY) * Math.sin(angleY) + Math.cos(angleY) * Math.cos(angleY)));
 	}
 
 	/**
@@ -210,6 +199,14 @@ public class Player {
 		this.x = x;
 		this.y = y;
 		this.z = z;
+	}
+
+	public void setAngleX(float angleX) {
+		this.angleX = angleX;
+	}
+
+	public void setAngleY(float angleY) {
+		this.angleY = angleY;
 	}
 
 	/**
@@ -253,28 +250,22 @@ public class Player {
 
 	public void moveForward() {
 		move((float) Math.sin(angleY) * stepSize,
-				(float) (Math.sin(angleX) * Math.sqrt(Math.sin(angleY)
-						* Math.sin(angleY) + Math.cos(angleY)
-						* Math.cos(angleY)))
+				(float) (Math.sin(angleX) * Math.sqrt(Math.sin(angleY) * Math.sin(angleY) + Math.cos(angleY) * Math.cos(angleY)))
 						* stepSize, (float) Math.cos(angleY) * stepSize);
 	}
 
 	public void moveBackward() {
 		move((float) Math.sin(angleY) * -stepSize,
-				(float) (Math.sin(angleX) * Math.sqrt(Math.sin(angleY)
-						* Math.sin(angleY) + Math.cos(angleY)
-						* Math.cos(angleY)))
+				(float) (Math.sin(angleX) * Math.sqrt(Math.sin(angleY) * Math.sin(angleY) + Math.cos(angleY) * Math.cos(angleY)))
 						* -stepSize, (float) Math.cos(angleY) * -stepSize);
 	}
 
 	public void moveLeft() {
-		move((float) Math.sin(angleY + PI_DIV_2) * stepSize, 0,
-				(float) Math.cos(angleY + PI_DIV_2) * stepSize);
+		move((float) Math.sin(angleY + PI_DIV_2) * stepSize, 0, (float) Math.cos(angleY + PI_DIV_2) * stepSize);
 	}
 
 	public void moveRight() {
-		move((float) Math.sin(angleY - PI_DIV_2) * stepSize, 0,
-				(float) Math.cos(angleY - PI_DIV_2) * stepSize);
+		move((float) Math.sin(angleY - PI_DIV_2) * stepSize, 0, (float) Math.cos(angleY - PI_DIV_2) * stepSize);
 	}
 
 	public void moveDown() {
@@ -307,8 +298,7 @@ public class Player {
 		if ((cube.isWalkable()) ||
 		// oder naechster Schritt im gleichen Cube -> um geblockte Bloecke zu
 		// verlassen
-				((tmpCubeX == (int) this.x / 10)
-						&& (tmpCubeY == (int) this.y / 10) && (tmpCubeZ == (int) this.z / 10))) {
+				((tmpCubeX == (int) this.x / 10) && (tmpCubeY == (int) this.y / 10) && (tmpCubeZ == (int) this.z / 10))) {
 			this.x += x;
 			this.y += y;
 			this.z += z;

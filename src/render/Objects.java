@@ -9,21 +9,18 @@ import org.newdawn.slick.opengl.TextureLoader;
 
 public class Objects {
 
-	private Texture texBomb, texFire, texPaper, texOutside, texObstacle;
+	private Texture texBomb, texFire, texPaper, texOutside, texObstacle, texHealth, texExit;
 
 	public Objects() {
 		// Texturen laden
 		try {
-			texBomb = TextureLoader.getTexture("PNG", new FileInputStream(
-					"res/textures/warning.png"));
-			texFire = TextureLoader.getTexture("PNG", new FileInputStream(
-					"res/textures/fire.png"));
-			texPaper = TextureLoader.getTexture("PNG", new FileInputStream(
-					"res/textures/solid.png"));
-			texOutside = TextureLoader.getTexture("PNG", new FileInputStream(
-					"res/textures/outsideworld.png"));
-			texObstacle = TextureLoader.getTexture("PNG", new FileInputStream(
-					"res/textures/obstacle.png"));
+			texBomb = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/warning.png"));
+			texFire = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/fire.png"));
+			texPaper = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/solid.png"));
+			texOutside = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/outsideworld.png"));
+			texObstacle = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/obstacle.png"));
+			texHealth = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/health.png"));
+			texExit = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/exit.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(0);
@@ -53,6 +50,16 @@ public class Objects {
 	public void DrawCubeObstacle(float x, float y, float z) {
 		texObstacle.bind();
 		DrawCube(x, y, z, 10, 2.5f);
+	}
+
+	public void DrawCubeItemHealth(float x, float y, float z) {
+		texHealth.bind();
+		DrawCube(x + 2.5f, y + 2.5f, z + 2.5f, 5, 1);
+	}
+
+	public void DrawCubeExit(float x, float y, float z) {
+		texExit.bind();
+		DrawCube(x + 2.5f, y + 2.5f, z + 2.5f, 5, 1);
 	}
 
 	/**

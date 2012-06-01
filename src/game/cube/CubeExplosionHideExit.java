@@ -1,11 +1,13 @@
 package game.cube;
+
 import game.Level;
 import game.Player;
 
-public class CubeExplosion extends Cube {
+public class CubeExplosionHideExit extends Cube {
 
-	public CubeExplosion() {
+	public CubeExplosionHideExit() {
 		super(Cube.IS_WALKABLE, Cube.IS_NOT_COLLECTABLE, Cube.IS_DESTROYABLE);
+		this.hidesExit = true;
 	}
 
 	@Override
