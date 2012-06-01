@@ -2,6 +2,12 @@ package control;
 
 import game.Player;
 
+
+/**
+ * 
+ * Oberklasse der Steuerung
+ *
+ */
 public abstract class Control {
 	Player player;
 

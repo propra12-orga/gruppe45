@@ -12,11 +12,13 @@ import java.util.Random;
  */
 public class Level {
 
-	final static public int OBSTACLE_PROBABILITY = 5; // Wahrscheinlichkeit
-														// eines Hindernisses
-														// an leerer Stelle des
-														// Levels (0..100 %)
+
+	final static public int OBSTACLE_PROBABILITY = 0;		// Wahrscheinlichkeit eines Hindernisses
+															// an leerer Stelle des Levels (0..100 %)
+
+
 //final static public int HEALTH_ITEM_PROBABILITY = 10;		// Wahrscheinlichkeit eines Health-Items im Spiel (%)
+
 
 /**
  * Ermöglicht das Verstecken des Ausgangs in einem zerstörbaren Block
@@ -112,17 +114,16 @@ public class Level {
 	 * Setzt das Levelarray auf Anfang
 	 */
 	public void clear() {
-		// FIXME Philipp: Levelverteilung an skalierbare Levelgröße anpassen
-		int exit_x, exit_y, exit_z;
+		int exit_x, exit_y, exit_z;			//Hilfsvariablen für zufälligen Ausgang
 		for (byte i = 0; i < getSizeX(); i++) {
 			for (byte j = 0; j < getSizeY(); j++) {
 				for (byte k = 0; k < getSizeZ(); k++) {
-					// Festes Blockmuster
+					// Festes Blockmuster: Solid auf (x,y,z) für alle x,y,z ungerade
 					if (!(i % 2 == 0 || j % 2 == 0 || k % 2 == 0)) {
 						level[i][j][k] = Cube.getCubeByName(Cube.CUBE_SOLID);
+					// Sonst zufällige Verteilung zerstörbarer Blöcke 
 					} else {
-
-						// FIXME Bessere zufällige Hindernisverteilung einbauen
+						// Erzeuge Zufallszahl zwischen 0-100
 						Random random = new Random();
 						int rnd = 1 + Math.abs(random.nextInt()) % 100;
 
@@ -154,10 +155,11 @@ public class Level {
 			}
 		}
 
-		// TODO zum AUSPROBIEREN: Exit verborgen
-		// level[this.getSizeX()-2][this.getSizeY()-2][this.getSizeZ()-2] = new
-		// CubeObstacle();
+
+		// TODO zum AUSPROBIEREN: Exit verborgen 
+		// level[this.getSizeX()-2][this.getSizeY()-2][this.getSizeZ()-2] = Cube.getCubeByName(Cube.CUBE_OBSTACLE);
 		// level[this.getSizeX()-2][this.getSizeY()-2][this.getSizeZ()-2].sethidesExit(true);
+		level[this.getSizeX()-2][this.getSizeY()-2][this.getSizeZ()-4] = Cube.getCubeByName(Cube.CUBE_ITEM_HEALTH);
 
 		// Setze den Ausgang in eine zufällige der sechs Ecken,
 		// die nicht durch Spieler belegt ist!
@@ -168,7 +170,7 @@ public class Level {
 		// rnd = 4; //TODO zum AUSPROBIEREN: Exit verborgen
 
 		// Skalierbares Level:
-		// Der Ausgang wird bei freiwählbaren Levelausdehnungen in X,Y,Z
+		// Der Ausgang wird bei freiwählbarer Levelausdehnungen in X,Y,Z
 		// immer in die Ecken des Levels gelegt
 		switch (rnd) {
 		case 1:

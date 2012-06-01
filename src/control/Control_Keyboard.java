@@ -11,13 +11,13 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
 /**
- * Die Klasse Control_Keyboard enthaelt Steuerungsbefehle fuer den Spieler und
+ * Enthaelt Steuerungsbefehle fuer den Spieler und
  * veraendert dessen Position und Blickwinkel. Ausserdem enthalten sind Befehle
  * fuer das Legen von Bomben und kurze Tastenbefehle, mit denen der
- * Programmablauf gesteuert werden kann (Beenden, Neustart)
+ * Programmablauf gesteuert werden kann (Beenden, Neustart...)
  * 
  * 
- * @author chlov101
+ *
  * 
  */
 

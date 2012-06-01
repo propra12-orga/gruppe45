@@ -3,6 +3,11 @@ package game;
 import java.util.TimerTask;
 import game.Player;
 
+/**
+ * 
+ * Wird verwendet, um die maximale Bombenzahl des Spielers zu überwachen.
+ *
+ */
 public class BombCount extends TimerTask{
 	Player player;
 	int maxBombs;	
