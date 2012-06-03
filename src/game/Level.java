@@ -11,11 +11,17 @@ import java.util.Random;
  */
 public class Level {
 
-	final static public int OBSTACLE_PROBABILITY = 15; // Wahrscheinlichkeit
+	final static public int OBSTACLE_PROBABILITY = 0; // Wahrscheinlichkeit
 														// eines Hindernisses
 														// an leerer Stelle des
 														// Levels (0..100 %)
 
+	// final static public int HEALTH_ITEM_PROBABILITY = 10; //
+	// Wahrscheinlichkeit eines Health-Items im Spiel (%)
+
+	/**
+	 * Ermöglicht das Verstecken des Ausgangs in einem zerstörbaren Block
+	 */
 	final static public boolean EXIT_CAN_HIDE_BEHIND_CUBES = true;
 	// Wenn "true", dann kann sich der Ausgang auch hinter
 	// Blöcken verbergen, sodass dieser erst freigebomt werden
@@ -43,6 +49,13 @@ public class Level {
 		}
 	}
 
+	/**
+	 * 
+	 * @param cube
+	 * @param x
+	 * @param y
+	 * @param z
+	 */
 	public void setCube(Cube cube, int x, int y, int z) {
 		if (x >= 0 && y >= 0 && z >= 0 && x < getSizeX() && y < getSizeY() && z < getSizeZ()) {
 			level[x][y][z] = cube;
@@ -50,7 +63,7 @@ public class Level {
 	}
 
 	/**
-	 * Mit diesem Kontroktor kann die Groesse des Levels variiert werden
+	 * Mit diesem Konstruktor kann die Groesse des Levels variiert werden
 	 * 
 	 * @param x
 	 *            Breite des Levels
@@ -111,17 +124,17 @@ public class Level {
 	 * Setzt das Levelarray auf Anfang
 	 */
 	public void clear() {
-		// FIXME Philipp: Levelverteilung an skalierbare Levelgröße anpassen
-		int exit_x, exit_y, exit_z;
+		int exit_x, exit_y, exit_z; // Hilfsvariablen für zufälligen Ausgang
 		for (byte i = 0; i < getSizeX(); i++) {
 			for (byte j = 0; j < getSizeY(); j++) {
 				for (byte k = 0; k < getSizeZ(); k++) {
-					// Festes Blockmuster
+					// Festes Blockmuster: Solid auf (x,y,z) für alle x,y,z
+					// ungerade
 					if (!(i % 2 == 0 || j % 2 == 0 || k % 2 == 0)) {
 						level[i][j][k] = Cube.getCubeByName(Cube.CUBE_SOLID);
+						// Sonst zufällige Verteilung zerstörbarer Blöcke
 					} else {
-
-						// FIXME Bessere zufällige Hindernisverteilung einbauen
+						// Erzeuge Zufallszahl zwischen 0-100
 						Random random = new Random();
 						int rnd = 1 + Math.abs(random.nextInt()) % 100;
 
@@ -154,19 +167,21 @@ public class Level {
 		}
 
 		// TODO zum AUSPROBIEREN: Exit verborgen
-		// level[this.getSizeX()-2][this.getSizeY()-2][this.getSizeZ()-2] = new
-		// CubeObstacle();
+		// level[this.getSizeX()-2][this.getSizeY()-2][this.getSizeZ()-2] =
+		// Cube.getCubeByName(Cube.CUBE_OBSTACLE);
 		// level[this.getSizeX()-2][this.getSizeY()-2][this.getSizeZ()-2].sethidesExit(true);
+		level[this.getSizeX() - 2][this.getSizeY() - 2][this.getSizeZ() - 4] = Cube.getCubeByName(Cube.CUBE_ITEM_HEALTH);
 
 		// Setze den Ausgang in eine zufällige der sechs Ecken,
 		// die nicht durch Spieler belegt ist!
 		Random random = new Random();
 		int rnd = 1 + Math.abs(random.nextInt()) % 6;
 
+		// this.setCube(cube, x, y, z)
 		// rnd = 4; //TODO zum AUSPROBIEREN: Exit verborgen
 
 		// Skalierbares Level:
-		// Der Ausgang wird bei freiwählbaren Levelausdehnungen in X,Y,Z
+		// Der Ausgang wird bei freiwählbarer Levelausdehnungen in X,Y,Z
 		// immer in die Ecken des Levels gelegt
 		switch (rnd) {
 		case 1:

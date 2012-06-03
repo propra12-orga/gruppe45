@@ -1,5 +1,12 @@
 package game;
 
+
+
+/**
+ * 
+ * 
+ *
+ */
 public class ArrayPosition {
 	int x, y, z;
 

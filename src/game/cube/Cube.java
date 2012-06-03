@@ -1,6 +1,8 @@
 package game.cube;
 
+import game.Level;
 import game.Player;
+import game.Level;
 
 /**
  * Abstrakte Klasse von der alle anderen Würfel abgeleitet werden
@@ -25,12 +27,16 @@ public abstract class Cube {
 	final static public String CUBE_OUTSIDE = "CubeOutside";
 	final static public String CUBE_SOLID = "CubeSolid";
 
-	final static public CubeData[] cubeData = { new CubeData(new CubeBomb(), CUBE_BOMB),
-			new CubeData(new CubeEmpty(), CUBE_EMPTY), new CubeData(new CubeExit(), CUBE_EXIT),
+	final static public CubeData[] cubeData = { 
+			new CubeData(new CubeBomb(), CUBE_BOMB),
+			new CubeData(new CubeEmpty(), CUBE_EMPTY), 
+			new CubeData(new CubeExit(), CUBE_EXIT),
 			new CubeData(new CubeExplosion(), CUBE_EXPLOSION),
 			new CubeData(new CubeExplosionHideExit(), CUBE_EXPLOSION_HIDE_EXIT),
-			new CubeData(new CubeItemHealth(), CUBE_ITEM_HEALTH), new CubeData(new CubeObstacle(), CUBE_OBSTACLE),
-			new CubeData(new CubeOutside(), CUBE_OUTSIDE), new CubeData(new CubeSolid(), CUBE_SOLID) };
+			new CubeData(new CubeItemHealth(), CUBE_ITEM_HEALTH), 
+			new CubeData(new CubeObstacle(), CUBE_OBSTACLE),
+			new CubeData(new CubeOutside(), CUBE_OUTSIDE), 
+			new CubeData(new CubeSolid(), CUBE_SOLID) };
 
 	boolean walkable;
 	boolean collectable;
@@ -119,11 +125,12 @@ public abstract class Cube {
 		this.hidesExit = hidesexit;
 	}
 
-	public void change(Player player) {
-		player.healPlayer(25);
-	}
 
 	public void change() {
+
+	}
+	
+	public void change(Player player, Level level) {
 
 	}
 

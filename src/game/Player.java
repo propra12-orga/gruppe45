@@ -1,6 +1,7 @@
 package game;
 
 import game.cube.Cube;
+import game.cube.CubeEmpty;
 
 import java.util.Timer;
 
@@ -14,6 +15,9 @@ import java.util.Timer;
  * 
  */
 public class Player {
+	
+	final static public int MAX_HEALTH_POINTS = 100;
+	
 	private int number = 0;
 
 	final private double PI_DIV_2 = (Math.PI / 2);
@@ -56,10 +60,10 @@ public class Player {
 	public void setBomb() {
 		setBomb((int) (x / 10), (int) (y / 10), (int) (z / 10));
 	}
-
 	public void setBomb(int x, int y, int z) {
 		if (maxBombs > 0) {
 			maxBombs--;
+			//Array posExp enthält die Positionen der 7 Explosionsblöcke
 			ArrayPosition[] posExp = { new ArrayPosition((int) x, (int) y, (int) z),
 					new ArrayPosition((int) x - 1, (int) y, (int) z), new ArrayPosition((int) x + 1, (int) y, (int) z),
 					new ArrayPosition((int) x, (int) y - 1, (int) z), new ArrayPosition((int) x, (int) y + 1, (int) z),
@@ -85,8 +89,13 @@ public class Player {
 	}
 
 	public void healPlayer(int healPoints) {
-		healPoints += healPoints;
+		healthPoints += healPoints;
 	}
+	
+	public void setMaxHealth(){
+		healthPoints = MAX_HEALTH_POINTS;
+	}
+	
 
 	public void hitPlayer(int hitPoints) {
 		healthPoints -= hitPoints;
@@ -181,7 +190,8 @@ public class Player {
 	/**
 	 * @return Anzahl der Healthpoints
 	 */
-	public int gethealthPoints() {
+
+	public int getHealthPoints(){
 		return this.healthPoints;
 	}
 
@@ -311,7 +321,7 @@ public class Player {
 			this.y += y;
 			this.z += z;
 			if (cube.isCollectable()) {
-				cube.change();
+				cube.change(this, level);
 			}
 		}
 	}

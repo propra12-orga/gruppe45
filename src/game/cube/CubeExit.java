@@ -1,4 +1,6 @@
 package game.cube;
+import game.Level;
+import game.Player;
 
 public class CubeExit extends Cube {
 
@@ -7,8 +9,9 @@ public class CubeExit extends Cube {
 		this.hidesExit = true;
 	}
 
+	
 	@Override
-	public void change() {
+	public void change(Player player, Level level) {
 		// TODO Println-Zeile löschen! Ausgabe nur zu Probezwecken!
 		System.out.println("Du hast den Ausgang erreicht - Glückwunsch!");
 		System.exit(1);

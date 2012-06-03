@@ -10,7 +10,7 @@ import org.lwjgl.opengl.DisplayMode;
 import control.Control_Keyboard;
 import control.Control_Mouse;
 
-public class Window {// implements Runnable {
+public class Window {
 
 	final static public int width = 800; // Größe des Darstellungsfensters
 	final static public int height = 600;
@@ -18,8 +18,6 @@ public class Window {// implements Runnable {
 	final static public int level_size_x = 20; // X-Ausdehnung der Spielwelt
 	final static public int level_size_y = 20; // Y-Ausdehnung der Spielwelt
 	final static public int level_size_z = 20; // Z-Ausdehnung der Spielwelt
-
-	// Thread t = new Thread();
 
 	public void start() {
 
@@ -49,7 +47,6 @@ public class Window {// implements Runnable {
 
 		Player player = new Player(level, player1_start_x, level_size_y * 10 - 15, 15); // STARTPOSITION
 																						// SPIELER
-		// Player player = new Player(level, 25, 15, level_size_z*10-15);
 
 		OpenGL openGl = new OpenGL(level, player, width, height, null);
 		Control_Keyboard controlKeyboard = new Control_Keyboard(player);
@@ -60,7 +57,6 @@ public class Window {// implements Runnable {
 			openGl.display();
 			Display.update();
 
-			// controlKeyboard.move_Control1(player);
 			controlMouse.mouse_Move(player);
 
 		}

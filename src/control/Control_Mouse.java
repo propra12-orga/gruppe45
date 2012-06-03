@@ -4,6 +4,12 @@ import game.Player;
 
 import org.lwjgl.input.Mouse;
 
+
+/**
+ * 
+ * Enthält Methoden die für die Maussteuerung notwendig sind
+ *
+ */
 public class Control_Mouse extends Control {
 
 	public Control_Mouse(Player player) {
