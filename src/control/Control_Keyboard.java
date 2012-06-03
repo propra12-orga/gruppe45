@@ -68,8 +68,7 @@ public class Control_Keyboard extends Control {
 				printPosition();
 			}
 			// Programm beenden:
-			if (Keyboard.isKeyDown(Keyboard.KEY_T)
-					|| Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
+			if (Keyboard.isKeyDown(Keyboard.KEY_T) || Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 				// Display.destroy(); // Die Klasse findet Dislpay anscheinend
 				// nicht
 				System.exit(0);

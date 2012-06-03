@@ -51,7 +51,7 @@ public class Window {// implements Runnable {
 																						// SPIELER
 		// Player player = new Player(level, 25, 15, level_size_z*10-15);
 
-		OpenGL openGl = new OpenGL(level, player, width, height);
+		OpenGL openGl = new OpenGL(level, player, width, height, null);
 		Control_Keyboard controlKeyboard = new Control_Keyboard(player);
 		Control_Mouse controlMouse = new Control_Mouse(player);
 

@@ -20,10 +20,10 @@ public class Player {
 	protected float x = 0, y = 0, z = 0;
 	private float stepSize = 1f;
 	private float[] color;
-	private float angleY = 0;
-	private float angleX = 0;
+	protected float angleY = 0;
+	protected float angleX = 0;
 
-	private Level level;
+	protected Level level;
 
 	private int healthPoints = 100;
 	int radius = 3;
@@ -42,6 +42,7 @@ public class Player {
 	public Player(Level level, float x, float y, float z, int number) {
 		setPosition(x, y, z);
 		this.level = level;
+		this.number = number;
 	}
 
 	public int getNumber() {
@@ -200,8 +201,16 @@ public class Player {
 		this.z = z;
 	}
 
+	public float getAngleX() {
+		return angleX;
+	}
+
 	public void setAngleX(float angleX) {
 		this.angleX = angleX;
+	}
+
+	public float getAngleY() {
+		return angleY;
 	}
 
 	public void setAngleY(float angleY) {
@@ -286,7 +295,7 @@ public class Player {
 	}
 
 	// TODO Testen, ob Abfrage funktioniert
-	private void move(float x, float y, float z) {
+	protected void move(float x, float y, float z) {
 		int tmpCubeX = (int) (this.x + x) / 10; // x-Position des ZielCubes im
 												// Level
 		int tmpCubeY = (int) (this.y + y) / 10; // y-Position des ZielCubes im

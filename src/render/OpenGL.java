@@ -6,8 +6,13 @@ import game.Level;
 import game.Player;
 import game.cube.Cube;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
+
+import DetectedServer.NetPlayer;
 
 public class OpenGL {
 
@@ -20,14 +25,18 @@ public class OpenGL {
 	Player player;
 	Objects objects;
 
+	// Netzwerk spieler
+	private static List<NetPlayer> listNetPlayer = new ArrayList();
+
 	private byte effect = EFFECT_OFF;
 
-	public OpenGL(Level level, Player player, int width, int height) {
+	public OpenGL(Level level, Player player, int width, int height, List<NetPlayer> listNetPlayer) {
 		this.level = level;
 		this.player = player;
 		this.width = width;
 		this.height = height;
 		this.level = level;
+		this.listNetPlayer = listNetPlayer;
 		objects = new Objects();
 		init();
 	}
@@ -75,6 +84,14 @@ public class OpenGL {
 					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_EXIT)) {
 						objects.DrawCubeExit(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					}
+				}
+			}
+		}
+		// Spieler zeichnen
+		if (listNetPlayer != null) {
+			for (int i = 0; i < listNetPlayer.size(); i++) {
+				if (listNetPlayer.get(i).getNumber() != player.getNumber()) {
+					objects.DrawPlayer(listNetPlayer.get(i).getX(), listNetPlayer.get(i).getY(), listNetPlayer.get(i).getZ());
 				}
 			}
 		}

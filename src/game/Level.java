@@ -11,7 +11,7 @@ import java.util.Random;
  */
 public class Level {
 
-	final static public int OBSTACLE_PROBABILITY = 0; // Wahrscheinlichkeit
+	final static public int OBSTACLE_PROBABILITY = 15; // Wahrscheinlichkeit
 														// eines Hindernisses
 														// an leerer Stelle des
 														// Levels (0..100 %)
@@ -82,7 +82,6 @@ public class Level {
 			return null;
 	}
 
-	// TODO Cubezahlen statt Cubenamen
 	// TODO String nur aendern wenn sich auch das Level aendert, neuberechnen
 	// ist ineffizient
 	public String getLevel() {
@@ -90,11 +89,22 @@ public class Level {
 		for (byte i = 0; i < getSizeX(); i++) {
 			for (byte j = 0; j < getSizeY(); j++) {
 				for (byte k = 0; k < getSizeZ(); k++) {
-					out += ":" + getCubeName(i, j, k);
+					out += ":" + Cube.getNumberByCube(level[i][j][k]);
 				}
 			}
 		}
 		return out;
+	}
+
+	public void setLevel(String[] in) {
+		int posArray = 4;
+		for (byte i = 0; i < getSizeX(); i++) {
+			for (byte j = 0; j < getSizeY(); j++) {
+				for (byte k = 0; k < getSizeZ(); k++) {
+					setCube(Cube.getCubeByNumber(Integer.valueOf(in[posArray++])), i, j, k);
+				}
+			}
+		}
 	}
 
 	/**
