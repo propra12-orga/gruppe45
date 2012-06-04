@@ -11,13 +11,13 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
 /**
- * Enthaelt Steuerungsbefehle fuer den Spieler und
- * veraendert dessen Position und Blickwinkel. Ausserdem enthalten sind Befehle
- * fuer das Legen von Bomben und kurze Tastenbefehle, mit denen der
- * Programmablauf gesteuert werden kann (Beenden, Neustart...)
+ * Enthaelt Steuerungsbefehle fuer den Spieler und veraendert dessen Position
+ * und Blickwinkel. Ausserdem enthalten sind Befehle fuer das Legen von Bomben
+ * und kurze Tastenbefehle, mit denen der Programmablauf gesteuert werden kann
+ * (Beenden, Neustart...)
  * 
  * 
- *
+ * 
  * 
  */
 
@@ -45,33 +45,28 @@ public class Control_Keyboard extends Control {
 			// rueckwaerts:
 			if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
 				player.moveBackward();
-				printPosition();
 			}
 			// rechts:
 			if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
 				player.moveRight();
-				printPosition();
 			}
 			// vorwaerts:
 			if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
 				player.moveForward();
-				printPosition();
 			}
 			// hoch:
 			if (Keyboard.isKeyDown(Keyboard.KEY_Q)) {
 				player.moveUp();
-				printPosition();
 			}
 			// runter:
 			if (Keyboard.isKeyDown(Keyboard.KEY_E)) {
 				player.moveDown();
-				printPosition();
 			}
 			// Programm beenden:
 			if (Keyboard.isKeyDown(Keyboard.KEY_T) || Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 				// Display.destroy(); // Die Klasse findet Dislpay anscheinend
 				// nicht
-				System.exit(0);
+				player.dies();
 			}
 			// Bombe legen:
 			if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
@@ -97,14 +92,6 @@ public class Control_Keyboard extends Control {
 			if (Keyboard.isKeyDown(Keyboard.KEY_N)) {
 				Display.destroy();
 			}
-
 		}
-
 	}
-
-	private void printPosition() {
-		// System.out.println("Position:  X: " + player.getX() + "  Y: "
-		// + player.getY() + " Z: " + player.getZ());
-	}
-
 }

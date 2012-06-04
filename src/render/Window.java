@@ -3,6 +3,9 @@ package render;
 import game.Level;
 import game.Player;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -45,8 +48,10 @@ public class Window {
 			}
 		}
 
-		Player player = new Player(level, player1_start_x, level_size_y * 10 - 15, 15); // STARTPOSITION
-																						// SPIELER
+		List<Player> listPlayer = new ArrayList<Player>();
+		Player player = new Player(level, player1_start_x, level_size_y * 10 - 15, 15, listPlayer); // STARTPOSITION
+		// SPIELER
+		listPlayer.add(player);
 
 		OpenGL openGl = new OpenGL(level, player, width, height, null);
 		Control_Keyboard controlKeyboard = new Control_Keyboard(player);

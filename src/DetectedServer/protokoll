@@ -1,0 +1,30 @@
+SendX()
+ReceiveX(String strIn)
+
+ThreadWindowNetwork
+Client an Server
+#POSITION:number:x:y:z:angleX:angleY:health
+move()
+#BOMB:x:y:z
+setBomb()
+#EXIT:number
+System.exit()
+
+Server an Client(individuelle Nachrichten)
+#PLAYERMAX
+#PLAYERCOUNT
+#SERVERFULL
+#LEVEL:x:y:z:[cubenumber]
+#POSITION:number:x:y:z:angleX:angleY:health
+#PLAYERLIST:count:[number:x:y:z:angleX:angleY]
+
+ThreadClient
+Server an alle Clienten(globale Spielnachrichten)
+#CUBE:x:y:z:cubenumber
+setCube()
+#POSITION:number:x:y:z:angleX:angleY:health
+wenn Spielerposition empfangen wird
+#EXIT:number
+wenn Spielerexit empfangen wird
+#SERVERDOWN
+Wenn Server heruntergefahren wird

@@ -12,8 +12,6 @@ import java.util.List;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
 
-import DetectedServer.NetPlayer;
-
 public class OpenGL {
 
 	final static public byte EFFECT_OFF = 0x00; // 0000 0000
@@ -26,17 +24,17 @@ public class OpenGL {
 	Objects objects;
 
 	// Netzwerk spieler
-	private static List<NetPlayer> listNetPlayer = new ArrayList();
+	private static List<Player> listPlayer = new ArrayList();
 
 	private byte effect = EFFECT_OFF;
 
-	public OpenGL(Level level, Player player, int width, int height, List<NetPlayer> listNetPlayer) {
+	public OpenGL(Level level, Player player, int width, int height, List<Player> listPlayer) {
 		this.level = level;
 		this.player = player;
 		this.width = width;
 		this.height = height;
 		this.level = level;
-		this.listNetPlayer = listNetPlayer;
+		this.listPlayer = listPlayer;
 		objects = new Objects();
 		init();
 	}
@@ -72,7 +70,6 @@ public class OpenGL {
 						objects.DrawCubeSolid(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_OUTSIDE)) {
 
-
 						// GL11.glColor3f(0f, 1f, 0f);
 						// GL11.glEnable(GL11.GL_TEXTURE_2D);
 						// objects.DrawCubeOutside(i * sizeOfCube, j *
@@ -89,10 +86,10 @@ public class OpenGL {
 			}
 		}
 		// Spieler zeichnen
-		if (listNetPlayer != null) {
-			for (int i = 0; i < listNetPlayer.size(); i++) {
-				if (listNetPlayer.get(i).getNumber() != player.getNumber()) {
-					objects.DrawPlayer(listNetPlayer.get(i).getX(), listNetPlayer.get(i).getY(), listNetPlayer.get(i).getZ());
+		if (listPlayer != null) {
+			for (int i = 0; i < listPlayer.size(); i++) {
+				if (listPlayer.get(i).getNumber() != player.getNumber()) {
+					objects.DrawPlayer(listPlayer.get(i).getX(), listPlayer.get(i).getY(), listPlayer.get(i).getZ());
 				}
 			}
 		}

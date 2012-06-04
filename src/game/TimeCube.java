@@ -2,15 +2,15 @@ package game;
 
 import game.cube.Cube;
 
+import java.util.List;
 import java.util.TimerTask;
-
 
 public class TimeCube extends TimerTask {
 
 	Cube cube;
 	ArrayPosition[] positions;
 	Level level;
-	Player player;
+	List<Player> listPlayer;
 
 	/**
 	 * Der TimeCube fungiert als Thread
@@ -25,47 +25,38 @@ public class TimeCube extends TimerTask {
 	 * @param player
 	 *            Der aktuelle Spieler wird übergeben
 	 */
-	public TimeCube(Level level, Cube cube, ArrayPosition[] positions,
-			Player player) {
+	public TimeCube(Level level, Cube cube, ArrayPosition[] positions, List<Player> listPlayer) {
 		this.positions = positions;
 		this.cube = cube;
 		this.level = level;
-		this.player = player;
+		this.listPlayer = listPlayer;
 	}
 
 	@Override
 	public void run() {
-		//Alle übergebenen Positionen werden angesteuert:
+		// Alle übergebenen Positionen werden angesteuert:
 		for (int i = 0; i < positions.length; i++) {
 			boolean transportExit = false;
 			// Die Würfelart an der Position i wird erfragt:
-			Cube tmpcube = level.getCube(positions[i].getX(),
-					positions[i].getY(), positions[i].getZ());
-			if (tmpcube.hidesExit())  
+			Cube tmpcube = level.getCube(positions[i].getX(), positions[i].getY(), positions[i].getZ());
+			if (tmpcube.hidesExit())
 				transportExit = true; // Merker, ob sich hier der Exit verbirgt
 
 			if (tmpcube.isDestroyable()) {
-				level.setCube(cube, positions[i].getX(), positions[i].getY(),
-						positions[i].getZ());
+				level.setCube(cube, positions[i].getX(), positions[i].getY(), positions[i].getZ());
 
-				// Kollisionsabfrage mit Spieler
-				// FIXME Für mehrere Spieler ermöglichen
-				if (cube.getCubeName().equals(Cube.CUBE_EXPLOSION)
-						|| cube.getCubeName().equals(
-								Cube.CUBE_EXPLOSION_HIDE_EXIT)) {
-					if ((positions[i].getX() == player.getCubeX())
-							&& (positions[i].getY() == player.getCubeY())
-							&& (positions[i].getZ() == player.getCubeZ())) {
-						cube.change(player, level);
+				for (int j = 0; j < listPlayer.size(); j++) {
+					if (cube.getCubeName().equals(Cube.CUBE_EXPLOSION)
+							|| cube.getCubeName().equals(Cube.CUBE_EXPLOSION_HIDE_EXIT)) {
+						if ((positions[i].getX() == listPlayer.get(j).getCubeX())
+								&& (positions[i].getY() == listPlayer.get(j).getCubeY())
+								&& (positions[i].getZ() == listPlayer.get(j).getCubeZ())) {
+							cube.change(listPlayer.get(j), level);
 
-						// TODO Testausgabe entfernen!
-						System.out
-								.println("Player getroffen! -25  HealthPoints: "
-										+ player.getHealthPoints());
-
-						// Abfrage, ob Player noch lebt oder getötet wurde
-						if (player.getHealthPoints() <= 0) {
-							player.dies();
+							// Abfrage, ob Player noch lebt oder getötet wurde
+							if (listPlayer.get(j).getHealthPoints() <= 0) {
+								listPlayer.get(j).dies();
+							}
 						}
 					}
 				}
@@ -76,13 +67,10 @@ public class TimeCube extends TimerTask {
 									// so wird dieser nun freigelegt bzw.
 									// weitergegeben!
 				if (cube.getCubeName().equals(Cube.CUBE_EMPTY)) {
-					level.setCube(Cube.getCubeByName(Cube.CUBE_EXIT),
-							positions[i].getX(), positions[i].getY(),
+					level.setCube(Cube.getCubeByName(Cube.CUBE_EXIT), positions[i].getX(), positions[i].getY(),
 							positions[i].getZ());
 				} else {
-					level.setCube(
-							Cube.getCubeByName(Cube.CUBE_EXPLOSION_HIDE_EXIT),
-							positions[i].getX(), positions[i].getX(),
+					level.setCube(Cube.getCubeByName(Cube.CUBE_EXPLOSION_HIDE_EXIT), positions[i].getX(), positions[i].getX(),
 							positions[i].getX());
 				}
 			}

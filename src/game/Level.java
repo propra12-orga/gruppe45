@@ -62,6 +62,12 @@ public class Level {
 		}
 	}
 
+	public void setCubeSilent(Cube cube, int x, int y, int z) {
+		if (x >= 0 && y >= 0 && z >= 0 && x < getSizeX() && y < getSizeY() && z < getSizeZ()) {
+			level[x][y][z] = cube;
+		}
+	}
+
 	/**
 	 * Mit diesem Konstruktor kann die Groesse des Levels variiert werden
 	 * 
