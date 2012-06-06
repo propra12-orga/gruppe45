@@ -70,8 +70,8 @@ public class TimeCube extends TimerTask {
 					level.setCube(Cube.getCubeByName(Cube.CUBE_EXIT), positions[i].getX(), positions[i].getY(),
 							positions[i].getZ());
 				} else {
-					level.setCube(Cube.getCubeByName(Cube.CUBE_EXPLOSION_HIDE_EXIT), positions[i].getX(), positions[i].getX(),
-							positions[i].getX());
+					level.setCube(Cube.getCubeByName(Cube.CUBE_EXPLOSION_HIDE_EXIT), positions[i].getX(), positions[i].getY(),
+							positions[i].getZ());
 				}
 			}
 		}

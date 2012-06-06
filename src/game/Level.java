@@ -11,7 +11,7 @@ import java.util.Random;
  */
 public class Level {
 
-	final static public int OBSTACLE_PROBABILITY = 0; // Wahrscheinlichkeit
+	final static public int OBSTACLE_PROBABILITY = 10; // Wahrscheinlichkeit
 														// eines Hindernisses
 														// an leerer Stelle des
 														// Levels (0..100 %)
