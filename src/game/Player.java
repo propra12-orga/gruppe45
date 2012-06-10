@@ -66,6 +66,11 @@ public class Player {
 		return this.maxBombs;
 	}
 	
+	public void setPlayerPosition(float newX, float newY, float newZ){
+		this.x = newX * 10 + 5;
+		this.y = newY * 10 + 5;
+		this.z = newZ * 10 + 5;
+	}
 	
 	
 	public int getNumber() {

@@ -13,6 +13,7 @@ public class TimeCube extends TimerTask {
 	// Summe < 100 !
 	final static public int ITEM_HEALTH_PROBABILITY = 15;
 	final static public int ITEM_XTRA_BOMB_PROBABILITY = 10;
+	final static public int ITEM_PORTAL_PROBABILITY = 20;
 
 	Cube cube;
 	ArrayPosition[] positions;
@@ -62,7 +63,10 @@ public class TimeCube extends TimerTask {
 					// ITEM: EXTRA BOMBE
 					} else if ((rnd > ITEM_HEALTH_PROBABILITY) && (rnd <= ITEM_HEALTH_PROBABILITY + ITEM_XTRA_BOMB_PROBABILITY)) {
 						level.setCube(Cube.getCubeByName(Cube.CUBE_ITEM_XTRA_BOMB), positions[i].getX(), positions[i].getY(), positions[i].getZ());
-					// SONSTIGER FALL: Cube wird leerer Würfel
+					// ITEM: PORTAL	
+					} else if ((rnd > ITEM_HEALTH_PROBABILITY + ITEM_XTRA_BOMB_PROBABILITY) && (rnd <= ITEM_HEALTH_PROBABILITY + ITEM_XTRA_BOMB_PROBABILITY + ITEM_PORTAL_PROBABILITY)) {
+						level.setCube(Cube.getCubeByName(Cube.CUBE_ITEM_PORTAL), positions[i].getX(), positions[i].getY(), positions[i].getZ());
+					// SONSTIGER FALL: Cube wird leerer Würfel						
 					} else
 						level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), positions[i].getX(), positions[i].getY(), positions[i].getZ());
 					

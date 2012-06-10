@@ -9,7 +9,7 @@ import org.newdawn.slick.opengl.TextureLoader;
 
 public class Objects {
 
-	private Texture texBomb, texFire, texPaper, texOutside, texObstacle, texHealth, texXtraBomb, texExit, texPlayer;
+	private Texture texBomb, texFire, texPaper, texOutside, texObstacle, texHealth, texXtraBomb, texPortal, texExit, texPlayer;
 
 	public Objects() {
 		// Texturen laden
@@ -21,6 +21,7 @@ public class Objects {
 			texObstacle = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/obstacle.png"));
 			texHealth = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/health.png"));
 			texXtraBomb = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/ItemXtraBomb.png"));
+			texPortal = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/ItemPortal.png"));
 			texExit = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/exit.png"));
 			texPlayer = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/leopard.png"));
 		} catch (IOException e) {
@@ -61,6 +62,11 @@ public class Objects {
 	
 	public void DrawCubeItemXtraBomb(float x, float y, float z) {
 		texXtraBomb.bind();
+		DrawCube(x + 2.5f, y + 2.5f, z + 2.5f, 5, 1);
+	}
+	
+	public void DrawCubeItemPortal(float x, float y, float z) {
+		texPortal.bind();
 		DrawCube(x + 2.5f, y + 2.5f, z + 2.5f, 5, 1);
 	}
 
