@@ -10,7 +10,9 @@ public class TimeCube extends TimerTask {
 	
 	// Wahrscheinlichkeit, dass hinter einem Weggesprengten Obstacle
 	// ein Item erscheinen wird.
-	final static public int ITEM_PROBABILITY = 6;
+	// Summe < 100 !
+	final static public int ITEM_HEALTH_PROBABILITY = 15;
+	final static public int ITEM_XTRA_BOMB_PROBABILITY = 10;
 
 	Cube cube;
 	ArrayPosition[] positions;
@@ -41,12 +43,9 @@ public class TimeCube extends TimerTask {
 	public void run() {
 //		// Alle übergebenen Positionen werden angesteuert:
 		for (int i = 0; i < positions.length; i++) {
-//			boolean transportExit = false;
+
 			// Die Würfelart an der Position i wird erfragt:
-			
 			Cube tmpcube = level.getCube(positions[i].getX(), positions[i].getY(), positions[i].getZ());
-//			if (tmpcube.hidesExit())
-//		transportExit = true; // Merker, ob sich hier der Exit verbirgt
 
 			if (tmpcube.isDestroyable()) {
 			// Überprüfe, ob Ausgang oder Items transportiert werden!
@@ -56,21 +55,15 @@ public class TimeCube extends TimerTask {
 				if (tmpcube.getCubeName().equals(Cube.CUBE_EXPLOSION_HIDE_ITEM)) {
 					// FIXME zufälliges Erscheinen von Items anpassen, Verteilung prozentual anpassen
 					Random random = new Random();
-					int rnd = 1 + Math.abs(random.nextInt()) % ITEM_PROBABILITY;
+					int rnd = 1 + Math.abs(random.nextInt()) % 100;
+					System.out.println(rnd);
+					if (rnd <= ITEM_HEALTH_PROBABILITY) {
+						level.setCube(Cube.getCubeByName(Cube.CUBE_ITEM_HEALTH), positions[i].getX(), positions[i].getY(), positions[i].getZ());
+					} else if ((rnd > ITEM_HEALTH_PROBABILITY) && (rnd <= ITEM_HEALTH_PROBABILITY + ITEM_XTRA_BOMB_PROBABILITY)) {
+						level.setCube(Cube.getCubeByName(Cube.CUBE_ITEM_XTRA_BOMB), positions[i].getX(), positions[i].getY(), positions[i].getZ());
+					} else
+						level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), positions[i].getX(), positions[i].getY(), positions[i].getZ());
 					
-					switch (rnd) {
-						// Setze Item: HEALTH
-						case 1: case 2:   	
-							level.setCube(Cube.getCubeByName(Cube.CUBE_ITEM_HEALTH), positions[i].getX(), positions[i].getY(), positions[i].getZ());
-							break;
-						// Setze Item: XTRA BOMB
-						case 3: 	
-							level.setCube(Cube.getCubeByName(Cube.CUBE_ITEM_XTRA_BOMB), positions[i].getX(), positions[i].getY(), positions[i].getZ());
-							break;
-						default:	
-							level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), positions[i].getX(), positions[i].getY(), positions[i].getZ());
-							break;
-					}
 				// Explosion, die den Ausgang verbirgt, wird zum Ausgang  
 				} else if (tmpcube.getCubeName().equals(Cube.CUBE_EXPLOSION_HIDE_EXIT)) {
 					level.setCube(Cube.getCubeByName(Cube.CUBE_EXIT), positions[i].getX(), positions[i].getY(), positions[i].getZ());
