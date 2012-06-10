@@ -15,8 +15,9 @@ import java.util.Timer;
  * 
  */
 public class Player {
-
+	// Obergrenzen für Playervariablen
 	final static public int MAX_HEALTH_POINTS = 100;
+	final static public int MAX_SIMULTAN_BOMBS = 5;
 
 	private int number = 0;
 
