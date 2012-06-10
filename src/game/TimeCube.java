@@ -56,11 +56,13 @@ public class TimeCube extends TimerTask {
 					// FIXME zufälliges Erscheinen von Items anpassen, Verteilung prozentual anpassen
 					Random random = new Random();
 					int rnd = 1 + Math.abs(random.nextInt()) % 100;
-					System.out.println(rnd);
+					// ITEM: HEALTH
 					if (rnd <= ITEM_HEALTH_PROBABILITY) {
 						level.setCube(Cube.getCubeByName(Cube.CUBE_ITEM_HEALTH), positions[i].getX(), positions[i].getY(), positions[i].getZ());
+					// ITEM: EXTRA BOMBE
 					} else if ((rnd > ITEM_HEALTH_PROBABILITY) && (rnd <= ITEM_HEALTH_PROBABILITY + ITEM_XTRA_BOMB_PROBABILITY)) {
 						level.setCube(Cube.getCubeByName(Cube.CUBE_ITEM_XTRA_BOMB), positions[i].getX(), positions[i].getY(), positions[i].getZ());
+					// SONSTIGER FALL: Cube wird leerer Würfel
 					} else
 						level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), positions[i].getX(), positions[i].getY(), positions[i].getZ());
 					

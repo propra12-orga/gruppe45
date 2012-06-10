@@ -25,13 +25,7 @@ public class CubeItemXtraBomb extends Cube {
 		else {
 			// TODO Testausgabe entfernen!
 			System.out.println("Du hast schon die maximale Anzahl an Bomben! " + player.getMaxBombs());
-		}			
-		
-		// TODO Testausgabe entfernen!
-		System.out.println("Item used! +1 Bomb  MaxBombs now: " + player.getMaxBombs());
-	
+		}		
 		level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), player.getCubeX(), player.getCubeY(), player.getCubeZ());
-
 	}
-
 }
