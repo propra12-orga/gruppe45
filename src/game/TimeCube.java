@@ -10,7 +10,7 @@ public class TimeCube extends TimerTask {
 	
 	// Wahrscheinlichkeit, dass hinter einem Weggesprengten Obstacle
 	// ein Item erscheinen wird.
-	final static public int ITEM_PROBABILITY = 10;
+	final static public int ITEM_PROBABILITY = 6;
 
 	Cube cube;
 	ArrayPosition[] positions;
@@ -56,7 +56,7 @@ public class TimeCube extends TimerTask {
 				if (tmpcube.getCubeName().equals(Cube.CUBE_EXPLOSION_HIDE_ITEM)) {
 					// FIXME zufälliges Erscheinen von Items anpassen, Verteilung prozentual anpassen
 					Random random = new Random();
-					int rnd = 1 + Math.abs(random.nextInt()) % (ITEM_PROBABILITY / 10);
+					int rnd = 1 + Math.abs(random.nextInt()) % ITEM_PROBABILITY;
 					
 					switch (rnd) {
 						case 1: 	level.setCube(Cube.getCubeByName(Cube.CUBE_ITEM_HEALTH), positions[i].getX(), positions[i].getY(), positions[i].getZ());
