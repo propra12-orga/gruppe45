@@ -60,13 +60,16 @@ public class TimeCube extends TimerTask {
 					
 					switch (rnd) {
 						// Setze Item: HEALTH
-						case 1: 	level.setCube(Cube.getCubeByName(Cube.CUBE_ITEM_HEALTH), positions[i].getX(), positions[i].getY(), positions[i].getZ());
-									break;
+						case 1: case 2:   	
+							level.setCube(Cube.getCubeByName(Cube.CUBE_ITEM_HEALTH), positions[i].getX(), positions[i].getY(), positions[i].getZ());
+							break;
 						// Setze Item: XTRA BOMB
-						case 2: 	level.setCube(Cube.getCubeByName(Cube.CUBE_ITEM_XTRA_BOMB), positions[i].getX(), positions[i].getY(), positions[i].getZ());
-									break;
-						default:	level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), positions[i].getX(), positions[i].getY(), positions[i].getZ());
-									break;
+						case 3: 	
+							level.setCube(Cube.getCubeByName(Cube.CUBE_ITEM_XTRA_BOMB), positions[i].getX(), positions[i].getY(), positions[i].getZ());
+							break;
+						default:	
+							level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), positions[i].getX(), positions[i].getY(), positions[i].getZ());
+							break;
 					}
 				// Explosion, die den Ausgang verbirgt, wird zum Ausgang  
 				} else if (tmpcube.getCubeName().equals(Cube.CUBE_EXPLOSION_HIDE_EXIT)) {

@@ -11,6 +11,7 @@ import java.util.Random;
  */
 public class Level {
 
+	// TODO Menüoption
 	final static public int OBSTACLE_PROBABILITY = 20; // Wahrscheinlichkeit
 														// eines Hindernisses
 														// an leerer Stelle des
