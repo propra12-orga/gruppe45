@@ -23,6 +23,7 @@ public abstract class Cube {
 	final static public String CUBE_EXPLOSION_HIDE_ITEM = "CubeExplosionHideItem";
 	final static public String CUBE_OBSTACLE_HIDE_EXIT = "CubeObstacleHideExit";
 	final static public String CUBE_ITEM_HEALTH = "CubeItemHealth";
+	final static public String CUBE_ITEM_XTRA_BOMB = "CubeItemXtraBomb";
 	final static public String CUBE_OBSTACLE = "CubeObstacle";
 	final static public String CUBE_OUTSIDE = "CubeOutside";
 	final static public String CUBE_SOLID = "CubeSolid";
@@ -34,6 +35,7 @@ public abstract class Cube {
 			new CubeData(new CubeExplosion(), CUBE_EXPLOSION),
 			new CubeData(new CubeExplosionHideExit(), CUBE_EXPLOSION_HIDE_EXIT),
 			new CubeData(new CubeItemHealth(), CUBE_ITEM_HEALTH), 
+			new CubeData(new CubeItemXtraBomb(), CUBE_ITEM_XTRA_BOMB), 
 			new CubeData(new CubeObstacle(), CUBE_OBSTACLE),
 			new CubeData(new CubeOutside(), CUBE_OUTSIDE), 
 			new CubeData(new CubeSolid(), CUBE_SOLID), 

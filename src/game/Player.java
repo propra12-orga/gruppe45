@@ -56,6 +56,16 @@ public class Player {
 		this.healthPoints = healthPoints;
 	}
 
+	public void increaseMaxBombs(){
+		this.maxBombs += 1;
+	}
+	
+	public int getMaxBombs(){
+		return this.maxBombs;
+	}
+	
+	
+	
 	public int getNumber() {
 		return number;
 	}

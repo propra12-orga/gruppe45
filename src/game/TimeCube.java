@@ -59,7 +59,11 @@ public class TimeCube extends TimerTask {
 					int rnd = 1 + Math.abs(random.nextInt()) % ITEM_PROBABILITY;
 					
 					switch (rnd) {
+						// Setze Item: HEALTH
 						case 1: 	level.setCube(Cube.getCubeByName(Cube.CUBE_ITEM_HEALTH), positions[i].getX(), positions[i].getY(), positions[i].getZ());
+									break;
+						// Setze Item: XTRA BOMB
+						case 2: 	level.setCube(Cube.getCubeByName(Cube.CUBE_ITEM_XTRA_BOMB), positions[i].getX(), positions[i].getY(), positions[i].getZ());
 									break;
 						default:	level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), positions[i].getX(), positions[i].getY(), positions[i].getZ());
 									break;
