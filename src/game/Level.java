@@ -173,17 +173,13 @@ public class Level {
 		}
 
 		// TODO zum AUSPROBIEREN: Exit verborgen
-		// level[this.getSizeX()-2][this.getSizeY()-2][this.getSizeZ()-2] =
-		// Cube.getCubeByName(Cube.CUBE_OBSTACLE);
-		// level[this.getSizeX()-2][this.getSizeY()-2][this.getSizeZ()-2].sethidesExit(true);
-		level[this.getSizeX() - 2][this.getSizeY() - 2][this.getSizeZ() - 4] = Cube.getCubeByName(Cube.CUBE_ITEM_HEALTH);
+		// level[this.getSizeX()-2][this.getSizeY()-2][this.getSizeZ()-2] = Cube.getCubeByName(Cube.CUBE_OBSTACLE);
 
 		// Setze den Ausgang in eine zufällige der sechs Ecken,
 		// die nicht durch Spieler belegt ist!
 		Random random = new Random();
 		int rnd = 1 + Math.abs(random.nextInt()) % 6;
 
-		// this.setCube(cube, x, y, z)
 		// rnd = 4; //TODO zum AUSPROBIEREN: Exit verborgen
 
 		// Skalierbares Level:
@@ -238,7 +234,7 @@ public class Level {
 			if (level[exit_x][exit_y][exit_z].getCubeName() == Cube.CUBE_OBSTACLE) {
 				// Wenn Cube ein Hindernisse, dann verberge den Ausgang hinter
 				// diesem
-				level[exit_x][exit_y][exit_z].sethidesExit(true);
+				level[exit_x][exit_y][exit_z] = Cube.getCubeByName(Cube.CUBE_OBSTACLE_HIDE_EXIT);
 			} else {
 				// Wenn Cube leer ist, setze Ausgang direkt
 				level[exit_x][exit_y][exit_z] = Cube.getCubeByName(Cube.CUBE_EXIT);
