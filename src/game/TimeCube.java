@@ -12,7 +12,7 @@ public class TimeCube extends TimerTask {
 	// ein Item erscheinen wird.
 	// Summe < 100 !
 	final static public int ITEM_HEALTH_PROBABILITY = 15;
-	final static public int ITEM_XTRA_BOMB_PROBABILITY = 10;
+	final static public int ITEM_XTRA_BOMB_PROBABILITY = 15;
 	final static public int ITEM_PORTAL_PROBABILITY = 20;
 
 	Cube cube;

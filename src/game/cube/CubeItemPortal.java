@@ -27,11 +27,8 @@ public class CubeItemPortal extends Cube {
 		// FIXME @Philipp
 		// Wenn das Portal zu einem besetzten Block schickt, dann suche
 		// Nachbarblöcke statt Zufallposition
-		// TODO Exit als mögliche Destination rausnehmen?
-		if ((level.getCubeName(destCubeX, destCubeY, destCubeZ) == "CubeSolid") 
-			|| (level.getCubeName(destCubeX, destCubeY, destCubeZ) == "CubeObstacle") 
-			|| (level.getCubeName(destCubeX, destCubeY, destCubeZ) == "CubeObstacleHideExit")) {
-		
+		// TODO Exit als mögliche Destination rausnehmen?)
+		if (!(level.getCube(destCubeX, destCubeY, destCubeZ).isWalkable())) {
 			do {
 				Random randomx = new Random();
 				destCubeX = 1 + Math.abs(randomx.nextInt()) % (level.getSizeX()-1);
@@ -42,13 +39,8 @@ public class CubeItemPortal extends Cube {
 				Random randomz = new Random();
 				destCubeZ = 1 + Math.abs(randomz.nextInt()) % (level.getSizeZ()-1);
 				
-			} while ((level.getCubeName(destCubeX, destCubeY, destCubeZ) == "CubeSolid") 
-					|| (level.getCubeName(destCubeX, destCubeY, destCubeZ) == "CubeObstacle") 
-					|| (level.getCubeName(destCubeX, destCubeY, destCubeZ) == "CubeObstacleHideExit")
-					|| (level.getCubeName(destCubeX, destCubeY, destCubeZ) == "CubeOutside"));
-			
+			} while (!(level.getCube(destCubeX, destCubeY, destCubeZ).isWalkable()));
 		}
-			
 	
 		System.out.println("Du hast ein Portal betreten!");		
 		level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), player.getCubeX(), player.getCubeY(), player.getCubeZ());
