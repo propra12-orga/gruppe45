@@ -13,7 +13,7 @@ public class CubeItemHealth extends Cube {
 	final static public int HEAL_POINTS = 50;
 
 	CubeItemHealth() {
-		super(Cube.IS_WALKABLE, Cube.IS_COLLECTABLE, Cube.IS_NOT_DESTROYABLE); 
+		super(Cube.IS_WALKABLE, Cube.IS_COLLECTABLE, Cube.IS_DESTROYABLE); 
 	}
 
 	@Override

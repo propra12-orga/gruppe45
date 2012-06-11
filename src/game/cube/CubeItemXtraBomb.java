@@ -11,7 +11,7 @@ import game.Player;
 public class CubeItemXtraBomb extends Cube {
 	
 	CubeItemXtraBomb() {
-		super(Cube.IS_WALKABLE, Cube.IS_COLLECTABLE, Cube.IS_NOT_DESTROYABLE); 
+		super(Cube.IS_WALKABLE, Cube.IS_COLLECTABLE, Cube.IS_DESTROYABLE); 
 	}
 
 	@Override

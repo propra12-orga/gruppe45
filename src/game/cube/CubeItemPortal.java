@@ -13,7 +13,7 @@ import game.Player;
 public class CubeItemPortal extends Cube {
 	
 	CubeItemPortal() {
-		super(Cube.IS_WALKABLE, Cube.IS_COLLECTABLE, Cube.IS_NOT_DESTROYABLE); 
+		super(Cube.IS_WALKABLE, Cube.IS_COLLECTABLE, Cube.IS_DESTROYABLE); 
 	}
 
 	@Override
