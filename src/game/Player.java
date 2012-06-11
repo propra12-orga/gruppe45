@@ -15,8 +15,10 @@ import java.util.Timer;
  * 
  */
 public class Player {
-
-	final static public int MAX_HEALTH_POINTS = 100;
+	// TODO Menüoptionen
+	// Obergrenzen für Playervariablen
+	final static public int MAX_HEALTH_POINTS = 150;
+	final static public int MAX_SIMULTAN_BOMBS = 5;
 
 	private int number = 0;
 
@@ -56,6 +58,21 @@ public class Player {
 		this.healthPoints = healthPoints;
 	}
 
+	public void increaseMaxBombs(){
+		this.maxBombs += 1;
+	}
+	
+	public int getMaxBombs(){
+		return this.maxBombs;
+	}
+	
+	public void setPlayerPosition(float newX, float newY, float newZ){
+		this.x = newX * 10 + 5;
+		this.y = newY * 10 + 5;
+		this.z = newZ * 10 + 5;
+	}
+	
+	
 	public int getNumber() {
 		return number;
 	}

@@ -14,15 +14,17 @@ public abstract class Cube {
 	final static public boolean IS_NOT_WALKABLE = false;
 	final static public boolean IS_DESTROYABLE = true;
 	final static public boolean IS_NOT_DESTROYABLE = false;
-	final static public boolean HIDES_EXIT = true;
-	final static public boolean DOES_NOT_HIDE_EXIT = false;
 
 	final static public String CUBE_BOMB = "CubeBomb";
 	final static public String CUBE_EMPTY = "CubeEmpty";
 	final static public String CUBE_EXIT = "CubeExit";
 	final static public String CUBE_EXPLOSION = "CubeExplosion";
 	final static public String CUBE_EXPLOSION_HIDE_EXIT = "CubeExplosionHideExit";
+	final static public String CUBE_EXPLOSION_HIDE_ITEM = "CubeExplosionHideItem";
+	final static public String CUBE_OBSTACLE_HIDE_EXIT = "CubeObstacleHideExit";
 	final static public String CUBE_ITEM_HEALTH = "CubeItemHealth";
+	final static public String CUBE_ITEM_XTRA_BOMB = "CubeItemXtraBomb";
+	final static public String CUBE_ITEM_PORTAL = "CubeItemPortal";
 	final static public String CUBE_OBSTACLE = "CubeObstacle";
 	final static public String CUBE_OUTSIDE = "CubeOutside";
 	final static public String CUBE_SOLID = "CubeSolid";
@@ -34,14 +36,17 @@ public abstract class Cube {
 			new CubeData(new CubeExplosion(), CUBE_EXPLOSION),
 			new CubeData(new CubeExplosionHideExit(), CUBE_EXPLOSION_HIDE_EXIT),
 			new CubeData(new CubeItemHealth(), CUBE_ITEM_HEALTH), 
+			new CubeData(new CubeItemXtraBomb(), CUBE_ITEM_XTRA_BOMB), 
+			new CubeData(new CubeItemPortal(), CUBE_ITEM_PORTAL), 
 			new CubeData(new CubeObstacle(), CUBE_OBSTACLE),
 			new CubeData(new CubeOutside(), CUBE_OUTSIDE), 
-			new CubeData(new CubeSolid(), CUBE_SOLID) };
+			new CubeData(new CubeSolid(), CUBE_SOLID), 
+			new CubeData(new CubeObstacleHideExit(), CUBE_OBSTACLE_HIDE_EXIT),
+			new CubeData(new CubeExplosionHideItem(), CUBE_EXPLOSION_HIDE_ITEM)};
 
 	boolean walkable;
 	boolean collectable;
 	boolean destroyable;
-	boolean hidesExit;
 	String name;
 
 	/**
@@ -52,7 +57,6 @@ public abstract class Cube {
 		this.walkable = walkable;
 		this.collectable = collectable;
 		this.destroyable = destroyable;
-		this.hidesExit = false;
 	}
 
 	public void setCubeName(String name) {
@@ -113,18 +117,10 @@ public abstract class Cube {
 		return this.destroyable;
 	}
 
-	public boolean hidesExit() {
-		return this.hidesExit;
-	}
 
 	public String getCubeName() {
 		return this.name;
 	}
-
-	public void sethidesExit(boolean hidesexit) {
-		this.hidesExit = hidesexit;
-	}
-
 
 	public void change() {
 

@@ -8,29 +8,24 @@ import game.Player;
  * Item, das die Gesundheit des Spielers wieder herstellt.
  *
  */
-public class CubeItemHealth extends Cube {
+public class CubeItemXtraBomb extends Cube {
 	
-	final static public int HEAL_POINTS = 50;
-
-	CubeItemHealth() {
+	CubeItemXtraBomb() {
 		super(Cube.IS_WALKABLE, Cube.IS_COLLECTABLE, Cube.IS_DESTROYABLE); 
 	}
 
 	@Override
 	public void change(Player player, Level level) {		
-		if (player.getHealthPoints() + HEAL_POINTS < player.MAX_HEALTH_POINTS) {		
-			player.healPlayer(HEAL_POINTS);
+		if (player.getMaxBombs() < player.MAX_SIMULTAN_BOMBS) {		
+			player.increaseMaxBombs();
 			
 			// TODO Testausgabe entfernen!
-			System.out.println("Player geheilt! +50  HealthPoints: " + player.getHealthPoints());
+			System.out.println("Item used! +1 Bomb  MaxBombs now: " + player.getMaxBombs());
 		}
 		else {
-			player.setMaxHealth();
 			// TODO Testausgabe entfernen!
-			System.out.println("Player geheilt! HealthPoints maximal: " + player.getHealthPoints());
-		}			
+			System.out.println("Du hast schon die maximale Anzahl an Bomben! " + player.getMaxBombs());
+		}		
 		level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), player.getCubeX(), player.getCubeY(), player.getCubeZ());
-
 	}
-
 }

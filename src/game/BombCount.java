@@ -15,7 +15,8 @@ public class BombCount extends TimerTask{
 	
 	@Override
 	public void run() {
-		player.maxBombs ++;
+		if (player.maxBombs < player.MAX_SIMULTAN_BOMBS)
+			player.maxBombs ++;
 	}
 
 	public BombCount(Player player, int maxBombs){

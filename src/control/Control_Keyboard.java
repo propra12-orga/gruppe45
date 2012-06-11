@@ -66,7 +66,8 @@ public class Control_Keyboard extends Control {
 			if (Keyboard.isKeyDown(Keyboard.KEY_T) || Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 				// Display.destroy(); // Die Klasse findet Dislpay anscheinend
 				// nicht
-				player.dies();
+				//player.dies();
+			    System.exit(0);
 			}
 			// Bombe legen:
 			if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
