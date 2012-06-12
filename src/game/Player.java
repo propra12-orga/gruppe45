@@ -58,21 +58,20 @@ public class Player {
 		this.healthPoints = healthPoints;
 	}
 
-	public void increaseMaxBombs(){
+	public void increaseMaxBombs() {
 		this.maxBombs += 1;
 	}
-	
-	public int getMaxBombs(){
+
+	public int getMaxBombs() {
 		return this.maxBombs;
 	}
-	
-	public void setPlayerPosition(float newX, float newY, float newZ){
+
+	public void setPlayerPosition(float newX, float newY, float newZ) {
 		this.x = newX * 10 + 5;
 		this.y = newY * 10 + 5;
 		this.z = newZ * 10 + 5;
 	}
-	
-	
+
 	public int getNumber() {
 		return number;
 	}
@@ -341,17 +340,23 @@ public class Player {
 		int tmpCubeZ = (int) (this.z + z) / 10; // z-Position des ZielCubes im
 												// Level
 		Cube cube = level.getCube(tmpCubeX, tmpCubeY, tmpCubeZ);
-		if ((cube.isWalkable()) ||
-		// oder naechster Schritt im gleichen Cube -> um geblockte Bloecke zu
-		// verlassen
-				((tmpCubeX == (int) this.x / 10) && (tmpCubeY == (int) this.y / 10) && (tmpCubeZ == (int) this.z / 10))) {
+		if (cube.isWalkable()) {
 			this.x += x;
 			this.y += y;
 			this.z += z;
 			if (cube.isCollectable()) {
 				cube.change(this, level);
 			}
+		} else {
+			if (tmpCubeX == (int) this.x / 10) {
+				this.x += x;
+			}
+			if (tmpCubeY == (int) this.y / 10) {
+				this.y += y;
+			}
+			if (tmpCubeZ == (int) this.z / 10) {
+				this.z += z;
+			}
 		}
 	}
-
 }
