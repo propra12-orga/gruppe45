@@ -71,6 +71,5 @@ public class Window {
 	public static void main(String[] argv) {
 		Window window = new Window();
 		window.start();
-//		Menu menue = new Menu(600,500, window);
 	}
 }
