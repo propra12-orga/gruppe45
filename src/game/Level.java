@@ -79,7 +79,7 @@ public class Level {
 			level[x][y][z] = cube;
 		}
 	}
-
+	// Levelzustand speichern
 	public void save() {
 		File file;
 		FileWriter writer;
@@ -106,7 +106,7 @@ public class Level {
 			e.printStackTrace();
 		}
 	}
-
+	//letzten gespeicherten Levelzustand laden
 	public void load() {
 		/*
 		 * try { BufferedReader br = new BufferedReader(new FileReader(
