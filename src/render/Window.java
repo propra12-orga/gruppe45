@@ -21,9 +21,9 @@ public class Window {
 	final static public int height = 600;	
 
 	// TODO Menüoption
-	final static public int level_size_x = 10; // X-Ausdehnung der Spielwelt
-	final static public int level_size_y = 10; // Y-Ausdehnung der Spielwelt
-	final static public int level_size_z = 10; // Z-Ausdehnung der Spielwelt
+	final static public int level_size_x = 11; // X-Ausdehnung der Spielwelt
+	final static public int level_size_y = 11; // Y-Ausdehnung der Spielwelt
+	final static public int level_size_z = 11; // Z-Ausdehnung der Spielwelt
 
 	public void start() {
 		int player1_start_x = 0;

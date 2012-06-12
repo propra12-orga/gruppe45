@@ -35,7 +35,7 @@ public class OpenGL {
 		this.height = height;
 		this.level = level;
 		this.listPlayer = listPlayer;
-		objects = new Objects();
+		objects = new Objects(level.getthemeSelection());
 		init();
 	}
 
@@ -76,12 +76,10 @@ public class OpenGL {
 						objects.DrawCubeSolid(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_OUTSIDE)) {
 
-						// GL11.glColor3f(0f, 1f, 0f);
-						// GL11.glEnable(GL11.GL_TEXTURE_2D);
-						// objects.DrawCubeOutside(i * sizeOfCube, j *
-						// sizeOfCube,
-						// k * sizeOfCube);
-						// GL11.glDisable(GL11.GL_TEXTURE_2D);
+//						 GL11.glColor3f(0f, 1f, 0f);
+//						 GL11.glEnable(GL11.GL_TEXTURE_2D);
+						 objects.DrawCubeOutside(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
+//						 GL11.glDisable(GL11.GL_TEXTURE_2D);
 
 					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_OBSTACLE)) {
 						objects.DrawCubeObstacle(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);

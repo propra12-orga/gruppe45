@@ -20,13 +20,19 @@ import java.util.Random;
 public class Level {
 
 	// TODO Menüoption
-	final static public int OBSTACLE_PROBABILITY = 18; // Wahrscheinlichkeit
+	final static public int OBSTACLE_PROBABILITY = 38; // Wahrscheinlichkeit
 														// eines Hindernisses
 														// an leerer Stelle des
 														// Levels (0..100 %)
+	
+	// Themenauswahl
+	// TODO Menüintegration
+	final static public byte THEME_EARTH = 1;
+	final static public byte THEME_SPACE = 2;
+	// THEMENAUSWAHL HIER ANPASSEN
+	byte themeSelection = THEME_EARTH;
+	//byte themeSelection = THEME_SPACE;
 
-	// final static public int HEALTH_ITEM_PROBABILITY = 10; //
-	// Wahrscheinlichkeit eines Health-Items im Spiel (%)
 
 	/**
 	 * Ermöglicht das Verstecken des Ausgangs in einem zerstörbaren Block
@@ -49,6 +55,15 @@ public class Level {
 	public int getSizeZ() {
 		return level[0][0].length;
 	}
+	
+	public byte getthemeSelection() {
+		return this.themeSelection;
+	}
+	
+	public void setthemeSelection(byte themeSelection){
+		this.themeSelection = themeSelection;
+	}
+	
 
 	public Cube getCube(int x, int y, int z) {
 		if (x >= 0 && x < getSizeX() && y >= 0 && x < getSizeY() && x >= 0
