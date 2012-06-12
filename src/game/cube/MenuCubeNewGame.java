@@ -32,7 +32,6 @@ public class MenuCubeNewGame extends Cube {
 		player.setPosition(player1_start_x, level.getSizeY() * 10 - 15,15);
 		player.setAngleX(0);
 		player.setAngleY(0);
-//		player.setAngleZ(0);
 	}
 
 }
