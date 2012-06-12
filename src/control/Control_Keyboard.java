@@ -1,5 +1,6 @@
 package control;
 
+import game.Level;
 import game.Player;
 
 import java.awt.event.ActionEvent;
@@ -26,8 +27,8 @@ public class Control_Keyboard extends Control {
 	final int MILLISECS_PER_STEP = 10;
 	Timer timer;
 
-	public Control_Keyboard(Player player) {
-		super(player);
+	public Control_Keyboard(Player player, Level level) {
+		super(player, level);
 		timer = new Timer(MILLISECS_PER_STEP, new TimerKeyboard());
 		timer.start();
 	}
@@ -64,10 +65,8 @@ public class Control_Keyboard extends Control {
 			}
 			// Programm beenden:
 			if (Keyboard.isKeyDown(Keyboard.KEY_T) || Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
-				// Display.destroy(); // Die Klasse findet Dislpay anscheinend
-				// nicht
-				//player.dies();
-			    System.exit(0);
+			    level.showMenu();
+			    player.setPosition((level.getSizeX() / 2) * 10 + 5  , (level.getSizeY() / 2) * 10 + 5, 15);
 			}
 			// Bombe legen:
 			if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {

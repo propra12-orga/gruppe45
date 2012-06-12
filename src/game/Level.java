@@ -128,6 +128,7 @@ public class Level {
 	}
 	
 	public void showMenu(){
+		// leere das Levelinnere
 		for (byte i = 1; i < getSizeX()-1; i++) {
 			for (byte j = 1; j < getSizeY()-1; j++) {
 				for (byte k = 1; k < getSizeZ()-1; k++) {					
@@ -135,7 +136,9 @@ public class Level {
 				}
 			}
 		}
-		level[getSizeX()/2][getSizeY()/2][getSizeZ()-2] = Cube.getCubeByName(Cube.MENU_CUBE_NEW_GAME);		
+		// Baue das Hauptmenü auf
+		level[getSizeX()/2 + 1][getSizeY()/2][getSizeZ()-4] = Cube.getCubeByName(Cube.MENU_CUBE_NEW_GAME);	
+		level[getSizeX()/2 - 1][getSizeY()/2][getSizeZ()-4] = Cube.getCubeByName(Cube.MENU_CUBE_EXIT_PROGRAM);		
 	}
 
 	/**

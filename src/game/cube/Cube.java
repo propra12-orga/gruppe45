@@ -28,7 +28,9 @@ public abstract class Cube {
 	final static public String CUBE_OBSTACLE = "CubeObstacle";
 	final static public String CUBE_OUTSIDE = "CubeOutside";
 	final static public String CUBE_SOLID = "CubeSolid";
+	
 	final static public String MENU_CUBE_NEW_GAME = "MenuCubeNewGame";
+	final static public String MENU_CUBE_EXIT_PROGRAM = "MenuCubeExitProgram";
 
 	final static public CubeData[] cubeData = { 
 			new CubeData(new CubeBomb(), CUBE_BOMB),
@@ -44,7 +46,9 @@ public abstract class Cube {
 			new CubeData(new CubeSolid(), CUBE_SOLID), 
 			new CubeData(new CubeObstacleHideExit(), CUBE_OBSTACLE_HIDE_EXIT),
 			new CubeData(new CubeExplosionHideItem(), CUBE_EXPLOSION_HIDE_ITEM),
-			new CubeData(new MenuCubeNewGame(), MENU_CUBE_NEW_GAME)};
+			
+			new CubeData(new MenuCubeNewGame(), MENU_CUBE_NEW_GAME),
+			new CubeData(new MenuCubeExitProgram(), MENU_CUBE_EXIT_PROGRAM)};
 
 	boolean walkable;
 	boolean collectable;

@@ -9,11 +9,13 @@ import org.newdawn.slick.opengl.TextureLoader;
 
 public class Objects {
 
-	private Texture texBomb, texFire, texPaper, texMenuNewGame, texOutside, texObstacle, texHealth, texXtraBomb, texPortal, texExit, texPlayer;
-
+	private Texture texBomb, texFire, texPaper, texOutside, texObstacle, texHealth, texXtraBomb, texPortal, texExit, texPlayer,
+					texMenuNewGame, texMenuExitProgram;
+	
 	public Objects() {
 		// Texturen laden
 		try {
+			// Spielwürfel
 			texBomb = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/warning.png"));
 			texFire = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/fire.png"));
 			texPaper = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/solid.png"));
@@ -24,7 +26,9 @@ public class Objects {
 			texPortal = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/ItemPortal.png"));
 			texExit = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/exit.png"));
 			texPlayer = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/leopard.png"));
+			// Menüwürfel
 			texMenuNewGame = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/newgame.png"));
+			texMenuExitProgram = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/exitprogram.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(0);
@@ -85,6 +89,11 @@ public class Objects {
 		texMenuNewGame.bind();
 		DrawCube(x, y, z, 10, 1);
 	}
+	
+	public void DrawMenuCubeExitProgram(float x, float y, float z) {
+		texMenuExitProgram.bind();
+		DrawCube(x, y, z, 10, 1);
+	}
 
 	/**
 	 * Zeichnet einen Wuerfel mit Textur
@@ -105,56 +114,57 @@ public class Objects {
 		GL11.glBegin(GL11.GL_QUADS);
 		// Vorne
 		GL11.glTexCoord2f(0, 0);
-		GL11.glVertex3f(x, y, z);
+		GL11.glVertex3f(x+size, y+size, z);		
 		GL11.glTexCoord2f(0, texSize);
-		GL11.glVertex3f(x, y + size, z);
+		GL11.glVertex3f(x+size, y, z);		
 		GL11.glTexCoord2f(texSize, texSize);
-		GL11.glVertex3f(x + size, y + size, z);
+		GL11.glVertex3f(x, y, z);		
 		GL11.glTexCoord2f(texSize, 0);
-		GL11.glVertex3f(x + size, y, z);
+		GL11.glVertex3f(x, y + size, z);		
 		// Hinten
 		GL11.glTexCoord2f(0, 0);
-		GL11.glVertex3f(x, y, z + size);
+		GL11.glVertex3f(x, y+size, z + size);		
 		GL11.glTexCoord2f(0, texSize);
-		GL11.glVertex3f(x + size, y, z + size);
+		GL11.glVertex3f(x, y, z + size);		
 		GL11.glTexCoord2f(texSize, texSize);
-		GL11.glVertex3f(x + size, y + size, z + size);
+		GL11.glVertex3f(x + size, y, z + size);		
 		GL11.glTexCoord2f(texSize, 0);
-		GL11.glVertex3f(x, y + size, z + size);
-		// Rechts
-		GL11.glTexCoord2f(0, 0);
-		GL11.glVertex3f(x + size, y, z + size);
-		GL11.glTexCoord2f(0, texSize);
 		GL11.glVertex3f(x + size, y + size, z + size);
+		// Rechts		
+		GL11.glTexCoord2f(0, 0);
+		GL11.glVertex3f(x + size, y + size, z + size);		
+		GL11.glTexCoord2f(0, texSize);
+		GL11.glVertex3f(x + size, y, z + size);		
 		GL11.glTexCoord2f(texSize, texSize);
+		GL11.glVertex3f(x + size, y, z);		
+		GL11.glTexCoord2f(texSize, 0);
 		GL11.glVertex3f(x + size, y + size, z);
-		GL11.glTexCoord2f(texSize, 0);
-		GL11.glVertex3f(x + size, y, z);
-		// Links
+		// Links		
 		GL11.glTexCoord2f(0, 0);
-		GL11.glVertex3f(x, y, z + size);
+		GL11.glVertex3f(x, y + size, z);		
 		GL11.glTexCoord2f(0, texSize);
-		GL11.glVertex3f(x, y + size, z + size);
+		GL11.glVertex3f(x, y, z);		
 		GL11.glTexCoord2f(texSize, texSize);
-		GL11.glVertex3f(x, y + size, z);
+		GL11.glVertex3f(x, y, z + size);		
 		GL11.glTexCoord2f(texSize, 0);
-		GL11.glVertex3f(x, y, z);
+		GL11.glVertex3f(x, y + size, z + size);
+		
 		// Oben
 		GL11.glTexCoord2f(0, 0);
-		GL11.glVertex3f(x, y + size, z + size);
+		GL11.glVertex3f(x + size, y + size, z + size);		
 		GL11.glTexCoord2f(0, texSize);
-		GL11.glVertex3f(x + size, y + size, z + size);
+		GL11.glVertex3f(x + size, y + size, z);		
 		GL11.glTexCoord2f(texSize, texSize);
-		GL11.glVertex3f(x + size, y + size, z);
+		GL11.glVertex3f(x, y + size, z);		
 		GL11.glTexCoord2f(texSize, 0);
-		GL11.glVertex3f(x, y + size, z);
+		GL11.glVertex3f(x, y + size, z + size);
 		// Unten
 		GL11.glTexCoord2f(0, 0);
-		GL11.glVertex3f(x, y, z + size);
+		GL11.glVertex3f(x + size, y, z);		
 		GL11.glTexCoord2f(0, texSize);
-		GL11.glVertex3f(x + size, y, z + size);
+		GL11.glVertex3f(x + size, y, z + size);		
 		GL11.glTexCoord2f(texSize, texSize);
-		GL11.glVertex3f(x + size, y, z);
+		GL11.glVertex3f(x, y, z + size);		
 		GL11.glTexCoord2f(texSize, 0);
 		GL11.glVertex3f(x, y, z);
 		GL11.glEnd();

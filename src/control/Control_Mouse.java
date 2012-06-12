@@ -1,5 +1,6 @@
 package control;
 
+import game.Level;
 import game.Player;
 
 import org.lwjgl.input.Mouse;
@@ -12,8 +13,8 @@ import org.lwjgl.input.Mouse;
  */
 public class Control_Mouse extends Control {
 
-	public Control_Mouse(Player player) {
-		super(player);
+	public Control_Mouse(Player player, Level level) {
+		super(player, level);
 		Mouse.setGrabbed(true);
 	}
 

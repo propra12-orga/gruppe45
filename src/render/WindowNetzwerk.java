@@ -106,8 +106,9 @@ public class WindowNetzwerk {// implements Runnable {
 		}
 
 		OpenGL openGl = new OpenGL(level, myPlayer, width, height, listPlayer);
-		Control_Keyboard controlKeyboard = new Control_Keyboard(myPlayer);
-		Control_Mouse controlMouse = new Control_Mouse(myPlayer);
+		// FIXME Level an Control übergeben
+		Control_Keyboard controlKeyboard = new Control_Keyboard(myPlayer, level);
+		Control_Mouse controlMouse = new Control_Mouse(myPlayer, level);
 		// TODO Netzwerk im Thread laufen lassen funzt nicht
 		// ThreadWindowNetwork threadWindoeNetwork = new
 		// ThreadWindowNetwork(listPlayer, server, myPlayer, level);

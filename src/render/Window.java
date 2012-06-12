@@ -58,8 +58,8 @@ public class Window {
 		// TODO
 
 		OpenGL openGl = new OpenGL(level, player, width, height, null);
-		Control_Keyboard controlKeyboard = new Control_Keyboard(player);
-		Control_Mouse controlMouse = new Control_Mouse(player);
+		Control_Keyboard controlKeyboard = new Control_Keyboard(player, level);
+		Control_Mouse controlMouse = new Control_Mouse(player, level);
 
 		// Programmschleife:
 		while (!Display.isCloseRequested()) {
