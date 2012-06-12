@@ -5,17 +5,16 @@ import java.util.List;
 import game.Level;
 import game.Player;
 
-public class MenuCubeNewGame extends Cube {
+public class MenuCubeLoadLevel extends Cube {
 
-	public MenuCubeNewGame() {
+	public MenuCubeLoadLevel() {
 		super(Cube.IS_WALKABLE, Cube.IS_COLLECTABLE, Cube.IS_NOT_DESTROYABLE);
 	}
 
 	@Override
 	public void change(Player player, Level level) {
-		// TODO Println-Zeile löschen! Ausgabe nur zu Probezwecken!
-		System.out.println("Neustart");		
-		level.clear();
+		System.out.println("Spiele Ladelevel");		
+		level.load();
 		
 		
 		int player1_start_x = 0;
@@ -35,5 +34,4 @@ public class MenuCubeNewGame extends Cube {
 		player.setAngleX(0);
 		player.setAngleY(0);
 	}
-
 }

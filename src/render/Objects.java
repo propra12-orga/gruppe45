@@ -10,7 +10,7 @@ import org.newdawn.slick.opengl.TextureLoader;
 public class Objects {
 
 	private Texture texBomb, texFire, texPaper, texOutside, texObstacle, texHealth, texXtraBomb, texPortal, texExit, texPlayer,
-					texMenuNewGame, texMenuExitProgram;
+					texMenuNewGame, texMenuExitProgram, texMenuLoadLevel;
 	
 	public Objects() {
 		// Texturen laden
@@ -29,6 +29,7 @@ public class Objects {
 			// Menüwürfel
 			texMenuNewGame = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/newgame.png"));
 			texMenuExitProgram = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/exitprogram.png"));
+			texMenuLoadLevel = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/loadlevel.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(0);
@@ -85,6 +86,8 @@ public class Objects {
 		DrawCube(x, y, z, 6, 1);
 	}
 	
+	
+	// Menüwürfel
 	public void DrawMenuCubeNewGame(float x, float y, float z) {
 		texMenuNewGame.bind();
 		DrawCube(x, y, z, 10, 1);
@@ -92,6 +95,11 @@ public class Objects {
 	
 	public void DrawMenuCubeExitProgram(float x, float y, float z) {
 		texMenuExitProgram.bind();
+		DrawCube(x, y, z, 10, 1);
+	}
+	
+	public void DrawMenuCubeLoadLevel(float x, float y, float z) {
+		texMenuLoadLevel.bind();
 		DrawCube(x, y, z, 10, 1);
 	}
 

@@ -185,7 +185,8 @@ public class Level {
 		}
 	}
 	
-	public void showMenu(){
+	public void showMenu(){		
+		final int Z_VERSCHIEBUNG = 2; // gibt an, wie weit die Menüwand von der Rückwand entfernt ist
 		// leere das Levelinnere
 		for (byte i = 1; i < getSizeX()-1; i++) {
 			for (byte j = 1; j < getSizeY()-1; j++) {
@@ -195,8 +196,9 @@ public class Level {
 			}
 		}
 		// Baue das Hauptmenü auf
-		level[getSizeX()/2 + 1][getSizeY()/2][getSizeZ()-4] = Cube.getCubeByName(Cube.MENU_CUBE_NEW_GAME);	
-		level[getSizeX()/2 - 1][getSizeY()/2][getSizeZ()-4] = Cube.getCubeByName(Cube.MENU_CUBE_EXIT_PROGRAM);		
+		level[getSizeX()/2 + 2][getSizeY()/2][getSizeZ()- Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_NEW_GAME);	
+		level[getSizeX()/2][getSizeY()/2][getSizeZ()- Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_LOAD_LEVEL);		
+		level[getSizeX()/2 - 2][getSizeY()/2][getSizeZ()- Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_EXIT_PROGRAM);		
 	}
 
 	/**
