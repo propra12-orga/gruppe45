@@ -33,7 +33,6 @@ public class WindowNetzwerk {// implements Runnable {
 
 	final static private int width = 800, height = 600;
 
-
 	final static private String SERVER_IP = "localhost";
 
 	final static private int SERVER_PORT = 12345;
