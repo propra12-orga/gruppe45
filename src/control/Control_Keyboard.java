@@ -65,12 +65,17 @@ public class Control_Keyboard extends Control {
 			if (Keyboard.isKeyDown(Keyboard.KEY_E)) {
 				player.moveDown();
 			}
-			// Programm beenden:
-			if (Keyboard.isKeyDown(Keyboard.KEY_T) || Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
-				// Display.destroy(); // Die Klasse findet Dislpay anscheinend
-				// nicht
-				//player.dies();
-			    System.exit(0);
+			// Zurück zum Menü:
+			if (Keyboard.isKeyDown(Keyboard.KEY_T)) {
+			    level.showMenu();
+			    // FIXME Netzwerkfähig machen
+			    player.setPosition((level.getSizeX() / 2) * 10 + 5  , (level.getSizeY() / 2) * 10 + 5, 15);
+				player.setAngleX(0);
+				player.setAngleY(0);
+			}
+			// Programm beenden
+			if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
+				System.exit(0);
 			}
 			// Bombe legen:
 			if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {

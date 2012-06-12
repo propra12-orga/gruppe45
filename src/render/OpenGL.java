@@ -89,6 +89,13 @@ public class OpenGL {
 						objects.DrawCubeObstacle(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_EXIT)) {
 						objects.DrawCubeExit(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
+					// Menüwürfel
+					} else if (level.getCubeName(i, j, k).equals(Cube.MENU_CUBE_NEW_GAME)) {
+						objects.DrawMenuCubeNewGame(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
+					} else if (level.getCubeName(i, j, k).equals(Cube.MENU_CUBE_EXIT_PROGRAM)) {
+						objects.DrawMenuCubeExitProgram(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
+					} else if (level.getCubeName(i, j, k).equals(Cube.MENU_CUBE_LOAD_LEVEL)) {
+						objects.DrawMenuCubeLoadLevel(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					}
 				}
 			}
@@ -132,7 +139,7 @@ public class OpenGL {
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
 		GL11.glOrtho(-clipsize, +clipsize, -clipsize, +clipsize, -clipsize * 100.0f, +clipsize * 100.0f);
-		GL11.glViewport(0, 0, width, height);
+		GL11.glViewport(0, 0, width, height);		
 	}
 
 }

@@ -65,6 +65,10 @@ public class Player {
 	public int getMaxBombs() {
 		return this.maxBombs;
 	}
+	
+	public void setMaxBombs(int maxBombs) {
+		this.maxBombs = maxBombs;
+	}
 
 	public void setPlayerPosition(float newX, float newY, float newZ) {
 		this.x = newX * 10 + 5;
@@ -342,18 +346,26 @@ public class Player {
 		int tmpCubeX = (int) (this.x + tmpX) / 10;
 		int tmpCubeY = (int) (this.y + tmpY) / 10;
 		int tmpCubeZ = (int) (this.z + tmpZ) / 10;
-
-		if (level.getCube(tmpCubeX, (int) this.y / 10, (int) this.z / 10).isWalkable()) {
+		
+		if ((tmpCubeX == (int) this.x / 10) && (tmpCubeY == (int) this.y / 10) && (tmpCubeZ == (int) this.z / 10)) {
 			this.x += x;
-		}
-		if (level.getCube((int) this.x / 10, tmpCubeY, (int) this.z / 10).isWalkable()) {
 			this.y += y;
-		}
-		if (level.getCube((int) this.x / 10, (int) this.y / 10, tmpCubeZ).isWalkable()) {
 			this.z += z;
 		}
-		if (level.getCube(tmpCubeX, tmpCubeY, tmpCubeZ).isCollectable()) {
-			level.getCube(tmpCubeX, tmpCubeY, tmpCubeZ).change(this, level);
+		else {
+			if (level.getCube(tmpCubeX, (int) this.y / 10, (int) this.z / 10).isWalkable()) {
+				this.x += x;
+			}
+			if (level.getCube((int) this.x / 10, tmpCubeY, (int) this.z / 10).isWalkable()) {
+				this.y += y;
+			}
+			if (level.getCube((int) this.x / 10, (int) this.y / 10, tmpCubeZ).isWalkable()) {
+				this.z += z;
+			}
+		}
+		
+		if (level.getCube((int) this.x / 10, (int) this.y / 10, (int) this.z / 10).isCollectable()) {
+			level.getCube((int) this.x / 10, (int) this.y / 10, (int) this.z / 10).change(this, level);
 		}
 	}
 }
