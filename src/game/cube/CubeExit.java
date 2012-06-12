@@ -16,7 +16,6 @@ public class CubeExit extends Cube {
 		player.setPosition((level.getSizeX() / 2) * 10 + 5  , (level.getSizeY() / 2) * 10 + 5, 15);
 		player.setAngleX(0);
 		player.setAngleY(0);
-		//		System.exit(1);
 	}
 
 }
