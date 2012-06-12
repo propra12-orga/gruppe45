@@ -12,7 +12,7 @@ import java.util.Random;
 public class Level {
 
 	// TODO Menüoption
-	final static public int OBSTACLE_PROBABILITY = 20; // Wahrscheinlichkeit
+	final static public int OBSTACLE_PROBABILITY = 18; // Wahrscheinlichkeit
 														// eines Hindernisses
 														// an leerer Stelle des
 														// Levels (0..100 %)
@@ -125,6 +125,17 @@ public class Level {
 				}
 			}
 		}
+	}
+	
+	public void showMenu(){
+		for (byte i = 1; i < getSizeX()-1; i++) {
+			for (byte j = 1; j < getSizeY()-1; j++) {
+				for (byte k = 1; k < getSizeZ()-1; k++) {					
+					level[i][j][k] = Cube.getCubeByName(Cube.CUBE_EMPTY);						
+				}
+			}
+		}
+		level[getSizeX()/2][getSizeY()/2][getSizeZ()-2] = Cube.getCubeByName(Cube.MENU_CUBE_NEW_GAME);		
 	}
 
 	/**

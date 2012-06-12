@@ -36,6 +36,7 @@ public class Window {
 		}
 
 		Level level = new Level(level_size_x, level_size_y, level_size_z);
+		level.showMenu();
 
 		// Skalierbare Levelgröße:
 		// überprüft, dass die Spieler aus freien Feldern starten
@@ -50,9 +51,11 @@ public class Window {
 		}
 
 		List<Player> listPlayer = new ArrayList<Player>();
-		Player player = new Player(level, player1_start_x, level_size_y * 10 - 15, 15, listPlayer); // STARTPOSITION
+		Player player = new Player(level, (level_size_x / 2) * 10 + 5  , (level_size_y / 2) * 10 + 5, 15, listPlayer); // STARTPOSITION
 		// SPIELER
 		listPlayer.add(player);
+		
+		// TODO
 
 		OpenGL openGl = new OpenGL(level, player, width, height, null);
 		Control_Keyboard controlKeyboard = new Control_Keyboard(player);
