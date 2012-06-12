@@ -333,30 +333,27 @@ public class Player {
 
 	// TODO Testen, ob Abfrage funktioniert
 	protected void move(float x, float y, float z) {
-		int tmpCubeX = (int) (this.x + x) / 10; // x-Position des ZielCubes im
-												// Level
-		int tmpCubeY = (int) (this.y + y) / 10; // y-Position des ZielCubes im
-												// Level
-		int tmpCubeZ = (int) (this.z + z) / 10; // z-Position des ZielCubes im
-												// Level
-		Cube cube = level.getCube(tmpCubeX, tmpCubeY, tmpCubeZ);
-		if (cube.isWalkable()) {
+		final int radius = 2;
+
+		int tmpX = (int) (Math.signum(x) * (Math.abs(x) + radius));
+		int tmpY = (int) (Math.signum(y) * (Math.abs(y) + radius));
+		int tmpZ = (int) (Math.signum(z) * (Math.abs(z) + radius));
+
+		int tmpCubeX = (int) (this.x + tmpX) / 10;
+		int tmpCubeY = (int) (this.y + tmpY) / 10;
+		int tmpCubeZ = (int) (this.z + tmpZ) / 10;
+
+		if (level.getCube(tmpCubeX, (int) this.y / 10, (int) this.z / 10).isWalkable()) {
 			this.x += x;
+		}
+		if (level.getCube((int) this.x / 10, tmpCubeY, (int) this.z / 10).isWalkable()) {
 			this.y += y;
+		}
+		if (level.getCube((int) this.x / 10, (int) this.y / 10, tmpCubeZ).isWalkable()) {
 			this.z += z;
-			if (cube.isCollectable()) {
-				cube.change(this, level);
-			}
-		} else {
-			if (tmpCubeX == (int) this.x / 10) {
-				this.x += x;
-			}
-			if (tmpCubeY == (int) this.y / 10) {
-				this.y += y;
-			}
-			if (tmpCubeZ == (int) this.z / 10) {
-				this.z += z;
-			}
+		}
+		if (level.getCube(tmpCubeX, tmpCubeY, tmpCubeZ).isCollectable()) {
+			level.getCube(tmpCubeX, tmpCubeY, tmpCubeZ).change(this, level);
 		}
 	}
 }
