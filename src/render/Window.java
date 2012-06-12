@@ -31,6 +31,7 @@ public class Window {
 		try {
 			Display.setDisplayMode(new DisplayMode(width, height));
 			Display.create();
+			Display.setTitle("Bombardiman ücbinikiyüzellibes 3D");
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 			System.exit(0);

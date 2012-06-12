@@ -139,7 +139,7 @@ public class OpenGL {
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
 		GL11.glOrtho(-clipsize, +clipsize, -clipsize, +clipsize, -clipsize * 100.0f, +clipsize * 100.0f);
-		GL11.glViewport(0, 0, width, height);
+		GL11.glViewport(0, 0, width, height);		
 	}
 
 }
