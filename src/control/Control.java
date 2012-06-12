@@ -1,6 +1,5 @@
 package control;
 
-import game.Level;
 import game.Player;
 
 
@@ -11,11 +10,9 @@ import game.Player;
  */
 public abstract class Control {
 	Player player;
-	Level level;
 
-	public Control(Player player, Level level) {
+	public Control(Player player) {
 		this.player = player;
-		this.level = level;
 	}
 
 }
