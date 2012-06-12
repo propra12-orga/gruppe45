@@ -79,6 +79,7 @@ public class Level {
 			level[x][y][z] = cube;
 		}
 	}
+	//Meilenstein:
 	// Levelzustand speichern
 	public void save() {
 		File file;
@@ -107,17 +108,8 @@ public class Level {
 		}
 	}
 	//letzten gespeicherten Levelzustand laden
+	//TODO: Für beliebe Levelgröße einrichten (kann nur die Größe laden, in der Gespeichert wurde)
 	public void load() {
-		/*
-		 * try { BufferedReader br = new BufferedReader(new FileReader(
-		 * "D:/Eigene Dateien/JAVA/Workspace/gruppe45/TestFile.txt")); String
-		 * zeile; try { while ((zeile = br.r) != null) {
-		 * System.out.println(zeile); } } catch (IOException e) {
-		 * e.printStackTrace(); } } catch (FileNotFoundException e1) {
-		 * e1.printStackTrace(); } }
-		 * 
-		 * } } }
-		 */
 		try {
 			Scanner scanner = new Scanner(new File("TestFile.txt"));
 			for (byte i = 0; i < getSizeX(); i++) {
@@ -129,7 +121,6 @@ public class Level {
 				}
 			}
 		} catch(FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
