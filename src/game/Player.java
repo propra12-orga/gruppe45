@@ -364,8 +364,8 @@ public class Player {
 			}
 		}
 		
-		if (level.getCube(tmpCubeX, tmpCubeY, tmpCubeZ).isCollectable()) {
-			level.getCube(tmpCubeX, tmpCubeY, tmpCubeZ).change(this, level);
+		if (level.getCube((int) this.x / 10, (int) this.y / 10, (int) this.z / 10).isCollectable()) {
+			level.getCube((int) this.x / 10, (int) this.y / 10, (int) this.z / 10).change(this, level);
 		}
 	}
 }
