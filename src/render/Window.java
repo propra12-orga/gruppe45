@@ -14,6 +14,8 @@ import control.Control_Keyboard;
 import control.Control_Mouse;
 
 public class Window {
+	
+	
 
 	final static public int width = 800; // Größe des Darstellungsfensters
 	final static public int height = 600;	
@@ -24,7 +26,6 @@ public class Window {
 	final static public int level_size_z = 10; // Z-Ausdehnung der Spielwelt
 
 	public void start() {
-
 		int player1_start_x = 0;
 
 		try {
@@ -34,9 +35,7 @@ public class Window {
 			e.printStackTrace();
 			System.exit(0);
 		}
-
 		Level level = new Level(level_size_x, level_size_y, level_size_z);
-
 		// Skalierbare Levelgröße:
 		// überprüft, dass die Spieler aus freien Feldern starten
 		if (level.getSizeX() % 2 == 0) { // Größe in X gerade
@@ -55,7 +54,7 @@ public class Window {
 		listPlayer.add(player);
 
 		OpenGL openGl = new OpenGL(level, player, width, height, null);
-		Control_Keyboard controlKeyboard = new Control_Keyboard(player);
+		Control_Keyboard controlKeyboard = new Control_Keyboard(player, level);
 		Control_Mouse controlMouse = new Control_Mouse(player);
 
 		// Programmschleife:
@@ -72,5 +71,6 @@ public class Window {
 	public static void main(String[] argv) {
 		Window window = new Window();
 		window.start();
+//		Menu menue = new Menu(600,500, window);
 	}
 }

@@ -1,5 +1,6 @@
 package control;
 
+import game.Level;
 import game.Player;
 
 import java.awt.event.ActionEvent;
@@ -25,19 +26,21 @@ public class Control_Keyboard extends Control {
 
 	final int MILLISECS_PER_STEP = 10;
 	Timer timer;
+	Level level;
 
-	public Control_Keyboard(Player player) {
+	public Control_Keyboard(Player player, Level level) {
 		super(player);
+		this.level = level;
 		timer = new Timer(MILLISECS_PER_STEP, new TimerKeyboard());
 		timer.start();
 	}
 
 	class TimerKeyboard implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			move_Control1(player);
+			move_Control1(player, level);
 		}
 
-		public void move_Control1(Player player) {
+		public void move_Control1(Player player, Level level) {
 			// links:
 			if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
 				player.moveLeft();
@@ -90,8 +93,16 @@ public class Control_Keyboard extends Control {
 				player.turnUp(0.009f);
 			}
 			// Durchlauf neustarten:
-			if (Keyboard.isKeyDown(Keyboard.KEY_N)) {
+/*TODO: Funktionsfähig machen nach dem Vorbild des Menüs:
+ 			if (Keyboard.isKeyDown(Keyboard.KEY_N)) {
 				Display.destroy();
+			}
+*/
+			if(Keyboard.isKeyDown(Keyboard.KEY_O)){
+				level.save();
+			}
+			if(Keyboard.isKeyDown(Keyboard.KEY_L)){
+				level.load();
 			}
 		}
 	}

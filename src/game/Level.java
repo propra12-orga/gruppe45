@@ -1,6 +1,14 @@
 package game;
 
 import game.cube.Cube;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.*;
+import java.util.Scanner;
 
 import java.util.Random;
 
@@ -43,7 +51,8 @@ public class Level {
 	}
 
 	public Cube getCube(int x, int y, int z) {
-		if (x >= 0 && x < getSizeX() && y >= 0 && x < getSizeY() && x >= 0 && z < getSizeZ()) {
+		if (x >= 0 && x < getSizeX() && y >= 0 && x < getSizeY() && x >= 0
+				&& z < getSizeZ()) {
 			return level[x][y][z];
 		} else {
 			return null;
@@ -58,14 +67,70 @@ public class Level {
 	 * @param z
 	 */
 	public void setCube(Cube cube, int x, int y, int z) {
-		if (x >= 0 && y >= 0 && z >= 0 && x < getSizeX() && y < getSizeY() && z < getSizeZ()) {
+		if (x >= 0 && y >= 0 && z >= 0 && x < getSizeX() && y < getSizeY()
+				&& z < getSizeZ()) {
 			level[x][y][z] = cube;
 		}
 	}
 
 	public void setCubeSilent(Cube cube, int x, int y, int z) {
-		if (x >= 0 && y >= 0 && z >= 0 && x < getSizeX() && y < getSizeY() && z < getSizeZ()) {
+		if (x >= 0 && y >= 0 && z >= 0 && x < getSizeX() && y < getSizeY()
+				&& z < getSizeZ()) {
 			level[x][y][z] = cube;
+		}
+	}
+
+	public void save() {
+		File file;
+		FileWriter writer;
+		file = new File("TestFile.txt");
+		try {
+			writer = new FileWriter(file);
+
+			for (byte i = 0; i < getSizeX(); i++) {
+				for (byte j = 0; j < getSizeY(); j++) {
+					for (byte k = 0; k < getSizeZ(); k++) {
+						writer.write(Cube.getNumberByCube(level[i][j][k]) + "");
+						writer.write("\t");
+					}
+					writer.write(System.getProperty("line.separator"));
+				}
+				writer.write(System.getProperty("line.separator"));
+				writer.write(System.getProperty("line.separator"));
+				writer.write(System.getProperty("line.separator"));
+			}
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void load() {
+		/*
+		 * try { BufferedReader br = new BufferedReader(new FileReader(
+		 * "D:/Eigene Dateien/JAVA/Workspace/gruppe45/TestFile.txt")); String
+		 * zeile; try { while ((zeile = br.r) != null) {
+		 * System.out.println(zeile); } } catch (IOException e) {
+		 * e.printStackTrace(); } } catch (FileNotFoundException e1) {
+		 * e1.printStackTrace(); } }
+		 * 
+		 * } } }
+		 */
+		try {
+			Scanner scanner = new Scanner(new File("TestFile.txt"));
+			for (byte i = 0; i < getSizeX(); i++) {
+				for (byte j = 0; j < getSizeY(); j++) {
+					for (byte k = 0; k < getSizeZ(); k++) {
+					
+						level[i][j][k] = Cube.getCubeByNumber(scanner.nextInt());
+					}
+				}
+			}
+		} catch(FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -96,7 +161,8 @@ public class Level {
 	 * @return Gibt den Namen eines Wuerfels an einer bestimmten Position aus
 	 */
 	public String getCubeName(int x, int y, int z) {
-		if ((x >= 0) && (y >= 0) && (z >= 0) && (x < this.getSizeX()) && (y < this.getSizeY()) && (z < this.getSizeZ())) {
+		if ((x >= 0) && (y >= 0) && (z >= 0) && (x < this.getSizeX())
+				&& (y < this.getSizeY()) && (z < this.getSizeZ())) {
 			return level[x][y][z].getCubeName();
 		} else
 			return null;
@@ -121,7 +187,8 @@ public class Level {
 		for (byte i = 0; i < getSizeX(); i++) {
 			for (byte j = 0; j < getSizeY(); j++) {
 				for (byte k = 0; k < getSizeZ(); k++) {
-					setCube(Cube.getCubeByNumber(Integer.valueOf(in[posArray++])), i, j, k);
+					setCube(Cube.getCubeByNumber(Integer
+							.valueOf(in[posArray++])), i, j, k);
 				}
 			}
 		}
@@ -148,25 +215,32 @@ public class Level {
 						// Setze zufällig Hindernisse; lasse dabei die
 						// Startpositionen der Spieler frei
 						if ((rnd <= OBSTACLE_PROBABILITY)
-								&& ((i < this.getSizeX() - 3) || (j < this.getSizeY() - 3) || (k > 3))
+								&& ((i < this.getSizeX() - 3)
+										|| (j < this.getSizeY() - 3) || (k > 3))
 								&& ((i > 2) || (j > 2) || (k < this.getSizeZ() - 4))) {
-							level[i][j][k] = Cube.getCubeByName(Cube.CUBE_OBSTACLE);
+							level[i][j][k] = Cube
+									.getCubeByName(Cube.CUBE_OBSTACLE);
 						} else {
 							// Die raumteilenden Ebenden werden mit deutlich
 							// erhöhter Wahrscheinlichkeit
 							// mit Hindernissen gefüllt
 							if ((rnd <= OBSTACLE_PROBABILITY * 2.0f)
-									&& ((i == this.getSizeX() / 2) || (j == this.getSizeY() / 2) || (k == this.getSizeZ() / 2))) {
-								level[i][j][k] = Cube.getCubeByName(Cube.CUBE_OBSTACLE);
+									&& ((i == this.getSizeX() / 2)
+											|| (j == this.getSizeY() / 2) || (k == this
+											.getSizeZ() / 2))) {
+								level[i][j][k] = Cube
+										.getCubeByName(Cube.CUBE_OBSTACLE);
 							} else {
 								// Wenn kein Hindernis gesetzt wird, so setze
 								// einen leere Würfel
-								level[i][j][k] = Cube.getCubeByName(Cube.CUBE_EMPTY);
+								level[i][j][k] = Cube
+										.getCubeByName(Cube.CUBE_EMPTY);
 							}
 						}
 					}
 					// Aussenseite des Levels wird ausgefüllt
-					if (i == 0 || j == 0 || k == 0 || i == getSizeX() - 1 || j == getSizeY() - 1 || k == getSizeZ() - 1) {
+					if (i == 0 || j == 0 || k == 0 || i == getSizeX() - 1
+							|| j == getSizeY() - 1 || k == getSizeZ() - 1) {
 						level[i][j][k] = Cube.getCubeByName(Cube.CUBE_OUTSIDE);
 					}
 				}
@@ -174,7 +248,8 @@ public class Level {
 		}
 
 		// TODO zum AUSPROBIEREN: Exit verborgen
-		// level[this.getSizeX()-2][this.getSizeY()-2][this.getSizeZ()-2] = Cube.getCubeByName(Cube.CUBE_OBSTACLE);
+		// level[this.getSizeX()-2][this.getSizeY()-2][this.getSizeZ()-2] =
+		// Cube.getCubeByName(Cube.CUBE_OBSTACLE);
 
 		// Setze den Ausgang in eine zufällige der sechs Ecken,
 		// die nicht durch Spieler belegt ist!
@@ -235,10 +310,12 @@ public class Level {
 			if (level[exit_x][exit_y][exit_z].getCubeName() == Cube.CUBE_OBSTACLE) {
 				// Wenn Cube ein Hindernisse, dann verberge den Ausgang hinter
 				// diesem
-				level[exit_x][exit_y][exit_z] = Cube.getCubeByName(Cube.CUBE_OBSTACLE_HIDE_EXIT);
+				level[exit_x][exit_y][exit_z] = Cube
+						.getCubeByName(Cube.CUBE_OBSTACLE_HIDE_EXIT);
 			} else {
 				// Wenn Cube leer ist, setze Ausgang direkt
-				level[exit_x][exit_y][exit_z] = Cube.getCubeByName(Cube.CUBE_EXIT);
+				level[exit_x][exit_y][exit_z] = Cube
+						.getCubeByName(Cube.CUBE_EXIT);
 			}
 		} else { // Option: Ausgang kann nicht hinter Hindernissen liegen
 			level[exit_x][exit_y][exit_z] = Cube.getCubeByName(Cube.CUBE_EXIT);
