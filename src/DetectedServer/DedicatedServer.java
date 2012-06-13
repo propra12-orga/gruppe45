@@ -1,5 +1,7 @@
 package DetectedServer;
 
+import game.ThreadBomb;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -25,6 +27,7 @@ public class DedicatedServer {
 
 	private static List<NetPlayer> listNetPlayer = new ArrayList<NetPlayer>();
 	private static NetLevel netLevel = new NetLevel(LEVEL_X, LEVEL_Y, LEVEL_Z, listNetPlayer);
+	private static ThreadBomb threadBomb = new ThreadBomb(netLevel);
 
 	public static void main(String[] args) {
 		ServerSocket server;

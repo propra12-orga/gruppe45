@@ -124,7 +124,7 @@ public class WindowNetzwerk {// implements Runnable {
 						}
 					}
 				} else if (strSplit[0].equals(NetPlayer.MSG_CUBE)) {
-					level.setCubeSilent(Cube.getCubeByNumber(Integer.valueOf(strSplit[1])), Integer.valueOf(strSplit[2]),
+					level.setCube(Cube.getCubeByNumber(Integer.valueOf(strSplit[1])), Integer.valueOf(strSplit[2]),
 							Integer.valueOf(strSplit[3]), Integer.valueOf(strSplit[4]));
 				} else if (strSplit[0].equals(NetPlayer.MSG_PLAYERLIST)) {
 					myPlayer.msgReceivePlayerList(strSplit, listPlayer);

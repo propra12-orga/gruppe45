@@ -11,7 +11,7 @@ public class NetLevel extends Level {
 	private List<NetPlayer> listNetPlayer = new ArrayList<NetPlayer>();
 
 	public NetLevel(int x, int y, int z, List<NetPlayer> listNetPlayer) {
-		super(x, y, z);
+		super(x, y, z, null);
 		this.listNetPlayer = listNetPlayer;
 	}
 

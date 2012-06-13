@@ -64,8 +64,6 @@ public class OpenGL {
 						objects.DrawCubeExplosion(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_EXPLOSION_HIDE_EXIT)) {
 						objects.DrawCubeExplosion(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
-					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_EXPLOSION_HIDE_ITEM)) {
-						objects.DrawCubeExplosion(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_ITEM_HEALTH)) {
 						objects.DrawCubeItemHealth(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_ITEM_XTRA_BOMB)) {
@@ -75,19 +73,14 @@ public class OpenGL {
 					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_SOLID)) {
 						objects.DrawCubeSolid(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_OUTSIDE)) {
-
-//						 GL11.glColor3f(0f, 1f, 0f);
-//						 GL11.glEnable(GL11.GL_TEXTURE_2D);
-						 objects.DrawCubeOutside(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
-//						 GL11.glDisable(GL11.GL_TEXTURE_2D);
-
+						objects.DrawCubeOutside(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_OBSTACLE)) {
 						objects.DrawCubeObstacle(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_OBSTACLE_HIDE_EXIT)) {
 						objects.DrawCubeObstacle(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_EXIT)) {
 						objects.DrawCubeExit(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
-					// Menüwürfel
+						// Menüwürfel
 					} else if (level.getCubeName(i, j, k).equals(Cube.MENU_CUBE_NEW_GAME)) {
 						objects.DrawMenuCubeNewGame(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					} else if (level.getCubeName(i, j, k).equals(Cube.MENU_CUBE_EXIT_PROGRAM)) {
@@ -137,7 +130,7 @@ public class OpenGL {
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
 		GL11.glOrtho(-clipsize, +clipsize, -clipsize, +clipsize, -clipsize * 100.0f, +clipsize * 100.0f);
-		GL11.glViewport(0, 0, width, height);		
+		GL11.glViewport(0, 0, width, height);
 	}
 
 }

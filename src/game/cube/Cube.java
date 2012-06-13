@@ -2,7 +2,6 @@ package game.cube;
 
 import game.Level;
 import game.Player;
-import game.Level;
 
 /**
  * Abstrakte Klasse von der alle anderen Würfel abgeleitet werden
@@ -20,7 +19,6 @@ public abstract class Cube {
 	final static public String CUBE_EXIT = "CubeExit";
 	final static public String CUBE_EXPLOSION = "CubeExplosion";
 	final static public String CUBE_EXPLOSION_HIDE_EXIT = "CubeExplosionHideExit";
-	final static public String CUBE_EXPLOSION_HIDE_ITEM = "CubeExplosionHideItem";
 	final static public String CUBE_OBSTACLE_HIDE_EXIT = "CubeObstacleHideExit";
 	final static public String CUBE_ITEM_HEALTH = "CubeItemHealth";
 	final static public String CUBE_ITEM_XTRA_BOMB = "CubeItemXtraBomb";
@@ -33,24 +31,19 @@ public abstract class Cube {
 	final static public String MENU_CUBE_EXIT_PROGRAM = "MenuCubeExitProgram";
 	final static public String MENU_CUBE_LOAD_LEVEL = "MenuCubeLoadLevel";
 
-	final static public CubeData[] cubeData = { 
-			new CubeData(new CubeBomb(), CUBE_BOMB),
-			new CubeData(new CubeEmpty(), CUBE_EMPTY), 
-			new CubeData(new CubeExit(), CUBE_EXIT),
+	final static public CubeData[] cubeData = { new CubeData(new CubeBomb(), CUBE_BOMB),
+			new CubeData(new CubeEmpty(), CUBE_EMPTY), new CubeData(new CubeExit(), CUBE_EXIT),
 			new CubeData(new CubeExplosion(), CUBE_EXPLOSION),
 			new CubeData(new CubeExplosionHideExit(), CUBE_EXPLOSION_HIDE_EXIT),
-			new CubeData(new CubeItemHealth(), CUBE_ITEM_HEALTH), 
-			new CubeData(new CubeItemXtraBomb(), CUBE_ITEM_XTRA_BOMB), 
-			new CubeData(new CubeItemPortal(), CUBE_ITEM_PORTAL), 
-			new CubeData(new CubeObstacle(), CUBE_OBSTACLE),
-			new CubeData(new CubeOutside(), CUBE_OUTSIDE), 
-			new CubeData(new CubeSolid(), CUBE_SOLID), 
+			new CubeData(new CubeItemHealth(), CUBE_ITEM_HEALTH), new CubeData(new CubeItemXtraBomb(), CUBE_ITEM_XTRA_BOMB),
+			new CubeData(new CubeItemPortal(), CUBE_ITEM_PORTAL), new CubeData(new CubeObstacle(), CUBE_OBSTACLE),
+			new CubeData(new CubeOutside(), CUBE_OUTSIDE),
+			new CubeData(new CubeSolid(), CUBE_SOLID),
 			new CubeData(new CubeObstacleHideExit(), CUBE_OBSTACLE_HIDE_EXIT),
-			new CubeData(new CubeExplosionHideItem(), CUBE_EXPLOSION_HIDE_ITEM),
 			// Menüwürfel
 			new CubeData(new MenuCubeNewGame(), MENU_CUBE_NEW_GAME),
 			new CubeData(new MenuCubeExitProgram(), MENU_CUBE_EXIT_PROGRAM),
-			new CubeData(new MenuCubeLoadLevel(), MENU_CUBE_LOAD_LEVEL)};
+			new CubeData(new MenuCubeLoadLevel(), MENU_CUBE_LOAD_LEVEL) };
 
 	boolean walkable;
 	boolean collectable;
@@ -125,7 +118,6 @@ public abstract class Cube {
 		return this.destroyable;
 	}
 
-
 	public String getCubeName() {
 		return this.name;
 	}
@@ -133,7 +125,7 @@ public abstract class Cube {
 	public void change() {
 
 	}
-	
+
 	public void change(Player player, Level level) {
 
 	}
