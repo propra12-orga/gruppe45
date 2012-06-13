@@ -11,9 +11,9 @@ public class TimeCube extends TimerTask {
 	// Wahrscheinlichkeit, dass hinter einem Weggesprengten Obstacle
 	// ein Item erscheinen wird.
 	// Summe < 100 !
-	final static public int ITEM_HEALTH_PROBABILITY = 10;
-	final static public int ITEM_XTRA_BOMB_PROBABILITY = 10;
-	final static public int ITEM_PORTAL_PROBABILITY = 10;
+	final static public int ITEM_HEALTH_PROBABILITY = 5;
+	final static public int ITEM_XTRA_BOMB_PROBABILITY = 5;
+	final static public int ITEM_PORTAL_PROBABILITY = 8;
 
 	Cube cube;
 	ArrayPosition[] positions;

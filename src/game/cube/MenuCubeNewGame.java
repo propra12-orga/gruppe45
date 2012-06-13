@@ -14,7 +14,7 @@ public class MenuCubeNewGame extends Cube {
 	@Override
 	public void change(Player player, Level level) {
 		// TODO Println-Zeile löschen! Ausgabe nur zu Probezwecken!
-		System.out.println("Neustart");		
+		System.out.println("Neues Spiel gestartet!");		
 		level.clear();
 		
 		

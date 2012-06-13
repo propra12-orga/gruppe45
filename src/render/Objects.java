@@ -2,34 +2,65 @@ package render;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.*;
 
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 
-public class Objects {
+public class Objects {	
 
-	private Texture texBomb, texFire, texPaper, texOutside, texObstacle, texHealth, texXtraBomb, texPortal, texExit, texPlayer,
+	
+	// TODO Themewahl über Optionsmeü
+	// Wahl, welches Theme benutzt wird
+	byte themeSelection = 1;
+
+	private Texture texBomb, texExplosion, texPaper, texOutside, texObstacle, texHealth, texXtraBomb, texPortal, texExit, texPlayer,
 					texMenuNewGame, texMenuExitProgram, texMenuLoadLevel;
 	
-	public Objects() {
+	public Objects(byte themeSelection) {
+		this.themeSelection = themeSelection;
 		// Texturen laden
 		try {
 			// Spielwürfel
-			texBomb = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/warning.png"));
-			texFire = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/fire.png"));
-			texPaper = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/solid.png"));
-			texOutside = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/outsideworld.png"));
-			texObstacle = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/obstacle.png"));
-			texHealth = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/health.png"));
-			texXtraBomb = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/ItemXtraBomb.png"));
-			texPortal = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/ItemPortal.png"));
-			texExit = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/exit.png"));
-			texPlayer = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/leopard.png"));
-			// Menüwürfel
-			texMenuNewGame = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/newgame.png"));
-			texMenuExitProgram = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/exitprogram.png"));
-			texMenuLoadLevel = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/loadlevel.png"));
+			switch (themeSelection) {
+				// Normale Welt
+				case 1:
+					// Weltwuerfel
+					texBomb = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/bomb.png"));
+					texExplosion = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/explosion.png"));
+					texPaper = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/solid.png"));
+					texOutside = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/outsideworld.png"));
+					texObstacle = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/obstacle.png"));
+					texHealth = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/health.png"));
+					texXtraBomb = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/ItemXtraBomb.png"));
+					texPortal = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/ItemPortal.png"));
+					texExit = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/exit.png"));
+					texPlayer = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/player.png"));
+					// Menuewuerfel
+					texMenuNewGame = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/earth/newgame.png"));
+					texMenuExitProgram = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/earth/exitprogram.png"));
+					texMenuLoadLevel = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/earth/loadlevel.png"));
+					break;
+				// Weltraum-Theme
+				case 2:
+					// Weltwuerfel
+					texBomb = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/space/bomb.png"));
+					texExplosion = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/space/explosion.png"));
+					texPaper = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/space/solid.png"));
+					texOutside = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/space/outsideworld.png"));
+					texObstacle = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/space/obstacle.png"));
+					texHealth = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/space/health.png"));
+					texXtraBomb = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/space/ItemXtraBomb.png"));
+					texPortal = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/space/ItemPortal.png"));
+					texExit = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/space/exit.png"));
+					texPlayer = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/space/player.png"));
+					// Menuewuerfel
+					texMenuNewGame = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/space/newgame.png"));
+					texMenuExitProgram = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/space/exitprogram.png"));
+					texMenuLoadLevel = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/space/loadlevel.png"));
+					break;
+			}			
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(0);
@@ -38,17 +69,17 @@ public class Objects {
 
 	public void DrawCubeBomb(float x, float y, float z) {
 		texBomb.bind();
-		DrawCube(x + 2.5f, y + 2.5f, z + 2.5f, 5, 2);
+		DrawCube(x + 2.5f, y + 2.5f, z + 2.5f, 5, 1);
 	}
 
 	public void DrawCubeExplosion(float x, float y, float z) {
-		texFire.bind();
+		texExplosion.bind();
 		DrawCube(x, y, z, 10, 1);
 	}
 
 	public void DrawCubeSolid(float x, float y, float z) {
 		texPaper.bind();
-		DrawCube(x, y, z, 10, 2.5f);
+		DrawCube(x, y, z, 10, 1);
 	}
 
 	public void DrawCubeOutside(float x, float y, float z) {
@@ -58,7 +89,7 @@ public class Objects {
 
 	public void DrawCubeObstacle(float x, float y, float z) {
 		texObstacle.bind();
-		DrawCube(x, y, z, 10, 2.5f);
+		DrawCube(x, y, z, 10, 1);
 	}
 
 	public void DrawCubeItemHealth(float x, float y, float z) {
@@ -73,7 +104,7 @@ public class Objects {
 	
 	public void DrawCubeItemPortal(float x, float y, float z) {
 		texPortal.bind();
-		DrawCube(x + 2.5f, y + 2.5f, z + 2.5f, 5, 1);
+		DrawCube(x + .5f, y + .5f, z + .5f, 9, 1);
 	}
 
 	public void DrawCubeExit(float x, float y, float z) {
