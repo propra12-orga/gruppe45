@@ -13,7 +13,7 @@ public class TimeCube extends TimerTask {
 	// Summe < 100 !
 	final static public int ITEM_HEALTH_PROBABILITY = 5;
 	final static public int ITEM_XTRA_BOMB_PROBABILITY = 5;
-	final static public int ITEM_PORTAL_PROBABILITY = 8;
+	final static public int ITEM_PORTAL_PROBABILITY = 5;
 
 	Cube cube;
 	ArrayPosition[] positions;

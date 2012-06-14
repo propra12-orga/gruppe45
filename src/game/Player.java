@@ -1,6 +1,7 @@
 package game;
 
 import game.cube.Cube;
+import game.cube.CubeExplosion;
 
 import java.util.List;
 import java.util.Timer;
@@ -127,9 +128,6 @@ public class Player {
 
 	public void hitPlayer(int hitPoints) {
 		healthPoints -= hitPoints;
-		// TODO Testausgabe entfernen!
-		System.out.println("Player getroffen! -25  HealthPoints: " + getHealthPoints());
-
 	}
 
 	public boolean isLiving() {
@@ -343,27 +341,48 @@ public class Player {
 		int tmpY = (int) (Math.signum(y) * (Math.abs(y) + radius));
 		int tmpZ = (int) (Math.signum(z) * (Math.abs(z) + radius));
 
-		int tmpCubeX = (int) (this.x + tmpX) / 10;
-		int tmpCubeY = (int) (this.y + tmpY) / 10;
-		int tmpCubeZ = (int) (this.z + tmpZ) / 10;
+		int oldCubeX = (int) this.x / 10;
+		int oldCubeY = (int) this.y / 10;
+		int oldCubeZ = (int) this.z / 10;		
 		
-		if ((tmpCubeX == (int) this.x / 10) && (tmpCubeY == (int) this.y / 10) && (tmpCubeZ == (int) this.z / 10)) {
+		int newCubeX = (int) (this.x + tmpX) / 10;
+		int newCubeY = (int) (this.y + tmpY) / 10;
+		int newCubeZ = (int) (this.z + tmpZ) / 10;
+		
+		if ((newCubeX == oldCubeX) && (newCubeY == oldCubeY) && (newCubeZ == oldCubeZ)) {
 			this.x += x;
 			this.y += y;
 			this.z += z;
 		}
 		else {
-			if (level.getCube(tmpCubeX, (int) this.y / 10, (int) this.z / 10).isWalkable()) {
+			if (level.getCube(newCubeX, oldCubeY, oldCubeZ).isWalkable()) {
 				this.x += x;
 			}
-			if (level.getCube((int) this.x / 10, tmpCubeY, (int) this.z / 10).isWalkable()) {
+			if (level.getCube(oldCubeX, newCubeY, oldCubeZ).isWalkable()) {
 				this.y += y;
 			}
-			if (level.getCube((int) this.x / 10, (int) this.y / 10, tmpCubeZ).isWalkable()) {
+			if (level.getCube(oldCubeX, oldCubeY, newCubeZ).isWalkable()) {
 				this.z += z;
 			}
 		}
 		
+		// Wenn ein Spieler in die Flammen einer Explosion hineinläuft (die eigentliche
+		// Explosionswirkung aber nicht mitbekommen hat), so verliert er durch die 
+		// Einwirkung der Flammen nur einen Teil (ein Fünftel) der Punkte, die er durch
+		// die Explosion verloren hätte.		
+		if (((!(level.getCube(oldCubeX,oldCubeY,oldCubeZ).getCubeName() == Cube.CUBE_EXPLOSION))
+			&& (!(level.getCube(oldCubeX,oldCubeY,oldCubeZ).getCubeName() == Cube.CUBE_EXPLOSION_HIDE_EXIT))
+			&& (!(level.getCube(oldCubeX,oldCubeY,oldCubeZ).getCubeName() == Cube.CUBE_EXPLOSION_HIDE_ITEM))) 
+			&& ((level.getCube((int) this.x / 10, (int) this.y / 10, (int) this.z / 10).getCubeName() == Cube.CUBE_EXPLOSION) 
+			|| (level.getCube((int) this.x / 10, (int) this.y / 10, (int) this.z / 10).getCubeName() == Cube.CUBE_EXPLOSION_HIDE_EXIT)
+			|| (level.getCube((int) this.x / 10, (int) this.y / 10, (int) this.z / 10).getCubeName() == Cube.CUBE_EXPLOSION_HIDE_ITEM))){
+				this.hitPlayer(CubeExplosion.DAMAGE_POINTS / 5);
+				
+				// TODO Testausgabe entfernen				
+				System.out.println("Die Zeile über mir lügt! Du bist in eine Explosion gelaufen! -" + (CubeExplosion.DAMAGE_POINTS / 5) + "   Healthpoints: " + this.getHealthPoints());
+		}
+		
+		// Überprüfe, ob ein Item eingesammelt werden kann
 		if (level.getCube((int) this.x / 10, (int) this.y / 10, (int) this.z / 10).isCollectable()) {
 			level.getCube((int) this.x / 10, (int) this.y / 10, (int) this.z / 10).change(this, level);
 		}

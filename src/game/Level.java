@@ -19,8 +19,12 @@ import java.util.Random;
  */
 public class Level {
 
-	// TODO Menüoption
-	final static public int OBSTACLE_PROBABILITY = 38; // Wahrscheinlichkeit
+	// TODO Menüoption für ObstacleProbability
+	
+	/**
+	 * Wahrscheinlichkeit, dass bei zufälliger Levelfüllung ein Hindernis an eine freie Stelle gesetzt wird
+	 */
+	final static public int OBSTACLE_PROBABILITY = 32; // Wahrscheinlichkeit
 														// eines Hindernisses
 														// an leerer Stelle des
 														// Levels (0..100 %)
@@ -29,7 +33,10 @@ public class Level {
 	// TODO Menüintegration
 	final static public byte THEME_EARTH = 1;
 	final static public byte THEME_SPACE = 2;
-	// THEMENAUSWAHL HIER ANPASSEN
+	
+	/**
+	 * Umschalten zwischen Darstellungsthemen
+	 */
 	byte themeSelection = THEME_EARTH;
 	//byte themeSelection = THEME_SPACE;
 

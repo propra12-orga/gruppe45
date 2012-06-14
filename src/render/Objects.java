@@ -208,5 +208,4 @@ public class Objects {
 		GL11.glVertex3f(x, y, z);
 		GL11.glEnd();
 	}
-
 }
