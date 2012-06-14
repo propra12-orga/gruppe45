@@ -2,6 +2,7 @@ package game;
 
 import game.cube.Cube;
 import game.cube.CubeExplosion;
+
 import java.util.List;
 
 /**
@@ -35,7 +36,7 @@ public class Player {
 	int radius = 1;
 	// maxBombs in bombs geaendert weil die Variable nicht die maximale Anzahl
 	// Bomben darstellt sondern die Bomben die man zu Verfgung hat
-	int bombs;
+	int bombs = 1;
 	int fuseTime = 3000;
 	int explosionTime = 1000;
 	List listPlayer;
@@ -103,7 +104,7 @@ public class Player {
 	public int getRadius() {
 		return radius;
 	}
-	
+
 	public void increaseRadius() {
 		this.radius += 1;
 	}
@@ -341,18 +342,17 @@ public class Player {
 
 		int oldCubeX = (int) this.x / 10;
 		int oldCubeY = (int) this.y / 10;
-		int oldCubeZ = (int) this.z / 10;		
-		
+		int oldCubeZ = (int) this.z / 10;
+
 		int newCubeX = (int) (this.x + tmpX) / 10;
 		int newCubeY = (int) (this.y + tmpY) / 10;
 		int newCubeZ = (int) (this.z + tmpZ) / 10;
-		
+
 		if ((newCubeX == oldCubeX) && (newCubeY == oldCubeY) && (newCubeZ == oldCubeZ)) {
 			this.x += x;
 			this.y += y;
 			this.z += z;
-		}
-		else {
+		} else {
 			if (level.getCube(newCubeX, oldCubeY, oldCubeZ).isWalkable()) {
 				this.x += x;
 			}
@@ -363,23 +363,27 @@ public class Player {
 				this.z += z;
 			}
 		}
-		
-		// Wenn ein Spieler in die Flammen einer Explosion hineinläuft (die eigentliche
-		// Explosionswirkung aber nicht mitbekommen hat), so verliert er durch die 
-		// Einwirkung der Flammen nur einen Teil (ein Fünftel) der Punkte, die er durch
-		// die Explosion verloren hätte.		
-		if (((!(level.getCube(oldCubeX,oldCubeY,oldCubeZ).getCubeName() == Cube.CUBE_EXPLOSION))
-			&& (!(level.getCube(oldCubeX,oldCubeY,oldCubeZ).getCubeName() == Cube.CUBE_EXPLOSION_HIDE_EXIT))
-			&& (!(level.getCube(oldCubeX,oldCubeY,oldCubeZ).getCubeName() == Cube.CUBE_EXPLOSION_HIDE_ITEM))) 
-			&& ((level.getCube((int) this.x / 10, (int) this.y / 10, (int) this.z / 10).getCubeName() == Cube.CUBE_EXPLOSION) 
-			|| (level.getCube((int) this.x / 10, (int) this.y / 10, (int) this.z / 10).getCubeName() == Cube.CUBE_EXPLOSION_HIDE_EXIT)
-			|| (level.getCube((int) this.x / 10, (int) this.y / 10, (int) this.z / 10).getCubeName() == Cube.CUBE_EXPLOSION_HIDE_ITEM))){
-				this.hitPlayer(CubeExplosion.DAMAGE_POINTS / 5);
-				
-				// TODO Testausgabe entfernen				
-				System.out.println("Du bist in eine Explosion gelaufen! -" + (CubeExplosion.DAMAGE_POINTS / 5) + "   Healthpoints: " + this.getHealthPoints());
+
+		// Wenn ein Spieler in die Flammen einer Explosion hineinläuft (die
+		// eigentliche
+		// Explosionswirkung aber nicht mitbekommen hat), so verliert er durch
+		// die
+		// Einwirkung der Flammen nur einen Teil (ein Fünftel) der Punkte, die
+		// er durch
+		// die Explosion verloren hätte.
+		if (((!(level.getCube(oldCubeX, oldCubeY, oldCubeZ).getCubeName() == Cube.CUBE_EXPLOSION))
+				&& (!(level.getCube(oldCubeX, oldCubeY, oldCubeZ).getCubeName() == Cube.CUBE_EXPLOSION_HIDE_EXIT)) && (!(level
+				.getCube(oldCubeX, oldCubeY, oldCubeZ).getCubeName() == Cube.CUBE_EXPLOSION_HIDE_ITEM)))
+				&& ((level.getCube((int) this.x / 10, (int) this.y / 10, (int) this.z / 10).getCubeName() == Cube.CUBE_EXPLOSION)
+						|| (level.getCube((int) this.x / 10, (int) this.y / 10, (int) this.z / 10).getCubeName() == Cube.CUBE_EXPLOSION_HIDE_EXIT) || (level
+						.getCube((int) this.x / 10, (int) this.y / 10, (int) this.z / 10).getCubeName() == Cube.CUBE_EXPLOSION_HIDE_ITEM))) {
+			this.hitPlayer(CubeExplosion.DAMAGE_POINTS / 5);
+
+			// TODO Testausgabe entfernen
+			System.out.println("Du bist in eine Explosion gelaufen! -" + (CubeExplosion.DAMAGE_POINTS / 5)
+					+ "   Healthpoints: " + this.getHealthPoints());
 		}
-		
+
 		// Überprüfe, ob ein Item eingesammelt werden kann
 		if (level.getCube((int) this.x / 10, (int) this.y / 10, (int) this.z / 10).isCollectable()) {
 			level.getCube((int) this.x / 10, (int) this.y / 10, (int) this.z / 10).change(this, level);

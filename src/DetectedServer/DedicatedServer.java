@@ -27,7 +27,7 @@ public class DedicatedServer {
 
 	private static List<NetPlayer> listNetPlayer = new ArrayList<NetPlayer>();
 	private static NetLevel netLevel = new NetLevel(LEVEL_X, LEVEL_Y, LEVEL_Z, listNetPlayer);
-	private static ThreadBomb threadBomb = new ThreadBomb(netLevel, null,listNetPlayer);
+	private static ThreadBomb threadBomb = new ThreadBomb(netLevel, null, listNetPlayer);
 
 	public static void main(String[] args) {
 		ServerSocket server;
@@ -47,6 +47,7 @@ public class DedicatedServer {
 				if (listNetPlayer.size() > SERVER_MAX_PLAYER) {
 					netPlayer.write(NetPlayer.MSG_SERVER_FULL + ":");
 				} else {
+					netPlayer.setBombs(1);
 					listNetPlayer.add(netPlayer);
 					new Thread(new ThreadClient(netLevel, netPlayer, listNetPlayer)).start();
 					for (int i = 0; i < (listNetPlayer.size() - 1); i++) {
