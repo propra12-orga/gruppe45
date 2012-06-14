@@ -19,10 +19,10 @@ import DetectedServer.NetPlayer;
  */
 public class ThreadBomb {
 
-	final float PROBABILITY_HEALTH = 0.02f;
-	final float PROBABILITY_XTRA_BOMB = 0.02f;
-	final float PROBABILITY_PORTAL = 0.02f;
-	final float PROBABILITY_BOMB_RANGE = 0.02f;
+	final float PROBABILITY_HEALTH = 0.08f;
+	final float PROBABILITY_XTRA_BOMB = 0.08f;
+	final float PROBABILITY_PORTAL = 0.08f;
+	final float PROBABILITY_BOMB_RANGE = 0.08f;
 	// Rest ist CUBE_EMPTY
 
 	final int MILLISECS_PER_TICK = 10;

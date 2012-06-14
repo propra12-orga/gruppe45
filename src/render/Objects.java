@@ -62,6 +62,25 @@ public class Objects {
 					texMenuExitProgram = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/space/exitprogram.png"));
 					texMenuLoadLevel = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/space/loadlevel.png"));
 					break;
+					// Soccer-Theme
+				case 3:
+					// Weltwuerfel
+					texBomb = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/bomb.png"));
+					texExplosion = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/explosion.png"));
+					texPaper = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/solid.png"));
+					texOutside = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/outsideworld.png"));
+					texObstacle = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/obstacle.png"));
+					texHealth = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/health.png"));
+					texXtraBomb = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/ItemXtraBomb.png"));
+					texPortal = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/ItemPortal.png"));
+					texBombRange = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/ItemBombRange.png"));
+					texExit = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/exit.png"));
+					texPlayer = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/player.png"));
+					// Menuewuerfel
+					texMenuNewGame = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/soccer/newgame.png"));
+					texMenuExitProgram = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/soccer/exitprogram.png"));
+					texMenuLoadLevel = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/soccer/loadlevel.png"));
+					break;
 			}			
 		} catch (IOException e) {
 			e.printStackTrace();

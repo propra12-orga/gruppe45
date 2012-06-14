@@ -22,7 +22,7 @@ public class Level {
 	/**
 	 * Wahrscheinlichkeit, dass bei zufälliger Levelfüllung ein Hindernis an eine freie Stelle gesetzt wird
 	 */
-	final static public int OBSTACLE_PROBABILITY = 45;  // Wahrscheinlichkeit
+	final static public int OBSTACLE_PROBABILITY = 20;  // Wahrscheinlichkeit
 														// eines Hindernisses
 														// an leerer Stelle des
 														// Levels (0..100 %)
@@ -31,12 +31,14 @@ public class Level {
 	// TODO Menüintegration
 	final static public byte THEME_EARTH = 1;
 	final static public byte THEME_SPACE = 2;
+	final static public byte THEME_SOCCER = 3;
 	
 	/**
 	 * Umschalten zwischen Darstellungsthemen
 	 */
-	byte themeSelection = THEME_EARTH;
+	// byte themeSelection = THEME_EARTH;
 	// byte themeSelection = THEME_SPACE;
+	 byte themeSelection = THEME_SOCCER;
 
 	/**
 	 * Ermöglicht das Verstecken des Ausgangs in einem zerstörbaren Block

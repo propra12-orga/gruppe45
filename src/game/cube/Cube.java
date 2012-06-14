@@ -35,7 +35,8 @@ public abstract class Cube {
 	final static public String MENU_CUBE_LOAD_LEVEL = "MenuCubeLoadLevel";
 
 	final static public CubeData[] cubeData = { new CubeData(new CubeBomb(), CUBE_BOMB),
-			new CubeData(new CubeEmpty(), CUBE_EMPTY), new CubeData(new CubeExit(), CUBE_EXIT),
+			new CubeData(new CubeEmpty(), CUBE_EMPTY), 
+			new CubeData(new CubeExit(), CUBE_EXIT),
 			new CubeData(new CubeExplosion(), CUBE_EXPLOSION),
 			new CubeData(new CubeExplosionHideExit(), CUBE_EXPLOSION_HIDE_EXIT),
 			new CubeData(new CubeExplosionHideItem(), CUBE_EXPLOSION_HIDE_ITEM),

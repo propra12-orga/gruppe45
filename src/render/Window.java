@@ -14,7 +14,9 @@ import control.Control_Keyboard;
 import control.Control_Mouse;
 
 public class Window {
-
+	
+	final static public String FENSTERNAME = "Bomberdiman ikibinoniki 3D";
+	
 	final static public int width = 800; // Größe des Darstellungsfensters
 	final static public int height = 600;
 
@@ -29,7 +31,7 @@ public class Window {
 		try {
 			Display.setDisplayMode(new DisplayMode(width, height));
 			Display.create();
-			Display.setTitle("Bombardiman ücbinikiyüzellibes 3D");
+			Display.setTitle(FENSTERNAME);
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 			System.exit(0);
