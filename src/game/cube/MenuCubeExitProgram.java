@@ -1,6 +1,4 @@
 package game.cube;
-import java.util.ArrayList;
-import java.util.List;
 
 import game.Level;
 import game.Player;

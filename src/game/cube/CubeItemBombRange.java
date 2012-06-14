@@ -5,25 +5,25 @@ import game.Player;
 
 /**
  * 
- * Item, das die Gesundheit des Spielers wieder herstellt.
+ * Item, das die Reichweite der Bomben eines Spielers erhöht.
  * 
  */
-public class CubeItemXtraBomb extends Cube {
+public class CubeItemBombRange extends Cube {
 
-	CubeItemXtraBomb() {
+	CubeItemBombRange() {
 		super(Cube.IS_WALKABLE, Cube.IS_COLLECTABLE, Cube.IS_DESTROYABLE);
 	}
 
 	@Override
 	public void change(Player player, Level level) {
-		if (player.getBombs() < Player.MAX_SIMULTAN_BOMBS) {
-			player.increaseBombs();
+		if (player.getRadius() < Player.MAX_BOMB_RADIUS) {
+			player.increaseRadius();
 
 			// TODO Testausgabe entfernen!
-			System.out.println("Item used! +1 Bomb  MaxBombs now: " + player.getBombs());
+			System.out.println("Item used! +1 Radius  Radius neu: " + player.getRadius());
 		} else {
 			// TODO Testausgabe entfernen!
-			System.out.println("Du hast schon die maximale Anzahl an Bomben! " + player.getBombs());
+			System.out.println("Du hast schon die maximalen Wirkungsradius! " + player.getRadius());
 		}
 		level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), player.getCubeX(), player.getCubeY(), player.getCubeZ());
 	}

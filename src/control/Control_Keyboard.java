@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.Display;
 
 /**
  * Enthaelt Steuerungsbefehle fuer den Spieler und veraendert dessen Position
@@ -67,9 +66,10 @@ public class Control_Keyboard extends Control {
 			}
 			// Zurück zum Menü:
 			if (Keyboard.isKeyDown(Keyboard.KEY_T)) {
-			    level.showMenu();
-			    // FIXME Netzwerkfähig machen
-			    player.setPosition((level.getSizeX() / 2) * 10 + 5  , (level.getSizeY() / 2) * 10 + 5, 15);
+				level.showMenu();
+				// FIXME Netzwerkfähig machen
+				player.setPosition((level.getSizeX() / 2) * 10 + 5, (level.getSizeY() / 2) * 10 + 5, 15);
+				player.setBombs(0);
 				player.setAngleX(0);
 				player.setAngleY(0);
 			}
@@ -98,15 +98,14 @@ public class Control_Keyboard extends Control {
 				player.turnUp(0.009f);
 			}
 			// Durchlauf neustarten:
-/*TODO: Funktionsfähig machen nach dem Vorbild des Menüs:
- 			if (Keyboard.isKeyDown(Keyboard.KEY_N)) {
-				Display.destroy();
-			}
-*/
-			if(Keyboard.isKeyDown(Keyboard.KEY_O)){
+			/*
+			 * TODO: Funktionsfähig machen nach dem Vorbild des Menüs: if
+			 * (Keyboard.isKeyDown(Keyboard.KEY_N)) { Display.destroy(); }
+			 */
+			if (Keyboard.isKeyDown(Keyboard.KEY_O)) {
 				level.save();
 			}
-			if(Keyboard.isKeyDown(Keyboard.KEY_L)){
+			if (Keyboard.isKeyDown(Keyboard.KEY_L)) {
 				level.load();
 			}
 		}

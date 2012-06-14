@@ -1,16 +1,14 @@
 package game;
 
 import game.cube.Cube;
+
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.*;
-import java.util.Scanner;
-
+import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * Speichert und verwaltet ein abstraktes Level
@@ -24,11 +22,11 @@ public class Level {
 	/**
 	 * Wahrscheinlichkeit, dass bei zufälliger Levelfüllung ein Hindernis an eine freie Stelle gesetzt wird
 	 */
-	final static public int OBSTACLE_PROBABILITY = 32; // Wahrscheinlichkeit
+	final static public int OBSTACLE_PROBABILITY = 45;  // Wahrscheinlichkeit
 														// eines Hindernisses
 														// an leerer Stelle des
 														// Levels (0..100 %)
-	
+
 	// Themenauswahl
 	// TODO Menüintegration
 	final static public byte THEME_EARTH = 1;
@@ -38,8 +36,7 @@ public class Level {
 	 * Umschalten zwischen Darstellungsthemen
 	 */
 	byte themeSelection = THEME_EARTH;
-	//byte themeSelection = THEME_SPACE;
-
+	// byte themeSelection = THEME_SPACE;
 
 	/**
 	 * Ermöglicht das Verstecken des Ausgangs in einem zerstörbaren Block
@@ -50,6 +47,27 @@ public class Level {
 	// muss! (vgl. 2. Meilenstein Anforderung #5)
 
 	Cube[][][] level;
+	protected ThreadBomb threadBomb;;
+
+	/**
+	 * Mit diesem Konstruktor kann die Groesse des Levels variiert werden
+	 * 
+	 * @param x
+	 *            Breite des Levels
+	 * @param y
+	 *            Hoehe des Levels
+	 * @param z
+	 *            Tiefe des Levels
+	 */
+	public Level(int x, int y, int z, List<Player> listPlayer) {
+		level = new Cube[x][y][z];
+		threadBomb = new ThreadBomb(this, listPlayer, null);
+		clear();
+	}
+
+	public void setBomb(int x, int y, int z, Player player) {
+		threadBomb.setBomb(x, y, z, player.getRadius(), player);
+	}
 
 	public int getSizeX() {
 		return level.length;
@@ -62,19 +80,17 @@ public class Level {
 	public int getSizeZ() {
 		return level[0][0].length;
 	}
-	
+
 	public byte getthemeSelection() {
 		return this.themeSelection;
 	}
-	
-	public void setthemeSelection(byte themeSelection){
+
+	public void setthemeSelection(byte themeSelection) {
 		this.themeSelection = themeSelection;
 	}
-	
 
 	public Cube getCube(int x, int y, int z) {
-		if (x >= 0 && x < getSizeX() && y >= 0 && x < getSizeY() && x >= 0
-				&& z < getSizeZ()) {
+		if (x >= 0 && x < getSizeX() && y >= 0 && x < getSizeY() && x >= 0 && z < getSizeZ()) {
 			return level[x][y][z];
 		} else {
 			return null;
@@ -89,19 +105,12 @@ public class Level {
 	 * @param z
 	 */
 	public void setCube(Cube cube, int x, int y, int z) {
-		if (x >= 0 && y >= 0 && z >= 0 && x < getSizeX() && y < getSizeY()
-				&& z < getSizeZ()) {
+		if (x >= 0 && y >= 0 && z >= 0 && x < getSizeX() && y < getSizeY() && z < getSizeZ()) {
 			level[x][y][z] = cube;
 		}
 	}
 
-	public void setCubeSilent(Cube cube, int x, int y, int z) {
-		if (x >= 0 && y >= 0 && z >= 0 && x < getSizeX() && y < getSizeY()
-				&& z < getSizeZ()) {
-			level[x][y][z] = cube;
-		}
-	}
-	//Meilenstein:
+	// Meilenstein:
 	// Levelzustand speichern
 	public void save() {
 		File file;
@@ -129,37 +138,24 @@ public class Level {
 			e.printStackTrace();
 		}
 	}
-	//letzten gespeicherten Levelzustand laden
-	//TODO: Für beliebe Levelgröße einrichten (kann nur die Größe laden, in der Gespeichert wurde)
+
+	// letzten gespeicherten Levelzustand laden
+	// TODO: Für beliebe Levelgröße einrichten (kann nur die Größe laden, in der
+	// Gespeichert wurde)
 	public void load() {
 		try {
 			Scanner scanner = new Scanner(new File("TestFile.txt"));
 			for (byte i = 0; i < getSizeX(); i++) {
 				for (byte j = 0; j < getSizeY(); j++) {
 					for (byte k = 0; k < getSizeZ(); k++) {
-					
+
 						level[i][j][k] = Cube.getCubeByNumber(scanner.nextInt());
 					}
 				}
 			}
-		} catch(FileNotFoundException e) {
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-	}
-
-	/**
-	 * Mit diesem Konstruktor kann die Groesse des Levels variiert werden
-	 * 
-	 * @param x
-	 *            Breite des Levels
-	 * @param y
-	 *            Hoehe des Levels
-	 * @param z
-	 *            Tiefe des Levels
-	 */
-	public Level(int x, int y, int z) {
-		level = new Cube[x][y][z];
-		clear();
 	}
 
 	/**
@@ -174,8 +170,7 @@ public class Level {
 	 * @return Gibt den Namen eines Wuerfels an einer bestimmten Position aus
 	 */
 	public String getCubeName(int x, int y, int z) {
-		if ((x >= 0) && (y >= 0) && (z >= 0) && (x < this.getSizeX())
-				&& (y < this.getSizeY()) && (z < this.getSizeZ())) {
+		if ((x >= 0) && (y >= 0) && (z >= 0) && (x < this.getSizeX()) && (y < this.getSizeY()) && (z < this.getSizeZ())) {
 			return level[x][y][z].getCubeName();
 		} else
 			return null;
@@ -200,27 +195,28 @@ public class Level {
 		for (byte i = 0; i < getSizeX(); i++) {
 			for (byte j = 0; j < getSizeY(); j++) {
 				for (byte k = 0; k < getSizeZ(); k++) {
-					setCube(Cube.getCubeByNumber(Integer
-							.valueOf(in[posArray++])), i, j, k);
+					setCube(Cube.getCubeByNumber(Integer.valueOf(in[posArray++])), i, j, k);
 				}
 			}
 		}
 	}
-	
-	public void showMenu(){		
-		final int Z_VERSCHIEBUNG = 2; // gibt an, wie weit die Menüwand von der Rückwand entfernt ist
+
+	public void showMenu() {
+		final int Z_VERSCHIEBUNG = 2; // gibt an, wie weit die Menüwand von der
+										// Rückwand entfernt ist
 		// leere das Levelinnere
-		for (byte i = 1; i < getSizeX()-1; i++) {
-			for (byte j = 1; j < getSizeY()-1; j++) {
-				for (byte k = 1; k < getSizeZ()-1; k++) {					
-					level[i][j][k] = Cube.getCubeByName(Cube.CUBE_EMPTY);						
+		for (byte i = 1; i < getSizeX() - 1; i++) {
+			for (byte j = 1; j < getSizeY() - 1; j++) {
+				for (byte k = 1; k < getSizeZ() - 1; k++) {
+					level[i][j][k] = Cube.getCubeByName(Cube.CUBE_EMPTY);
 				}
 			}
 		}
 		// Baue das Hauptmenü auf
-		level[getSizeX()/2 + 2][getSizeY()/2][getSizeZ()- Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_NEW_GAME);	
-		level[getSizeX()/2][getSizeY()/2][getSizeZ()- Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_LOAD_LEVEL);		
-		level[getSizeX()/2 - 2][getSizeY()/2][getSizeZ()- Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_EXIT_PROGRAM);		
+		level[getSizeX() / 2 + 2][getSizeY() / 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_NEW_GAME);
+		level[getSizeX() / 2][getSizeY() / 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_LOAD_LEVEL);
+		level[getSizeX() / 2 - 2][getSizeY() / 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube
+				.getCubeByName(Cube.MENU_CUBE_EXIT_PROGRAM);
 	}
 
 	/**
@@ -244,32 +240,25 @@ public class Level {
 						// Setze zufällig Hindernisse; lasse dabei die
 						// Startpositionen der Spieler frei
 						if ((rnd <= OBSTACLE_PROBABILITY)
-								&& ((i < this.getSizeX() - 3)
-										|| (j < this.getSizeY() - 3) || (k > 3))
+								&& ((i < this.getSizeX() - 3) || (j < this.getSizeY() - 3) || (k > 3))
 								&& ((i > 2) || (j > 2) || (k < this.getSizeZ() - 4))) {
-							level[i][j][k] = Cube
-									.getCubeByName(Cube.CUBE_OBSTACLE);
+							level[i][j][k] = Cube.getCubeByName(Cube.CUBE_OBSTACLE);
 						} else {
 							// Die raumteilenden Ebenden werden mit deutlich
 							// erhöhter Wahrscheinlichkeit
 							// mit Hindernissen gefüllt
 							if ((rnd <= OBSTACLE_PROBABILITY * 2.0f)
-									&& ((i == this.getSizeX() / 2)
-											|| (j == this.getSizeY() / 2) || (k == this
-											.getSizeZ() / 2))) {
-								level[i][j][k] = Cube
-										.getCubeByName(Cube.CUBE_OBSTACLE);
+									&& ((i == this.getSizeX() / 2) || (j == this.getSizeY() / 2) || (k == this.getSizeZ() / 2))) {
+								level[i][j][k] = Cube.getCubeByName(Cube.CUBE_OBSTACLE);
 							} else {
 								// Wenn kein Hindernis gesetzt wird, so setze
 								// einen leere Würfel
-								level[i][j][k] = Cube
-										.getCubeByName(Cube.CUBE_EMPTY);
+								level[i][j][k] = Cube.getCubeByName(Cube.CUBE_EMPTY);
 							}
 						}
 					}
 					// Aussenseite des Levels wird ausgefüllt
-					if (i == 0 || j == 0 || k == 0 || i == getSizeX() - 1
-							|| j == getSizeY() - 1 || k == getSizeZ() - 1) {
+					if (i == 0 || j == 0 || k == 0 || i == getSizeX() - 1 || j == getSizeY() - 1 || k == getSizeZ() - 1) {
 						level[i][j][k] = Cube.getCubeByName(Cube.CUBE_OUTSIDE);
 					}
 				}
@@ -339,12 +328,10 @@ public class Level {
 			if (level[exit_x][exit_y][exit_z].getCubeName() == Cube.CUBE_OBSTACLE) {
 				// Wenn Cube ein Hindernisse, dann verberge den Ausgang hinter
 				// diesem
-				level[exit_x][exit_y][exit_z] = Cube
-						.getCubeByName(Cube.CUBE_OBSTACLE_HIDE_EXIT);
+				level[exit_x][exit_y][exit_z] = Cube.getCubeByName(Cube.CUBE_OBSTACLE_HIDE_EXIT);
 			} else {
 				// Wenn Cube leer ist, setze Ausgang direkt
-				level[exit_x][exit_y][exit_z] = Cube
-						.getCubeByName(Cube.CUBE_EXIT);
+				level[exit_x][exit_y][exit_z] = Cube.getCubeByName(Cube.CUBE_EXIT);
 			}
 		} else { // Option: Ausgang kann nicht hinter Hindernissen liegen
 			level[exit_x][exit_y][exit_z] = Cube.getCubeByName(Cube.CUBE_EXIT);

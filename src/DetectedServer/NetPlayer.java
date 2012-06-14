@@ -121,7 +121,7 @@ public class NetPlayer extends Player {
 	}
 
 	public Level msgReceiveLevel(String[] splitMsg) {
-		Level level = new Level(Integer.valueOf(splitMsg[1]), Integer.valueOf(splitMsg[2]), Integer.valueOf(splitMsg[3]));
+		Level level = new Level(Integer.valueOf(splitMsg[1]), Integer.valueOf(splitMsg[2]), Integer.valueOf(splitMsg[3]), null);
 		level.setLevel(splitMsg);
 		return level;
 	}
@@ -143,17 +143,6 @@ public class NetPlayer extends Player {
 		System.out.println("Server wurde heruntergefahren");
 		System.exit(1);
 	}
-
-	// final static public int MSG_POSITION = 1;
-	// final static public int MSG_BOMB = 2;
-	// final static public int MSG_EXIT = 3;
-	// final static public int MSG_SERVER_MAX_PLAYER = 4;
-	// final static public int MSG_SERVER_COUNT_PLAYER = 5;
-	// final static public int MSG_SERVER_FULL = 6;
-	// final static public int MSG_LEVEL = 7;
-	// final static public int MSG_PLAYERLIST = 9;
-	// final static public int MSG_CUBE = 10;
-	// final static public int MSG_SERVERDOWN = 12;
 
 	public void msgSendPosition() {
 		write(MSG_POSITION + ":" + getNumber() + ":" + getX() + ":" + getY() + ":" + getZ() + ":" + getAngleX() + ":"

@@ -2,9 +2,7 @@ package game;
 
 import game.cube.Cube;
 import game.cube.CubeExplosion;
-
 import java.util.List;
-import java.util.Timer;
 
 /**
  * Die Klasse Player enthaelt die Position des Spielers die von Control-Klassen
@@ -20,6 +18,7 @@ public class Player {
 	// Obergrenzen für Playervariablen
 	final static public int MAX_HEALTH_POINTS = 150;
 	final static public int MAX_SIMULTAN_BOMBS = 5;
+	final static public int MAX_BOMB_RADIUS = 5;
 
 	private int number = 0;
 
@@ -33,8 +32,10 @@ public class Player {
 	protected Level level;
 
 	private int healthPoints = 100;
-	int radius = 3;
-	int maxBombs = 1;
+	int radius = 1;
+	// maxBombs in bombs geaendert weil die Variable nicht die maximale Anzahl
+	// Bomben darstellt sondern die Bomben die man zu Verfgung hat
+	int bombs;
 	int fuseTime = 3000;
 	int explosionTime = 1000;
 	List listPlayer;
@@ -59,16 +60,20 @@ public class Player {
 		this.healthPoints = healthPoints;
 	}
 
-	public void increaseMaxBombs() {
-		this.maxBombs += 1;
+	public void increaseBombs() {
+		this.bombs += 1;
 	}
 
-	public int getMaxBombs() {
-		return this.maxBombs;
+	public void decreaseBombs() {
+		this.bombs -= 1;
 	}
-	
-	public void setMaxBombs(int maxBombs) {
-		this.maxBombs = maxBombs;
+
+	public int getBombs() {
+		return this.bombs;
+	}
+
+	public void setBombs(int bombs) {
+		this.bombs = bombs;
 	}
 
 	public void setPlayerPosition(float newX, float newY, float newZ) {
@@ -90,24 +95,17 @@ public class Player {
 	}
 
 	public void setBomb(int x, int y, int z) {
-		if (maxBombs > 0) {
-			maxBombs--;
-			// Array posExp enthält die Positionen der 7 Explosionsblöcke
-			ArrayPosition[] posExp = { new ArrayPosition((int) x, (int) y, (int) z),
-					new ArrayPosition((int) x - 1, (int) y, (int) z), new ArrayPosition((int) x + 1, (int) y, (int) z),
-					new ArrayPosition((int) x, (int) y - 1, (int) z), new ArrayPosition((int) x, (int) y + 1, (int) z),
-					new ArrayPosition((int) x, (int) y, (int) z - 1), new ArrayPosition((int) x, (int) y, (int) z + 1) };
-			Timer timer = new Timer();
-			level.setCube(Cube.getCubeByName(Cube.CUBE_BOMB), (int) x, (int) y, (int) z);
-
-			// Explosion
-			timer.schedule(new TimeCube(level, Cube.getCubeByName(Cube.CUBE_EXPLOSION), posExp, listPlayer), fuseTime);
-			// Leerer Block
-			timer.schedule(new TimeCube(level, Cube.getCubeByName(Cube.CUBE_EMPTY), posExp, listPlayer), fuseTime
-					+ explosionTime);
-			// Verhindern, dass mehr Bomben gelegt werden als maxBombs erlaubt.
-			timer.schedule(new BombCount(this, maxBombs), fuseTime + explosionTime + 10);
+		if (getBombs() > 0) {
+			level.setBomb(x, y, z, this);
 		}
+	}
+
+	public int getRadius() {
+		return radius;
+	}
+	
+	public void increaseRadius() {
+		this.radius += 1;
 	}
 
 	public void setColor(float[] color) {
@@ -379,7 +377,7 @@ public class Player {
 				this.hitPlayer(CubeExplosion.DAMAGE_POINTS / 5);
 				
 				// TODO Testausgabe entfernen				
-				System.out.println("Die Zeile über mir lügt! Du bist in eine Explosion gelaufen! -" + (CubeExplosion.DAMAGE_POINTS / 5) + "   Healthpoints: " + this.getHealthPoints());
+				System.out.println("Du bist in eine Explosion gelaufen! -" + (CubeExplosion.DAMAGE_POINTS / 5) + "   Healthpoints: " + this.getHealthPoints());
 		}
 		
 		// Überprüfe, ob ein Item eingesammelt werden kann
