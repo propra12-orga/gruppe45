@@ -14,29 +14,31 @@ import control.Control_Keyboard;
 import control.Control_Mouse;
 
 public class Window {
-	
-	
 
 	final static public int width = 800; // Größe des Darstellungsfensters
-	final static public int height = 600;	
+	final static public int height = 600;
 
 	// TODO Menüoption
-	final static public int level_size_x = 11; // X-Ausdehnung der Spielwelt
-	final static public int level_size_y = 11; // Y-Ausdehnung der Spielwelt
-	final static public int level_size_z = 11; // Z-Ausdehnung der Spielwelt
+	final static public int levelSizeX = 10; // X-Ausdehnung der Spielwelt
+	final static public int levelSizeY = 10; // Y-Ausdehnung der Spielwelt
+	final static public int levelSizeZ = 10; // Z-Ausdehnung der Spielwelt
+	final static public DisplayMode dispmod = new DisplayMode(width, height);
 
 	public void start() {
-		int player1_start_x = 0;
+		int player1_start_x;
 
 		try {
-			Display.setDisplayMode(new DisplayMode(width, height));
+			Display.setDisplayMode(dispmod);
+			//Display.create();
+			Display.setFullscreen(true);
 			Display.create();
 			Display.setTitle("Bombardiman ücbinikiyüzellibes 3D");
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 			System.exit(0);
 		}
-		Level level = new Level(level_size_x, level_size_y, level_size_z);
+		List<Player> listPlayer = new ArrayList<Player>();
+		Level level = new Level(levelSizeX, levelSizeY, levelSizeZ, listPlayer);
 		level.showMenu();
 
 		// Skalierbare Levelgröße:
@@ -51,11 +53,11 @@ public class Window {
 			}
 		}
 
-		List<Player> listPlayer = new ArrayList<Player>();
-		Player player = new Player(level, (level_size_x / 2) * 10 + 5  , (level_size_y / 2) * 10 + 5, 15, listPlayer); // STARTPOSITION
+		Player player = new Player(level, (level.getSizeX() / 2) * 10 + 5, (level.getSizeY() / 2) * 10 + 5, 15, listPlayer); // STARTPOSITION
 		// SPIELER
 		listPlayer.add(player);
-		
+		player.setBombs(0);
+
 		// TODO
 
 		OpenGL openGl = new OpenGL(level, player, width, height, null);

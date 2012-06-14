@@ -48,7 +48,7 @@ public class ThreadWindowNetwork implements Runnable {
 						}
 					}
 				} else if (splitMsg[0].equals(NetPlayer.MSG_CUBE)) {
-					level.setCubeSilent(Cube.getCubeByNumber(Integer.valueOf(splitMsg[1])), Integer.valueOf(splitMsg[2]),
+					level.setCube(Cube.getCubeByNumber(Integer.valueOf(splitMsg[1])), Integer.valueOf(splitMsg[2]),
 							Integer.valueOf(splitMsg[3]), Integer.valueOf(splitMsg[4]));
 				} else if (splitMsg[0].equals(NetPlayer.MSG_PLAYERLIST)) {
 					myPlayer.msgReceivePlayerList(splitMsg, listPlayer);

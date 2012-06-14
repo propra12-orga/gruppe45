@@ -1,6 +1,4 @@
 package game.cube;
-import java.util.ArrayList;
-import java.util.List;
 
 import game.Level;
 import game.Player;
@@ -14,10 +12,9 @@ public class MenuCubeNewGame extends Cube {
 	@Override
 	public void change(Player player, Level level) {
 		// TODO Println-Zeile löschen! Ausgabe nur zu Probezwecken!
-		System.out.println("Neues Spiel gestartet!");		
+		System.out.println("Neues Spiel gestartet!");
 		level.clear();
-		
-		
+
 		int player1_start_x = 0;
 		if (level.getSizeX() % 2 == 0) { // Größe in X gerade
 			player1_start_x = level.getSizeX() * 10 - 15;
@@ -29,9 +26,9 @@ public class MenuCubeNewGame extends Cube {
 			}
 		}
 
-		player.setPosition(player1_start_x, level.getSizeY() * 10 - 15,15);
+		player.setPosition(player1_start_x, level.getSizeY() * 10 - 15, 15);
 		player.setHealthPoints(100);
-		player.setMaxBombs(1);
+		player.setBombs(2);
 		player.setAngleX(0);
 		player.setAngleY(0);
 	}

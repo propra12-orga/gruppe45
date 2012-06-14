@@ -1,9 +1,8 @@
 package game;
 
 import game.cube.Cube;
-
+import game.cube.CubeExplosion;
 import java.util.List;
-import java.util.Timer;
 
 /**
  * Die Klasse Player enthaelt die Position des Spielers die von Control-Klassen
@@ -19,6 +18,7 @@ public class Player {
 	// Obergrenzen für Playervariablen
 	final static public int MAX_HEALTH_POINTS = 150;
 	final static public int MAX_SIMULTAN_BOMBS = 5;
+	final static public int MAX_BOMB_RADIUS = 5;
 
 	private int number = 0;
 
@@ -32,10 +32,12 @@ public class Player {
 	protected Level level;
 
 	private int healthPoints = 100;
-	int radius = 3;
-	int maxBombs = 3;
-//	int fuseTime = 3000;
-//	int explosionTime = 1000;
+	int radius = 1;
+	// maxBombs in bombs geaendert weil die Variable nicht die maximale Anzahl
+	// Bomben darstellt sondern die Bomben die man zu Verfgung hat
+	int bombs;
+	int fuseTime = 3000;
+	int explosionTime = 1000;
 	List listPlayer;
 
 	/**
@@ -58,16 +60,20 @@ public class Player {
 		this.healthPoints = healthPoints;
 	}
 
-	public void increaseMaxBombs() {
-		this.maxBombs += 1;
+	public void increaseBombs() {
+		this.bombs += 1;
 	}
 
-	public int getMaxBombs() {
-		return this.maxBombs;
+	public void decreaseBombs() {
+		this.bombs -= 1;
 	}
-	
-	public void setMaxBombs(int maxBombs) {
-		this.maxBombs = maxBombs;
+
+	public int getBombs() {
+		return this.bombs;
+	}
+
+	public void setBombs(int bombs) {
+		this.bombs = bombs;
 	}
 
 	public void setPlayerPosition(float newX, float newY, float newZ) {
@@ -85,31 +91,21 @@ public class Player {
 	 */
 
 	public void setBomb() {
-		setBomb((int) (x / 10), (int) (y / 10), (int) (z / 10), 3000,1000);
+		setBomb((int) (x / 10), (int) (y / 10), (int) (z / 10));
 	}
 
-	public void setBomb(int x, int y, int z, int fuseTime, int explosionTime) {
-		if (maxBombs > 0) {
-			maxBombs--;
-			// Array posExp enthält die Positionen der 7 Explosionsblöcke
-			ArrayPosition[] posExp = { new ArrayPosition((int) x, (int) y, (int) z),
-					new ArrayPosition((int) x - 1, (int) y, (int) z), new ArrayPosition((int) x + 1, (int) y, (int) z),
-					new ArrayPosition((int) x, (int) y - 1, (int) z), new ArrayPosition((int) x, (int) y + 1, (int) z),
-					new ArrayPosition((int) x, (int) y, (int) z - 1), new ArrayPosition((int) x, (int) y, (int) z + 1) };
-			Timer timer = new Timer();
-			
-			//TODO Abfrage einbauen wegen der Kettenbombe
-			
-			level.setCube(Cube.getCubeByName(Cube.CUBE_BOMB), (int) x, (int) y, (int) z);
-			
-			// Explosion
-			timer.schedule(new TimeCube(level, Cube.getCubeByName(Cube.CUBE_EXPLOSION), posExp, listPlayer, this), fuseTime);
-			// Leerer Block
-			timer.schedule(new TimeCube(level, Cube.getCubeByName(Cube.CUBE_EMPTY), posExp, listPlayer, this), fuseTime
-					+ explosionTime);
-			// Verhindern, dass mehr Bomben gelegt werden als maxBombs erlaubt.
-			timer.schedule(new BombCount(this, maxBombs), fuseTime + explosionTime + 10);
+	public void setBomb(int x, int y, int z) {
+		if (getBombs() > 0) {
+			level.setBomb(x, y, z, this);
 		}
+	}
+
+	public int getRadius() {
+		return radius;
+	}
+	
+	public void increaseRadius() {
+		this.radius += 1;
 	}
 
 	public void setColor(float[] color) {
@@ -130,9 +126,6 @@ public class Player {
 
 	public void hitPlayer(int hitPoints) {
 		healthPoints -= hitPoints;
-		// TODO Testausgabe entfernen!
-		System.out.println("Player getroffen! -25  HealthPoints: " + getHealthPoints());
-
 	}
 
 	public boolean isLiving() {
@@ -346,27 +339,48 @@ public class Player {
 		int tmpY = (int) (Math.signum(y) * (Math.abs(y) + radius));
 		int tmpZ = (int) (Math.signum(z) * (Math.abs(z) + radius));
 
-		int tmpCubeX = (int) (this.x + tmpX) / 10;
-		int tmpCubeY = (int) (this.y + tmpY) / 10;
-		int tmpCubeZ = (int) (this.z + tmpZ) / 10;
+		int oldCubeX = (int) this.x / 10;
+		int oldCubeY = (int) this.y / 10;
+		int oldCubeZ = (int) this.z / 10;		
 		
-		if ((tmpCubeX == (int) this.x / 10) && (tmpCubeY == (int) this.y / 10) && (tmpCubeZ == (int) this.z / 10)) {
+		int newCubeX = (int) (this.x + tmpX) / 10;
+		int newCubeY = (int) (this.y + tmpY) / 10;
+		int newCubeZ = (int) (this.z + tmpZ) / 10;
+		
+		if ((newCubeX == oldCubeX) && (newCubeY == oldCubeY) && (newCubeZ == oldCubeZ)) {
 			this.x += x;
 			this.y += y;
 			this.z += z;
 		}
 		else {
-			if (level.getCube(tmpCubeX, (int) this.y / 10, (int) this.z / 10).isWalkable()) {
+			if (level.getCube(newCubeX, oldCubeY, oldCubeZ).isWalkable()) {
 				this.x += x;
 			}
-			if (level.getCube((int) this.x / 10, tmpCubeY, (int) this.z / 10).isWalkable()) {
+			if (level.getCube(oldCubeX, newCubeY, oldCubeZ).isWalkable()) {
 				this.y += y;
 			}
-			if (level.getCube((int) this.x / 10, (int) this.y / 10, tmpCubeZ).isWalkable()) {
+			if (level.getCube(oldCubeX, oldCubeY, newCubeZ).isWalkable()) {
 				this.z += z;
 			}
 		}
 		
+		// Wenn ein Spieler in die Flammen einer Explosion hineinläuft (die eigentliche
+		// Explosionswirkung aber nicht mitbekommen hat), so verliert er durch die 
+		// Einwirkung der Flammen nur einen Teil (ein Fünftel) der Punkte, die er durch
+		// die Explosion verloren hätte.		
+		if (((!(level.getCube(oldCubeX,oldCubeY,oldCubeZ).getCubeName() == Cube.CUBE_EXPLOSION))
+			&& (!(level.getCube(oldCubeX,oldCubeY,oldCubeZ).getCubeName() == Cube.CUBE_EXPLOSION_HIDE_EXIT))
+			&& (!(level.getCube(oldCubeX,oldCubeY,oldCubeZ).getCubeName() == Cube.CUBE_EXPLOSION_HIDE_ITEM))) 
+			&& ((level.getCube((int) this.x / 10, (int) this.y / 10, (int) this.z / 10).getCubeName() == Cube.CUBE_EXPLOSION) 
+			|| (level.getCube((int) this.x / 10, (int) this.y / 10, (int) this.z / 10).getCubeName() == Cube.CUBE_EXPLOSION_HIDE_EXIT)
+			|| (level.getCube((int) this.x / 10, (int) this.y / 10, (int) this.z / 10).getCubeName() == Cube.CUBE_EXPLOSION_HIDE_ITEM))){
+				this.hitPlayer(CubeExplosion.DAMAGE_POINTS / 5);
+				
+				// TODO Testausgabe entfernen				
+				System.out.println("Du bist in eine Explosion gelaufen! -" + (CubeExplosion.DAMAGE_POINTS / 5) + "   Healthpoints: " + this.getHealthPoints());
+		}
+		
+		// Überprüfe, ob ein Item eingesammelt werden kann
 		if (level.getCube((int) this.x / 10, (int) this.y / 10, (int) this.z / 10).isCollectable()) {
 			level.getCube((int) this.x / 10, (int) this.y / 10, (int) this.z / 10).change(this, level);
 		}
