@@ -90,7 +90,7 @@ public class Player {
 	/**
 	 * Nur zum Speichern der Spielerposition im Server
 	 */
-
+	//Bombe legen
 	public void setBomb() {
 		setBomb((int) (x / 10), (int) (y / 10), (int) (z / 10));
 	}
