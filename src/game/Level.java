@@ -30,8 +30,8 @@ public class Level {
 	final static public byte THEME_EARTH = 1;
 	final static public byte THEME_SPACE = 2;
 	// THEMENAUSWAHL HIER ANPASSEN
-	byte themeSelection = THEME_EARTH;
-	//byte themeSelection = THEME_SPACE;
+	//byte themeSelection = THEME_EARTH;
+	byte themeSelection = THEME_SPACE;
 
 
 	/**

@@ -33,9 +33,9 @@ public class Player {
 
 	private int healthPoints = 100;
 	int radius = 3;
-	int maxBombs = 1;
-	int fuseTime = 3000;
-	int explosionTime = 1000;
+	int maxBombs = 3;
+//	int fuseTime = 3000;
+//	int explosionTime = 1000;
 	List listPlayer;
 
 	/**
@@ -85,10 +85,10 @@ public class Player {
 	 */
 
 	public void setBomb() {
-		setBomb((int) (x / 10), (int) (y / 10), (int) (z / 10));
+		setBomb((int) (x / 10), (int) (y / 10), (int) (z / 10), 3000,1000);
 	}
 
-	public void setBomb(int x, int y, int z) {
+	public void setBomb(int x, int y, int z, int fuseTime, int explosionTime) {
 		if (maxBombs > 0) {
 			maxBombs--;
 			// Array posExp enthält die Positionen der 7 Explosionsblöcke
@@ -97,12 +97,15 @@ public class Player {
 					new ArrayPosition((int) x, (int) y - 1, (int) z), new ArrayPosition((int) x, (int) y + 1, (int) z),
 					new ArrayPosition((int) x, (int) y, (int) z - 1), new ArrayPosition((int) x, (int) y, (int) z + 1) };
 			Timer timer = new Timer();
+			
+			//TODO Abfrage einbauen wegen der Kettenbombe
+			
 			level.setCube(Cube.getCubeByName(Cube.CUBE_BOMB), (int) x, (int) y, (int) z);
-
+			
 			// Explosion
-			timer.schedule(new TimeCube(level, Cube.getCubeByName(Cube.CUBE_EXPLOSION), posExp, listPlayer), fuseTime);
+			timer.schedule(new TimeCube(level, Cube.getCubeByName(Cube.CUBE_EXPLOSION), posExp, listPlayer, this), fuseTime);
 			// Leerer Block
-			timer.schedule(new TimeCube(level, Cube.getCubeByName(Cube.CUBE_EMPTY), posExp, listPlayer), fuseTime
+			timer.schedule(new TimeCube(level, Cube.getCubeByName(Cube.CUBE_EMPTY), posExp, listPlayer, this), fuseTime
 					+ explosionTime);
 			// Verhindern, dass mehr Bomben gelegt werden als maxBombs erlaubt.
 			timer.schedule(new BombCount(this, maxBombs), fuseTime + explosionTime + 10);

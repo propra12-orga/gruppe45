@@ -113,7 +113,7 @@ public class NetPlayer extends Player {
 	}
 
 	public void msgReceiveBomb(String[] splitMsg) {
-		super.setBomb(Integer.valueOf(splitMsg[1]), Integer.valueOf(splitMsg[2]), Integer.valueOf(splitMsg[3]));
+		super.setBomb(Integer.valueOf(splitMsg[1]), Integer.valueOf(splitMsg[2]), Integer.valueOf(splitMsg[3]),3000,1000);
 	}
 
 	public void msgReceiveExit() {

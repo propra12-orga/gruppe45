@@ -4,7 +4,9 @@ import game.cube.Cube;
 
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
 import java.util.TimerTask;
+
 
 public class TimeCube extends TimerTask {
 	
@@ -19,6 +21,7 @@ public class TimeCube extends TimerTask {
 	ArrayPosition[] positions;
 	Level level;
 	List<Player> listPlayer;
+	Player player;
 
 	/**
 	 * Der TimeCube fungiert als Thread
@@ -33,11 +36,12 @@ public class TimeCube extends TimerTask {
 	 * @param player
 	 *            Der aktuelle Spieler wird übergeben
 	 */
-	public TimeCube(Level level, Cube cube, ArrayPosition[] positions, List<Player> listPlayer) {
+	public TimeCube(Level level, Cube cube, ArrayPosition[] positions, List<Player> listPlayer, Player player) {
 		this.positions = positions;
 		this.cube = cube;
 		this.level = level;
 		this.listPlayer = listPlayer;
+		this.player = player;
 	}
 
 	@Override
@@ -82,6 +86,19 @@ public class TimeCube extends TimerTask {
 				} else if (tmpcube.getCubeName().equals(Cube.CUBE_OBSTACLE)) {
 					level.setCube(Cube.getCubeByName(Cube.CUBE_EXPLOSION_HIDE_ITEM), positions[i].getX(), positions[i].getY(), positions[i].getZ());
 				// Alle anderen Würfel werden zu einfachen Explosionen bzw. leeren Würfeln
+//				}else if (tmpcube.getCubeName().equals(Cube.CUBE_BOMB)){
+//					Timer t1 = new Timer();
+//					ArrayPosition[] pos = {new ArrayPosition(positions[i].getX(), positions[i].getY(), positions[i].getZ()),
+//							new ArrayPosition(positions[i].getX() - 1, positions[i].getY(), positions[i].getZ()), new ArrayPosition(positions[i].getX() + 1, positions[i].getY(), positions[i].getZ()),
+//							new ArrayPosition(positions[i].getX(), positions[i].getY() - 1, positions[i].getZ()), new ArrayPosition(positions[i].getX(), positions[i].getY() + 1, positions[i].getZ()),
+//							new ArrayPosition(positions[i].getX(), positions[i].getY(), positions[i].getZ()), new ArrayPosition(positions[i].getX(), positions[i].getY(), positions[i].getZ())};
+//					t1.schedule(new TimeCube(level, Cube.getCubeByName(Cube.CUBE_EXPLOSION), pos, listPlayer, player), 1,1);
+//					// Leerer Block
+//					
+//					t1.schedule(new TimeCube(level, Cube.getCubeByName(Cube.CUBE_EMPTY), pos, listPlayer, player), 1
+//							+ 1);
+//////					player.setBomb(positions[i].getX(), positions[i].getY(), positions[i].getZ(),0,0);
+////					this.scheduledExecutionTime(new TimeCube(level, Cube.getCubeByName(Cube.CUBE_EXPLOSION), positions, listPlayer, this), fuseTime)
 				} else
 					level.setCube(cube, positions[i].getX(), positions[i].getY(), positions[i].getZ());
 				
