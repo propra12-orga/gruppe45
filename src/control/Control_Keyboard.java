@@ -36,6 +36,9 @@ public class Control_Keyboard extends Control {
 
 	class TimerKeyboard implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			if (player.GRAVITY)
+				player.sinkDown();
+			else{}
 			move_Control1(player, level);
 		}
 
@@ -102,6 +105,17 @@ public class Control_Keyboard extends Control {
 			 * TODO: Funktionsfähig machen nach dem Vorbild des Menüs: if
 			 * (Keyboard.isKeyDown(Keyboard.KEY_N)) { Display.destroy(); }
 			 */
+//			if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)){
+//				float y = player.getY();
+//				while(y < y + 4.0f){
+//					player.moveUp();
+//					if (level.getCubeName((int)player.getX(), (int)y+ 4, (int)player.getZ()) ){
+//						
+//						
+//					}
+//				}
+//				
+//			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_O)) {
 				level.save();
 			}

@@ -19,6 +19,7 @@ public class Player {
 	final static public int MAX_HEALTH_POINTS = 150;
 	final static public int MAX_SIMULTAN_BOMBS = 5;
 	final static public int MAX_BOMB_RADIUS = 5;
+	final static public boolean GRAVITY = true;
 
 	private int number = 0;
 
@@ -315,6 +316,9 @@ public class Player {
 
 	public void moveDown() {
 		move(0, -1, 0);
+	}
+	public void sinkDown(){
+		move(0, -0.3f,0);
 	}
 
 	public void moveDown(float i) {

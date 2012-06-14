@@ -35,8 +35,8 @@ public class Level {
 	/**
 	 * Umschalten zwischen Darstellungsthemen
 	 */
-	// byte themeSelection = THEME_EARTH;
-	byte themeSelection = THEME_SPACE;
+	byte themeSelection = THEME_EARTH;
+	//byte themeSelection = THEME_SPACE;
 
 	/**
 	 * Ermöglicht das Verstecken des Ausgangs in einem zerstörbaren Block
