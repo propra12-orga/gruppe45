@@ -21,15 +21,18 @@ public class Window {
 	final static public int height = 600;
 
 	// TODO Menüoption
-	final static public int levelSizeX = 11; // X-Ausdehnung der Spielwelt
-	final static public int levelSizeY = 11; // Y-Ausdehnung der Spielwelt
-	final static public int levelSizeZ = 11; // Z-Ausdehnung der Spielwelt
+	final static public int levelSizeX = 10; // X-Ausdehnung der Spielwelt
+	final static public int levelSizeY = 10; // Y-Ausdehnung der Spielwelt
+	final static public int levelSizeZ = 10; // Z-Ausdehnung der Spielwelt
+	final static public DisplayMode dispmod = new DisplayMode(width, height);
 
 	public void start() {
 		int player1_start_x;
 
 		try {
-			Display.setDisplayMode(new DisplayMode(width, height));
+			Display.setDisplayMode(dispmod);
+			//Display.create();
+			Display.setFullscreen(true);
 			Display.create();
 			Display.setTitle(FENSTERNAME);
 		} catch (LWJGLException e) {
@@ -77,6 +80,5 @@ public class Window {
 	public static void main(String[] argv) {
 		Window window = new Window();
 		window.start();
-		// Menu menue = new Menu(600,500, window);
 	}
 }
