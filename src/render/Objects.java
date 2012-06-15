@@ -15,7 +15,7 @@ public class Objects {
 	// Wahl, welches Theme benutzt wird
 	byte themeSelection = 1;
 
-	private Texture texBomb, texExplosion, texPaper, texOutside, texObstacle, texHealth, texXtraBomb, texPortal, texBombRange, texExit, texPlayer,
+	private Texture texBomb, texExplosion, texPaper, texOutside, texObstacle, texHealth, texXtraBomb, texPortal, texBombRange, texBombStrength, texExit, texPlayer,
 					texMenuNewGame, texMenuExitProgram, texMenuLoadLevel;
 	
 	public Objects(byte themeSelection) {
@@ -36,6 +36,7 @@ public class Objects {
 					texXtraBomb = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/ItemXtraBomb.png"));
 					texPortal = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/ItemPortal.png"));
 					texBombRange = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/ItemBombRange.png"));
+					texBombStrength = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/ItemBombStrength.png"));
 					texExit = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/exit.png"));
 					texPlayer = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/player.png"));
 					// Menuewuerfel
@@ -55,6 +56,7 @@ public class Objects {
 					texXtraBomb = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/space/ItemXtraBomb.png"));
 					texPortal = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/space/ItemPortal.png"));
 					texBombRange = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/space/ItemBombRange.png"));
+					texBombStrength = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/space/ItemBombStrength.png"));
 					texExit = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/space/exit.png"));
 					texPlayer = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/space/player.png"));
 					// Menuewuerfel
@@ -74,6 +76,7 @@ public class Objects {
 					texXtraBomb = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/ItemXtraBomb.png"));
 					texPortal = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/ItemPortal.png"));
 					texBombRange = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/ItemBombRange.png"));
+					texBombStrength = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/ItemBombStrength.png"));
 					texExit = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/exit.png"));
 					texPlayer = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/player.png"));
 					// Menuewuerfel
@@ -125,6 +128,11 @@ public class Objects {
 	
 	public void DrawCubeItemBombRange(float x, float y, float z) {
 		texBombRange.bind();
+		DrawCube(x + 2.5f, y + 2.5f, z + 2.5f, 5, 1);
+	}
+	
+	public void DrawCubeItemBombStrength(float x, float y, float z) {
+		texBombStrength.bind();
 		DrawCube(x + 2.5f, y + 2.5f, z + 2.5f, 5, 1);
 	}
 	

@@ -72,6 +72,8 @@ public class OpenGL {
 						objects.DrawCubeItemXtraBomb(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_ITEM_BOMB_RANGE)) {
 						objects.DrawCubeItemBombRange(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
+					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_ITEM_BOMB_STRENGTH)) {
+						objects.DrawCubeItemBombStrength(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_ITEM_PORTAL)) {
 						objects.DrawCubeItemPortal(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_SOLID)) {

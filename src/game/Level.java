@@ -50,7 +50,8 @@ public class Level {
 	// muss! (vgl. 2. Meilenstein Anforderung #5)
 
 	Cube[][][] level;
-	protected ThreadBomb threadBomb;;
+	protected ThreadBomb threadBomb;
+
 
 	/**
 	 * Mit diesem Konstruktor kann die Groesse des Levels variiert werden
@@ -69,7 +70,7 @@ public class Level {
 	}
 
 	public void setBomb(int x, int y, int z, Player player) {
-		threadBomb.setBomb(x, y, z, player.getRadius(), player);
+		threadBomb.setBomb(x, y, z, player.getRadius(), player, player.getbombStrengthMultiplier());
 	}
 
 	public int getSizeX() {
@@ -118,7 +119,7 @@ public class Level {
 	public void save() {
 		File file;
 		FileWriter writer;
-		file = new File("TestFile.txt");
+		file = new File("quicksave.txt");
 		try {
 			writer = new FileWriter(file);
 
@@ -147,7 +148,7 @@ public class Level {
 	// Gespeichert wurde)
 	public void load() {
 		try {
-			Scanner scanner = new Scanner(new File("TestFile.txt"));
+			Scanner scanner = new Scanner(new File("quicksave.txt"));
 			for (byte i = 0; i < getSizeX(); i++) {
 				for (byte j = 0; j < getSizeY(); j++) {
 					for (byte k = 0; k < getSizeZ(); k++) {
@@ -222,8 +223,8 @@ public class Level {
 				.getCubeByName(Cube.MENU_CUBE_EXIT_PROGRAM);
 	}
 
-	/**
-	 * Setzt das Levelarray auf Anfang
+	/** 
+	 * Setzt das Levelarray auf Anfang nach dem Muster des einfachen Bomberman
 	 */
 	public void clear() {
 		int exit_x, exit_y, exit_z; // Hilfsvariablen für zufälligen Ausgang
