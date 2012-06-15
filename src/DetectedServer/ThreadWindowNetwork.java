@@ -1,62 +1,50 @@
 package DetectedServer;
 
+import game.Game;
 import game.Level;
 import game.Player;
 import game.cube.Cube;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.Socket;
 import java.util.List;
 
+/**
+ * diese Klasse wird von einem Klienten erzeugt um mit dem Server zu
+ * kommunizieren
+ */
 public class ThreadWindowNetwork implements Runnable {
 
-	List<Player> listPlayer;
-	Socket server;
-	PrintWriter out;
-	BufferedReader in;
-	NetPlayer myPlayer;
-	Level level;
+	private Level level;
+	private NetPlayer myPlayer;
+	private List<Player> listPlayer;
 
-	public ThreadWindowNetwork(List<Player> listPlayer, Socket server, NetPlayer myPlayer, Level level) {
-		this.listPlayer = listPlayer;
-		this.server = server;
-		this.myPlayer = myPlayer;
+	public ThreadWindowNetwork(Level level, NetPlayer myPlayer, List<Player> listPlayer) {
 		this.level = level;
-		try {
-			out = new PrintWriter(server.getOutputStream(), true);
-			in = new BufferedReader(new InputStreamReader(server.getInputStream()));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		this.myPlayer = myPlayer;
+		this.listPlayer = listPlayer;
 	}
 
 	public void run() {
 		String strIn;
-		String[] splitMsg;
+		String[] strSplit;
 		while (true) {
 			if (null != (strIn = myPlayer.read())) {
-				splitMsg = strIn.split(":");
-				if (splitMsg[0].equals(NetPlayer.MSG_POSITION)) {
+				strSplit = strIn.split(":");
+				if (strSplit[0].equals(NetPlayer.MSG_POSITION)) {
 					for (int i = 0; i < listPlayer.size(); i++) {
-						if (listPlayer.get(i).getNumber() == Integer.valueOf(splitMsg[1])) {
-							listPlayer.get(i).setPosition(Float.valueOf(splitMsg[2]), Float.valueOf(splitMsg[3]),
-									Float.valueOf(splitMsg[4]));
+						if (listPlayer.get(i).getNumber() == Integer.valueOf(strSplit[1])) {
+							listPlayer.get(i).setPosition(Float.valueOf(strSplit[2]), Float.valueOf(strSplit[3]),
+									Float.valueOf(strSplit[4]));
 							break;
 						}
 					}
-				} else if (splitMsg[0].equals(NetPlayer.MSG_CUBE)) {
-					level.setCube(Cube.getCubeByNumber(Integer.valueOf(splitMsg[1])), Integer.valueOf(splitMsg[2]),
-							Integer.valueOf(splitMsg[3]), Integer.valueOf(splitMsg[4]));
-				} else if (splitMsg[0].equals(NetPlayer.MSG_PLAYERLIST)) {
-					myPlayer.msgReceivePlayerList(splitMsg, listPlayer);
-				} else if (splitMsg[0].equals(NetPlayer.MSG_EXIT)) {
-					myPlayer.dies();
-					System.exit(0);
+				} else if (strSplit[0].equals(NetPlayer.MSG_CUBE)) {
+					level.setCube(Cube.getCubeByNumber(Integer.valueOf(strSplit[1])), Integer.valueOf(strSplit[2]),
+							Integer.valueOf(strSplit[3]), Integer.valueOf(strSplit[4]));
+				} else if (strSplit[0].equals(NetPlayer.MSG_PLAYERLIST)) {
+					myPlayer.msgReceivePlayerList(strSplit, listPlayer);
+				} else if (strSplit[0].equals(NetPlayer.MSG_EXIT)) {
+					Game.disconnect();
 				}
-
 			}
 		}
 	}

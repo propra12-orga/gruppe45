@@ -1,7 +1,6 @@
 package game;
 
 import game.cube.Cube;
-import game.cube.CubeExplosion;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,9 +25,9 @@ public class ThreadBomb {
 	// Rest ist CUBE_EMPTY
 
 	final int MILLISECS_PER_TICK = 10;
-	final int FUSE_TIME = 300; // (in Hundertstelsekunden) 3 Sekunden 
-	final int EXPLOSION_SPEED = 40; // 0,1 Sekunden 40 
-	final int EXPLOSION_TIME = 50; // 0,2 Sekunden  50
+	final int FUSE_TIME = 300; // (in Hundertstelsekunden) 3 Sekunden
+	final int EXPLOSION_SPEED = 40; // 0,1 Sekunden 40
+	final int EXPLOSION_TIME = 50; // 0,2 Sekunden 50
 	final int BOMB_STRENGTH = 1;
 	Timer timer;
 	Level level;
@@ -38,13 +37,36 @@ public class ThreadBomb {
 	List<Bomb> listBomb;
 	List<Explosion> listExplosion;
 
+	// zeigt an ob es sich um eine Player- oder und eine NetPlayer-List handelt
+	private boolean net;
+	private Player tmpPlayer;
+
+	// TODO down/upcasten muss IRGENDWIE gehen!! Um nicht zwei Playerlisten
+	// uebergeben zu muessen
 	public ThreadBomb(Level level, List<Player> listPlayer, List<NetPlayer> listNetPlayer) {
+		if (listPlayer != null) {
+			this.listPlayer = listPlayer;
+			net = false;
+		} else if (listNetPlayer != null) {
+			this.listNetPlayer = listNetPlayer;
+			net = true;
+			System.out.println("ServerThreadBomb gestartet");
+		} else {
+			System.out.println("ThreadBomb wurde keine Spielerliste uebergeben");
+			System.exit(-1);
+		}
 		this.level = level;
-		this.listPlayer = listPlayer;
-		this.listNetPlayer = listNetPlayer;
 		this.listBomb = new ArrayList<Bomb>();
 		this.listExplosion = new ArrayList<Explosion>();
-		timer = new Timer(MILLISECS_PER_TICK, new TimerKeyboard());
+		timer = new Timer(MILLISECS_PER_TICK, new TimerBombs());
+		timer.start();
+	}
+
+	public void stop() {
+		timer.stop();
+	}
+
+	public void start() {
 		timer.start();
 	}
 
@@ -55,8 +77,17 @@ public class ThreadBomb {
 		}
 	}
 
-	class TimerKeyboard implements ActionListener {
+	class TimerBombs implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			if (net) {
+				for (int i = 0; i < listNetPlayer.size(); i++) {
+					listNetPlayer.get(i).accerlate();
+				}
+			} else {
+				for (int i = 0; i < listPlayer.size(); i++) {
+					listPlayer.get(i).accerlate();
+				}
+			}
 			for (int i = 0; i < listBomb.size(); i++) {
 				listBomb.get(i).tick();
 			}
@@ -156,63 +187,69 @@ public class ThreadBomb {
 				this.timeRest = EXPLOSION_TIME;
 				this.player = player;
 				listExplosion.add(this);
-				
+
 				// Würfel, der den Ausgang verbirgt transportiert den Ausgang
 				// hinter die Explosion
 				if (level.getCubeName(x, y, z).equals(Cube.CUBE_OBSTACLE_HIDE_EXIT)) {
 					level.setCube(Cube.getCubeByName(Cube.CUBE_EXPLOSION_HIDE_EXIT), x, y, z);
-				// Ein Hinderniswürfel kann später zu einem Item werden
+					// Ein Hinderniswürfel kann später zu einem Item werden
 				} else if (level.getCubeName(x, y, z).equals(Cube.CUBE_OBSTACLE)) {
 					level.setCube(Cube.getCubeByName(Cube.CUBE_EXPLOSION_HIDE_ITEM), x, y, z);
-				// alle anderen Würfel (leere, Items, ...) verschwinden
+					// alle anderen Würfel (leere, Items, ...) verschwinden
 				} else {
 					level.setCube(Cube.getCubeByName(Cube.CUBE_EXPLOSION), x, y, z);
 				}
-				
-				// Überprüfe, ob Spieler von Explosion getroffen wird
-				if (listNetPlayer == null) {
-					for (int c = 0; c < listPlayer.size(); c++) {
-						if ((level.getCubeName(x, y, z).equals(Cube.CUBE_EXPLOSION)) 
-							|| (level.getCubeName(x, y, z).equals(Cube.CUBE_EXPLOSION_HIDE_EXIT))
-							|| (level.getCubeName(x, y, z).equals(Cube.CUBE_EXPLOSION_HIDE_ITEM))) {
-							
+
+				// // Überprüfe, ob Spieler von Explosion getroffen wird
+				if (net) {
+					for (int c = 0; c < listNetPlayer.size(); c++) {
+						if ((level.getCubeName(x, y, z).equals(Cube.CUBE_EXPLOSION))
+								|| (level.getCubeName(x, y, z).equals(Cube.CUBE_EXPLOSION_HIDE_EXIT))
+								|| (level.getCubeName(x, y, z).equals(Cube.CUBE_EXPLOSION_HIDE_ITEM))) {
+
 							// Wenn sich an der Stelle der Explosion ein
 							// Spieler befindet, wird dieser getroffen
-							if ((x == listPlayer.get(c).getCubeX())
-								&& (y == listPlayer.get(c).getCubeY())
-								&& (z == listPlayer.get(c).getCubeZ())) {
-									// Spieler werden u. a. Lebenspunkte abgezogen
-									level.getCube(x, y, z).change(listPlayer.get(c), level);
-		
-									// Abfrage, ob Player noch lebt oder getötet wurde
-									if (listPlayer.get(c).getHealthPoints() <= 0) {
-										listPlayer.get(c).dies();
-									}
+							if ((x == listNetPlayer.get(c).getCubeX()) && (y == listNetPlayer.get(c).getCubeY())
+									&& (z == listNetPlayer.get(c).getCubeZ())) {
+								// Spieler werden u. a. Lebenspunkte abgezogen
+								level.getCube(x, y, z).change(listNetPlayer.get(c), level);
+
+								listNetPlayer.get(c).addAcceleration(Math.signum(x - startX) * 2, Math.signum(y - startY) * 2,
+										Math.signum(z - startZ) * 2);
+
+								// Abfrage, ob Player noch lebt oder getötet
+								// wurde
+								if (listNetPlayer.get(c).getHealthPoints() <= 0) {
+									listNetPlayer.get(c).dies();
+								}
 							}
 						}
 					}
 				} else {
-					for (int c = 0; c < listNetPlayer.size(); c++) {
-						if ((level.getCubeName(x, y, z).equals(Cube.CUBE_EXPLOSION)) 
-							|| (level.getCubeName(x, y, z).equals(Cube.CUBE_EXPLOSION_HIDE_EXIT))
-							|| (level.getCubeName(x, y, z).equals(Cube.CUBE_EXPLOSION_HIDE_ITEM))) {
-							
+					for (int c = 0; c < listPlayer.size(); c++) {
+						if ((level.getCubeName(x, y, z).equals(Cube.CUBE_EXPLOSION))
+								|| (level.getCubeName(x, y, z).equals(Cube.CUBE_EXPLOSION_HIDE_EXIT))
+								|| (level.getCubeName(x, y, z).equals(Cube.CUBE_EXPLOSION_HIDE_ITEM))) {
+
 							// Wenn sich an der Stelle der Explosion ein
 							// Spieler befindet, wird dieser getroffen
-							if ((x == listNetPlayer.get(c).getCubeX())
-								&& (y == listNetPlayer.get(c).getCubeY())
-								&& (z == listNetPlayer.get(c).getCubeZ())) {
-									// Spieler werden u. a. Lebenspunkte abgezogen
-									level.getCube(x, y, z).change(listNetPlayer.get(c), level);
-		
-									// Abfrage, ob Player noch lebt oder getötet wurde
-									if (listNetPlayer.get(c).getHealthPoints() <= 0) {
-										listNetPlayer.get(c).dies();
-									}
+							if ((x == listPlayer.get(c).getCubeX()) && (y == listPlayer.get(c).getCubeY())
+									&& (z == listPlayer.get(c).getCubeZ())) {
+								// Spieler werden u. a. Lebenspunkte abgezogen
+								level.getCube(x, y, z).change(listPlayer.get(c), level);
+
+								listPlayer.get(c).addAcceleration(Math.signum(x - startX) * 2, Math.signum(y - startY) * 2,
+										Math.signum(z - startZ) * 2);
+
+								// Abfrage, ob Player noch lebt oder getötet
+								// wurde
+								if (listPlayer.get(c).getHealthPoints() <= 0) {
+									listPlayer.get(c).dies();
+								}
 							}
 						}
 					}
-				}				
+				}
 			}
 		}
 
@@ -248,30 +285,32 @@ public class ThreadBomb {
 				// nun freigelegt
 				if (level.getCubeName(x, y, z).equals(Cube.CUBE_EXPLOSION_HIDE_EXIT)) {
 					level.setCube(Cube.getCubeByName(Cube.CUBE_EXIT), x, y, z);
-				// Hinter Explosionen, die Hindernisse zerstört haben, können
-				// nun Items entstehen...
+					// Hinter Explosionen, die Hindernisse zerstört haben,
+					// können
+					// nun Items entstehen...
 				} else if (level.getCubeName(x, y, z).equals(Cube.CUBE_EXPLOSION_HIDE_ITEM)) {
-					// Erzeuge Zufallszahl, um zu entscheiden, was an dieser Stelle
+					// Erzeuge Zufallszahl, um zu entscheiden, was an dieser
+					// Stelle
 					// erscheinen soll
 					float random = new Random().nextFloat();
 					// ITEM: Health (Medipack)
 					if (random < PROBABILITY_HEALTH) {
 						level.setCube(Cube.getCubeByName(Cube.CUBE_ITEM_HEALTH), x, y, z);
-					// ITEM: Extra Bombe (erhöht maximale Anzahl gleichzeitiger Bomben
+						// ITEM: Extra Bombe (erhöht maximale Anzahl
+						// gleichzeitiger Bomben
 					} else if (random < (PROBABILITY_HEALTH + PROBABILITY_XTRA_BOMB)) {
 						level.setCube(Cube.getCubeByName(Cube.CUBE_ITEM_XTRA_BOMB), x, y, z);
-					// ITEM: Portal (transportiert einen zu neuer Position)
+						// ITEM: Portal (transportiert einen zu neuer Position)
 					} else if (random < (PROBABILITY_HEALTH + PROBABILITY_XTRA_BOMB + PROBABILITY_PORTAL)) {
 						level.setCube(Cube.getCubeByName(Cube.CUBE_ITEM_PORTAL), x, y, z);
-					// ITEM: Bomb Range (Erhöht den Radius von Bomben
+						// ITEM: Bomb Range (Erhöht den Radius von Bomben
 					} else if (random < (PROBABILITY_HEALTH + PROBABILITY_XTRA_BOMB + PROBABILITY_PORTAL + PROBABILITY_BOMB_RANGE)) {
 						level.setCube(Cube.getCubeByName(Cube.CUBE_ITEM_BOMB_RANGE), x, y, z);
-					// ...oder es können leere Würfel entstehen
+						// ...oder es können leere Würfel entstehen
 					} else {
 						level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), x, y, z);
 					}
-				}				
-				else {
+				} else {
 					level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), x, y, z);
 				}
 			}

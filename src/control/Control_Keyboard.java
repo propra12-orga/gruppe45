@@ -1,5 +1,6 @@
 package control;
 
+import game.Game;
 import game.Level;
 import game.Player;
 
@@ -15,10 +16,6 @@ import org.lwjgl.input.Keyboard;
  * und Blickwinkel. Ausserdem enthalten sind Befehle fuer das Legen von Bomben
  * und kurze Tastenbefehle, mit denen der Programmablauf gesteuert werden kann
  * (Beenden, Neustart...)
- * 
- * 
- * 
- * 
  */
 
 public class Control_Keyboard extends Control {
@@ -36,10 +33,10 @@ public class Control_Keyboard extends Control {
 
 	class TimerKeyboard implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			move_Control1(player, level);
+			move_Control1();
 		}
 
-		public void move_Control1(Player player, Level level) {
+		public void move_Control1() {
 			// links:
 			if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
 				player.moveLeft();
@@ -66,12 +63,7 @@ public class Control_Keyboard extends Control {
 			}
 			// Zurück zum Menü:
 			if (Keyboard.isKeyDown(Keyboard.KEY_T)) {
-				level.showMenu();
-				// FIXME Netzwerkfähig machen
-				player.setPosition((level.getSizeX() / 2) * 10 + 5, (level.getSizeY() / 2) * 10 + 5, 15);
-				player.setBombs(0);
-				player.setAngleX(0);
-				player.setAngleY(0);
+				Game.disconnect();
 			}
 			// Programm beenden
 			if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {

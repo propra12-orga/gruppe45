@@ -20,6 +20,8 @@ public class Player {
 	final static public int MAX_HEALTH_POINTS = 150;
 	final static public int MAX_SIMULTAN_BOMBS = 5;
 	final static public int MAX_BOMB_RADIUS = 5;
+	final static public float INERTIA = 0.1f;
+	// final static public float MAX_ACCELERATION = 10;
 
 	private int number = 0;
 
@@ -29,6 +31,10 @@ public class Player {
 	private float[] color;
 	protected float angleY = 0;
 	protected float angleX = 0;
+
+	private float accelerationX = 0;
+	private float accelerationY = 0;
+	private float accelerationZ = 0;
 
 	protected Level level;
 
@@ -55,6 +61,37 @@ public class Player {
 		this.level = level;
 		this.number = number;
 		this.listPlayer = listPlayer;
+	}
+
+	public void accerlate() {
+		move(accelerationX, accelerationY, accelerationZ);
+		accelerationX = getNewAcceleration(accelerationX);
+		accelerationY = getNewAcceleration(accelerationY);
+		accelerationZ = getNewAcceleration(accelerationZ);
+	}
+
+	public void addAcceleration(float accelerationX, float accelerationY, float accelerationZ) {
+		this.accelerationX += accelerationX;
+		this.accelerationY += accelerationY;
+		this.accelerationZ += accelerationZ;
+		System.out.println("Spieler wurde beschleuningt");
+	}
+
+	/**
+	 * laesst die Beschleunigung langsam weniger werden
+	 * 
+	 * @param acceleration
+	 * @return
+	 */
+	private float getNewAcceleration(float acceleration) {
+		if (acceleration > INERTIA) {
+			acceleration -= INERTIA;
+		} else if (acceleration < -INERTIA) {
+			acceleration += INERTIA;
+		} else {
+			acceleration = 0;
+		}
+		return acceleration;
 	}
 
 	public void setHealthPoints(int healthPoints) {
@@ -90,14 +127,18 @@ public class Player {
 	/**
 	 * Nur zum Speichern der Spielerposition im Server
 	 */
-	//Bombe legen
+	// Bombe legen
 	public void setBomb() {
 		setBomb((int) (x / 10), (int) (y / 10), (int) (z / 10));
 	}
 
 	public void setBomb(int x, int y, int z) {
 		if (getBombs() > 0) {
+			// TODO der Klient weiss nicht wie viele er leget und muss noch
+			// irgenwie selber mitzaehlen
+			decreaseBombs();
 			level.setBomb(x, y, z, this);
+			System.out.println("bombe legen");
 		}
 	}
 
@@ -353,14 +394,39 @@ public class Player {
 			this.y += y;
 			this.z += z;
 		} else {
-			if (level.getCube(newCubeX, oldCubeY, oldCubeZ).isWalkable()) {
-				this.x += x;
+			// Der Spieler kann durch move() in einem Block laden der nicht mehr
+			// im Level ist. Sollte er nach der Addition ausserhalt des Levels
+			// laden, nicht Addieren und die Beschleunigung loeschen
+			if (level.getCube(newCubeX, oldCubeY, oldCubeZ) != null) {
+				if (level.getCube(newCubeX, oldCubeY, oldCubeZ).isWalkable()) {
+					this.x += x;
+				} else {
+					accelerationX = 0; // Der Spieler muesste sich eigentlich
+										// noch bewegen, wird jedoch von einem
+										// Hindernis gestoppt, Impulsenergie
+										// könnte in Schaden umgewandelt werden
+										// ;)
+				}
+			} else {
+				accelerationX = 0;
 			}
-			if (level.getCube(oldCubeX, newCubeY, oldCubeZ).isWalkable()) {
-				this.y += y;
+			if (level.getCube(oldCubeX, newCubeY, oldCubeZ) != null) {
+				if (level.getCube(oldCubeX, newCubeY, oldCubeZ).isWalkable()) {
+					this.y += y;
+				} else {
+					accelerationY = 0;
+				}
+			} else {
+				accelerationY = 0;
 			}
-			if (level.getCube(oldCubeX, oldCubeY, newCubeZ).isWalkable()) {
-				this.z += z;
+			if (level.getCube(oldCubeX, oldCubeY, newCubeZ) != null) {
+				if (level.getCube(oldCubeX, oldCubeY, newCubeZ).isWalkable()) {
+					this.z += z;
+				} else {
+					accelerationZ = 0;
+				}
+			} else {
+				accelerationZ = 0;
 			}
 		}
 

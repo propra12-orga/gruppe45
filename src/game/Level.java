@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -23,7 +22,7 @@ public class Level {
 	 * Wahrscheinlichkeit, dass bei zufälliger Levelfüllung ein Hindernis an
 	 * eine freie Stelle gesetzt wird
 	 */
-	final static public int OBSTACLE_PROBABILITY = 30; // Wahrscheinlichkeit
+	final static public int OBSTACLE_PROBABILITY = 2; // Wahrscheinlichkeit
 														// eines Hindernisses
 														// an leerer Stelle des
 														// Levels (0..100 %)
@@ -35,8 +34,8 @@ public class Level {
 	/**
 	 * Umschalten zwischen Darstellungsthemen
 	 */
-	// byte themeSelection = THEME_EARTH;
-	byte themeSelection = THEME_SPACE;
+	byte themeSelection = THEME_EARTH;
+	// byte themeSelection = THEME_SPACE;
 
 	/**
 	 * Ermöglicht das Verstecken des Ausgangs in einem zerstörbaren Block
@@ -46,8 +45,7 @@ public class Level {
 	// Blöcken verbergen, sodass dieser erst freigebomt werden
 	// muss! (vgl. 2. Meilenstein Anforderung #5)
 
-	Cube[][][] level;
-	protected ThreadBomb threadBomb;;
+	protected Cube[][][] level;
 
 	/**
 	 * Mit diesem Konstruktor kann die Groesse des Levels variiert werden
@@ -59,14 +57,13 @@ public class Level {
 	 * @param z
 	 *            Tiefe des Levels
 	 */
-	public Level(int x, int y, int z, List<Player> listPlayer) {
+	public Level(int x, int y, int z) {
 		level = new Cube[x][y][z];
-		threadBomb = new ThreadBomb(this, listPlayer, null);
 		clear();
 	}
 
 	public void setBomb(int x, int y, int z, Player player) {
-		threadBomb.setBomb(x, y, z, player.getRadius(), player);
+		Game.getThreadBomb().setBomb(x, y, z, player.getRadius(), player);
 	}
 
 	public int getSizeX() {
@@ -217,6 +214,8 @@ public class Level {
 		level[getSizeX() / 2][getSizeY() / 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_LOAD_LEVEL);
 		level[getSizeX() / 2 - 2][getSizeY() / 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube
 				.getCubeByName(Cube.MENU_CUBE_EXIT_PROGRAM);
+		level[getSizeX() / 2 + 2][getSizeY() / 2 - 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_MULTI);
+		level[getSizeX() / 2][getSizeY() / 2 - 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_SERVER);
 	}
 
 	/**
