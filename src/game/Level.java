@@ -23,7 +23,7 @@ public class Level {
 	 * Wahrscheinlichkeit, dass bei zufälliger Levelfüllung ein Hindernis an
 	 * eine freie Stelle gesetzt wird
 	 */
-	final static public float OBSTACLE_PROBABILITY = 0.0f; // Wahrscheinlichkeit
+	final static public float OBSTACLE_PROBABILITY = 0.3f; // Wahrscheinlichkeit
 														   // eines Hindernisses
 														   // an leerer Stelle des
 														   // Levels (0..1)
@@ -272,7 +272,7 @@ public class Level {
 		}
 		
 		// Fülle die Welt mit Hindernissen
-		fillWithObstacles();
+		// fillWithObstacles();
 		
 		// Setze Rampen (manuell)
 		for (byte i = 1; i < getSizeX()-1; i++) {
