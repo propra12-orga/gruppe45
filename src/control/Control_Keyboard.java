@@ -62,11 +62,15 @@ public class Control_Keyboard extends Control {
 			}
 			// hoch:
 			if (Keyboard.isKeyDown(Keyboard.KEY_Q)) {
-				player.moveUp();
+				if (!(player.getGravity())) {
+					player.moveUp();
+				}
 			}
 			// runter:
 			if (Keyboard.isKeyDown(Keyboard.KEY_E)) {
-				player.moveDown();
+				if (!(player.getGravity())) {
+					player.moveDown();
+				}
 			}
 			// Zurück zum Menü:
 			if (Keyboard.isKeyDown(Keyboard.KEY_T)) {

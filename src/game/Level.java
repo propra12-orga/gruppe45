@@ -283,6 +283,7 @@ public class Level {
 						if (j % 4 == 0) {
 							level[3][j-1][3] = Cube.getCubeByName(Cube.CUBE_SOLID_RAMP);
 							level[3][j][4] = Cube.getCubeByName(Cube.CUBE_SOLID_RAMP);
+							level[3][j-1][4] = Cube.getCubeByName(Cube.CUBE_SOLID);
 							level[3][j][3] = Cube.getCubeByName(Cube.CUBE_EMPTY);
 							
 							level[3][j+1][2] = Cube.getCubeByName(Cube.CUBE_SOLID);
@@ -294,6 +295,7 @@ public class Level {
 						} else {
 							level[7][j-1][6] = Cube.getCubeByName(Cube.CUBE_SOLID_RAMP);
 							level[7][j][7] = Cube.getCubeByName(Cube.CUBE_SOLID_RAMP);
+							level[7][j-1][7] = Cube.getCubeByName(Cube.CUBE_SOLID);
 							level[7][j][6] = Cube.getCubeByName(Cube.CUBE_EMPTY);
 							
 							level[7][j+1][5] = Cube.getCubeByName(Cube.CUBE_SOLID);
