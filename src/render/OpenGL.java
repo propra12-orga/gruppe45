@@ -86,6 +86,8 @@ public class OpenGL {
 						objects.DrawCubeObstacle(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_EXIT)) {
 						objects.DrawCubeExit(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
+					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_SOLID_RAMP)) {
+						objects.DrawCubeRamp(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 						// Menüwürfel
 					} else if (level.getCubeName(i, j, k).equals(Cube.MENU_CUBE_NEW_GAME)) {
 						objects.DrawMenuCubeNewGame(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);

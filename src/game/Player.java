@@ -34,7 +34,8 @@ public class Player {
 	 * Legt fest, ob ein Spieler schweben/fliegen kann oder ob er zu Boden gezogen wird.
 	 */
 	final static public int MAX_BOMB_STRENGTH_MULTIPLIER = 3;
-	final static public boolean GRAVITY = false;
+	
+	boolean gravity = false;
 
 	private int number = 0;
 
@@ -74,6 +75,16 @@ public class Player {
 		this.level = level;
 		this.number = number;
 		this.listPlayer = listPlayer;
+	}
+	
+	public void reinit(int startpositionX, int startpositionY, int startpositionZ, float angleX, float angleY, int healthPoints, int bombs, int bombStrengthMultiplier, boolean gravity){
+		setPosition(startpositionX,startpositionY,startpositionZ);
+		setHealthPoints(healthPoints);
+		setBombs(bombs);
+		setAngleX(angleX);
+		setAngleY(angleY);
+		setbombStrengthMultiplier(bombStrengthMultiplier);
+		setGravity(gravity);
 	}
 
 	/**
@@ -144,6 +155,14 @@ public class Player {
 
 	public int getNumber() {
 		return number;
+	}
+	
+	public boolean getGravity(){
+		return this.gravity;
+	}
+	
+	public void setGravity(boolean gravity){
+		this.gravity = gravity;
 	}
 
 	/**
@@ -411,11 +430,15 @@ public class Player {
 		System.out.println("Du bist jetzt tot!");
 		System.exit(0);
 	}
+	
+	public float zum_quadrat(float zahl) {
+		return zahl * zahl;
+	}
 
 	// TODO Testen, ob Abfrage funktioniert
 	protected void move(float x, float y, float z) {
 		final int radius = 2;
-
+		
 		int tmpX = (int) (Math.signum(x) * (Math.abs(x) + radius));
 		int tmpY = (int) (Math.signum(y) * (Math.abs(y) + radius));
 		int tmpZ = (int) (Math.signum(z) * (Math.abs(z) + radius));
@@ -442,6 +465,14 @@ public class Player {
 			if (level.getCube(oldCubeX, oldCubeY, newCubeZ).isWalkable()) {
 				this.z += z;
 			}
+		}
+		
+		//TEST Rampe
+		if (level.getCube(this.getCubeX(), this.getCubeY(), this.getCubeZ()).getCubeName() == Cube.CUBE_SOLID_RAMP) {
+			float z_in_ramp = this.z - this.getCubeZ() * 10; 
+			float elevate = (float) Math.sqrt(2 * zum_quadrat(z_in_ramp));
+			float tmp_y = this.getCubeY() * 10 + elevate;
+			this.y = tmp_y + 0.01f;
 		}
 
 		// Wenn ein Spieler in die Flammen einer Explosion hineinläuft (die

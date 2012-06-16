@@ -24,6 +24,7 @@ public abstract class Cube {
 	final static public String CUBE_OBSTACLE = "CubeObstacle";
 	final static public String CUBE_OUTSIDE = "CubeOutside";
 	final static public String CUBE_SOLID = "CubeSolid";
+	final static public String CUBE_SOLID_RAMP = "CubeSolidRamp";
 	// Items
 	final static public String CUBE_ITEM_HEALTH = "CubeItemHealth";
 	final static public String CUBE_ITEM_XTRA_BOMB = "CubeItemXtraBomb";
@@ -46,6 +47,7 @@ public abstract class Cube {
 			new CubeData(new CubeObstacle(), CUBE_OBSTACLE), 
 			new CubeData(new CubeOutside(), CUBE_OUTSIDE),
 			new CubeData(new CubeSolid(), CUBE_SOLID),
+			new CubeData(new CubeSolidRamp(), CUBE_SOLID_RAMP),
 			new CubeData(new CubeObstacleHideExit(), CUBE_OBSTACLE_HIDE_EXIT),
 			new CubeData(new CubeItemBombStrength(), CUBE_ITEM_BOMB_STRENGTH),
 			// Menüwürfel

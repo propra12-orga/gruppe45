@@ -13,7 +13,7 @@ public class MenuCubeNewGame extends Cube {
 	public void change(Player player, Level level) {
 		// TODO Println-Zeile löschen! Ausgabe nur zu Probezwecken!
 		System.out.println("Neues Spiel gestartet!");
-		level.clear();
+		level.buildDefaultLevel();
 
 		int player1_start_x = 0;
 		if (level.getSizeX() % 2 == 0) { // Größe in X gerade
@@ -25,13 +25,9 @@ public class MenuCubeNewGame extends Cube {
 				player1_start_x = level.getSizeX() * 10 - 25;
 			}
 		}
-
-		player.setPosition(player1_start_x, level.getSizeY() * 10 - 15, 15);
-		player.setHealthPoints(100);
-		player.setBombs(1);
-		player.setbombStrengthMultiplier(1);
-		player.setAngleX(0);
-		player.setAngleY(0);
+		
+		//FIXME Netzwerkfähigkeit
+		player.reinit(player1_start_x, level.getSizeY()*10-15, 15, 0, 0, 100, 1, 1, false);
 	}
 
 }

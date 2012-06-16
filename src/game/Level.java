@@ -23,10 +23,10 @@ public class Level {
 	 * Wahrscheinlichkeit, dass bei zufälliger Levelfüllung ein Hindernis an
 	 * eine freie Stelle gesetzt wird
 	 */
-	final static public int OBSTACLE_PROBABILITY = 40; // Wahrscheinlichkeit
-														// eines Hindernisses
-														// an leerer Stelle des
-														// Levels (0..100 %)
+	final static public float OBSTACLE_PROBABILITY = 0.1f; // Wahrscheinlichkeit
+														   // eines Hindernisses
+														   // an leerer Stelle des
+														   // Levels (0..1)
 
 	// Themenauswahl
 	// TODO Menüintegration
@@ -66,7 +66,7 @@ public class Level {
 	public Level(int x, int y, int z, List<Player> listPlayer) {
 		level = new Cube[x][y][z];
 		threadBomb = new ThreadBomb(this, listPlayer, null);
-		clear();
+		buildDefaultLevel();
 	}
 
 	public void setBomb(int x, int y, int z, Player player) {
@@ -209,13 +209,7 @@ public class Level {
 		final int Z_VERSCHIEBUNG = 2; // gibt an, wie weit die Menüwand von der
 										// Rückwand entfernt ist
 		// leere das Levelinnere
-		for (byte i = 1; i < getSizeX() - 1; i++) {
-			for (byte j = 1; j < getSizeY() - 1; j++) {
-				for (byte k = 1; k < getSizeZ() - 1; k++) {
-					level[i][j][k] = Cube.getCubeByName(Cube.CUBE_EMPTY);
-				}
-			}
-		}
+		clear();		
 		// Baue das Hauptmenü auf
 		level[getSizeX() / 2 + 2][getSizeY() / 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_NEW_GAME);
 		level[getSizeX() / 2][getSizeY() / 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_LOAD_LEVEL);
@@ -223,10 +217,109 @@ public class Level {
 				.getCubeByName(Cube.MENU_CUBE_EXIT_PROGRAM);
 	}
 
+	public void clear() {
+		for (byte i = 0; i < getSizeX(); i++) {
+			for (byte j = 0; j < getSizeY(); j++) {
+				for (byte k = 0; k < getSizeZ(); k++) {
+					if (i == 0 || j == 0 || k == 0 || i == getSizeX() - 1 || j == getSizeY() - 1 || k == getSizeZ() - 1) {
+						level[i][j][k] = Cube.getCubeByName(Cube.CUBE_OUTSIDE);
+					} else
+						level[i][j][k] = Cube.getCubeByName(Cube.CUBE_EMPTY);
+				}
+			}
+		}
+	}
+	
+	public void fillWithObstacles() {
+		for (byte i = 1; i < getSizeX() - 1; i++) {
+			for (byte j = 1; j < getSizeY() - 1; j++) {
+				for (byte k = 1; k < getSizeZ() - 1; k++) {
+
+					if (!(level[i][j][k].getCubeName() == Cube.CUBE_SOLID)) {
+						float rnd = new Random().nextFloat();
+
+						// Setze zufällig Hindernisse; lasse dabei die
+						// Startpositionen der Spieler frei
+						if ((rnd <= OBSTACLE_PROBABILITY)
+								&& ((i < this.getSizeX() - 3) || (j < this.getSizeY() - 3) || (k > 3))
+								&& ((i > 2) || (j > 2) || (k < this.getSizeZ() - 4))) {
+							level[i][j][k] = Cube.getCubeByName(Cube.CUBE_OBSTACLE);
+						}
+					}
+					
+				}
+			}
+		}
+	}
+	
+	
+	public void buildGravityLevel() {
+		// Baue leeres Level
+		clear();
+		
+		// Setze die unzerstörbaren Würfel
+		for (byte i = 0; i < getSizeX(); i++) {
+			for (byte j = 0; j < getSizeY(); j++) {
+				for (byte k = 0; k < getSizeZ(); k++) {
+					// Jede gerade Ebene wird komplett mit Solids gefüllt
+					if (j % 2 == 0) {
+						level[i][j][k] = Cube.getCubeByName(Cube.CUBE_SOLID);
+					// Muster der ungeraden Ebenen
+					} else if ((i % 2 == 0 && k % 2 == 0)) {
+						level[i][j][k] = Cube.getCubeByName(Cube.CUBE_SOLID);
+					}					
+				}
+			}
+		}
+		
+		// Fülle die Welt mit Hindernissen
+		fillWithObstacles();
+		
+		// Setze Rampen (manuell)
+		for (byte i = 1; i < getSizeX()-1; i++) {
+			for (byte j = 1; j < getSizeY()-1; j++) {
+				for (byte k = 1; k < getSizeZ()-1; k++) {
+					
+					if (j % 2 == 0) {
+						if (j % 4 == 0) {
+							level[3][j-1][3] = Cube.getCubeByName(Cube.CUBE_SOLID_RAMP);
+							level[3][j][4] = Cube.getCubeByName(Cube.CUBE_SOLID_RAMP);
+							level[3][j][3] = Cube.getCubeByName(Cube.CUBE_EMPTY);
+							
+							level[3][j+1][2] = Cube.getCubeByName(Cube.CUBE_SOLID);
+							level[2][j+1][3] = Cube.getCubeByName(Cube.CUBE_SOLID);
+							level[4][j+1][3] = Cube.getCubeByName(Cube.CUBE_SOLID);
+							
+							level[3-1][j-1][3] = Cube.getCubeByName(Cube.CUBE_SOLID);
+							level[3+1][j-1][3] = Cube.getCubeByName(Cube.CUBE_SOLID);
+						} else {
+							level[7][j-1][6] = Cube.getCubeByName(Cube.CUBE_SOLID_RAMP);
+							level[7][j][7] = Cube.getCubeByName(Cube.CUBE_SOLID_RAMP);
+							level[7][j][6] = Cube.getCubeByName(Cube.CUBE_EMPTY);
+							
+							level[7][j+1][5] = Cube.getCubeByName(Cube.CUBE_SOLID);
+							level[6][j+1][6] = Cube.getCubeByName(Cube.CUBE_SOLID);
+							level[8][j+1][6] = Cube.getCubeByName(Cube.CUBE_SOLID);
+							
+							level[7-1][j-1][7] = Cube.getCubeByName(Cube.CUBE_SOLID);
+							level[7+1][j-1][7] = Cube.getCubeByName(Cube.CUBE_SOLID);
+						}
+					}					
+				}
+			}
+		}
+
+		// Setze Ausgang manuell
+		level[5][9][5] = Cube.getCubeByName(Cube.CUBE_EXIT);
+	}
+	
+	
+	
+	
 	/** 
 	 * Setzt das Levelarray auf Anfang nach dem Muster des einfachen Bomberman
 	 */
-	public void clear() {
+	public void buildDefaultLevel() {
 		int exit_x, exit_y, exit_z; // Hilfsvariablen für zufälligen Ausgang
 		for (byte i = 0; i < getSizeX(); i++) {
 			for (byte j = 0; j < getSizeY(); j++) {
@@ -237,9 +330,9 @@ public class Level {
 						level[i][j][k] = Cube.getCubeByName(Cube.CUBE_SOLID);
 						// Sonst zufällige Verteilung zerstörbarer Blöcke
 					} else {
-						// Erzeuge Zufallszahl zwischen 0-100
-						Random random = new Random();
-						int rnd = 1 + Math.abs(random.nextInt()) % 100;
+						// Erzeuge Zufallszahl zwischen 0..1
+						
+						float rnd = new Random().nextFloat();
 
 						// Setze zufällig Hindernisse; lasse dabei die
 						// Startpositionen der Spieler frei
