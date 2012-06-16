@@ -2,6 +2,7 @@ package control;
 
 import game.Level;
 import game.Player;
+import game.cube.Cube;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -146,6 +147,10 @@ public class Control_Keyboard extends Control {
 //					player1_start_y = level.getSizeY() * 10 - 15;
 //				}
 				player.reinit(level.getSizeX() * 10 - 15, 15, 15, 0, 0, 100, 1, 1, true);
+				// FIXME Nur testing
+				level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), (level.getSizeX() -2), 1, 1);
+				level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), (level.getSizeX() -2), 1, 2);
+				level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), (level.getSizeX() -2), 1, 3);
 			}
 		}
 	}
