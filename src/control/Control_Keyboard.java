@@ -138,6 +138,7 @@ public class Control_Keyboard extends Control {
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_2)) {
 				level.buildGravityLevel();
+				// TODO An skalierbares Level anpassen
 //				int player1_start_y = 0;
 //				if (level.getSizeY() % 2 == 0) { // Größe in Y gerade
 //					player1_start_y = level.getSizeY() * 10 - 25;

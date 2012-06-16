@@ -227,7 +227,6 @@ public class Objects {
 		GL11.glVertex3f(x, y, z + size);		
 		GL11.glTexCoord2f(texSize, 0);
 		GL11.glVertex3f(x, y + size, z + size);
-		
 		// Oben
 		GL11.glTexCoord2f(0, 0);
 		GL11.glVertex3f(x + size, y + size, z + size);		
@@ -249,10 +248,8 @@ public class Objects {
 		GL11.glEnd();
 	}
 
-
-	// TEST RAMPE
 	/**
-	 * Zeichnet einen Wuerfel mit Textur
+	 * Zeichnet eine Rampe mit Textur
 	 * 
 	 * @param x
 	 *            x-Position
@@ -286,8 +283,6 @@ public class Objects {
 		GL11.glVertex3f(x, y, z + size);		
 		GL11.glTexCoord2f(texSize, 0);
 		GL11.glVertex3f(x, y, z);
-		
-		
 		// Links		
 		GL11.glTexCoord2f(0, 0);
 		GL11.glVertex3f(x + size, y,z);		
@@ -297,8 +292,6 @@ public class Objects {
 		GL11.glVertex3f(x + size, y +size, z + size);
 		GL11.glTexCoord2f(texSize, 0);
 		GL11.glVertex3f(x + size, y +size, z + size);
-
-		
 		// Rechts		
 		GL11.glTexCoord2f(0, 0);
 		GL11.glVertex3f(x, y, z);		
@@ -308,33 +301,15 @@ public class Objects {
 		GL11.glVertex3f(x, y + size, z + size);		
 		GL11.glTexCoord2f(texSize, 0);
 		GL11.glVertex3f(x, y + size, z + size);	
-
-		
-		// Oben
+		// Schräge
 		GL11.glTexCoord2f(0, 0);
 		GL11.glVertex3f(x + size, y,z);
-		
 		GL11.glTexCoord2f(0, texSize);
 		GL11.glVertex3f(x, y, z);
-		
 		GL11.glTexCoord2f(texSize, texSize);
 		GL11.glVertex3f(x, y + size, z+size);
-		
 		GL11.glTexCoord2f(texSize, 0);
 		GL11.glVertex3f(x+size, y + size, z + size);
-		
-		// Vorne
-//		GL11.glTexCoord2f(0, 0);
-//		GL11.glVertex3f(x+size, y+size, z);		
-//		GL11.glTexCoord2f(0, texSize);
-//		GL11.glVertex3f(x+size, y, z);		
-//		GL11.glTexCoord2f(texSize, texSize);
-//		GL11.glVertex3f(x, y, z);		
-//		GL11.glTexCoord2f(texSize, 0);
-//		GL11.glVertex3f(x, y + size, z);
-
-		
-		
 		GL11.glEnd();
 	}
 }

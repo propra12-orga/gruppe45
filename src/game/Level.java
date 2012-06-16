@@ -23,7 +23,7 @@ public class Level {
 	 * Wahrscheinlichkeit, dass bei zufälliger Levelfüllung ein Hindernis an
 	 * eine freie Stelle gesetzt wird
 	 */
-	final static public float OBSTACLE_PROBABILITY = 0.1f; // Wahrscheinlichkeit
+	final static public float OBSTACLE_PROBABILITY = 0.0f; // Wahrscheinlichkeit
 														   // eines Hindernisses
 														   // an leerer Stelle des
 														   // Levels (0..1)
@@ -246,7 +246,6 @@ public class Level {
 							level[i][j][k] = Cube.getCubeByName(Cube.CUBE_OBSTACLE);
 						}
 					}
-					
 				}
 			}
 		}
@@ -298,8 +297,8 @@ public class Level {
 							level[7][j][6] = Cube.getCubeByName(Cube.CUBE_EMPTY);
 							
 							level[7][j+1][5] = Cube.getCubeByName(Cube.CUBE_SOLID);
-							level[6][j+1][6] = Cube.getCubeByName(Cube.CUBE_SOLID);
-							level[8][j+1][6] = Cube.getCubeByName(Cube.CUBE_SOLID);
+							level[6][j+1][7] = Cube.getCubeByName(Cube.CUBE_SOLID);
+							level[8][j+1][7] = Cube.getCubeByName(Cube.CUBE_SOLID);
 							
 							level[7-1][j-1][7] = Cube.getCubeByName(Cube.CUBE_SOLID);
 							level[7+1][j-1][7] = Cube.getCubeByName(Cube.CUBE_SOLID);
