@@ -20,7 +20,7 @@ public class Player {
 	final static public int MAX_HEALTH_POINTS = 150;
 	final static public int MAX_SIMULTAN_BOMBS = 5;
 	final static public int MAX_BOMB_RADIUS = 5;
-	final static public boolean GRAVITY = true;
+	final static public boolean GRAVITY = false;
 
 	private int number = 0;
 
@@ -341,7 +341,7 @@ public class Player {
 		final int radius = 2;
 
 		int tmpX = (int) (Math.signum(x) * (Math.abs(x) + radius));
-		int tmpY = (int) (Math.signum(y) * (Math.abs(y) + radius));
+		int tmpY = (int) (Math.signum(y) * (Math.abs(y) + radius+3));
 		int tmpZ = (int) (Math.signum(z) * (Math.abs(z) + radius));
 
 		int oldCubeX = (int) this.x / 10;
