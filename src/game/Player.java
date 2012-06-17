@@ -17,24 +17,27 @@ import java.util.List;
 public class Player {
 	// TODO Menüoptionen
 	// Obergrenzen für Playervariablen
-	
 	/**
 	 * Obergrenze für die Lebenspunkte eines Spielers
 	 */
 	final static public int MAX_HEALTH_POINTS = 150;
 	/**
-	 * Obergrenze für die Anzahl an Bomben, die ein Spieler zur gleichen Zeit legen darf.
+	 * Obergrenze für die Anzahl an Bomben, die ein Spieler zur
+	 * gleichen Zeit legen darf. 
 	 */
 	final static public int MAX_SIMULTAN_BOMBS = 5;
 	/**
 	 * Maximale Reichweite von Bomben (ausgehend vom Ursprungspunkt der Bombe)
 	 */
 	final static public int MAX_BOMB_RADIUS = 5;
+	final static public float INERTIA = 0.1f;
+	// final static public float MAX_ACCELERATION = 10;
 	/**
-	 * Legt fest, ob ein Spieler schweben/fliegen kann oder ob er zu Boden gezogen wird.
+	 * Legt fest, ob ein Spieler schweben/fliegen kann oder ob er zu Boden
+	 * gezogen wird.
 	 */
 	final static public int MAX_BOMB_STRENGTH_MULTIPLIER = 3;
-	
+
 	boolean gravity = false;
 
 	private int number = 0;
@@ -46,23 +49,43 @@ public class Player {
 	protected float angleY = 0;
 	protected float angleX = 0;
 
+	private float accelerationX = 0;
+	private float accelerationY = 0;
+	private float accelerationZ = 0;
+
 	protected Level level;
 
 	private int healthPoints = 100;
 	int radius = 1;
 	int bombStrengthMultiplier = 1;
-	int bombs = 1; //Anzahl der gleichzeitig legbaren Bomben
+	int bombs = 1; // Anzahl der gleichzeitig legbaren Bomben
 	int fuseTime = 3000;
 	int explosionTime = 1000;
 	List listPlayer;
 
 	/**
-	 * Konstruktor erzeugt einen Spieler
-	 * @param level Die Spielwelt - also das Level - wird übergeben.
-	 * @param x Startposition in x-Richtung (nicht Würfelkoordinate)
-	 * @param y Startposition in y-Richtung (nicht Würfelkoordinate)
-	 * @param z Startposition in z-Richtung (nicht Würfelkoordinate)
-	 * @param listPlayer EINTRAGEN 
+	 * Konstruktor erzeugt einen Spieler <<<<<<< HEAD
+	 * 
+	 * @param level
+	 *            Die Spielwelt - also das Level - wird übergeben.
+	 * @param x
+	 *            Startposition in x-Richtung (nicht Würfelkoordinate)
+	 * @param y
+	 *            Startposition in y-Richtung (nicht Würfelkoordinate)
+	 * @param z
+	 *            Startposition in z-Richtung (nicht Würfelkoordinate)
+	 * @param listPlayer
+	 *            EINTRAGEN =======
+	 * @param level
+	 *            Die Spielwelt - also das Level - wird übergeben.
+	 * @param x
+	 *            Startposition in x-Richtung (nicht Würfelkoordinate)
+	 * @param y
+	 *            Startposition in y-Richtung (nicht Würfelkoordinate)
+	 * @param z
+	 *            Startposition in z-Richtung (nicht Würfelkoordinate)
+	 * @param listPlayer
+	 *            EINTRAGEN >>>>>>> 7bc20cee4251101595954ff78142ace3228418b7
 	 */
 	public Player(Level level, float x, float y, float z, List listPlayer) {
 		setPosition(x, y, z);
@@ -88,65 +111,118 @@ public class Player {
 		setRadius(bombradius);
 	}
 
-	/**
-	 * Setzt die Anzahl der Lebenspunkte des Spielers direkt.
-	 * @param healthPoints Anzahl der Lebenspunkte
-	 */
 	public void setHealthPoints(int healthPoints) {
 		this.healthPoints = healthPoints;
 	}
-	
+
+	private float getAccX() {
+		return accelerationX;
+	}
+
+	private float getAccY() {
+		return accelerationY;
+	}
+
+	private float getAccZ() {
+		return accelerationZ;
+	}
+
+	public void accerlate() {
+		move(accelerationX, accelerationY, accelerationZ);
+		accelerationX = getNewAcceleration(accelerationX);
+		accelerationY = getNewAcceleration(accelerationY);
+		accelerationZ = getNewAcceleration(accelerationZ);
+	}
+
+	public void addAcceleration(float accelerationX, float accelerationY, float accelerationZ) {
+		this.accelerationX += accelerationX;
+		this.accelerationY += accelerationY;
+		this.accelerationZ += accelerationZ;
+	}
+
 	/**
-	 * Erhöht die Anzahl der gleichzeitig platzierbaren Bomben durch den Spieler um 1.
+	 * laesst die Beschleunigung langsam weniger werden
+	 * 
+	 * @param acceleration
+	 * @return
+	 */
+	private float getNewAcceleration(float acceleration) {
+		if (acceleration > INERTIA) {
+			acceleration -= INERTIA;
+		} else if (acceleration < -INERTIA) {
+			acceleration += INERTIA;
+		} else {
+			acceleration = 0;
+		}
+		return acceleration;
+	}
+
+	/**
+	 * Setzt die Anzahl der Lebenspunkte des Spielers direkt.
+	 * 
+	 * @param healthPoints
+	 *            Anzahl der Lebenspunkte public void setHealthPoints(int
+	 *            healthPoints) { this.healthPoints = healthPoints; }
+	 * 
+	 *            /** Erhöht die Anzahl der gleichzeitig platzierbaren Bomben
+	 *            durch den Spieler um 1.
 	 */
 	public void increaseBombs() {
 		this.bombs += 1;
 	}
-	
+
 	/**
-	 * Verringert die Anzahl der gleichzeitig platzierbaren Bomben durch den Spieler um 1.
+	 * Verringert die Anzahl der gleichzeitig platzierbaren Bomben durch den
+	 * Spieler um 1.
 	 */
 	public void decreaseBombs() {
 		this.bombs -= 1;
 	}
-	
-	public void increaseBombStrengthMultiplier(){
+
+	public void increaseBombStrengthMultiplier() {
 		this.bombStrengthMultiplier += 1;
 	}
-	
-	public void decreaseBombStrengthMultiplier(){
-		this.bombStrengthMultiplier-= 1;
+
+	public void decreaseBombStrengthMultiplier() {
+		this.bombStrengthMultiplier -= 1;
 	}
-	
+
 	public int getBombStrengthMultiplier(int bombStr) {
 		return this.bombStrengthMultiplier;
 	}
-	
+
 	public int getBombs() {
 		return this.bombs;
 	}
-	
-	public int getbombStrengthMultiplier(){
+
+	public int getbombStrengthMultiplier() {
 		return this.bombStrengthMultiplier;
 	}
-	
-	public void setbombStrengthMultiplier(int bombStrengthMultiplier){
+
+	public void setbombStrengthMultiplier(int bombStrengthMultiplier) {
 		this.bombStrengthMultiplier = bombStrengthMultiplier;
 	}
-	
+
 	/**
-	 * Hier kann die Anzahl der gleichzeitig platzierbaren Bomben durch den Spieler direkt festgelegt werden.
-	 * @param bombs Anzahl der gleichzeitig platzierbaren Bomben 
+	 * Hier kann die Anzahl der gleichzeitig platzierbaren Bomben durch den
+	 * Spieler direkt festgelegt werden.
+	 * 
+	 * @param bombs
+	 *            Anzahl der gleichzeitig platzierbaren Bomben
 	 */
 	public void setBombs(int bombs) {
 		this.bombs = bombs;
 	}
-	
+
 	/**
 	 * Bestimmt die dargestellte Spielerposition anhand der Würfelkoordinaten
-	 * @param newX x-Position des Würfels im Levelarray
-	 * @param newY y-Position des Würfels im Levelarray
-	 * @param newZ z-Position des Würfels im Levelarray
+	 * 
+	 * @param newX
+	 *            x-Position des Würfels im Levelarray
+	 * @param newY
+	 *            y-Position des Würfels im Levelarray
+	 * @param newZ
+	 *            z-Position des Würfels im Levelarray
 	 */
 	public void setPlayerPosition(float newX, float newY, float newZ) {
 		this.x = newX * 10 + 5;
@@ -157,26 +233,29 @@ public class Player {
 	public int getNumber() {
 		return number;
 	}
-	
-	public boolean getGravity(){
+
+	public boolean getGravity() {
 		return this.gravity;
 	}
-	
-	public void setGravity(boolean gravity){
+
+	public void setGravity(boolean gravity) {
 		this.gravity = gravity;
 	}
 
 	/**
 	 * Nur zum Speichern der Spielerposition im Server
 	 */
-	//Bombe legen
+	// Bombe legen
 	public void setBomb() {
 		setBomb((int) (x / 10), (int) (y / 10), (int) (z / 10));
 	}
 
 	public void setBomb(int x, int y, int z) {
 		if (getBombs() > 0) {
+			// TODO der Klient weiss nicht wie viele er leget und muss noch
+			// irgenwie selber mitzaehlen
 			level.setBomb(x, y, z, this);
+			System.out.println("bombe legen");
 		}
 	}
 
@@ -205,8 +284,16 @@ public class Player {
 	}
 
 	/**
-	 * Heilt den Spieler, indem die Anzahl der Lebenspunkte um den Wert der Heilungspunkte erhöht wird
-	 * @param healPoints Anzahl der Heilungspunkte
+	 * <<<<<<< HEAD Heilt den Spieler, indem die Anzahl der Lebenspunkte um den
+	 * Wert der Heilungspunkte erhöht wird
+	 * 
+	 * @param healPoints
+	 *            Anzahl der Heilungspunkte ======= Heilt den Spieler, indem die
+	 *            Anzahl der Lebenspunkte um den Wert der Heilungspunkte erhöht
+	 *            wird
+	 * @param healPoints
+	 *            Anzahl der Heilungspunkte >>>>>>>
+	 *            7bc20cee4251101595954ff78142ace3228418b7
 	 */
 	public void healPlayer(int healPoints) {
 		healthPoints += healPoints;
@@ -221,8 +308,15 @@ public class Player {
 	}
 
 	/**
-	 * Verringert die Anzahl der Lebenspunkte des Spielers um die Anzahl der Trefferpunkte
-	 * @param hitPoints Anzahl der Trefferpunkte
+	 * <<<<<<< HEAD Verringert die Anzahl der Lebenspunkte des Spielers um die
+	 * Anzahl der Trefferpunkte
+	 * 
+	 * @param hitPoints
+	 *            Anzahl der Trefferpunkte ======= Verringert die Anzahl der
+	 *            Lebenspunkte des Spielers um die Anzahl der Trefferpunkte
+	 * @param hitPoints
+	 *            Anzahl der Trefferpunkte >>>>>>>
+	 *            7bc20cee4251101595954ff78142ace3228418b7
 	 */
 	public void hitPlayer(int hitPoints) {
 		healthPoints -= hitPoints;
@@ -230,6 +324,7 @@ public class Player {
 
 	/**
 	 * Überprüft, ob der Spieler noch lebt - also ob er noch Lebenspunkte hat
+	 * 
 	 * @return true (wenn Spieler noch lebt), false (wenn Spieler gestorben ist)
 	 */
 	public boolean isLiving() {
@@ -419,8 +514,9 @@ public class Player {
 	public void moveDown() {
 		move(0, -1, 0);
 	}
-	public void sinkDown(){
-		move(0, -0.3f,0);
+
+	public void sinkDown() {
+		move(0, -0.3f, 0);
 	}
 
 	public void moveDown(float i) {
@@ -436,7 +532,7 @@ public class Player {
 		System.out.println("Du bist jetzt tot!");
 		System.exit(0);
 	}
-	
+
 	public float zum_quadrat(float zahl) {
 		return zahl * zahl;
 	}
@@ -444,7 +540,7 @@ public class Player {
 	// TODO Testen, ob Abfrage funktioniert
 	protected void move(float x, float y, float z) {
 		final int radius = 2;
-		
+
 		int tmpX = (int) (Math.signum(x) * (Math.abs(x) + radius));
 		int tmpY = (int) (Math.signum(y) * (Math.abs(y) + radius));
 		int tmpZ = (int) (Math.signum(z) * (Math.abs(z) + radius));
@@ -462,21 +558,46 @@ public class Player {
 			this.y += y;
 			this.z += z;
 		} else {
-			if (level.getCube(newCubeX, oldCubeY, oldCubeZ).isWalkable()) {
-				this.x += x;
+			// Der Spieler kann durch move() in einem Block landen der nicht
+			// mehr
+			// im Level ist. Sollte er nach der Addition ausserhalt des Levels
+			// landen, nicht Addieren und die Beschleunigung loeschen
+			if (level.getCube(newCubeX, oldCubeY, oldCubeZ) != null) {
+				if (level.getCube(newCubeX, oldCubeY, oldCubeZ).isWalkable()) {
+					this.x += x;
+				} else {
+					accelerationX = 0; // Der Spieler muesste sich eigentlich
+										// noch bewegen, wird jedoch von einem
+										// Hindernis gestoppt, Impulsenergie
+										// könnte in Schaden umgewandelt werden
+										// ;)
+				}
+			} else {
+				accelerationX = 0;
 			}
-			if (level.getCube(oldCubeX, newCubeY, oldCubeZ).isWalkable()) {
-				this.y += y;
+			if (level.getCube(oldCubeX, newCubeY, oldCubeZ) != null) {
+				if (level.getCube(oldCubeX, newCubeY, oldCubeZ).isWalkable()) {
+					this.y += y;
+				} else {
+					accelerationY = 0;
+				}
+			} else {
+				accelerationY = 0;
 			}
-			if (level.getCube(oldCubeX, oldCubeY, newCubeZ).isWalkable()) {
-				this.z += z;
+			if (level.getCube(oldCubeX, oldCubeY, newCubeZ) != null) {
+				if (level.getCube(oldCubeX, oldCubeY, newCubeZ).isWalkable()) {
+					this.z += z;
+				} else {
+					accelerationZ = 0;
+				}
+			} else {
+				accelerationZ = 0;
 			}
 		}
-		
 		//TEST Rampe laufen
 		// Würfelwinkel 45° z -> y
 		if (level.getCube(this.getCubeX(), this.getCubeY(), this.getCubeZ()).getCubeName() == Cube.CUBE_SOLID_RAMP) {
-			float z_in_ramp = this.z - this.getCubeZ() * 10; 
+			float z_in_ramp = this.z - this.getCubeZ() * 10;
 			float elevate = (float) Math.sqrt(2 * zum_quadrat(z_in_ramp));
 			float tmp_y = this.getCubeY() * 10 + elevate;
 			this.y = tmp_y + 0.01f;

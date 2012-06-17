@@ -6,7 +6,6 @@ import game.Level;
 import game.Player;
 import game.cube.Cube;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.lwjgl.opengl.GL11;
@@ -24,19 +23,40 @@ public class OpenGL {
 	Objects objects;
 
 	// Netzwerk spieler
-	private static List<Player> listPlayer = new ArrayList();
+	private static List<Player> listPlayer;
 
-	private byte effect = EFFECT_OFF;
-
-	public OpenGL(Level level, Player player, int width, int height, List<Player> listPlayer) {
-		this.level = level;
-		this.player = player;
+	/**
+	 * 
+	 * @param level
+	 *            dieses Level wird gezeichnet
+	 * @param player
+	 *            von diesem Player aus wird die OpenGL-Szene gezeichnet
+	 * @param width
+	 *            die Breite der Aufloesung
+	 * @param height
+	 *            die Hoehe der Aufloesung
+	 * @param listPlayer
+	 *            diese Spielerliste wird als Mitspieler gezeichnet
+	 */
+	public OpenGL(int width, int height, Player player, Level level) {
 		this.width = width;
 		this.height = height;
+		this.player = player;
 		this.level = level;
-		this.listPlayer = listPlayer;
 		objects = new Objects(level.getthemeSelection());
 		init();
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+	public void setPlayerList(List<Player> listPlayer) {
+		this.listPlayer = listPlayer;
+	}
+
+	public void setLevel(Level level) {
+		this.level = level;
 	}
 
 	public void display() {
@@ -64,7 +84,7 @@ public class OpenGL {
 						objects.DrawCubeExplosion(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_EXPLOSION_HIDE_EXIT)) {
 						objects.DrawCubeExplosion(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
-					}else if (level.getCubeName(i, j, k).equals(Cube.CUBE_EXPLOSION_HIDE_ITEM)) {
+					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_EXPLOSION_HIDE_ITEM)) {
 						objects.DrawCubeExplosion(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_ITEM_HEALTH)) {
 						objects.DrawCubeItemHealth(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
@@ -95,13 +115,17 @@ public class OpenGL {
 						objects.DrawMenuCubeNewGameGravity(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					} else if (level.getCubeName(i, j, k).equals(Cube.MENU_CUBE_EXIT_PROGRAM)) {
 						objects.DrawMenuCubeExitProgram(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
+					} else if (level.getCubeName(i, j, k).equals(Cube.MENU_CUBE_MULTI)) {
+						objects.DrawMenuCubeMulti(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
+					} else if (level.getCubeName(i, j, k).equals(Cube.MENU_CUBE_SERVER)) {
+						objects.DrawMenuCubeServer(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					} else if (level.getCubeName(i, j, k).equals(Cube.MENU_CUBE_LOAD_LEVEL)) {
 						objects.DrawMenuCubeLoadLevel(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					}
 				}
 			}
 		}
-		// Spieler zeichnen
+		// Mitspieler zeichnen, falls vorhanden
 		if (listPlayer != null) {
 			for (int i = 0; i < listPlayer.size(); i++) {
 				if (listPlayer.get(i).getNumber() != player.getNumber()) {
@@ -110,12 +134,6 @@ public class OpenGL {
 			}
 		}
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
-		// TODO Effektprogrammierung ist kein Meilenstein
-		// if ((effect & EFFECT_RED) == 0) {
-		// GL11.glColor4f(1f, 0f, 0f, 0.1f);
-		// Primitives.DrawCube(player.getX() - 1f, player.getY() - 1f,
-		// player.getZ() - 1f, 3f);
-		// }
 		GL11.glFlush();
 	}
 

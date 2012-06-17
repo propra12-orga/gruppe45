@@ -1,21 +1,13 @@
 Spielmodi:
-
 - Pinker Todesblock des Todes, der nicht sterben kann, der den Spieler verfolgt, während 
 der Spieler versucht, den Ausgangsblock freizusprengen und zu flüchten
-
 - Modus mit schwerkraft
+- Obstracles haben "Leben"
+- Spieler wird durch die Explosion und durch Beschleuningungsenergie verschoben
 
 - Oszilierende Todeszerquetchungsböcke der Macht
-
-
-
-
-
 *******************************************************************************************
 Items:
-
-
-
 *******************************************************************************************
 Einstellungsmöglichkeiten:
 
@@ -27,5 +19,5 @@ Einstellungsmöglichkeiten:
 
 *******************************************************************************************
 Neue Blockarten:
-
+*******************************************************************************************
 - Portal Cubes (Teleport zu anderem Portal oder an Zufallsposition)

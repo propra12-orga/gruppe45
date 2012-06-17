@@ -2,6 +2,10 @@ package DetectedServer;
 
 import java.util.List;
 
+/**
+ * diese Klasse wird von dem Server fuer jeden Klienten erzeugt der sich
+ * verbindet
+ */
 public class ThreadClient implements Runnable {
 
 	NetPlayer netPlayer;

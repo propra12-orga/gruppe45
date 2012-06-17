@@ -4,11 +4,10 @@ import game.Player;
 
 import org.lwjgl.input.Mouse;
 
-
 /**
  * 
  * Enthält Methoden die für die Maussteuerung notwendig sind
- *
+ * 
  */
 public class Control_Mouse extends Control {
 
@@ -17,13 +16,16 @@ public class Control_Mouse extends Control {
 		Mouse.setGrabbed(true);
 	}
 
-	public void mouse_Move(Player player) {
+	public void mouse_Move() {
 		while (Mouse.next()) {
 			player.yaw((-Mouse.getDX()) / 100f);
 			player.pitch((Mouse.getDY()) / 100f);
 
 			if (Mouse.isButtonDown(0)) { // Linksklick legt eine Bombe
 				player.setBomb();
+			}
+			if (Mouse.isButtonDown(1)) { // Linksklick legt eine Bombe
+				player.moveForward();
 			}
 		}
 	}
