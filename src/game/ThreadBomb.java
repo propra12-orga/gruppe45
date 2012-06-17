@@ -22,6 +22,7 @@ public class ThreadBomb {
 	final float PROBABILITY_XTRA_BOMB = 0.02f;
 	final float PROBABILITY_PORTAL = 0.02f;
 	final float PROBABILITY_BOMB_RANGE = 0.02f;
+	final float PROBABILITY_BOMB_STRENGTH = 0.02f;
 	// Rest ist CUBE_EMPTY
 
 	final int MILLISECS_PER_TICK = 10;
@@ -36,6 +37,8 @@ public class ThreadBomb {
 	List<NetPlayer> listNetPlayer;
 	List<Bomb> listBomb;
 	List<Explosion> listExplosion;
+
+	int strengthMultiplier;
 
 	// zeigt an ob es sich um eine Player- oder und eine NetPlayer-List handelt
 	private boolean net;
@@ -70,7 +73,7 @@ public class ThreadBomb {
 		timer.start();
 	}
 
-	public void setBomb(int x, int y, int z, int radius, Player player) {
+	public void setBomb(int x, int y, int z, int radius, Player player, int strengthMultiplier) {
 		if (level.getCubeName(x, y, z).equals(Cube.CUBE_EMPTY)) {
 			player.decreaseBombs();
 			listBomb.add(new Bomb(x, y, z, radius, player));
@@ -132,6 +135,10 @@ public class ThreadBomb {
 			}
 		}
 
+		public int getBombStartEnergy() {
+			return BOMB_STRENGTH * player.getbombStrengthMultiplier();
+		}
+
 		public void explode() {
 			level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), x, y, z);// sonst
 																		// brauchst
@@ -146,7 +153,7 @@ public class ThreadBomb {
 																		// selbst
 																		// wegzusprengen
 			listBomb.remove(this);
-			new Explosion(x, y, z, x, y, z, radius, player, BOMB_STRENGTH);
+			new Explosion(x, y, z, x, y, z, radius, player, this.getBombStartEnergy());
 			player.increaseBombs();
 		}
 	}
@@ -303,9 +310,14 @@ public class ThreadBomb {
 						// ITEM: Portal (transportiert einen zu neuer Position)
 					} else if (random < (PROBABILITY_HEALTH + PROBABILITY_XTRA_BOMB + PROBABILITY_PORTAL)) {
 						level.setCube(Cube.getCubeByName(Cube.CUBE_ITEM_PORTAL), x, y, z);
-						// ITEM: Bomb Range (Erhöht den Radius von Bomben
+						// ITEM: Bomb Range (Erhöht den Radius von Bomben)
 					} else if (random < (PROBABILITY_HEALTH + PROBABILITY_XTRA_BOMB + PROBABILITY_PORTAL + PROBABILITY_BOMB_RANGE)) {
 						level.setCube(Cube.getCubeByName(Cube.CUBE_ITEM_BOMB_RANGE), x, y, z);
+						// ITEM: Bomb Strength (Erhöht die Durchschlagskraft von
+						// Bomben)
+					} else if (random < (PROBABILITY_HEALTH + PROBABILITY_XTRA_BOMB + PROBABILITY_PORTAL
+							+ PROBABILITY_BOMB_RANGE + PROBABILITY_BOMB_STRENGTH)) {
+						level.setCube(Cube.getCubeByName(Cube.CUBE_ITEM_BOMB_STRENGTH), x, y, z);
 						// ...oder es können leere Würfel entstehen
 					} else {
 						level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), x, y, z);

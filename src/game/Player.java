@@ -17,11 +17,29 @@ import java.util.List;
 public class Player {
 	// TODO Menüoptionen
 	// Obergrenzen für Playervariablen
+
+	/**
+	 * Obergrenze für die Lebenspunkte eines Spielers
+	 */
 	final static public int MAX_HEALTH_POINTS = 150;
+	/**
+	 * Obergrenze für die Anzahl an Bomben, die ein Spieler zur gleichen Zeit
+	 * legen darf.
+	 */
 	final static public int MAX_SIMULTAN_BOMBS = 5;
+	/**
+	 * Maximale Reichweite von Bomben (ausgehend vom Ursprungspunkt der Bombe)
+	 */
 	final static public int MAX_BOMB_RADIUS = 5;
 	final static public float INERTIA = 0.1f;
 	// final static public float MAX_ACCELERATION = 10;
+	/**
+	 * Legt fest, ob ein Spieler schweben/fliegen kann oder ob er zu Boden
+	 * gezogen wird.
+	 */
+	final static public int MAX_BOMB_STRENGTH_MULTIPLIER = 3;
+
+	boolean gravity = false;
 
 	private int number = 0;
 
@@ -40,15 +58,25 @@ public class Player {
 
 	private int healthPoints = 100;
 	int radius = 1;
-	// maxBombs in bombs geaendert weil die Variable nicht die maximale Anzahl
-	// Bomben darstellt sondern die Bomben die man zu Verfgung hat
-	int bombs = 1;
+	int bombStrengthMultiplier = 1;
+	int bombs = 1; // Anzahl der gleichzeitig legbaren Bomben
 	int fuseTime = 3000;
 	int explosionTime = 1000;
 	List listPlayer;
 
 	/**
-	 * Der Konstruktor verlangt die Anfangsposition
+	 * Konstruktor erzeugt einen Spieler
+	 * 
+	 * @param level
+	 *            Die Spielwelt - also das Level - wird übergeben.
+	 * @param x
+	 *            Startposition in x-Richtung (nicht Würfelkoordinate)
+	 * @param y
+	 *            Startposition in y-Richtung (nicht Würfelkoordinate)
+	 * @param z
+	 *            Startposition in z-Richtung (nicht Würfelkoordinate)
+	 * @param listPlayer
+	 *            EINTRAGEN
 	 */
 	public Player(Level level, float x, float y, float z, List listPlayer) {
 		setPosition(x, y, z);
@@ -63,6 +91,29 @@ public class Player {
 		this.listPlayer = listPlayer;
 	}
 
+	public void reinit(int startpositionX, int startpositionY, int startpositionZ, float angleX, float angleY,
+			int healthPoints, int bombs, int bombStrengthMultiplier, boolean gravity) {
+		setPosition(startpositionX, startpositionY, startpositionZ);
+		setHealthPoints(healthPoints);
+		setBombs(bombs);
+		setAngleX(angleX);
+		setAngleY(angleY);
+		setbombStrengthMultiplier(bombStrengthMultiplier);
+		setGravity(gravity);
+	}
+
+	private float getAccX() {
+		return accelerationX;
+	}
+
+	private float getAccY() {
+		return accelerationY;
+	}
+
+	private float getAccZ() {
+		return accelerationZ;
+	}
+
 	public void accerlate() {
 		move(accelerationX, accelerationY, accelerationZ);
 		accelerationX = getNewAcceleration(accelerationX);
@@ -74,7 +125,6 @@ public class Player {
 		this.accelerationX += accelerationX;
 		this.accelerationY += accelerationY;
 		this.accelerationZ += accelerationZ;
-		System.out.println("Spieler wurde beschleuningt");
 	}
 
 	/**
@@ -94,26 +144,77 @@ public class Player {
 		return acceleration;
 	}
 
+	/**
+	 * Setzt die Anzahl der Lebenspunkte des Spielers direkt.
+	 * 
+	 * @param healthPoints
+	 *            Anzahl der Lebenspunkte
+	 */
 	public void setHealthPoints(int healthPoints) {
 		this.healthPoints = healthPoints;
 	}
 
+	/**
+	 * Erhöht die Anzahl der gleichzeitig platzierbaren Bomben durch den Spieler
+	 * um 1.
+	 */
 	public void increaseBombs() {
 		this.bombs += 1;
 	}
 
+	/**
+	 * Verringert die Anzahl der gleichzeitig platzierbaren Bomben durch den
+	 * Spieler um 1.
+	 */
 	public void decreaseBombs() {
 		this.bombs -= 1;
+	}
+
+	public void increaseBombStrengthMultiplier() {
+		this.bombStrengthMultiplier += 1;
+	}
+
+	public void decreaseBombStrengthMultiplier() {
+		this.bombStrengthMultiplier -= 1;
+	}
+
+	public int getBombStrengthMultiplier(int bombStr) {
+		return this.bombStrengthMultiplier;
 	}
 
 	public int getBombs() {
 		return this.bombs;
 	}
 
+	public int getbombStrengthMultiplier() {
+		return this.bombStrengthMultiplier;
+	}
+
+	public void setbombStrengthMultiplier(int bombStrengthMultiplier) {
+		this.bombStrengthMultiplier = bombStrengthMultiplier;
+	}
+
+	/**
+	 * Hier kann die Anzahl der gleichzeitig platzierbaren Bomben durch den
+	 * Spieler direkt festgelegt werden.
+	 * 
+	 * @param bombs
+	 *            Anzahl der gleichzeitig platzierbaren Bomben
+	 */
 	public void setBombs(int bombs) {
 		this.bombs = bombs;
 	}
 
+	/**
+	 * Bestimmt die dargestellte Spielerposition anhand der Würfelkoordinaten
+	 * 
+	 * @param newX
+	 *            x-Position des Würfels im Levelarray
+	 * @param newY
+	 *            y-Position des Würfels im Levelarray
+	 * @param newZ
+	 *            z-Position des Würfels im Levelarray
+	 */
 	public void setPlayerPosition(float newX, float newY, float newZ) {
 		this.x = newX * 10 + 5;
 		this.y = newY * 10 + 5;
@@ -122,6 +223,14 @@ public class Player {
 
 	public int getNumber() {
 		return number;
+	}
+
+	public boolean getGravity() {
+		return this.gravity;
+	}
+
+	public void setGravity(boolean gravity) {
+		this.gravity = gravity;
 	}
 
 	/**
@@ -136,7 +245,6 @@ public class Player {
 		if (getBombs() > 0) {
 			// TODO der Klient weiss nicht wie viele er leget und muss noch
 			// irgenwie selber mitzaehlen
-			decreaseBombs();
 			level.setBomb(x, y, z, this);
 			System.out.println("bombe legen");
 		}
@@ -146,6 +254,9 @@ public class Player {
 		return radius;
 	}
 
+	/**
+	 * Erhöht die Reichweite von Bomben des Spielers um 1.
+	 */
 	public void increaseRadius() {
 		this.radius += 1;
 	}
@@ -158,18 +269,41 @@ public class Player {
 		return this.color;
 	}
 
+	/**
+	 * Heilt den Spieler, indem die Anzahl der Lebenspunkte um den Wert der
+	 * Heilungspunkte erhöht wird
+	 * 
+	 * @param healPoints
+	 *            Anzahl der Heilungspunkte
+	 */
 	public void healPlayer(int healPoints) {
 		healthPoints += healPoints;
 	}
 
+	/**
+	 * Setzt den Wert der Lebenspunkte des Spielers auf den durch die Obergrenze
+	 * festgelegten Maximalwert.
+	 */
 	public void setMaxHealth() {
 		healthPoints = MAX_HEALTH_POINTS;
 	}
 
+	/**
+	 * Verringert die Anzahl der Lebenspunkte des Spielers um die Anzahl der
+	 * Trefferpunkte
+	 * 
+	 * @param hitPoints
+	 *            Anzahl der Trefferpunkte
+	 */
 	public void hitPlayer(int hitPoints) {
 		healthPoints -= hitPoints;
 	}
 
+	/**
+	 * Überprüft, ob der Spieler noch lebt - also ob er noch Lebenspunkte hat
+	 * 
+	 * @return true (wenn Spieler noch lebt), false (wenn Spieler gestorben ist)
+	 */
 	public boolean isLiving() {
 		if (healthPoints > 0) {
 			return true;
@@ -257,9 +391,8 @@ public class Player {
 	}
 
 	/**
-	 * @return Anzahl der Healthpoints
+	 * @return Anzahl der Lebenspunkte des Spielers
 	 */
-
 	public int getHealthPoints() {
 		return this.healthPoints;
 	}
@@ -359,6 +492,10 @@ public class Player {
 		move(0, -1, 0);
 	}
 
+	public void sinkDown() {
+		move(0, -0.3f, 0);
+	}
+
 	public void moveDown(float i) {
 		move(0, -i, 0);
 	}
@@ -371,6 +508,10 @@ public class Player {
 	public void dies() {
 		System.out.println("Du bist jetzt tot!");
 		System.exit(0);
+	}
+
+	public float zum_quadrat(float zahl) {
+		return zahl * zahl;
 	}
 
 	// TODO Testen, ob Abfrage funktioniert
@@ -394,9 +535,10 @@ public class Player {
 			this.y += y;
 			this.z += z;
 		} else {
-			// Der Spieler kann durch move() in einem Block laden der nicht mehr
+			// Der Spieler kann durch move() in einem Block landen der nicht
+			// mehr
 			// im Level ist. Sollte er nach der Addition ausserhalt des Levels
-			// laden, nicht Addieren und die Beschleunigung loeschen
+			// landen, nicht Addieren und die Beschleunigung loeschen
 			if (level.getCube(newCubeX, oldCubeY, oldCubeZ) != null) {
 				if (level.getCube(newCubeX, oldCubeY, oldCubeZ).isWalkable()) {
 					this.x += x;
@@ -428,6 +570,14 @@ public class Player {
 			} else {
 				accelerationZ = 0;
 			}
+		}
+
+		// TEST Rampe
+		if (level.getCube(this.getCubeX(), this.getCubeY(), this.getCubeZ()).getCubeName() == Cube.CUBE_SOLID_RAMP) {
+			float z_in_ramp = this.z - this.getCubeZ() * 10;
+			float elevate = (float) Math.sqrt(2 * zum_quadrat(z_in_ramp));
+			float tmp_y = this.getCubeY() * 10 + elevate;
+			this.y = tmp_y + 0.01f;
 		}
 
 		// Wenn ein Spieler in die Flammen einer Explosion hineinläuft (die

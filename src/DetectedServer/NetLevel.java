@@ -16,7 +16,7 @@ public class NetLevel extends Level {
 	}
 
 	public void clear() {
-		super.clear();
+		super.buildDefaultLevel();
 		// TODO 1/3 Stuerzt ohne diese Einschraenkung ab...
 		if (listNetPlayer != null) {
 			for (int i = 0; i < listNetPlayer.size(); i++) {
