@@ -331,7 +331,7 @@ public class Level {
 		}
 
 		// Fülle die Welt mit Hindernissen
-//		fillWithObstacles();
+		fillWithObstacles();
 		
 		// Setze Rampen (manuell)
 		for (byte j = 1; j < getSizeY() - 2; j++) {
@@ -345,28 +345,26 @@ public class Level {
 		}
 
 		// Setze Ausgang manuell
-//		Random random = new Random();
-//		int exit_y = 1 + Math.abs(random.nextInt()) % (this.getSizeY()- 2);
-//
-//		if (exit_y % 2 == 0) {
-//			exit_y -= 1;
-//		}
-//		
-//		if (level[this.getSizeX()/2][exit_y][this.getSizeZ()/2].getCubeName() == Cube.CUBE_SOLID) {
-//			if (level[this.getSizeX()/2-1][exit_y][this.getSizeZ()/2].getCubeName() == Cube.CUBE_OBSTACLE) {
-//				level[this.getSizeX()/2-1][exit_y][this.getSizeZ()/2] = Cube.getCubeByName(Cube.CUBE_OBSTACLE_HIDE_EXIT);
-//			} else {
-//				level[this.getSizeX()/2-1][exit_y][this.getSizeZ()/2] = Cube.getCubeByName(Cube.CUBE_EXIT);
-//			}
-//		} else {
-//			if (level[this.getSizeX()/2][exit_y][this.getSizeZ()/2].getCubeName() == Cube.CUBE_OBSTACLE) {
-//				level[this.getSizeX()/2][exit_y][this.getSizeZ()/2] = Cube.getCubeByName(Cube.CUBE_OBSTACLE_HIDE_EXIT);
-//			} else {
-//				level[this.getSizeX()/2][exit_y][this.getSizeZ()/2] = Cube.getCubeByName(Cube.CUBE_EXIT);
-//			}
-//		}
+		Random random = new Random();
+		int exit_y = 1 + Math.abs(random.nextInt()) % (this.getSizeY()- 2);
+
+		if (exit_y % 2 == 0) {
+			exit_y -= 1;
+		}
 		
-//		setRamp(3,1,3);
+		if (level[this.getSizeX()/2][exit_y][this.getSizeZ()/2].getCubeName() == Cube.CUBE_SOLID) {
+			if (level[this.getSizeX()/2-1][exit_y][this.getSizeZ()/2].getCubeName() == Cube.CUBE_OBSTACLE) {
+				level[this.getSizeX()/2-1][exit_y][this.getSizeZ()/2] = Cube.getCubeByName(Cube.CUBE_OBSTACLE_HIDE_EXIT);
+			} else {
+				level[this.getSizeX()/2-1][exit_y][this.getSizeZ()/2] = Cube.getCubeByName(Cube.CUBE_EXIT);
+			}
+		} else {
+			if (level[this.getSizeX()/2][exit_y][this.getSizeZ()/2].getCubeName() == Cube.CUBE_OBSTACLE) {
+				level[this.getSizeX()/2][exit_y][this.getSizeZ()/2] = Cube.getCubeByName(Cube.CUBE_OBSTACLE_HIDE_EXIT);
+			} else {
+				level[this.getSizeX()/2][exit_y][this.getSizeZ()/2] = Cube.getCubeByName(Cube.CUBE_EXIT);
+			}
+		}
 	}
 
 	/**
