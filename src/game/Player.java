@@ -17,14 +17,15 @@ import java.util.List;
 public class Player {
 	// TODO Menüoptionen
 	// Obergrenzen für Playervariablen
-
 	/**
 	 * Obergrenze für die Lebenspunkte eines Spielers
 	 */
 	final static public int MAX_HEALTH_POINTS = 150;
 	/**
-	 * Obergrenze für die Anzahl an Bomben, die ein Spieler zur gleichen Zeit
-	 * legen darf.
+	 * <<<<<<< HEAD Obergrenze für die Anzahl an Bomben, die ein Spieler zur
+	 * gleichen Zeit legen darf. ======= Obergrenze für die Anzahl an Bomben,
+	 * die ein Spieler zur gleichen Zeit legen darf. >>>>>>>
+	 * 7bc20cee4251101595954ff78142ace3228418b7
 	 */
 	final static public int MAX_SIMULTAN_BOMBS = 5;
 	/**
@@ -65,7 +66,7 @@ public class Player {
 	List listPlayer;
 
 	/**
-	 * Konstruktor erzeugt einen Spieler
+	 * Konstruktor erzeugt einen Spieler <<<<<<< HEAD
 	 * 
 	 * @param level
 	 *            Die Spielwelt - also das Level - wird übergeben.
@@ -76,7 +77,17 @@ public class Player {
 	 * @param z
 	 *            Startposition in z-Richtung (nicht Würfelkoordinate)
 	 * @param listPlayer
-	 *            EINTRAGEN
+	 *            EINTRAGEN =======
+	 * @param level
+	 *            Die Spielwelt - also das Level - wird übergeben.
+	 * @param x
+	 *            Startposition in x-Richtung (nicht Würfelkoordinate)
+	 * @param y
+	 *            Startposition in y-Richtung (nicht Würfelkoordinate)
+	 * @param z
+	 *            Startposition in z-Richtung (nicht Würfelkoordinate)
+	 * @param listPlayer
+	 *            EINTRAGEN >>>>>>> 7bc20cee4251101595954ff78142ace3228418b7
 	 */
 	public Player(Level level, float x, float y, float z, List listPlayer) {
 		setPosition(x, y, z);
@@ -100,6 +111,10 @@ public class Player {
 		setAngleY(angleY);
 		setbombStrengthMultiplier(bombStrengthMultiplier);
 		setGravity(gravity);
+	}
+
+	public void setHealthPoints(int healthPoints) {
+		this.healthPoints = healthPoints;
 	}
 
 	private float getAccX() {
@@ -148,15 +163,11 @@ public class Player {
 	 * Setzt die Anzahl der Lebenspunkte des Spielers direkt.
 	 * 
 	 * @param healthPoints
-	 *            Anzahl der Lebenspunkte
-	 */
-	public void setHealthPoints(int healthPoints) {
-		this.healthPoints = healthPoints;
-	}
-
-	/**
-	 * Erhöht die Anzahl der gleichzeitig platzierbaren Bomben durch den Spieler
-	 * um 1.
+	 *            Anzahl der Lebenspunkte public void setHealthPoints(int
+	 *            healthPoints) { this.healthPoints = healthPoints; }
+	 * 
+	 *            /** Erhöht die Anzahl der gleichzeitig platzierbaren Bomben
+	 *            durch den Spieler um 1.
 	 */
 	public void increaseBombs() {
 		this.bombs += 1;
@@ -270,11 +281,16 @@ public class Player {
 	}
 
 	/**
-	 * Heilt den Spieler, indem die Anzahl der Lebenspunkte um den Wert der
-	 * Heilungspunkte erhöht wird
+	 * <<<<<<< HEAD Heilt den Spieler, indem die Anzahl der Lebenspunkte um den
+	 * Wert der Heilungspunkte erhöht wird
 	 * 
 	 * @param healPoints
-	 *            Anzahl der Heilungspunkte
+	 *            Anzahl der Heilungspunkte ======= Heilt den Spieler, indem die
+	 *            Anzahl der Lebenspunkte um den Wert der Heilungspunkte erhöht
+	 *            wird
+	 * @param healPoints
+	 *            Anzahl der Heilungspunkte >>>>>>>
+	 *            7bc20cee4251101595954ff78142ace3228418b7
 	 */
 	public void healPlayer(int healPoints) {
 		healthPoints += healPoints;
@@ -289,11 +305,15 @@ public class Player {
 	}
 
 	/**
-	 * Verringert die Anzahl der Lebenspunkte des Spielers um die Anzahl der
-	 * Trefferpunkte
+	 * <<<<<<< HEAD Verringert die Anzahl der Lebenspunkte des Spielers um die
+	 * Anzahl der Trefferpunkte
 	 * 
 	 * @param hitPoints
-	 *            Anzahl der Trefferpunkte
+	 *            Anzahl der Trefferpunkte ======= Verringert die Anzahl der
+	 *            Lebenspunkte des Spielers um die Anzahl der Trefferpunkte
+	 * @param hitPoints
+	 *            Anzahl der Trefferpunkte >>>>>>>
+	 *            7bc20cee4251101595954ff78142ace3228418b7
 	 */
 	public void hitPlayer(int hitPoints) {
 		healthPoints -= hitPoints;
@@ -301,6 +321,9 @@ public class Player {
 
 	/**
 	 * Überprüft, ob der Spieler noch lebt - also ob er noch Lebenspunkte hat
+	 * <<<<<<< HEAD
+	 * 
+	 * ======= >>>>>>> 7bc20cee4251101595954ff78142ace3228418b7
 	 * 
 	 * @return true (wenn Spieler noch lebt), false (wenn Spieler gestorben ist)
 	 */
@@ -570,6 +593,14 @@ public class Player {
 			} else {
 				accelerationZ = 0;
 			}
+		}
+
+		// TEST Rampe
+		if (level.getCube(this.getCubeX(), this.getCubeY(), this.getCubeZ()).getCubeName() == Cube.CUBE_SOLID_RAMP) {
+			float z_in_ramp = this.z - this.getCubeZ() * 10;
+			float elevate = (float) Math.sqrt(2 * zum_quadrat(z_in_ramp));
+			float tmp_y = this.getCubeY() * 10 + elevate;
+			this.y = tmp_y + 0.01f;
 		}
 
 		// TEST Rampe

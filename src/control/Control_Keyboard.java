@@ -33,11 +33,9 @@ public class Control_Keyboard extends Control {
 
 	class TimerKeyboard implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			if (player.getGravity())
+			if (player.getGravity()) {
 				player.sinkDown();
-			else {
 			}
-			// move_Control1(player, level);
 			move_Control1();
 		}
 
@@ -122,7 +120,6 @@ public class Control_Keyboard extends Control {
 			if (Keyboard.isKeyDown(Keyboard.KEY_L)) {
 				level.load();
 			}
-
 			// TODO Testtasten, um verschiedene Level zu testen
 			// -> entfernen!
 			if (Keyboard.isKeyDown(Keyboard.KEY_1)) {

@@ -300,4 +300,5 @@ public class Objects {
 		GL11.glVertex3f(x + size, y + size, z + size);
 		GL11.glEnd();
 	}
+
 }

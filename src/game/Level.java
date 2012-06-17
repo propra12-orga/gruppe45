@@ -28,6 +28,7 @@ public class Level {
 															// an leerer Stelle
 															// des
 															// Levels (0..1)
+
 	// Themenauswahl
 	// TODO Menüintegration
 	final static public byte THEME_EARTH = 1;
@@ -314,7 +315,14 @@ public class Level {
 	}
 
 	/**
-	 * Setzt das Levelarray auf Anfang nach dem Muster des einfachen Bomberman
+	 * ======= // Setze Ausgang manuell level[5][9][5] =
+	 * Cube.getCubeByName(Cube.CUBE_EXIT); }
+	 * 
+	 * 
+	 * 
+	 * 
+	 * /** >>>>>>> 7bc20cee4251101595954ff78142ace3228418b7 Setzt das Levelarray
+	 * auf Anfang nach dem Muster des einfachen Bomberman
 	 */
 	public void buildDefaultLevel() {
 		int exit_x, exit_y, exit_z; // Hilfsvariablen für zufälligen Ausgang
@@ -328,7 +336,6 @@ public class Level {
 						// Sonst zufällige Verteilung zerstörbarer Blöcke
 					} else {
 						// Erzeuge Zufallszahl zwischen 0..1
-
 						float rnd = new Random().nextFloat();
 
 						// Setze zufällig Hindernisse; lasse dabei die
