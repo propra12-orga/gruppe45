@@ -1,3 +1,4 @@
+
 package render;
 
 import java.io.FileInputStream;
@@ -15,15 +16,15 @@ public class Objects {
 	// Wahl, welches Theme benutzt wird
 	byte themeSelection = 1;
 
+	// Theme: Earth
 	private Texture texBomb, texExplosion, texPaper, texOutside, texObstacle, texHealth, texXtraBomb, texPortal, texBombRange, texBombStrength, texExit, texRamp, texPlayer,
-					texMenuNewGame, texMenuExitProgram, texMenuLoadLevel;
+					texMenuNewGame, texMenuExitProgram, texMenuLoadLevel, texMenuNewGameGravity;
 	
 	public Objects(byte themeSelection) {
 		this.themeSelection = themeSelection;
 		// Texturen laden
 		try {
 			// Spielwürfel
-			texRamp = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/ramp.png"));
 			switch (themeSelection) {
 				// Normale Welt
 				case 1:
@@ -40,8 +41,10 @@ public class Objects {
 					texBombStrength = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/ItemBombStrength.png"));
 					texExit = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/exit.png"));
 					texPlayer = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/player.png"));
+					texRamp = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/ramp.png"));
 					// Menuewuerfel
 					texMenuNewGame = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/earth/newgame.png"));
+					texMenuNewGameGravity = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/earth/newgamegravity.png"));
 					texMenuExitProgram = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/earth/exitprogram.png"));
 					texMenuLoadLevel = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/earth/loadlevel.png"));
 					break;
@@ -60,8 +63,10 @@ public class Objects {
 					texBombStrength = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/space/ItemBombStrength.png"));
 					texExit = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/space/exit.png"));
 					texPlayer = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/space/player.png"));
+					texRamp = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/space/ramp.png"));
 					// Menuewuerfel
 					texMenuNewGame = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/space/newgame.png"));
+					texMenuNewGameGravity = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/space/newgamegravity.png"));
 					texMenuExitProgram = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/space/exitprogram.png"));
 					texMenuLoadLevel = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/space/loadlevel.png"));
 					break;
@@ -80,8 +85,10 @@ public class Objects {
 					texBombStrength = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/ItemBombStrength.png"));
 					texExit = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/exit.png"));
 					texPlayer = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/player.png"));
+					texRamp = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/ramp.png"));
 					// Menuewuerfel
 					texMenuNewGame = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/soccer/newgame.png"));
+					texMenuNewGameGravity = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/soccer/newgamegravity.png"));
 					texMenuExitProgram = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/soccer/exitprogram.png"));
 					texMenuLoadLevel = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/soccer/loadlevel.png"));
 					break;
@@ -161,6 +168,11 @@ public class Objects {
 	// Menüwürfel
 	public void DrawMenuCubeNewGame(float x, float y, float z) {
 		texMenuNewGame.bind();
+		DrawCube(x, y, z, 10, 1);
+	}
+	
+	public void DrawMenuCubeNewGameGravity(float x, float y, float z) {
+		texMenuNewGameGravity.bind();
 		DrawCube(x, y, z, 10, 1);
 	}
 	

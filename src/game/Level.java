@@ -1,6 +1,7 @@
 package game;
 
 import game.cube.Cube;
+import render.Objects;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,7 +24,7 @@ public class Level {
 	 * Wahrscheinlichkeit, dass bei zufälliger Levelfüllung ein Hindernis an
 	 * eine freie Stelle gesetzt wird
 	 */
-	final static public float OBSTACLE_PROBABILITY = 0.3f; // Wahrscheinlichkeit
+	final static public float OBSTACLE_PROBABILITY = 0.2f; // Wahrscheinlichkeit
 														   // eines Hindernisses
 														   // an leerer Stelle des
 														   // Levels (0..1)
@@ -211,10 +212,10 @@ public class Level {
 		// leere das Levelinnere
 		clear();		
 		// Baue das Hauptmenü auf
-		level[getSizeX() / 2 + 2][getSizeY() / 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_NEW_GAME);
-		level[getSizeX() / 2][getSizeY() / 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_LOAD_LEVEL);
-		level[getSizeX() / 2 - 2][getSizeY() / 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube
-				.getCubeByName(Cube.MENU_CUBE_EXIT_PROGRAM);
+		level[getSizeX() / 2 + 3][getSizeY() / 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_NEW_GAME);
+		level[getSizeX() / 2 + 1][getSizeY() / 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_NEW_GAME_GRAVITY);
+		level[getSizeX() / 2 - 1][getSizeY() / 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_LOAD_LEVEL);
+		level[getSizeX() / 2 - 3][getSizeY() / 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_EXIT_PROGRAM);
 	}
 
 	public void clear() {
@@ -251,19 +252,73 @@ public class Level {
 		}
 	}
 	
+	/**
+	 * Setzt eine Rampe, die eine Verbindung zweier getrennter Ebenen
+	 * herstellt. Dabei wird der Eingang und der Ausgang der Rampe
+	 * frei gehalten. Zudem wird ein Geländer, sodass eine Art
+	 * Rampentunnel entsteht.
+	 * Es wird die Position der unteren Rampe übergeben.
+	 * @param x x-Position der unteren Rampe im Levelarray 
+	 * @param y y-Position der unteren Rampe im Levelarray 
+	 * @param z z-Position der unteren Rampe im Levelarray 
+	 */
+	public void setRamp(int x, int y, int z){
+		// Lege die Rampen
+		level[x][y][z] = Cube.getCubeByName(Cube.CUBE_SOLID_RAMP);
+		level[x][y+1][z+1] = Cube.getCubeByName(Cube.CUBE_SOLID_RAMP);
+		// Öffne Zugänge und Durchgänge
+		level[x][y+1][z] = Cube.getCubeByName(Cube.CUBE_EMPTY);
+		level[x][y][z-1] = Cube.getCubeByName(Cube.CUBE_EMPTY);
+		level[x][y+2][z] = Cube.getCubeByName(Cube.CUBE_EMPTY);
+		level[x][y+2][z+1] = Cube.getCubeByName(Cube.CUBE_EMPTY);
+		level[x][y+2][z+2] = Cube.getCubeByName(Cube.CUBE_EMPTY);
+		// Setze Fundament
+		level[x][y][z+1] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x][y][z+2] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x][y+1][z+2] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		// Setze Umrandung, um Reinlaufen von der Seite zu verhindern
+		// Rechte Seite
+		level[x-1][y][z] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x-1][y][z+1] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x-1][y][z+2] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x-1][y+1][z] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x-1][y+1][z+1] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x-1][y+1][z+2] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x-1][y+2][z] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x-1][y+2][z+1] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x-1][y+2][z+2] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		// Linke Seite
+		level[x+1][y][z] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x+1][y][z+1] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x+1][y][z+2] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x+1][y+1][z] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x+1][y+1][z+1] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x+1][y+1][z+2] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x+1][y+2][z] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x+1][y+2][z+1] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x+1][y+2][z+2] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		// Vorderseite, oben
+		level[x-1][y+2][z-1] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x][y+2][z-1] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x+1][y+2][z-1] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x-1][y+1][z-1] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x][y+1][z-1] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x+1][y+1][z-1] = Cube.getCubeByName(Cube.CUBE_SOLID);
+	}
+	
 	
 	public void buildGravityLevel() {
 		// Baue leeres Level
 		clear();
 		
 		// Setze die unzerstörbaren Würfel
-		for (byte i = 0; i < getSizeX(); i++) {
-			for (byte j = 0; j < getSizeY(); j++) {
-				for (byte k = 0; k < getSizeZ(); k++) {
+		for (byte i = 1; i < getSizeX()-1; i++) {
+			for (byte j = 1; j < getSizeY()-1; j++) {
+				for (byte k = 1; k < getSizeZ()-1; k++) {
 					// Jede gerade Ebene wird komplett mit Solids gefüllt
 					if (j % 2 == 0) {
 						level[i][j][k] = Cube.getCubeByName(Cube.CUBE_SOLID);
-					// Muster der ungeraden Ebenen
+					// Muster der ungeraden Ebenen nach Bomberman-Vorbild
 					} else if ((i % 2 == 0 && k % 2 == 0)) {
 						level[i][j][k] = Cube.getCubeByName(Cube.CUBE_SOLID);
 					}					
@@ -272,46 +327,40 @@ public class Level {
 		}
 		
 		// Fülle die Welt mit Hindernissen
-		// fillWithObstacles();
+		fillWithObstacles();
 		
 		// Setze Rampen (manuell)
-		for (byte i = 1; i < getSizeX()-1; i++) {
-			for (byte j = 1; j < getSizeY()-1; j++) {
-				for (byte k = 1; k < getSizeZ()-1; k++) {
-					
-					if (j % 2 == 0) {
-						if (j % 4 == 0) {
-							level[3][j-1][3] = Cube.getCubeByName(Cube.CUBE_SOLID_RAMP);
-							level[3][j][4] = Cube.getCubeByName(Cube.CUBE_SOLID_RAMP);
-							level[3][j-1][4] = Cube.getCubeByName(Cube.CUBE_SOLID);
-							level[3][j][3] = Cube.getCubeByName(Cube.CUBE_EMPTY);
-							
-							level[3][j+1][2] = Cube.getCubeByName(Cube.CUBE_SOLID);
-							level[2][j+1][3] = Cube.getCubeByName(Cube.CUBE_SOLID);
-							level[4][j+1][3] = Cube.getCubeByName(Cube.CUBE_SOLID);
-							
-							level[3-1][j-1][3] = Cube.getCubeByName(Cube.CUBE_SOLID);
-							level[3+1][j-1][3] = Cube.getCubeByName(Cube.CUBE_SOLID);
-						} else {
-							level[7][j-1][6] = Cube.getCubeByName(Cube.CUBE_SOLID_RAMP);
-							level[7][j][7] = Cube.getCubeByName(Cube.CUBE_SOLID_RAMP);
-							level[7][j-1][7] = Cube.getCubeByName(Cube.CUBE_SOLID);
-							level[7][j][6] = Cube.getCubeByName(Cube.CUBE_EMPTY);
-							
-							level[7][j+1][5] = Cube.getCubeByName(Cube.CUBE_SOLID);
-							level[6][j+1][7] = Cube.getCubeByName(Cube.CUBE_SOLID);
-							level[8][j+1][7] = Cube.getCubeByName(Cube.CUBE_SOLID);
-							
-							level[7-1][j-1][7] = Cube.getCubeByName(Cube.CUBE_SOLID);
-							level[7+1][j-1][7] = Cube.getCubeByName(Cube.CUBE_SOLID);
-						}
-					}					
+		for (byte j = 1; j < getSizeY() - 2; j++) {
+			if (j % 2 == 0) {
+				if (j % 4 == 0) {
+					setRamp(3,j-1,3);
+				} else {
+					setRamp(7,j-1,6);
 				}
-			}
+			}					
 		}
 
 		// Setze Ausgang manuell
-		level[5][9][5] = Cube.getCubeByName(Cube.CUBE_EXIT);
+		Random random = new Random();
+		int exit_y = 1 + Math.abs(random.nextInt()) % (this.getSizeY()- 2);
+
+		if (exit_y % 2 == 0) {
+			exit_y -= 1;
+		}
+		
+		if (level[this.getSizeX()/2][exit_y][this.getSizeZ()/2].getCubeName() == Cube.CUBE_SOLID) {
+			if (level[this.getSizeX()/2-1][exit_y][this.getSizeZ()/2].getCubeName() == Cube.CUBE_OBSTACLE) {
+				level[this.getSizeX()/2-1][exit_y][this.getSizeZ()/2] = Cube.getCubeByName(Cube.CUBE_OBSTACLE_HIDE_EXIT);
+			} else {
+				level[this.getSizeX()/2-1][exit_y][this.getSizeZ()/2] = Cube.getCubeByName(Cube.CUBE_EXIT);
+			}
+		} else {
+			if (level[this.getSizeX()/2][exit_y][this.getSizeZ()/2].getCubeName() == Cube.CUBE_OBSTACLE) {
+				level[this.getSizeX()/2][exit_y][this.getSizeZ()/2] = Cube.getCubeByName(Cube.CUBE_OBSTACLE_HIDE_EXIT);
+			} else {
+				level[this.getSizeX()/2][exit_y][this.getSizeZ()/2] = Cube.getCubeByName(Cube.CUBE_EXIT);
+			}
+		}		
 	}
 	
 	

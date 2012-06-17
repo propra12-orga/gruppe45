@@ -14,6 +14,6 @@ public class CubeExit extends Cube {
 		System.out.println("Du hast den Ausgang erreicht - Glückwunsch!");
 		level.showMenu();
 		// FIXME Netzwerkfähigkeit
-		player.reinit((level.getSizeX() / 2) * 10 + 5, (level.getSizeY() / 2) * 10 + 5, 15, 0, 0, 100, 0, 1, false);
+		player.reinit((level.getSizeX() / 2) * 10 + 5, (level.getSizeY() / 2) * 10 + 5, 15, 0, 0, 100, 0, 1, 1, false);
 	}
 }

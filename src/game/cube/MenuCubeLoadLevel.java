@@ -26,6 +26,6 @@ public class MenuCubeLoadLevel extends Cube {
 		}
 		
 		// FIXME Netzwerkfähigkeit
-		player.reinit(player1_start_x, level.getSizeY()*10-15, 15, 0, 0, 100, 1, 1, false);
+		player.reinit(player1_start_x, level.getSizeY()*10-15, 15, 0, 0, 100, 1, 1, 1, false);
 	}
 }

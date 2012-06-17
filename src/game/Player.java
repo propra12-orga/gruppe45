@@ -77,7 +77,7 @@ public class Player {
 		this.listPlayer = listPlayer;
 	}
 	
-	public void reinit(int startpositionX, int startpositionY, int startpositionZ, float angleX, float angleY, int healthPoints, int bombs, int bombStrengthMultiplier, boolean gravity){
+	public void reinit(int startpositionX, int startpositionY, int startpositionZ, float angleX, float angleY, int healthPoints, int bombs, int bombradius, int bombStrengthMultiplier, boolean gravity){
 		setPosition(startpositionX,startpositionY,startpositionZ);
 		setHealthPoints(healthPoints);
 		setBombs(bombs);
@@ -85,6 +85,7 @@ public class Player {
 		setAngleY(angleY);
 		setbombStrengthMultiplier(bombStrengthMultiplier);
 		setGravity(gravity);
+		setRadius(bombradius);
 	}
 
 	/**
@@ -181,6 +182,11 @@ public class Player {
 
 	public int getRadius() {
 		return radius;
+	}
+	
+
+	public void setRadius(int radius) {
+		this.radius = radius;
 	}
 
 	/**
@@ -467,7 +473,8 @@ public class Player {
 			}
 		}
 		
-		//TEST Rampe
+		//TEST Rampe laufen
+		// Würfelwinkel 45° z -> y
 		if (level.getCube(this.getCubeX(), this.getCubeY(), this.getCubeZ()).getCubeName() == Cube.CUBE_SOLID_RAMP) {
 			float z_in_ramp = this.z - this.getCubeZ() * 10; 
 			float elevate = (float) Math.sqrt(2 * zum_quadrat(z_in_ramp));

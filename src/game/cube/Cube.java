@@ -33,6 +33,7 @@ public abstract class Cube {
 	final static public String CUBE_ITEM_BOMB_STRENGTH = "CubeItemBombStrength";
 	// Menüwürfel
 	final static public String MENU_CUBE_NEW_GAME = "MenuCubeNewGame";
+	final static public String MENU_CUBE_NEW_GAME_GRAVITY = "MenuCubeNewGameGravity";
 	final static public String MENU_CUBE_EXIT_PROGRAM = "MenuCubeExitProgram";
 	final static public String MENU_CUBE_LOAD_LEVEL = "MenuCubeLoadLevel";
 
@@ -52,6 +53,7 @@ public abstract class Cube {
 			new CubeData(new CubeItemBombStrength(), CUBE_ITEM_BOMB_STRENGTH),
 			// Menüwürfel
 			new CubeData(new MenuCubeNewGame(), MENU_CUBE_NEW_GAME),
+			new CubeData(new MenuCubeNewGameGravity(), MENU_CUBE_NEW_GAME_GRAVITY),
 			new CubeData(new MenuCubeExitProgram(), MENU_CUBE_EXIT_PROGRAM),
 			new CubeData(new MenuCubeLoadLevel(), MENU_CUBE_LOAD_LEVEL) };
 
