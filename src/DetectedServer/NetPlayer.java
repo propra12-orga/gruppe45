@@ -121,7 +121,7 @@ public class NetPlayer extends Player {
 	}
 
 	public Level msgReceiveLevel(String[] splitMsg) {
-		Level level = new Level(Integer.valueOf(splitMsg[1]), Integer.valueOf(splitMsg[2]), Integer.valueOf(splitMsg[3]), null);
+		Level level = new Level(Integer.valueOf(splitMsg[1]), Integer.valueOf(splitMsg[2]), Integer.valueOf(splitMsg[3]));
 		level.setLevel(splitMsg);
 		return level;
 	}
