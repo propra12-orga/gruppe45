@@ -15,7 +15,7 @@ public class Objects {
 	// Wahl, welches Theme benutzt wird
 	byte themeSelection = 1;
 
-	private Texture texBomb, texExplosion, texPaper, texOutside, texObstacle, texHealth, texXtraBomb, texPortal, texBombRange, texExit, texPlayer,
+	private Texture texBomb, texExplosion, texPaper, texOutside, texObstacle, texHealth, texXtraBomb, texPortal, texBombRange, texBombStrength, texExit, texRamp, texPlayer,
 					texMenuNewGame, texMenuExitProgram, texMenuLoadLevel;
 	
 	public Objects(byte themeSelection) {
@@ -23,6 +23,7 @@ public class Objects {
 		// Texturen laden
 		try {
 			// Spielwürfel
+			texRamp = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/ramp.png"));
 			switch (themeSelection) {
 				// Normale Welt
 				case 1:
@@ -36,6 +37,7 @@ public class Objects {
 					texXtraBomb = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/ItemXtraBomb.png"));
 					texPortal = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/ItemPortal.png"));
 					texBombRange = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/ItemBombRange.png"));
+					texBombStrength = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/ItemBombStrength.png"));
 					texExit = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/exit.png"));
 					texPlayer = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/player.png"));
 					// Menuewuerfel
@@ -55,12 +57,33 @@ public class Objects {
 					texXtraBomb = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/space/ItemXtraBomb.png"));
 					texPortal = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/space/ItemPortal.png"));
 					texBombRange = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/space/ItemBombRange.png"));
+					texBombStrength = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/space/ItemBombStrength.png"));
 					texExit = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/space/exit.png"));
 					texPlayer = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/space/player.png"));
 					// Menuewuerfel
 					texMenuNewGame = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/space/newgame.png"));
 					texMenuExitProgram = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/space/exitprogram.png"));
 					texMenuLoadLevel = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/space/loadlevel.png"));
+					break;
+					// Soccer-Theme
+				case 3:
+					// Weltwuerfel
+					texBomb = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/bomb.png"));
+					texExplosion = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/explosion.png"));
+					texPaper = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/solid.png"));
+					texOutside = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/outsideworld.png"));
+					texObstacle = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/obstacle.png"));
+					texHealth = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/health.png"));
+					texXtraBomb = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/ItemXtraBomb.png"));
+					texPortal = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/ItemPortal.png"));
+					texBombRange = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/ItemBombRange.png"));
+					texBombStrength = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/ItemBombStrength.png"));
+					texExit = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/exit.png"));
+					texPlayer = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/soccer/player.png"));
+					// Menuewuerfel
+					texMenuNewGame = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/soccer/newgame.png"));
+					texMenuExitProgram = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/soccer/exitprogram.png"));
+					texMenuLoadLevel = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/soccer/loadlevel.png"));
 					break;
 			}			
 		} catch (IOException e) {
@@ -109,6 +132,11 @@ public class Objects {
 		DrawCube(x + 2.5f, y + 2.5f, z + 2.5f, 5, 1);
 	}
 	
+	public void DrawCubeItemBombStrength(float x, float y, float z) {
+		texBombStrength.bind();
+		DrawCube(x + 2.5f, y + 2.5f, z + 2.5f, 5, 1);
+	}
+	
 	public void DrawCubeItemPortal(float x, float y, float z) {
 		texPortal.bind();
 		DrawCube(x + .5f, y + .5f, z + .5f, 9, 1);
@@ -122,6 +150,11 @@ public class Objects {
 	public void DrawPlayer(float x, float y, float z) {
 		texPlayer.bind();
 		DrawCube(x, y, z, 6, 1);
+	}
+	
+	public void DrawCubeRamp(float x, float y, float z) {
+		texRamp.bind();
+		DrawRamp(x, y, z, 10, 1);
 	}
 	
 	
@@ -194,7 +227,6 @@ public class Objects {
 		GL11.glVertex3f(x, y, z + size);		
 		GL11.glTexCoord2f(texSize, 0);
 		GL11.glVertex3f(x, y + size, z + size);
-		
 		// Oben
 		GL11.glTexCoord2f(0, 0);
 		GL11.glVertex3f(x + size, y + size, z + size);		
@@ -215,4 +247,70 @@ public class Objects {
 		GL11.glVertex3f(x, y, z);
 		GL11.glEnd();
 	}
+
+	/**
+	 * Zeichnet eine Rampe mit Textur
+	 * 
+	 * @param x
+	 *            x-Position
+	 * @param y
+	 *            y-Position
+	 * @param z
+	 *            z-Position
+	 * @param size
+	 *            Kantenlaenge
+	 * @param texSize
+	 *            Skalierung der Textur
+	 */
+	public void DrawRamp(float x, float y, float z, float size, float texSize) {
+		GL11.glColor3f(1, 1, 1);
+		GL11.glBegin(GL11.GL_QUADS);
+		// Hinten
+		GL11.glTexCoord2f(0, 0);
+		GL11.glVertex3f(x, y+size, z + size);		
+		GL11.glTexCoord2f(0, texSize);
+		GL11.glVertex3f(x, y, z + size);		
+		GL11.glTexCoord2f(texSize, texSize);
+		GL11.glVertex3f(x + size, y, z + size);		
+		GL11.glTexCoord2f(texSize, 0);
+		GL11.glVertex3f(x + size, y + size, z + size);
+		// Unten
+		GL11.glTexCoord2f(0, 0);
+		GL11.glVertex3f(x + size, y, z);		
+		GL11.glTexCoord2f(0, texSize);
+		GL11.glVertex3f(x + size, y, z + size);		
+		GL11.glTexCoord2f(texSize, texSize);
+		GL11.glVertex3f(x, y, z + size);		
+		GL11.glTexCoord2f(texSize, 0);
+		GL11.glVertex3f(x, y, z);
+		// Links		
+		GL11.glTexCoord2f(0, 0);
+		GL11.glVertex3f(x + size, y,z);		
+		GL11.glTexCoord2f(0, texSize);
+		GL11.glVertex3f(x + size, y, z + size);		
+		GL11.glTexCoord2f(texSize, texSize);
+		GL11.glVertex3f(x + size, y +size, z + size);
+		GL11.glTexCoord2f(texSize, 0);
+		GL11.glVertex3f(x + size, y +size, z + size);
+		// Rechts		
+		GL11.glTexCoord2f(0, 0);
+		GL11.glVertex3f(x, y, z);		
+		GL11.glTexCoord2f(0, texSize);
+		GL11.glVertex3f(x, y, z + size);		
+		GL11.glTexCoord2f(texSize, texSize);
+		GL11.glVertex3f(x, y + size, z + size);		
+		GL11.glTexCoord2f(texSize, 0);
+		GL11.glVertex3f(x, y + size, z + size);	
+		// Schräge
+		GL11.glTexCoord2f(0, 0);
+		GL11.glVertex3f(x + size, y,z);
+		GL11.glTexCoord2f(0, texSize);
+		GL11.glVertex3f(x, y, z);
+		GL11.glTexCoord2f(texSize, texSize);
+		GL11.glVertex3f(x, y + size, z+size);
+		GL11.glTexCoord2f(texSize, 0);
+		GL11.glVertex3f(x+size, y + size, z + size);
+		GL11.glEnd();
+	}
 }
+

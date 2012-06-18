@@ -2,6 +2,7 @@ package control;
 
 import game.Level;
 import game.Player;
+import game.cube.Cube;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,7 +37,7 @@ public class Control_Keyboard extends Control {
 
 	class TimerKeyboard implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			if (player.GRAVITY)
+			if (player.getGravity())
 				player.sinkDown();
 			else{}
 			move_Control1(player, level);
@@ -61,20 +62,21 @@ public class Control_Keyboard extends Control {
 			}
 			// hoch:
 			if (Keyboard.isKeyDown(Keyboard.KEY_Q)) {
-				player.moveUp();
+				if (!(player.getGravity())) {
+					player.moveUp();
+				}
 			}
 			// runter:
 			if (Keyboard.isKeyDown(Keyboard.KEY_E)) {
-				player.moveDown();
+				if (!(player.getGravity())) {
+					player.moveDown();
+				}
 			}
 			// Zurück zum Menü:
 			if (Keyboard.isKeyDown(Keyboard.KEY_T)) {
 				level.showMenu();
 				// FIXME Netzwerkfähig machen
-				player.setPosition((level.getSizeX() / 2) * 10 + 5, (level.getSizeY() / 2) * 10 + 5, 15);
-				player.setBombs(0);
-				player.setAngleX(0);
-				player.setAngleY(0);
+				player.reinit((level.getSizeX() / 2) * 10 + 5, (level.getSizeY() / 2) * 10 + 5, 15, 0, 0, 100, 0, 1, false);
 			}
 			// Programm beenden
 			if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
@@ -114,13 +116,45 @@ public class Control_Keyboard extends Control {
 //						
 //					}
 //				}
-//				
 //			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_O)) {
 				level.save();
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_L)) {
 				level.load();
+			}
+			
+			// TODO Testtasten, um verschiedene Level zu testen
+			// -> entfernen!
+			if (Keyboard.isKeyDown(Keyboard.KEY_1)) {
+				level.buildDefaultLevel();
+				// Ermittle Startposition
+				int player1_start_x = 0;
+				if (level.getSizeX() % 2 == 0) { // Größe in X gerade
+					player1_start_x = level.getSizeX() * 10 - 15;
+				} else { // Größe in X ungerade
+					if (level.getSizeY() % 2 == 0) { // Größe in Y gerade
+						player1_start_x = level.getSizeX() * 10 - 15;
+					} else { // Größe in Y ungerade
+						player1_start_x = level.getSizeX() * 10 - 25;
+					}
+				}
+				player.reinit(player1_start_x, level.getSizeY()*10-15, 15, 0, 0, 100, 1, 1, false);
+			}
+			if (Keyboard.isKeyDown(Keyboard.KEY_2)) {
+				level.buildGravityLevel();
+				// TODO An skalierbares Level anpassen
+//				int player1_start_y = 0;
+//				if (level.getSizeY() % 2 == 0) { // Größe in Y gerade
+//					player1_start_y = level.getSizeY() * 10 - 25;
+//				} else { // Größe in X ungerade
+//					player1_start_y = level.getSizeY() * 10 - 15;
+//				}
+				player.reinit(level.getSizeX() * 10 - 15, 15, 15, 0, 0, 100, 1, 1, true);
+				// FIXME Nur testing
+				level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), (level.getSizeX() -2), 1, 1);
+				level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), (level.getSizeX() -2), 1, 2);
+				level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), (level.getSizeX() -2), 1, 3);
 			}
 		}
 	}

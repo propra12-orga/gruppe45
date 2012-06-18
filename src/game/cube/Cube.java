@@ -24,26 +24,32 @@ public abstract class Cube {
 	final static public String CUBE_OBSTACLE = "CubeObstacle";
 	final static public String CUBE_OUTSIDE = "CubeOutside";
 	final static public String CUBE_SOLID = "CubeSolid";
+	final static public String CUBE_SOLID_RAMP = "CubeSolidRamp";
 	// Items
 	final static public String CUBE_ITEM_HEALTH = "CubeItemHealth";
 	final static public String CUBE_ITEM_XTRA_BOMB = "CubeItemXtraBomb";
 	final static public String CUBE_ITEM_PORTAL = "CubeItemPortal";
 	final static public String CUBE_ITEM_BOMB_RANGE = "CubeItemBombRange";
+	final static public String CUBE_ITEM_BOMB_STRENGTH = "CubeItemBombStrength";
 	// Menüwürfel
 	final static public String MENU_CUBE_NEW_GAME = "MenuCubeNewGame";
 	final static public String MENU_CUBE_EXIT_PROGRAM = "MenuCubeExitProgram";
 	final static public String MENU_CUBE_LOAD_LEVEL = "MenuCubeLoadLevel";
 
 	final static public CubeData[] cubeData = { new CubeData(new CubeBomb(), CUBE_BOMB),
-			new CubeData(new CubeEmpty(), CUBE_EMPTY), new CubeData(new CubeExit(), CUBE_EXIT),
+			new CubeData(new CubeEmpty(), CUBE_EMPTY), 
+			new CubeData(new CubeExit(), CUBE_EXIT),
 			new CubeData(new CubeExplosion(), CUBE_EXPLOSION),
 			new CubeData(new CubeExplosionHideExit(), CUBE_EXPLOSION_HIDE_EXIT),
 			new CubeData(new CubeExplosionHideItem(), CUBE_EXPLOSION_HIDE_ITEM),
 			new CubeData(new CubeItemHealth(), CUBE_ITEM_HEALTH), new CubeData(new CubeItemXtraBomb(), CUBE_ITEM_XTRA_BOMB),
 			new CubeData(new CubeItemBombRange(), CUBE_ITEM_BOMB_RANGE), new CubeData(new CubeItemPortal(), CUBE_ITEM_PORTAL),
-			new CubeData(new CubeObstacle(), CUBE_OBSTACLE), new CubeData(new CubeOutside(), CUBE_OUTSIDE),
+			new CubeData(new CubeObstacle(), CUBE_OBSTACLE), 
+			new CubeData(new CubeOutside(), CUBE_OUTSIDE),
 			new CubeData(new CubeSolid(), CUBE_SOLID),
+			new CubeData(new CubeSolidRamp(), CUBE_SOLID_RAMP),
 			new CubeData(new CubeObstacleHideExit(), CUBE_OBSTACLE_HIDE_EXIT),
+			new CubeData(new CubeItemBombStrength(), CUBE_ITEM_BOMB_STRENGTH),
 			// Menüwürfel
 			new CubeData(new MenuCubeNewGame(), MENU_CUBE_NEW_GAME),
 			new CubeData(new MenuCubeExitProgram(), MENU_CUBE_EXIT_PROGRAM),

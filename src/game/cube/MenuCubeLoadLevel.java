@@ -24,11 +24,8 @@ public class MenuCubeLoadLevel extends Cube {
 				player1_start_x = level.getSizeX() * 10 - 25;
 			}
 		}
-
-		player.setPosition(player1_start_x, level.getSizeY() * 10 - 15, 15);
-		player.setHealthPoints(100);
-		player.setBombs(2);
-		player.setAngleX(0);
-		player.setAngleY(0);
+		
+		// FIXME Netzwerkfähigkeit
+		player.reinit(player1_start_x, level.getSizeY()*10-15, 15, 0, 0, 100, 1, 1, false);
 	}
 }
