@@ -205,7 +205,7 @@ public class Level {
 	}
 
 	public void showMenu() {
-		final int Z_VERSCHIEBUNG = 2; // gibt an, wie weit die Menüwand von der
+		final int Z_VERSCHIEBUNG = 3; // gibt an, wie weit die Menüwand von der
 										// Rückwand entfernt ist
 		// leere das Levelinnere
 		clear();
@@ -345,6 +345,7 @@ public class Level {
 		}
 
 		// Setze Ausgang manuell
+		// TODO setExit mit Überprüfung auf nicht Rampe, Outside, Solid
 		Random random = new Random();
 		int exit_y = 1 + Math.abs(random.nextInt()) % (this.getSizeY()- 2);
 

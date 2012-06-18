@@ -14,7 +14,7 @@ public class Window {
 	final static public int width = 800; // Größe des Darstellungsfensters
 	final static public int height = 600;
 	// TODO Menüoption
-	final static public int levelSizeX = 18; // X-Ausdehnung der Spielwelt
+	final static public int levelSizeX = 11; // X-Ausdehnung der Spielwelt
 	final static public int levelSizeY = 11; // Y-Ausdehnung der Spielwelt
 	final static public int levelSizeZ = 11; // Z-Ausdehnung der Spielwelt
 	final static public DisplayMode dispmod = new DisplayMode(width, height);
