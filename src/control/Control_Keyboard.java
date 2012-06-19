@@ -29,7 +29,6 @@ public class Control_Keyboard extends Control {
 	final int MILLISECS_PER_STEP = 10;
 	Timer timer;
 	Level level;
-	public static boolean menueOffen = false;
 
 	public Control_Keyboard(Player player, Level level) {
 		super(player);
@@ -85,10 +84,9 @@ public class Control_Keyboard extends Control {
 			}
 			// Menuetest:
 			if (Keyboard.isKeyDown(Keyboard.KEY_M)) {
-				if (!menueOffen) {
-					menueOffen = true;
+				if (!Menu.menuOffen) {
+					Menu.menuOffen = true;
 					Menu menu = new Menu();
-					menueOffen = false;
 						}
 					
 				}

@@ -6,7 +6,11 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+import org.lwjgl.input.Mouse;
+
 public class Menu extends JFrame implements ActionListener{
+	
+	public static boolean menuOffen = false;
 
 	private JButton a;
 	private JButton b;
@@ -62,6 +66,8 @@ public class Menu extends JFrame implements ActionListener{
 		ende.setMnemonic(KeyEvent.VK_E);
 
 		//Listener für Buttons
+		ende.addActionListener(this);
+		ende.setActionCommand("close");
 //        addButtonListener(a);
 //        addButtonListener(b);
 //        addButtonListener(ende);
@@ -89,18 +95,12 @@ public class Menu extends JFrame implements ActionListener{
 			
 		}
 
-
-	
-	
-
-	public static void main(String[] args) {
-		Menu menu = new Menu();
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 	    if ("close".equals(e.getActionCommand())){
+//	    	Mouse.setCursorPosition(Window.width/2, Window.height/2);
 	    	this.dispose();
+	    	this.menuOffen = false;
 	    }
 		
 	}
