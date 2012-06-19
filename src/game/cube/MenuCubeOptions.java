@@ -1,12 +1,13 @@
 package game.cube;
 
+import org.lwjgl.input.Keyboard;
+
 import render.Menu;
 import game.Level;
 import game.Player;
 import control.Control_Keyboard;
 
 public class MenuCubeOptions extends Cube {
-	
 	public MenuCubeOptions() {
 		super(Cube.IS_WALKABLE, Cube.IS_COLLECTABLE, Cube.IS_NOT_DESTROYABLE);
 	}
