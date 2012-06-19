@@ -16,7 +16,7 @@ public class CubeItemXtraBomb extends Cube {
 
 	@Override
 	public void change(Player player, Level level) {
-		if (player.getBombs() < Player.MAX_SIMULTAN_BOMBS) {
+		if (player.getBombs() < player.getMaxSimultanBombs()) {
 			player.increaseBombs();
 
 			// TODO Testausgabe entfernen!

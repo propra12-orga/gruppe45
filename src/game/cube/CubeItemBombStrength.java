@@ -16,7 +16,7 @@ public class CubeItemBombStrength extends Cube {
 
 	@Override
 	public void change(Player player, Level level) {
-		if (player.getbombStrengthMultiplier() < Player.MAX_BOMB_STRENGTH_MULTIPLIER) {
+		if (player.getbombStrengthMultiplier() < player.getMaxBombStrengthMultiplier()) {
 			player.increaseBombStrengthMultiplier();
 
 			// TODO Testausgabe entfernen!
