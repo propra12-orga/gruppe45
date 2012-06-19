@@ -20,7 +20,7 @@ public class MenuCubeOptions extends Cube {
 		if (!menuOffen) {
 			menuOffen = true;
 			control.Control_Keyboard.menueOffen = true;
-			Menu menu = new Menu();
+			Menu menu = new Menu(level, player);
 			menuOffen = false;
 			control.Control_Keyboard.menueOffen = false;
 			player.setPosition((level.getSizeX() / 2) * 10 + 5,

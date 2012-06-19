@@ -1,6 +1,9 @@
 package render;
 
 // kommentarrr
+import game.Level;
+import game.Player;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -8,6 +11,9 @@ import javax.swing.*;
 
 public class Menu extends JFrame implements ActionListener{
 
+	Level level;
+	Player player;
+	
 	private JButton a;
 	private JButton b;
 	private JButton c;
@@ -19,9 +25,11 @@ public class Menu extends JFrame implements ActionListener{
 	private JLabel titel;
 	private JLabel sonstwas;
 
-	private JSlider bombs;
+	private JSlider max_sim_bombs;
 	
-	public Menu(){
+	public Menu(Level level, Player player){
+		this.level = level;
+		this.player = player;
 		// super("Fenster");
 //		setLocationRelativeTo(null);
 		setLocation(100,100);
@@ -30,6 +38,7 @@ public class Menu extends JFrame implements ActionListener{
 		// Das BorderLayout ist mal das erste - später fügen wir noch ein
 		// GridLayout im Westen hinzu
 		getContentPane().setLayout(new BorderLayout(5, 5));
+		
 
 		// Buttons erzeugen
 		a = new JButton("Text 1");
@@ -39,12 +48,12 @@ public class Menu extends JFrame implements ActionListener{
 		e = new JButton("Text 5");
 		ende = new JButton("Schliessen");
 		
-		JSlider bombs = new JSlider(JSlider.HORIZONTAL, 1,10,5); //Para x,y,z ,   y = Max
-		bombs.setMajorTickSpacing(2);
-		bombs.setMinorTickSpacing(1);
-		bombs.setPaintTicks(true);
-		bombs.setPaintLabels(true);
-		bombs.setLabelTable(bombs.createStandardLabels(1));
+		JSlider max_sim_bombs = new JSlider(JSlider.HORIZONTAL, 1,10,player.getMaxSimultanBombs()); //Para x,y,z ,   y = Max
+		max_sim_bombs.setMajorTickSpacing(2);
+		max_sim_bombs.setMinorTickSpacing(1);
+		max_sim_bombs.setPaintTicks(true);
+		max_sim_bombs.setPaintLabels(true);
+		max_sim_bombs.setLabelTable(max_sim_bombs.createStandardLabels(1));
 
 		// Panels erzeugen auf einem GridLayout
 		panel = new JPanel(new GridLayout(3, 1));
@@ -55,7 +64,7 @@ public class Menu extends JFrame implements ActionListener{
 		panel.add(c);
 //		panel.add(d);
 //		panel.add(e);
-		panel.add(bombs);
+		panel.add(max_sim_bombs);
 		panel.add(ende);
 		
 		ende.setActionCommand("close");
@@ -83,19 +92,10 @@ public class Menu extends JFrame implements ActionListener{
 		// jetzt in den WestBereich des BorderLayouts kommt)
 		getContentPane().add(BorderLayout.WEST, panel);
 		
-
 //		pack();
 		setVisible(true);
 			
 		}
-
-
-	
-	
-
-	public static void main(String[] args) {
-		Menu menu = new Menu();
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

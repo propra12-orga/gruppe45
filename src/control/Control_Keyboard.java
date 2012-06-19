@@ -87,7 +87,7 @@ public class Control_Keyboard extends Control {
 			if (Keyboard.isKeyDown(Keyboard.KEY_M)) {
 				if (!menueOffen) {
 					menueOffen = true;
-					Menu menu = new Menu();
+					Menu menu = new Menu(level, player);
 					menueOffen = false;
 						}
 					

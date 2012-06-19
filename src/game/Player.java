@@ -25,7 +25,7 @@ public class Player {
 	 * Obergrenze für die Anzahl an Bomben, die ein Spieler zur
 	 * gleichen Zeit legen darf. 
 	 */
-	private static int MAX_SIMULTAN_BOMBS = 5;
+	private static int MAX_SIMULTAN_BOMBS = 3;
 	/**
 	 * Maximale Reichweite von Bomben (ausgehend vom Ursprungspunkt der Bombe)
 	 */
