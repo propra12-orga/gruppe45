@@ -6,7 +6,7 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-public class Menu extends JFrame{ //implements ActionListener{
+public class Menu extends JFrame implements ActionListener{
 
 	private JButton a;
 	private JButton b;
@@ -26,7 +26,7 @@ public class Menu extends JFrame{ //implements ActionListener{
 //		setLocationRelativeTo(null);
 		setLocation(100,100);
 		setSize(600,600);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		// Das BorderLayout ist mal das erste - später fügen wir noch ein
 		// GridLayout im Westen hinzu
 		getContentPane().setLayout(new BorderLayout(5, 5));
@@ -58,6 +58,8 @@ public class Menu extends JFrame{ //implements ActionListener{
 		panel.add(bombs);
 		panel.add(ende);
 		
+		ende.setActionCommand("close");
+		ende.setMnemonic(KeyEvent.VK_E);
 
 		//Listener für Buttons
 //        addButtonListener(a);
@@ -84,19 +86,23 @@ public class Menu extends JFrame{ //implements ActionListener{
 
 //		pack();
 		setVisible(true);
+			
+		}
+
 
 	
-	}
 	
-
-	private void buttonAction(JButton b) {
-		
-		
-	}
-
 
 	public static void main(String[] args) {
 		Menu menu = new Menu();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+	    if ("close".equals(e.getActionCommand())){
+	    	this.dispose();
+	    }
+		
 	}
 
 }

@@ -1,33 +1,32 @@
 package game.cube;
 
+import render.Menu;
 import game.Level;
 import game.Player;
+import control.Control_Keyboard;
 
 public class MenuCubeOptions extends Cube {
 
+	public boolean menuOffen = Control_Keyboard.menueOffen;
+	
 	public MenuCubeOptions() {
+		
 		super(Cube.IS_WALKABLE, Cube.IS_COLLECTABLE, Cube.IS_NOT_DESTROYABLE);
 	}
 
 	@Override
 	public void change(Player player, Level level) {
-		// TODO Println-Zeile löschen! Ausgabe nur zu Probezwecken!
-		System.out.println("Neues Spiel gestartet!");
-		level.buildDefaultLevel();
+		this.menuOffen = Control_Keyboard.menueOffen;
+		if (!menuOffen) {
+			menuOffen = true;
+			control.Control_Keyboard.menueOffen = true;
+			Menu menu = new Menu();
+			menuOffen = false;
+			control.Control_Keyboard.menueOffen = false;
+			player.setPosition((level.getSizeX() / 2) * 10 + 5,
+					(level.getSizeY() / 2) * 10 + 5, 15);
+				}
 
-		int player1_start_x = 0;
-		if (level.getSizeX() % 2 == 0) { // Größe in X gerade
-			player1_start_x = level.getSizeX() * 10 - 15;
-		} else { // Größe in X ungerade
-			if (level.getSizeY() % 2 == 0) { // Größe in Y gerade
-				player1_start_x = level.getSizeX() * 10 - 15;
-			} else { // Größe in Y ungerade
-				player1_start_x = level.getSizeX() * 10 - 25;
-			}
-		}
-		
-		//FIXME Netzwerkfähigkeit
-		player.reinit(player1_start_x, level.getSizeY()*10-15, 15, 0, 0, 100, 1, 1, 1, false);
 	}
 
 }

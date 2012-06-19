@@ -29,7 +29,7 @@ public class Control_Keyboard extends Control {
 	final int MILLISECS_PER_STEP = 10;
 	Timer timer;
 	Level level;
-	public boolean menueOffen = false;
+	public static boolean menueOffen = false;
 
 	public Control_Keyboard(Player player, Level level) {
 		super(player);
