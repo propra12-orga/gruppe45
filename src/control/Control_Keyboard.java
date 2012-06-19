@@ -3,13 +3,19 @@ package control;
 import game.Level;
 import game.Player;
 import game.cube.Cube;
+import render.Menu;
 
+import java.awt.*;
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.Timer;
+import javax.swing.*;
 
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 
 /**
  * Enthaelt Steuerungsbefehle fuer den Spieler und veraendert dessen Position
@@ -23,6 +29,7 @@ public class Control_Keyboard extends Control {
 	final int MILLISECS_PER_STEP = 10;
 	Timer timer;
 	Level level;
+	public boolean menueOffen = false;
 
 	public Control_Keyboard(Player player, Level level) {
 		super(player);
@@ -72,8 +79,21 @@ public class Control_Keyboard extends Control {
 			if (Keyboard.isKeyDown(Keyboard.KEY_T)) {
 				level.showMenu();
 				// FIXME Netzwerkfähig machen
-				player.reinit((level.getSizeX() / 2) * 10 + 5, (level.getSizeY() / 2) * 10 + 5, 15, 0, 0, 100, 0, 1, 1, false);
+				player.reinit((level.getSizeX() / 2) * 10 + 5,
+						(level.getSizeY() / 2) * 10 + 5, 15, 0, 0, 100, 0, 1,
+						1, false);
 			}
+			// Menuetest:
+			if (Keyboard.isKeyDown(Keyboard.KEY_M)) {
+				if (!menueOffen) {
+					menueOffen = true;
+					Menu menu = new Menu();
+					menueOffen = false;
+						}
+					
+				}
+			
+
 			// Programm beenden
 			if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 				System.exit(0);
@@ -135,17 +155,22 @@ public class Control_Keyboard extends Control {
 						player1_start_x = level.getSizeX() * 10 - 25;
 					}
 				}
-				player.reinit(player1_start_x, level.getSizeY() * 10 - 15, 15, 0, 0, 100, 1, 1, 1, false);
+				player.reinit(player1_start_x, level.getSizeY() * 10 - 15, 15,
+						0, 0, 100, 1, 1, 1, false);
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_2)) {
 				level.buildGravityLevel();
-				
+
 				// TODO An skalierbares Level anpassen
-				player.reinit(level.getSizeX() * 10 - 15, 15, 15, 0, 0, 100, 1, 1, 1, true);
+				player.reinit(level.getSizeX() * 10 - 15, 15, 15, 0, 0, 100, 1,
+						1, 1, true);
 				// FIXME Nur testing - Startplatzfreiräumen
-				level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), (level.getSizeX() -2), 1, 1);
-				level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), (level.getSizeX() -2), 1, 2);
-				level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), (level.getSizeX() -2), 1, 3);
+				level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY),
+						(level.getSizeX() - 2), 1, 1);
+				level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY),
+						(level.getSizeX() - 2), 1, 2);
+				level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY),
+						(level.getSizeX() - 2), 1, 3);
 			}
 		}
 	}
