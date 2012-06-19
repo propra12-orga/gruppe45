@@ -83,13 +83,13 @@ public class Control_Keyboard extends Control {
 						1, false);
 			}
 			// Menuetest:
-			if (Keyboard.isKeyDown(Keyboard.KEY_M)) {
-				if (!Menu.menuOffen) {
-					Menu.menuOffen = true;
-					Menu menu = new Menu();
-						}
-					
-				}
+//			if (Keyboard.isKeyDown(Keyboard.KEY_M)) {
+//				if (!Menu.menuOffen) {
+//					Menu.menuOffen = true;
+//					Menu menu = new Menu(level, player);
+//						}
+//					
+//				}
 			
 
 			// Programm beenden

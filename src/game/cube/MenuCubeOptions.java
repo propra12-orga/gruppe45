@@ -15,7 +15,7 @@ public class MenuCubeOptions extends Cube {
 	public void change(Player player, Level level) {
 		if (!Menu.menuOffen) {
 			Menu.menuOffen = true;
-			Menu menu = new Menu();
+			Menu menu = new Menu(level, player);
 			player.setPosition((level.getSizeX() / 2) * 10 + 5,
 					(level.getSizeY() / 2) * 10 + 5, 15);
 				}
