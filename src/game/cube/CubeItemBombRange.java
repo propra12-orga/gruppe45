@@ -16,7 +16,7 @@ public class CubeItemBombRange extends Cube {
 
 	@Override
 	public void change(Player player, Level level) {
-		if (player.getRadius() < Player.MAX_BOMB_RADIUS) {
+		if (player.getRadius() < player.getMaxBombRadius()) {
 			player.increaseRadius();
 
 			// TODO Testausgabe entfernen!

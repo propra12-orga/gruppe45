@@ -18,7 +18,7 @@ public class CubeItemHealth extends Cube {
 
 	@Override
 	public void change(Player player, Level level) {
-		if (player.getHealthPoints() + HEAL_POINTS < Player.MAX_HEALTH_POINTS) {
+		if (player.getHealthPoints() + HEAL_POINTS < player.getMaxHealthPoints()) {
 			player.healPlayer(HEAL_POINTS);
 
 			// TODO Testausgabe entfernen!

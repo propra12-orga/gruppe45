@@ -16,7 +16,7 @@ public class Objects {
 
 	private Texture texBomb, texExplosion, texPaper, texOutside, texObstacle, texHealth, texXtraBomb, texPortal, texBombRange,
 			texBombStrength, texExit, texRamp, texPlayer, texMenuNewGame, texMenuNewGameGravity, texMenuExitProgram, texMenuLoadLevel, texMenuMulti,
-			texMenuServer;
+			texMenuServer, texMenuOptions;
 
 	public Objects(byte themeSelection) {
 		this.themeSelection = themeSelection;
@@ -59,6 +59,7 @@ public class Objects {
 			texPlayer = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/player.png"));
 			// Menuewuerfel
 			texMenuNewGame = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName + "/newgame.png"));
+			texMenuOptions = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName + "/options.png"));
 			texMenuNewGameGravity = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName + "/newgamegravity.png"));
 			texMenuExitProgram = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName
 					+ "/exitprogram.png"));
@@ -156,6 +157,11 @@ public class Objects {
 
 	public void DrawMenuCubeMulti(float x, float y, float z) {
 		texMenuMulti.bind();
+		DrawCube(x, y, z, 10, 1);
+	}
+	
+	public void DrawMenuCubeOptions(float x, float y, float z) {
+		texMenuOptions.bind();
 		DrawCube(x, y, z, 10, 1);
 	}
 

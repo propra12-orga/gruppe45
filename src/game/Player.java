@@ -20,23 +20,26 @@ public class Player {
 	/**
 	 * Obergrenze für die Lebenspunkte eines Spielers
 	 */
-	final static public int MAX_HEALTH_POINTS = 150;
+	private static int MAX_HEALTH_POINTS = 150;
 	/**
 	 * Obergrenze für die Anzahl an Bomben, die ein Spieler zur
 	 * gleichen Zeit legen darf. 
 	 */
-	final static public int MAX_SIMULTAN_BOMBS = 5;
+	private static int MAX_SIMULTAN_BOMBS = 5;
 	/**
 	 * Maximale Reichweite von Bomben (ausgehend vom Ursprungspunkt der Bombe)
 	 */
-	final static public int MAX_BOMB_RADIUS = 5;
-	final static public float INERTIA = 0.1f;
-	// final static public float MAX_ACCELERATION = 10;
+	private static int MAX_BOMB_RADIUS = 5;
 	/**
 	 * Legt fest, ob ein Spieler schweben/fliegen kann oder ob er zu Boden
 	 * gezogen wird.
 	 */
-	final static public int MAX_BOMB_STRENGTH_MULTIPLIER = 3;
+	private static int MAX_BOMB_STRENGTH_MULTIPLIER = 3;	
+	
+	final static public float INERTIA = .1f;
+	//final static public float MAX_ACCELERATION = 10;
+	
+
 
 	boolean gravity = false;
 
@@ -64,7 +67,7 @@ public class Player {
 	List listPlayer;
 
 	/**
-	 * Konstruktor erzeugt einen Spieler <<<<<<< HEAD
+	 * Konstruktor erzeugt einen Spieler
 	 * 
 	 * @param level
 	 *            Die Spielwelt - also das Level - wird übergeben.
@@ -75,17 +78,7 @@ public class Player {
 	 * @param z
 	 *            Startposition in z-Richtung (nicht Würfelkoordinate)
 	 * @param listPlayer
-	 *            EINTRAGEN =======
-	 * @param level
-	 *            Die Spielwelt - also das Level - wird übergeben.
-	 * @param x
-	 *            Startposition in x-Richtung (nicht Würfelkoordinate)
-	 * @param y
-	 *            Startposition in y-Richtung (nicht Würfelkoordinate)
-	 * @param z
-	 *            Startposition in z-Richtung (nicht Würfelkoordinate)
-	 * @param listPlayer
-	 *            EINTRAGEN >>>>>>> 7bc20cee4251101595954ff78142ace3228418b7
+	 *            EINTRAGEN 
 	 */
 	public Player(Level level, float x, float y, float z, List listPlayer) {
 		setPosition(x, y, z);
@@ -98,6 +91,38 @@ public class Player {
 		this.level = level;
 		this.number = number;
 		this.listPlayer = listPlayer;
+	}
+	
+	public int getMaxHealthPoints() {
+		return MAX_HEALTH_POINTS;
+	}
+	
+	public void setMaxHealthPoints(int MaxHealthPoints) {
+		MAX_HEALTH_POINTS = MaxHealthPoints;
+	}
+	
+	public int getMaxSimultanBombs() {
+		return MAX_SIMULTAN_BOMBS;
+	}
+	
+	public void setMaxSimultanBombs(int MaxSimultanBombs) {
+		MAX_SIMULTAN_BOMBS = MaxSimultanBombs;
+	}
+	
+	public int getMaxBombRadius() {
+		return MAX_BOMB_RADIUS;
+	}
+	
+	public void setMaxBombRadius(int MaxBombRadius) {
+		MAX_BOMB_RADIUS = MaxBombRadius;
+	}
+	
+	public int getMaxBombStrengthMultiplier() {
+		return MAX_BOMB_STRENGTH_MULTIPLIER;
+	}
+	
+	public void setMaxBombStrengthMultiplier(int MaxBombStrengthMultiplier) {
+		MAX_BOMB_STRENGTH_MULTIPLIER = MaxBombStrengthMultiplier;
 	}
 	
 	public void reinit(int startpositionX, int startpositionY, int startpositionZ, float angleX, float angleY, int healthPoints, int bombs, int bombradius, int bombStrengthMultiplier, boolean gravity){
@@ -308,15 +333,11 @@ public class Player {
 	}
 
 	/**
-	 * <<<<<<< HEAD Verringert die Anzahl der Lebenspunkte des Spielers um die
+	 * Verringert die Anzahl der Lebenspunkte des Spielers um die
 	 * Anzahl der Trefferpunkte
 	 * 
 	 * @param hitPoints
-	 *            Anzahl der Trefferpunkte ======= Verringert die Anzahl der
-	 *            Lebenspunkte des Spielers um die Anzahl der Trefferpunkte
-	 * @param hitPoints
-	 *            Anzahl der Trefferpunkte >>>>>>>
-	 *            7bc20cee4251101595954ff78142ace3228418b7
+	 *            Anzahl der Trefferpunkte
 	 */
 	public void hitPlayer(int hitPoints) {
 		healthPoints -= hitPoints;

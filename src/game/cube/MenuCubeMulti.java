@@ -11,6 +11,7 @@ public class MenuCubeMulti extends Cube {
 
 	@Override
 	public void change(Player player, Level level) {
-		Game.connect();
+		//Game.connect();
+		level.setthemeSelection((byte) 2);
 	}
 }
