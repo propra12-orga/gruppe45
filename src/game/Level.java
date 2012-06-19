@@ -217,6 +217,8 @@ public class Level {
 		level[getSizeX() / 2 + 2][getSizeY() / 2 - 1][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_MULTI);	
 		level[getSizeX() / 2][getSizeY() / 2 - 1][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_SERVER);
 		level[getSizeX() / 2 - 2][getSizeY() / 2-1][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_EXIT_PROGRAM);
+		
+		level[getSizeX() / 2][getSizeY() / 2 - 3][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_OPTIONS);
 	}
 
 	public void clear() {

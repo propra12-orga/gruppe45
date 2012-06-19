@@ -38,6 +38,7 @@ public abstract class Cube {
 	final static public String MENU_CUBE_LOAD_LEVEL = "MenuCubeLoadLevel";
 	final static public String MENU_CUBE_MULTI = "MenuCubeMulti";
 	final static public String MENU_CUBE_SERVER = "MenuCubeServer";
+	final static public String MENU_CUBE_OPTIONS = "MenuCubeOptions";
 
 	final static public CubeData[] cubeData = { new CubeData(new CubeBomb(), CUBE_BOMB),
 			new CubeData(new CubeEmpty(), CUBE_EMPTY), new CubeData(new CubeExit(), CUBE_EXIT),
@@ -57,6 +58,7 @@ public abstract class Cube {
 			new CubeData(new MenuCubeNewGameGravity(), MENU_CUBE_NEW_GAME_GRAVITY),
 			new CubeData(new MenuCubeExitProgram(), MENU_CUBE_EXIT_PROGRAM),
 			new CubeData(new MenuCubeMulti(), MENU_CUBE_MULTI), new CubeData(new MenuCubeServer(), MENU_CUBE_SERVER),
+			new CubeData(new MenuCubeOptions(), MENU_CUBE_OPTIONS),
 			new CubeData(new MenuCubeLoadLevel(), MENU_CUBE_LOAD_LEVEL) };
 
 	boolean walkable;

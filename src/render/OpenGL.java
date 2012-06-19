@@ -119,6 +119,8 @@ public class OpenGL {
 						objects.DrawMenuCubeMulti(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					} else if (level.getCubeName(i, j, k).equals(Cube.MENU_CUBE_SERVER)) {
 						objects.DrawMenuCubeServer(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
+					} else if (level.getCubeName(i, j, k).equals(Cube.MENU_CUBE_OPTIONS)) {
+						objects.DrawMenuCubeOptions(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					} else if (level.getCubeName(i, j, k).equals(Cube.MENU_CUBE_LOAD_LEVEL)) {
 						objects.DrawMenuCubeLoadLevel(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					}
