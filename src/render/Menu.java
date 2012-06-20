@@ -9,7 +9,11 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
+
+import control.Control_Keyboard;
+
 
 public class Menu extends JFrame implements ActionListener{
 	
@@ -109,7 +113,10 @@ public class Menu extends JFrame implements ActionListener{
 //	    	Mouse.setCursorPosition(Window.width/2, Window.height/2);
 //	    	this.setVisible(false);
 	    	this.dispose();
+	    	//cb.timeout(true);
 	    	this.menuOffen = false;
+
+
 	    }
 		
 	}
