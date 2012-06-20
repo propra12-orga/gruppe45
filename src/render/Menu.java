@@ -18,7 +18,7 @@ public class Menu extends JFrame implements ActionListener{
 	Level level;
 	Player player;
 	
-	private JButton a;
+	private JButton setclose;
 	private JButton b;
 	private JButton c;
 	private JButton d;
@@ -31,10 +31,10 @@ public class Menu extends JFrame implements ActionListener{
 
 	private JSlider max_sim_bombs;
 	
-	public Menu(Level level, Player player){
+	public Menu(Level level, Player player) {
 		this.level = level;
 		this.player = player;
-		// super("Fenster");
+//		 super("Fenster");
 //		setLocationRelativeTo(null);
 		setLocation(100,100);
 		setSize(600,600);
@@ -45,7 +45,7 @@ public class Menu extends JFrame implements ActionListener{
 		
 
 		// Buttons erzeugen
-		a = new JButton("Text 1");
+		setclose = new JButton("Übernehmen");
 		b = new JButton("Text 2");
 		c = new JButton("Text 3");
 		d = new JButton("Text 4");
@@ -63,7 +63,7 @@ public class Menu extends JFrame implements ActionListener{
 		panel = new JPanel(new GridLayout(3, 1));
 
 		// Auf Panel Buttons packen
-		panel.add(a);
+		panel.add(setclose);
 		panel.add(b);
 		panel.add(c);
 //		panel.add(d);

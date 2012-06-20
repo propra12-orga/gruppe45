@@ -46,6 +46,7 @@ public class Control_Keyboard extends Control {
 		}
 
 		public void move_Control1() {
+			
 			// links:
 			if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
 				player.moveLeft();
