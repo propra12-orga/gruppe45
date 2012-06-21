@@ -92,39 +92,83 @@ public class Player {
 		this.number = number;
 		this.listPlayer = listPlayer;
 	}
-	
+	/**
+	 * Gibt die maximal möglichen Lebenspunkte aller Spieler zurück
+	 * @return maximal mögliche Lebenspunkte
+	 */
 	public int getMaxHealthPoints() {
 		return MAX_HEALTH_POINTS;
 	}
-	
+	/**
+	 * Erlaubt es, über das Menü die für alle Spieler maximal möglichen Lebenspunkte
+	 * festzulegen.
+	 * @param MaxHealthPoints Obergrenze für Lebenspunkte aller Spieler
+	 */
 	public void setMaxHealthPoints(int MaxHealthPoints) {
 		MAX_HEALTH_POINTS = MaxHealthPoints;
 	}
-	
+	/**
+	 * Gibt die Anzahl der maximal zur gleichen Zeit platzierbaren Bomben eines Spieler zurück.
+	 * Die Obergrenze ist für alle Spieler gleich.
+	 * @return Anzahl der maximal zur gleichen Zeit platzierbaren Bomben eines Spielers
+	 */
 	public int getMaxSimultanBombs() {
 		return MAX_SIMULTAN_BOMBS;
 	}
-	
+	/**
+	 * Erlaubt es, über das Menü die für Spieler maximale Anzahl gleichzeitig platzierbarer Bomben festzulegen.
+	 * Die Obergrenze ist für Spieler gleich.
+	 * @param MaxSimultanBombs Anzahl der maximal zur gleichen Zeit platzierbaren Bomben eines Spielers
+	 */
 	public void setMaxSimultanBombs(int MaxSimultanBombs) {
 		MAX_SIMULTAN_BOMBS = MaxSimultanBombs;
 	}
-	
+	/**
+	 * Gibt die maximal mögliche Bombenreichweite für Spieler zurück.
+	 * Die Obergrenze ist für alle Spieler gleich.
+	 * @return maximaler Bombenradius
+	 */
 	public int getMaxBombRadius() {
 		return MAX_BOMB_RADIUS;
 	}
-	
+	/** 
+	 * Erlaubt es, über das Menü die maximale Bombenreichweite festzulegen.
+	 * Die Obergrenze ist für alle Spieler gleich. 
+	 * @param MaxBombRadius maximaler Bombenradius
+	 */
 	public void setMaxBombRadius(int MaxBombRadius) {
 		MAX_BOMB_RADIUS = MaxBombRadius;
 	}
-	
+	/**
+	 * Gibt den maximalen Energiemultiplikator für Bomben zurück, d. h. die
+	 * maximale Energie/Durchschlagkraft von Bomben.
+	 * Die Obergrenze ist für alle Spieler gleich.
+	 * @return maximaler Energiemultiplikator
+	 */
 	public int getMaxBombStrengthMultiplier() {
 		return MAX_BOMB_STRENGTH_MULTIPLIER;
 	}
-	
+	/** 
+	 * Erlaubt es, über das Menü den maximalen Energiemultiplikator für Bomben festzulegen.
+	 * Die Obergrenze ist für alle Spieler gleich.
+	 * @param MaxBombStrengthMultiplier maximaler Energiemultiplikator für Bomben.
+	 */
 	public void setMaxBombStrengthMultiplier(int MaxBombStrengthMultiplier) {
 		MAX_BOMB_STRENGTH_MULTIPLIER = MaxBombStrengthMultiplier;
 	}
-	
+	/**
+	 * Reinitialisieren eines Spielers
+	 * @param startpositionX x-Position, auf die der Spieler gesetzt wird (nicht Würfelnummer)
+	 * @param startpositionY y-Position, auf die der Spieler gesetzt wird (nicht Würfelnummer)
+	 * @param startpositionZ z-Position, auf die der Spieler gesetzt wird (nicht Würfelnummer)
+	 * @param angleX Drehung des Spielers um die x-Achse
+	 * @param angleY Drehung des Spielers um die y-Achse
+	 * @param healthPoints Anzahl der Lebenspunkte, auf die der Spieler gesetzt wird
+	 * @param bombs Anzahl der durch den Spieler gleichzeitig legbaren Bomben
+	 * @param bombradius Bombenreichweite des Spielers
+	 * @param bombStrengthMultiplier Bombenenergiemultiplikator des Spielers
+	 * @param gravity boolean gibt an, ob der Spieler von der Erdanziehung beeinflusst wird
+	 */
 	public void reinit(int startpositionX, int startpositionY, int startpositionZ, float angleX, float angleY, int healthPoints, int bombs, int bombradius, int bombStrengthMultiplier, boolean gravity){
 		setPosition(startpositionX,startpositionY,startpositionZ);
 		setHealthPoints(healthPoints);
@@ -183,14 +227,8 @@ public class Player {
 	}
 
 	/**
-	 * Setzt die Anzahl der Lebenspunkte des Spielers direkt.
-	 * 
-	 * @param healthPoints
-	 *            Anzahl der Lebenspunkte public void setHealthPoints(int
-	 *            healthPoints) { this.healthPoints = healthPoints; }
-	 * 
-	 *            /** Erhöht die Anzahl der gleichzeitig platzierbaren Bomben
-	 *            durch den Spieler um 1.
+	 * Erhöht die Anzahl der gleichzeitig platzierbaren Bomben durch den
+	 * Spieler um 1.
 	 */
 	public void increaseBombs() {
 		this.bombs += 1;
@@ -204,28 +242,53 @@ public class Player {
 		this.bombs -= 1;
 	}
 
+	/**
+	 * Erhöht den Bombenenergiemultiplikator um 1.
+	 */
 	public void increaseBombStrengthMultiplier() {
 		this.bombStrengthMultiplier += 1;
 	}
 
+	/** 
+	 * Verringert den Bombenenergiemultiplikator um 1.
+	 */
 	public void decreaseBombStrengthMultiplier() {
 		this.bombStrengthMultiplier -= 1;
 	}
-
-	public int getBombStrengthMultiplier(int bombStr) {
-		return this.bombStrengthMultiplier;
-	}
-
-	public int getBombs() {
-		return this.bombs;
-	}
-
+	
+	/**
+	 * Gibt den Bombenenergiemultiplikator des Spielers zurück
+	 * @return Energiemultiplikator des Spielers
+	 */
 	public int getbombStrengthMultiplier() {
 		return this.bombStrengthMultiplier;
 	}
 
+	/**
+	 * Setzt den Bombenenergiemultiplikator auf den übergebenen Wert, sofern dieser
+	 * kleiner als die für alle geltende Obergrenze ist; sonst wird der Multiplikator
+	 * auf maximal gesetzt.
+	 * @param bombStrengthMultiplier neuer Bombenenergiemultiplikator
+	 */
 	public void setbombStrengthMultiplier(int bombStrengthMultiplier) {
-		this.bombStrengthMultiplier = bombStrengthMultiplier;
+		if (bombStrengthMultiplier <= getMaxBombStrengthMultiplier()) {
+			this.bombStrengthMultiplier = bombStrengthMultiplier;
+		} else {
+			this.bombStrengthMultiplier = getMaxBombStrengthMultiplier();
+		}
+	}
+
+	//TODO Löschen?!?
+//	public int getBombStrengthMultiplier(int bombStr) {
+//		return this.bombStrengthMultiplier;
+//	}
+
+	/**
+	 * Anzahl der (gleichzeitig) legbaren Bomben durch den Spieler
+	 * @return Anzahl der verfügbaren Bomben
+	 */
+	public int getBombs() {
+		return this.bombs;
 	}
 
 	/**
@@ -259,10 +322,20 @@ public class Player {
 		return number;
 	}
 
+	/**
+	 * Dieser Boolean gibt an, ob ein Spieler durch Erdanziehung zu Boden sinkt (true)
+	 * oder ob er schweben/fliegen kann (false)
+	 * @return true = Erdanziehung; false = keine Erdanziehung
+	 */
 	public boolean getGravity() {
 		return this.gravity;
 	}
 
+	/**
+	 * Hiermit kann festgelegt, ob die Erdanziehung auf einen Spieler wirkt;
+	 * also ob er zu Boden sinkt (true) oder fliegen kann (false)
+	 * @param gravity Status der Erdanziehung
+	 */
 	public void setGravity(boolean gravity) {
 		this.gravity = gravity;
 	}
@@ -309,16 +382,11 @@ public class Player {
 	}
 
 	/**
-	 * <<<<<<< HEAD Heilt den Spieler, indem die Anzahl der Lebenspunkte um den
+	 * Heilt den Spieler, indem die Anzahl der Lebenspunkte um den
 	 * Wert der Heilungspunkte erhöht wird
 	 * 
 	 * @param healPoints
-	 *            Anzahl der Heilungspunkte ======= Heilt den Spieler, indem die
-	 *            Anzahl der Lebenspunkte um den Wert der Heilungspunkte erhöht
-	 *            wird
-	 * @param healPoints
-	 *            Anzahl der Heilungspunkte >>>>>>>
-	 *            7bc20cee4251101595954ff78142ace3228418b7
+	 *            Anzahl der Heilungspunkte 
 	 */
 	public void healPlayer(int healPoints) {
 		healthPoints += healPoints;
@@ -621,7 +689,7 @@ public class Player {
 			float z_in_ramp = this.z - this.getCubeZ() * 10;
 			float elevate = (float) Math.sqrt(2 * zum_quadrat(z_in_ramp));
 			float tmp_y = this.getCubeY() * 10 + elevate;
-			this.y = tmp_y + 0.01f;
+			this.y = tmp_y + 0.2f;
 		}
 
 		// Wenn ein Spieler in die Flammen einer Explosion hineinläuft (die
