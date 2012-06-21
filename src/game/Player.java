@@ -25,7 +25,7 @@ public class Player {
 	 * Obergrenze für die Anzahl an Bomben, die ein Spieler zur
 	 * gleichen Zeit legen darf. 
 	 */
-	private static int MAX_SIMULTAN_BOMBS = 3;
+	public static int MAX_SIMULTAN_BOMBS = 3;
 	/**
 	 * Maximale Reichweite von Bomben (ausgehend vom Ursprungspunkt der Bombe)
 	 */
@@ -61,7 +61,7 @@ public class Player {
 	private int healthPoints = 100;
 	int radius = 1;
 	int bombStrengthMultiplier = 1;
-	int bombs = 1; // Anzahl der gleichzeitig legbaren Bomben
+	static public int bombs = 1; // Anzahl der gleichzeitig legbaren Bomben
 	int fuseTime = 3000;
 	int explosionTime = 1000;
 	List listPlayer;
