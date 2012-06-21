@@ -69,8 +69,7 @@ public class OpenGL {
 		GL11.glLoadIdentity();
 		float widthHeightRatio = width / height;
 		GLU.gluPerspective(45, widthHeightRatio, 1, 1000);
-		GLU.gluLookAt(player.getX(), player.getY(), player.getZ(), player.getCamX(), player.getCamY(), player.getCamZ(), 0, 1,
-				0);
+		GLU.gluLookAt(player.getX(), player.getY(), player.getZ(), player.getCamX(), player.getCamY(), player.getCamZ(), 0, 1, 0);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glLoadIdentity();
 		// Level
@@ -127,6 +126,11 @@ public class OpenGL {
 				}
 			}
 		}
+		// TEST: Overlay#
+//		System.out.println(player.getAngleY());
+//		objects.DrawOverlayTest(player.getX(),player.getY(),player.getZ()+1);
+//		objects.DrawMenuCubeLoadLevel(player.getX(),player.getY(),player.getZ());
+		
 		// Mitspieler zeichnen, falls vorhanden
 		if (listPlayer != null) {
 			for (int i = 0; i < listPlayer.size(); i++) {

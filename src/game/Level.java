@@ -210,15 +210,15 @@ public class Level {
 		// leere das Levelinnere
 		clear();
 		// Baue das Hauptmenü auf
-		level[getSizeX() / 2 + 2][getSizeY() / 2 + 1][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_NEW_GAME);
-		level[getSizeX() / 2][getSizeY() / 2 + 1][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_NEW_GAME_GRAVITY);
-		level[getSizeX() / 2 - 2][getSizeY() / 2 + 1][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_LOAD_LEVEL);
+		level[getSizeX() / 2 + 2][getSizeY() / 2 + 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_NEW_GAME);
+		level[getSizeX() / 2][getSizeY() / 2 + 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_NEW_GAME_GRAVITY);
+		level[getSizeX() / 2 - 2][getSizeY() / 2 + 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_LOAD_LEVEL);
 		
-		level[getSizeX() / 2 + 2][getSizeY() / 2 - 1][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_MULTI);	
-		level[getSizeX() / 2][getSizeY() / 2 - 1][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_SERVER);
-		level[getSizeX() / 2 - 2][getSizeY() / 2-1][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_EXIT_PROGRAM);
+		level[getSizeX() / 2 + 2][getSizeY() / 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_SERVER);	
+		level[getSizeX() / 2][getSizeY() / 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_MULTI);
+		level[getSizeX() / 2 - 2][getSizeY() / 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_OPTIONS);
 		
-		level[getSizeX() / 2][getSizeY() / 2 - 3][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_OPTIONS);
+		level[getSizeX() / 2][getSizeY() / 2 - 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_EXIT_PROGRAM);
 	}
 
 	public void clear() {
