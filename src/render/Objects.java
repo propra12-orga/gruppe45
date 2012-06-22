@@ -178,10 +178,10 @@ public class Objects {
 		DrawCube(x, y, z, 10, 1);
 	}
 	
-//	public void DrawOverlayTest(float x, float y, float z) {
-//		texOverlayTest.bind();
-//		DrawOverlay(x, y, z, 1, 1);
-//	}
+	public void DrawOverlayTest(float x, float y, float z) {
+		texOverlayTest.bind();
+		DrawOverlay(x, y, z, 1, 1);
+	}
 
 	/**
 	 * Zeichnet einen Wuerfel mit Textur
@@ -196,32 +196,27 @@ public class Objects {
 	 *            Kantenlaenge
 	 * @param texSize
 	 *            Skalierung der Textur
-	 */
-	
-//	public void DrawOverlay(float x, float y, float z, float size, float texSize) {
-//		GL11.glColor3f(1, 1, 1);
-//		GL11.glBegin(GL11.GL_QUADS);
-//		
-//		GL11.glEnable(GL11.GL_BLEND); 
-//		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-//		GL11.glMatrixMode(GL11.GL_PROJECTION);
-//
-//	    GL11.glOrtho(0, 800, 600, 0, -1, 1);
-//	    GL11.glMatrixMode(GL11.GL_MODELVIEW);
-//
-//		// Vorne
-//		GL11.glTexCoord2f(0, 0);
-//		GL11.glVertex3f(x + size, y + size, z);
-//		GL11.glTexCoord2f(0, texSize);
-//		GL11.glVertex3f(x + size, y, z);
-//		GL11.glTexCoord2f(texSize, texSize);
-//		GL11.glVertex3f(x, y, z);
-//		GL11.glTexCoord2f(texSize, 0);
-//		GL11.glVertex3f(x, y + size, z);
-//		//
-//		GL11.glVertex3f(x, y, z);
-//		GL11.glEnd();
-//	}
+	 */	
+	public void DrawOverlay(float x, float y, float z, float size, float texSize) {
+		GL11.glColor3f(1, 1, 1);
+		GL11.glBegin(GL11.GL_QUADS);
+		
+	    GL11.glOrtho(0, 800, 600, 0, -1, 1);
+	    GL11.glMatrixMode(GL11.GL_MODELVIEW);
+
+		// Vorne
+		GL11.glTexCoord2f(0, 0);
+		GL11.glVertex3f(x + size, y + size, z);
+		GL11.glTexCoord2f(0, texSize);
+		GL11.glVertex3f(x + size, y, z);
+		GL11.glTexCoord2f(texSize, texSize);
+		GL11.glVertex3f(x, y, z);
+		GL11.glTexCoord2f(texSize, 0);
+		GL11.glVertex3f(x, y + size, z);
+		//
+		GL11.glVertex3f(x, y, z);
+		GL11.glEnd();
+	}
 
 	
 	public void DrawCube(float x, float y, float z, float size, float texSize) {
