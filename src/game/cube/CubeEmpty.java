@@ -1,7 +1,10 @@
 package game.cube;
 
 /**
- * Freies Feld
+ * Leere Felder
+ * 
+ * Diese sind begehbar und zerstörbar.
+ * Man kann leere Felder nicht einsammeln.
  */
 public class CubeEmpty extends Cube {
 

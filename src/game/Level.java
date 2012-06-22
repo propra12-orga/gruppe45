@@ -72,26 +72,56 @@ public class Level {
 		Game.getThreadBomb().setBomb(x, y, z, player.getRadius(), player, player.getbombStrengthMultiplier());
 	}
 
+	/**
+	 * Gibt die Ausdehnung des Levels in x-Richtung
+	 * @return Ausdehnung des Levels in x-Richtung
+	 */
 	public int getSizeX() {
 		return level.length;
 	}
-
+	
+	/**
+	 * Gibt die Ausdehnung des Levels in y-Richtung
+	 * @return Ausdehnung des Levels in y-Richtung
+	 */
 	public int getSizeY() {
 		return level[0].length;
 	}
-
+	
+	/**
+	 * Gibt die Ausdehnung des Levels in z-Richtung
+	 * @return Ausdehnung des Levels in z-Richtung
+	 */
 	public int getSizeZ() {
 		return level[0][0].length;
 	}
-
+	
+	/**
+	 * Dies legt die Wahl der Themas, also die Wahl der Texturen, Sounds etc. fest
+	 * @return Zahl des gewählten Themas
+	 */
 	public byte getthemeSelection() {
 		return this.themeSelection;
 	}
-
+	
+	/**
+	 * Hier wird das gewählte Thema, also die verwendeten Texturen, Sounds etc. festgelegt
+	 * @param themeSelection 
+	 * 				1 = Thema "Erde"
+	 * 				2 = Thema "Weltraum"
+	 * 				3 = Thema "Fußball"
+	 */
 	public void setthemeSelection(byte themeSelection) {
 		this.themeSelection = themeSelection;
 	}
-
+	
+	/**
+	 * Gibt den Würfel (Art) an einer bestimmten Position in der Spielwelt aus.
+	 * @param x x-Position des Würfels
+	 * @param y y-Position des Würfels
+	 * @param z z-Position des Würfels
+	 * @return Würfelart an der Position (x,y,z) in der Spielwelt
+	 */
 	public Cube getCube(int x, int y, int z) {
 		if (x >= 0 && x < getSizeX() && y >= 0 && x < getSizeY() && x >= 0 && z < getSizeZ()) {
 			return level[x][y][z];
@@ -101,11 +131,11 @@ public class Level {
 	}
 
 	/**
-	 * 
-	 * @param cube
-	 * @param x
-	 * @param y
-	 * @param z
+	 * Setzt einen bestimmten übergebenen Würfel an eine bestimmte Position des Levels.
+	 * @param cube eine Instanz dieses Würfeltyps wird an die Position gesetzt
+	 * @param x x-Position an die der Würfel gesetzt wird
+	 * @param y y-Position an die der Würfel gesetzt wird
+	 * @param z z-Position an die der Würfel gesetzt wird
 	 */
 	public void setCube(Cube cube, int x, int y, int z) {
 		if (x >= 0 && y >= 0 && z >= 0 && x < getSizeX() && y < getSizeY() && z < getSizeZ()) {
@@ -113,8 +143,12 @@ public class Level {
 		}
 	}
 
-	// Meilenstein:
-	// Levelzustand speichern
+	/**
+	 * Speichert ein Level in einer einfachen Textdatei.
+	 * 
+	 * Derzeit werden nur die entsprechenden Würfel für alle Positionen
+	 * des Levels gespeichert.
+	 */
 	public void save() {
 		File file;
 		FileWriter writer;
@@ -145,6 +179,13 @@ public class Level {
 	// letzten gespeicherten Levelzustand laden
 	// TODO: Für beliebe Levelgröße einrichten (kann nur die Größe laden, in der
 	// Gespeichert wurde)
+	/**
+	 * Lädt eine Würfelverteilung aus einer Textdatei.
+	 * 
+	 * Derzeit muss die gespeicherte Levelgröße mit der aktuellen Levelgröße
+	 * übereinstimmen.
+	 * Spielerpositionen, Lebenspunkte und weitere Parameter werden noch nicht gespeichert.
+	 */
 	public void load() {
 		try {
 			Scanner scanner = new Scanner(new File("quicksave.txt"));
@@ -204,6 +245,9 @@ public class Level {
 		}
 	}
 
+	/**
+	 * Baut das 3D-Hauptmenü auf
+	 */
 	public void showMenu() {
 		final int Z_VERSCHIEBUNG = 3; // gibt an, wie weit die Menüwand von der
 										// Rückwand entfernt ist
@@ -221,6 +265,12 @@ public class Level {
 		level[getSizeX() / 2][getSizeY() / 2 - 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_EXIT_PROGRAM);
 	}
 
+	/**
+	 * Erzeugt ein leeres Level der in der Klasse Game festgelegten Größe.
+	 * 
+	 * Das leere Level besteht nur aus der Außenwand (CubeOutside);
+	 * das gesamte Levelinnere ist leer (CubeEmpty).
+	 */
 	public void clear() {
 		for (byte i = 0; i < getSizeX(); i++) {
 			for (byte j = 0; j < getSizeY(); j++) {
@@ -234,6 +284,13 @@ public class Level {
 		}
 	}
 
+	// TODO Zufallsverteilung anpassen; Startposition für Spieler beim Erzeugen freiräumen! 
+	/**
+	 * Füllt ein Level zufällig mit Hinderniswürfel.
+	 * 
+	 * Die Wahrscheinlichkeit für ein wird über die Instanzvariable OBSTACLE_PROBABILITY (in *100 %)
+	 * festgelegt.
+	 */
 	public void fillWithObstacles() {
 		for (byte i = 1; i < getSizeX() - 1; i++) {
 			for (byte j = 1; j < getSizeY() - 1; j++) {
@@ -253,7 +310,6 @@ public class Level {
 				}
 			}
 		}
-		// Baue das Hauptmenü auf
 	}
 	
 	/**
@@ -312,7 +368,14 @@ public class Level {
 		level[x+1][y+1][z-1] = Cube.getCubeByName(Cube.CUBE_SOLID);
 	}
 	
-	
+	/** 
+	 * Erstellt eines der Standartlevel.
+	 * 
+	 * Dieses Level ist als Schwerkraftlevel gedacht (d. h. Spieler können hier
+	 * nicht schweben).
+	 * Es besteht aus mehreren Ebenen, die über Rampen verbunden sind.
+	 * Jede Ebene folgt dem einfachen Schachbrettmuster.
+	 */
 	public void buildGravityLevel() {
 		// Baue leeres Level
 		clear();
@@ -371,14 +434,9 @@ public class Level {
 	}
 
 	/**
-	 * ======= // Setze Ausgang manuell level[5][9][5] =
-	 * Cube.getCubeByName(Cube.CUBE_EXIT); }
-	 * 
-	 * 
-	 * 
-	 * 
-	 * /** >>>>>>> 7bc20cee4251101595954ff78142ace3228418b7 Setzt das Levelarray
-	 * auf Anfang nach dem Muster des einfachen Bomberman
+	 * Baut ein einfaches 3D-Level im Schachbrettmuster auf.
+	 * Hier ist die Schwerkraft deaktiviert, d. h. Spieler können
+	 * hier i. d. R. schweben/fliegen.
 	 */
 	public void buildDefaultLevel() {
 		int exit_x, exit_y, exit_z; // Hilfsvariablen für zufälligen Ausgang
