@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.lwjgl.opengl.Display;
 
+import render.Menu;
 import render.OpenGL;
 import render.Window;
 import DetectedServer.ThreadServer;
@@ -26,7 +27,7 @@ public class Game {
 
 	static private Control_Keyboard controlKeyboard;
 	static private Control_Mouse controlMouse;
-
+	
 	static private GameMulti gameMulti;
 
 	public static void main(String[] argv) {
@@ -56,7 +57,11 @@ public class Game {
 	public static ThreadBomb getThreadBomb() {
 		return threadBomb;
 	}
+	
 
+	public static void newKeyboard(Player player, Level level){
+		controlKeyboard = new Control_Keyboard(player, level);
+	}
 	public static void host() {
 		threadServer = new Thread(new ThreadServer());
 		threadServer.start();

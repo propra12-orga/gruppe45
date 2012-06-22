@@ -3,122 +3,202 @@ package render;
 // kommentarrr
 import game.Level;
 import game.Player;
+import game.Game;
 
 import java.awt.*;
 import java.awt.event.*;
 
+import javax.sound.sampled.Control;
 import javax.swing.*;
 
+import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import control.Control_Keyboard;
 
+public class Menu implements ActionListener {
 
-public class Menu extends JFrame implements ActionListener{
 	
+	public JFrame frame = new JFrame("Optionen");
 	public static boolean menuOffen = false;
+	public static Dimension dim = (new Dimension(100,60));
 
 	Level level;
 	Player player;
-	
-	private JButton setclose;
-	private JButton b;
-	private JButton c;
-	private JButton d;
-	private JButton e;
-	private JButton ende;
-	private JPanel panel;
-	
-	private JLabel titel;
-	private JLabel sonstwas;
 
-	private JSlider max_sim_bombs;
+	// Buttons:
+	private JButton bMaxBombs = new JButton("Maximale Bombenzahl");
+	private JButton bHMenu = new JButton("Zurück zum Menue");
+	private JButton bLevel = new JButton("Levelgröße festlegen");
+	private JButton d = new JButton("Text d");
+	private JButton e = new JButton("Text e");
+	private JButton f = new JButton("Text f");
+	private JButton g = new JButton("Text g");
+	private JButton h = new JButton("Text h");
+	private JButton i = new JButton("Text i");
+	private JButton j = new JButton("Text j");
+	private JButton bEnde = new JButton("Schliessen");
+	// public JSlider sMaxBombs = new JSlider(JSlider.HORIZONTAL,
+	// 1,10,player.getMaxSimultanBombs()); //Para x,y,z , y = Max
+	public JSlider sMaxBombs = new JSlider(JSlider.HORIZONTAL, 1, 10,
+			player.MAX_SIMULTAN_BOMBS); // Para x,y,z , y = Max
+	public JSlider sLevelX = new JSlider(JSlider.HORIZONTAL, 1, 30,
+			10); // Para x,y,z , y = Max
+	public JSlider sLevelY = new JSlider(JSlider.HORIZONTAL, 1, 30,
+			10); // Para x,y,z , y = Max
+	public JSlider sLevelZ = new JSlider(JSlider.HORIZONTAL, 1, 30,
+			10); // Para x,y,z , y = Max
 	
+
+	// Panel:
+	/*
+	 * private JPanel panelNorth; private JPanel panelEast; private JPanel
+	 * panelSouth; private JPanel panelWest; private JPanel panelCenter;
+	 */
+
+	private JLabel lBombs;
+	private JLabel lOptions;
+	private JLabel lEmpty;
+
 	public Menu(Level level, Player player) {
+		frame.toFront();
 		this.level = level;
 		this.player = player;
-//		 super("Fenster");
-//		setLocationRelativeTo(null);
-		setLocation(100,100);
-		setSize(600,600);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		// Das BorderLayout ist mal das erste - später fügen wir noch ein
-		// GridLayout im Westen hinzu
-		getContentPane().setLayout(new BorderLayout(5, 5));
+		frame.setTitle("Optionen");
+		frame.setLayout(new GridLayout(3, 1, 10, 10));
+		//NULL
+//		frame.setLayout(new BorderLayout());
+//		frame.setLayout(new BoxLayout(dim));
+		frame.setLocation(400, 100);
+		frame.setSize(600, 600);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
+		// Listener für Buttons
+		bEnde.addActionListener(this);
+		bEnde.setActionCommand("CLOSE");
+		bMaxBombs.addActionListener(this);
+		bMaxBombs.setActionCommand("BOMBS");
+		bHMenu.addActionListener(this);
+		bHMenu.setActionCommand("BACK");
+		bLevel.addActionListener(this);
+		bLevel.setActionCommand("LEVEL");
+		d.addActionListener(this);
+		d.setActionCommand("D");
+		e.addActionListener(this);
+		e.setActionCommand("E");
 
-		// Buttons erzeugen
-		setclose = new JButton("Übernehmen");
-		b = new JButton("Text 2");
-		c = new JButton("Text 3");
-		d = new JButton("Text 4");
-		e = new JButton("Text 5");
-		ende = new JButton("Schliessen");
-		
-		JSlider max_sim_bombs = new JSlider(JSlider.HORIZONTAL, 1,10,player.getMaxSimultanBombs()); //Para x,y,z ,   y = Max
-		max_sim_bombs.setMajorTickSpacing(2);
-		max_sim_bombs.setMinorTickSpacing(1);
-		max_sim_bombs.setPaintTicks(true);
-		max_sim_bombs.setPaintLabels(true);
-		max_sim_bombs.setLabelTable(max_sim_bombs.createStandardLabels(1));
-
-		// Panels erzeugen auf einem GridLayout
-		panel = new JPanel(new GridLayout(3, 1));
-
-		// Auf Panel Buttons packen
-		panel.add(setclose);
-		panel.add(b);
-		panel.add(c);
-//		panel.add(d);
-//		panel.add(e);
-		panel.add(max_sim_bombs);
-		panel.add(ende);
-		
-		ende.setActionCommand("close");
-		ende.setMnemonic(KeyEvent.VK_E);
-
-		//Listener für Buttons
-		ende.addActionListener(this);
-		ende.setActionCommand("close");
-//        addButtonListener(a);
-//        addButtonListener(b);
-//        addButtonListener(ende);
-        
-        
 		// Label erzeugen
-		titel = new JLabel("Optionen");
-		sonstwas = new JLabel("Denk dir was aus!");
+		 lBombs = new JLabel("Maximale Anzahl der Bomben wählen");
+		 lOptions = new JLabel("Optionen");
+		 lEmpty = new JLabel("");
 
-		
-		//Zentrieren
-		titel.setHorizontalAlignment(JLabel.LEFT);
+		// Zentrieren
+		// titel.setHorizontalAlignment(JLabel.CENTER);
 
 		// Labels auf Frame packen (direkt auf das BorderLayout)
-		getContentPane().add(BorderLayout.NORTH, titel);
-		getContentPane().add(sonstwas);
+		// getContentPane().add(BorderLayout.NORTH, titel);
+		// getContentPane().add(sonstwas);
 
 		// Panels auf Frame packen (das panelButton hat ein GridLayout, dass
 		// jetzt in den WestBereich des BorderLayouts kommt)
-		getContentPane().add(BorderLayout.WEST, panel);
+		/*
+		 * getContentPane().add(BorderLayout.NORTH, panelNorth);
+		 * getContentPane().add(BorderLayout.EAST, panelEast);
+		 * getContentPane().add(BorderLayout.SOUTH, panelSouth);
+		 * getContentPane().add(BorderLayout.WEST, panelWest);
+		 * getContentPane().add(BorderLayout.CENTER, panelCenter);
+		 */
+
+		frame.setVisible(true);
+		showOptions();
+//		frame.pack();
+	}
+
+	public void showOptions() {
+		removeEverything();
+		frame.setTitle("Optionen");
+		lOptions.setVerticalTextPosition(frame.WIDTH/2);		
+		lOptions.setVerticalAlignment(frame.WIDTH/2);
+		frame.add(lOptions);
+		frame.add(lEmpty);
+		frame.add(bMaxBombs);
+		frame.add(bLevel);
+		frame.add(bEnde);
+		frame.repaint();
+		frame.validate();
+//		frame.pack();
+	}
+	public void removeEverything(){
+		frame.remove(bHMenu);
+		frame.remove(bEnde);
+		frame.remove(bMaxBombs);
+		frame.remove(bLevel);
+		frame.remove(lOptions);
+		frame.remove(lBombs);
+		frame.remove(sMaxBombs);
+		frame.remove(sLevelX);
+		frame.remove(sLevelY);
+		frame.remove(sLevelZ);
+		frame.remove(lEmpty);
 		
-//		pack();
-		setVisible(true);
-			
-		}
+	}
+	
+	public void showLevel(){
+		removeEverything();
+		frame.setTitle("Levelgröße waehlen:");
+		frame.add(sLevelX);
+		frame.add(sLevelY);
+		frame.add(sLevelZ);
+		sLevelX.setMajorTickSpacing(5);
+		sLevelX.setPaintTicks(true);
+		sLevelX.setPaintLabels(true);
+		sLevelX.setLabelTable(sLevelX.createStandardLabels(5));
+		sLevelY.setMajorTickSpacing(5);
+		sLevelY.setPaintTicks(true);
+		sLevelY.setPaintLabels(true);
+		sLevelY.setLabelTable(sLevelY.createStandardLabels(5));
+		sLevelZ.setMajorTickSpacing(5);
+		sLevelZ.setPaintTicks(true);
+		sLevelZ.setPaintLabels(true);
+		sLevelZ.setLabelTable(sLevelZ.createStandardLabels(5));
+		frame.add(lEmpty);
+		frame.add(bHMenu);
+		frame.add(bEnde);		
+	}
+
+	public void showMaxBombs() {
+		frame.setTitle("Maximale Anzahl der Bomben waehlen:");
+		removeEverything();
+		frame.add(lBombs);
+		frame.add(lEmpty);
+		frame.add(sMaxBombs);
+		frame.add(bHMenu);
+		frame.add(bEnde);
+		sMaxBombs.setMajorTickSpacing(1);
+		// sMaxBombs.setMinorTickSpacing(1);
+		sMaxBombs.setPaintTicks(true);
+		sMaxBombs.setPaintLabels(true);
+		sMaxBombs.setLabelTable(sMaxBombs.createStandardLabels(1));
+//		frame.pack();
+
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-	    if ("close".equals(e.getActionCommand())){
-//	    	Mouse.setCursorPosition(Window.width/2, Window.height/2);
-//	    	this.setVisible(false);
-	    	this.dispose();
-	    	//cb.timeout(true);
-	    	this.menuOffen = false;
+		if ("CLOSE".equals(e.getActionCommand())) {
+			frame.dispose();
+			this.menuOffen = false;
+			System.out.println("Menü geschlossen");
 
+		} else if ("BOMBS".equals(e.getActionCommand())) {
+			showMaxBombs();
+		} else if ("BACK".equals(e.getActionCommand())) {
+			showOptions();
+		}else if ("LEVEL".equals(e.getActionCommand())) {
+			showLevel();
+		}
 
-	    }
-		
 	}
 
 }

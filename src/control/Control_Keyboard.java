@@ -8,6 +8,7 @@ import render.Menu;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.Scanner;
 
 import javax.swing.*;
@@ -33,6 +34,9 @@ public class Control_Keyboard extends Control {
 		this.level = level;
 		timer = new Timer(MILLISECS_PER_STEP, new TimerKeyboard());
 		timer.start();
+	}
+	public void keyboardDestroy(){
+		Keyboard.destroy();
 	}
 	public void timeout(boolean a){
 		if (a){
@@ -97,6 +101,15 @@ public class Control_Keyboard extends Control {
 				// Menuetest:
 				if (Keyboard.isKeyDown(Keyboard.KEY_M)) {
 					Menu.menuOffen = true;
+			    	System.out.println("Menü geöffnet durch Taste m");
+			    	try {
+						Robot rob = new Robot();
+						rob.keyRelease(KeyEvent.VK_M);
+			    	} catch (AWTException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			    	
 					Menu menu = new Menu(level, player);
 				}
 					
