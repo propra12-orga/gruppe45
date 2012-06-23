@@ -353,15 +353,22 @@ public class Player {
 			// TODO der Klient weiss nicht wie viele er leget und muss noch
 			// irgenwie selber mitzaehlen
 			level.setBomb(x, y, z, this);
-			System.out.println("bombe legen");
+			//System.out.println("bombe legen");
 		}
 	}
 
+	/**
+	 * Gibt die Bombenreichweite der Bomben des Spielers zurück
+	 * @return Bombenreichweite des Spielers
+	 */
 	public int getRadius() {
 		return radius;
 	}
 	
-
+	/**
+	 * Legt den Bombenradius / die Bombenreichweite des Spielers fest
+	 * @param radius Bombenradius
+	 */
 	public void setRadius(int radius) {
 		this.radius = radius;
 	}
