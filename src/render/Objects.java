@@ -75,6 +75,7 @@ public class Objects {
 			e.printStackTrace();
 			System.exit(0);
 		}
+	
 	}
 
 	public void DrawCubeBomb(float x, float y, float z) {
