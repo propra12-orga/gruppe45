@@ -324,7 +324,7 @@ int[] options = new int[17];
         lBeginRange.setText("Maximaler Explosionsradius:");
 
         sMaxBombs.setFont(new java.awt.Font("Perpetua Titling MT", 1, 10)); // NOI18N
-        sMaxBombs.setMajorTickSpacing(3);
+        sMaxBombs.setMajorTickSpacing(1);
         sMaxBombs.setMaximum(10);
         sMaxBombs.setMinimum(1);
         sMaxBombs.setMinorTickSpacing(1);

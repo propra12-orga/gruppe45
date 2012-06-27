@@ -1,6 +1,7 @@
 package control;
 
 import game.Player;
+import render.Menu;
 
 import org.lwjgl.input.Mouse;
 
