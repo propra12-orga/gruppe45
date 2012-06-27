@@ -56,15 +56,17 @@ public class ThreadServer implements Runnable {
 				System.out.println("Server:Neuer Spieler");
 				netPlayer = new NetPlayer(netLevel, spawnPoint[random][0], spawnPoint[random][1], spawnPoint[random][2],
 						listNetPlayer, number++, client);
+				new Thread(new ThreadClient(netLevel, netPlayer, listNetPlayer)).start();
+				listNetPlayer.add(netPlayer);
 				if (listNetPlayer.size() > SERVER_MAX_PLAYER) {
 					netPlayer.write(NetPlayer.MSG_SERVER_FULL + ":");
 				} else {
 					netPlayer.setBombs(1);
-					listNetPlayer.add(netPlayer);
-					new Thread(new ThreadClient(netLevel, netPlayer, listNetPlayer)).start();
+
 					for (int i = 0; i < (listNetPlayer.size() - 1); i++) {
 						listNetPlayer.get(i).msgSendPlayerList();
 					}
+
 				}
 			}
 		} catch (IOException e) {
