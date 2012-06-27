@@ -49,6 +49,11 @@ public class GameMulti {
 			strIn = in.readLine();
 			System.out.println(strIn);
 			strSplit = strIn.split(":");
+			if (strSplit[0].equals(NetPlayer.MSG_POSITION)) {
+				strIn = in.readLine();
+				System.out.println(strIn);
+				strSplit = strIn.split(":");
+			}
 			if (strSplit[0].equals(NetPlayer.MSG_LEVEL)) {
 				level = new NetLevel(Integer.valueOf(strSplit[1]), Integer.valueOf(strSplit[2]), Integer.valueOf(strSplit[3]),
 						null);
