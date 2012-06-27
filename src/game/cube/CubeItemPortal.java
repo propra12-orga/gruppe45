@@ -20,9 +20,9 @@ public class CubeItemPortal extends Cube {
 	public void change(Player player, Level level) {	
 		int destCubeX = 0, destCubeY = 0, destCubeZ = 0;
 		
-		destCubeX = level.getSizeX() - player.getCubeX();
-		destCubeY = level.getSizeY() - player.getCubeY();
-		destCubeZ = level.getSizeZ() - player.getCubeZ();
+//		destCubeX = level.getSizeX() - player.getCubeX();
+//		destCubeY = level.getSizeY() - player.getCubeY();
+//		destCubeZ = level.getSizeZ() - player.getCubeZ();
 		
 		// FIXME @Philipp
 		// Wenn das Portal zu einem besetzten Block schickt, dann suche
@@ -44,7 +44,8 @@ public class CubeItemPortal extends Cube {
 	
 		System.out.println("Du hast ein Portal betreten!");		
 		level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), player.getCubeX(), player.getCubeY(), player.getCubeZ());
-		
-		player.setPlayerPosition(destCubeX, destCubeY, destCubeZ);
+		System.out.println("Alte Position: x:" + player.getCubeX() + ", y:" + player.getCubeY() + ", z:" + player.getCubeZ());	
+		player.setPlayerPosition(destCubeX, destCubeY, destCubeZ);		
+		System.out.println("Neue Position: x:" + destCubeX + ", y:" + destCubeY + ", z:" + destCubeZ);	
 	}
 }

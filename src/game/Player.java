@@ -25,7 +25,7 @@ public class Player {
 	 * Obergrenze für die Anzahl an Bomben, die ein Spieler zur gleichen Zeit
 	 * legen darf.
 	 */
-	private static int MAX_SIMULTAN_BOMBS = 3;
+	public static int MAX_SIMULTAN_BOMBS = 3;
 	/**
 	 * Maximale Reichweite von Bomben (ausgehend vom Ursprungspunkt der Bombe)
 	 */
@@ -59,7 +59,7 @@ public class Player {
 	private int healthPoints = 100;
 	int radius = 1;
 	int bombStrengthMultiplier = 1;
-	int bombs = 1; // Anzahl der gleichzeitig legbaren Bomben
+	static public int bombs = 1; // Anzahl der gleichzeitig legbaren Bomben
 	int fuseTime = 3000;
 	int explosionTime = 1000;
 	List listPlayer;
@@ -395,14 +395,25 @@ public class Player {
 			// TODO der Klient weiss nicht wie viele er leget und muss noch
 			// irgenwie selber mitzaehlen
 			level.setBomb(x, y, z, this);
-			System.out.println("bombe legen");
+			// System.out.println("bombe legen");
 		}
 	}
 
+	/**
+	 * Gibt die Bombenreichweite der Bomben des Spielers zurück
+	 * 
+	 * @return Bombenreichweite des Spielers
+	 */
 	public int getRadius() {
 		return radius;
 	}
 
+	/**
+	 * Legt den Bombenradius / die Bombenreichweite des Spielers fest
+	 * 
+	 * @param radius
+	 *            Bombenradius
+	 */
 	public void setRadius(int radius) {
 		this.radius = radius;
 	}
@@ -622,21 +633,23 @@ public class Player {
 	}
 
 	public void moveForward() {
-		float accX = (float) Math.sin(angleY) * stepSize;
-		float accY = (float) (Math.sin(angleX) * Math.sqrt(Math.sin(angleY) * Math.sin(angleY) + Math.cos(angleY)
-				* Math.cos(angleY)))
-				* stepSize;
-		float accZ = (float) Math.cos(angleY) * stepSize;
-		float accelerationVec = (float) Math.sqrt(accelerationX * accelerationX + accelerationY * accelerationY + accelerationZ
-				* accelerationZ);
-		float accelerationAdd = (float) Math.sqrt(accX * accX + accY * accY + accZ * accZ);
-		if (accelerationVec < stepSize) {
-			addAcceleration(accX, accY, accZ);
-		}
-		// move((float) Math.sin(angleY) * stepSize,
-		// (float) (Math.sin(angleX) * Math.sqrt(Math.sin(angleY) *
-		// Math.sin(angleY) + Math.cos(angleY) * Math.cos(angleY)))
-		// * stepSize, (float) Math.cos(angleY) * stepSize);
+		// float accX = (float) Math.sin(angleY) * stepSize;
+		// float accY = (float) (Math.sin(angleX) * Math.sqrt(Math.sin(angleY) *
+		// Math.sin(angleY) + Math.cos(angleY)
+		// * Math.cos(angleY)))
+		// * stepSize;
+		// float accZ = (float) Math.cos(angleY) * stepSize;
+		// float accelerationVec = (float) Math.sqrt(accelerationX *
+		// accelerationX + accelerationY * accelerationY + accelerationZ
+		// * accelerationZ);
+		// float accelerationAdd = (float) Math.sqrt(accX * accX + accY * accY +
+		// accZ * accZ);
+		// if (accelerationVec < stepSize) {
+		// addAcceleration(accX, accY, accZ);
+		// }
+		move((float) Math.sin(angleY) * stepSize,
+				(float) (Math.sin(angleX) * Math.sqrt(Math.sin(angleY) * Math.sin(angleY) + Math.cos(angleY) * Math.cos(angleY)))
+						* stepSize, (float) Math.cos(angleY) * stepSize);
 	}
 
 	public void moveBackward() {

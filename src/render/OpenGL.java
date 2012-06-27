@@ -74,6 +74,15 @@ public class OpenGL {
 		GL11.glLoadIdentity();
 		// Level
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		
+//		 TEST: Overlay
+//		GL11.glEnable(GL11.GL_BLEND); 
+//		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+//		GL11.glMatrixMode(GL11.GL_PROJECTION);
+//		System.out.println(player.getAngleY());
+//		objects.DrawOverlayTest((float) (player.getX()*Math.cos(player.getAngleY()/(Math.PI / 2))),player.getY(),player.getZ()+2f);
+		
+		
 		for (byte i = 0; i < level.getSizeX(); i += 1) {
 			for (byte j = 0; j < level.getSizeY(); j += 1) {
 				for (byte k = 0; k < level.getSizeZ(); k += 1) {
@@ -107,7 +116,7 @@ public class OpenGL {
 						objects.DrawCubeExit(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_SOLID_RAMP)) {
 						objects.DrawCubeRamp(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
-						// Menüwürfel
+					// Menüwürfel
 					} else if (level.getCubeName(i, j, k).equals(Cube.MENU_CUBE_NEW_GAME)) {
 						objects.DrawMenuCubeNewGame(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					} else if (level.getCubeName(i, j, k).equals(Cube.MENU_CUBE_NEW_GAME_GRAVITY)) {
@@ -126,10 +135,6 @@ public class OpenGL {
 				}
 			}
 		}
-		// TEST: Overlay#
-//		System.out.println(player.getAngleY());
-//		objects.DrawOverlayTest(player.getX(),player.getY(),player.getZ()+1);
-//		objects.DrawMenuCubeLoadLevel(player.getX(),player.getY(),player.getZ());
 		
 		// Mitspieler zeichnen, falls vorhanden
 		if (listPlayer != null) {
@@ -154,9 +159,9 @@ public class OpenGL {
 		GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
 		GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
 
-		// Alpha-Farbkanal, Transparenz, einschalten
-		// GL11.glEnable(GL11.GL_BLEND);
-		// GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+//		 Alpha-Farbkanal, Transparenz, einschalten
+//		 GL11.glEnable(GL11.GL_BLEND);
+//		 GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		GL11.glEnable(GL11.GL_LINE_SMOOTH); // Antialiasing fuer Linien
 											// einschalten

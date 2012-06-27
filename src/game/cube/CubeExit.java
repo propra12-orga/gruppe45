@@ -2,8 +2,18 @@ package game.cube;
 import game.Level;
 import game.Player;
 
+/**
+ * Der Ausgang muss erreicht werden (nachdem alle Gegner vernichtet wurden), um das Spiel zu gewinnen.
+ */
 public class CubeExit extends Cube {
 
+	/** 
+	 * Erzeugt eine Instanz des Würfels "Exit"
+	 * 
+	 * Ein Ausgang kann nicht zerstört werden.
+	 * Er ist aber begehbar und wie ein Item aufnehmbar
+	 * (durch Aufnahme hat der aufnehmende Spieler gewonnen)
+	 */
 	public CubeExit() {
 		super(Cube.IS_WALKABLE, Cube.IS_COLLECTABLE, Cube.IS_NOT_DESTROYABLE);
 	}
