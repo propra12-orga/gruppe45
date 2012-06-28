@@ -18,7 +18,7 @@ import DetectedServer.NetPlayer;
  */
 public class ThreadBomb {
 
-	final float PROBABILITY_HEALTH = 0.15f; //0.02f (TESTEINSTELLUNGEN)
+	final float PROBABILITY_HEALTH = 0.15f; // 0.02f (TESTEINSTELLUNGEN)
 	final float PROBABILITY_XTRA_BOMB = 0.15f;
 	final float PROBABILITY_PORTAL = 0.15f;
 	final float PROBABILITY_BOMB_RANGE = 0.15f;
@@ -50,10 +50,11 @@ public class ThreadBomb {
 		if (listPlayer != null) {
 			this.listPlayer = listPlayer;
 			net = false;
+			System.out.println("ServerThreadBomb gestartet");
 		} else if (listNetPlayer != null) {
 			this.listNetPlayer = listNetPlayer;
 			net = true;
-			System.out.println("ServerThreadBomb gestartet");
+			System.out.println("ServerThreadBomb fuers Netzwerk gestartet");
 		} else {
 			System.out.println("ThreadBomb wurde keine Spielerliste uebergeben");
 			System.exit(-1);
@@ -73,7 +74,7 @@ public class ThreadBomb {
 		timer.start();
 	}
 
-	public void setBomb(int x, int y, int z, int radius, Player player, int strengthMultiplier) {
+	public void setBomb(int x, int y, int z, int radius, Player player) {
 		if (level.getCubeName(x, y, z).equals(Cube.CUBE_EMPTY)) {
 			player.decreaseBombs();
 			listBomb.add(new Bomb(x, y, z, radius, player));
@@ -93,6 +94,7 @@ public class ThreadBomb {
 			}
 			for (int i = 0; i < listBomb.size(); i++) {
 				listBomb.get(i).tick();
+				System.out.println("Bombe tickt");
 			}
 			for (int i = 0; i < listExplosion.size(); i++) {
 				listExplosion.get(i).tick();
@@ -107,6 +109,7 @@ public class ThreadBomb {
 		private Player player;
 
 		public Bomb(int x, int y, int z, int radius, Player player) {
+			System.out.println("neue Bombe bei" + x + "x" + y + "x" + z);
 			this.x = x;
 			this.y = y;
 			this.z = z;
