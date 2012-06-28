@@ -1,7 +1,5 @@
 package DetectedServer;
 
-import game.ThreadBomb;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -31,12 +29,13 @@ public class ThreadServer implements Runnable {
 	private NetPlayer netPlayer;
 	private int number;
 	private int random;
-	private ThreadBomb threadBomb;
+
+	// private ThreadBomb threadBomb;
 
 	public ThreadServer() {
 		listNetPlayer = new ArrayList<NetPlayer>();
 		netLevel = new NetLevel(LEVEL_X, LEVEL_Y, LEVEL_Z, listNetPlayer);
-		threadBomb = new ThreadBomb(netLevel, null, listNetPlayer);
+		// threadBomb = new ThreadBomb(netLevel, null, listNetPlayer);
 		random = 0; // TODO Muss noch zufaellig werden
 		number = 1;
 		try {
@@ -56,6 +55,7 @@ public class ThreadServer implements Runnable {
 				System.out.println("Server:Neuer Spieler");
 				netPlayer = new NetPlayer(netLevel, spawnPoint[random][0], spawnPoint[random][1], spawnPoint[random][2],
 						listNetPlayer, number++, client);
+				netPlayer.setBombs(1);
 				new Thread(new ThreadClient(netLevel, netPlayer, listNetPlayer)).start();
 				listNetPlayer.add(netPlayer);
 				if (listNetPlayer.size() > SERVER_MAX_PLAYER) {

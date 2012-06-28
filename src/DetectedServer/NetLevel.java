@@ -44,12 +44,17 @@ public class NetLevel extends Level {
 	}
 
 	public void setCube(Cube cube, int x, int y, int z) {
+		System.out.println("netLevel.setCube");
 		super.setCube(cube, x, y, z);
 		// TODO 3/3 Stuerzt ohne diese Einschraenkung ab...
 		if (listNetPlayer != null) {
 			for (int i = 0; i < listNetPlayer.size(); i++) {
 				listNetPlayer.get(i).msgSendCube(x, y, z);
+				System.out.println("neuen Cube gesendet");
 			}
+			System.out.println("allen den neuen Cube geschickt");
+		} else {
+			System.out.println("keine Spielerliste");
 		}
 	}
 

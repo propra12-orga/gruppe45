@@ -150,7 +150,7 @@ public class NetPlayer extends Player {
 	}
 
 	public void msgSendBomb(int x, int y, int z) {
-		write(MSG_BOMB + ":" + x + ":" + y + ":" + z);
+		// write(MSG_BOMB + ":" + x + ":" + y + ":" + z);
 	}
 
 	public void setBomb(int x, int y, int z) {

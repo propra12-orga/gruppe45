@@ -16,15 +16,12 @@ public class ThreadClient implements Runnable {
 		this.netPlayer = netPlayer;
 		this.netLevel = netLevel;
 		this.listNetPlayer = listNetPlayer;
-		System.out.println("level pos und list senden");
 		netPlayer.msgSendLevel();
 		netPlayer.msgSendPosition();
 		netPlayer.msgSendPlayerList();
-		System.out.println("level pos und list gesendet");
 	}
 
 	public void run() {
-		System.out.println("run");
 		String strIn;
 		String[] strSplit;
 		while (true) {

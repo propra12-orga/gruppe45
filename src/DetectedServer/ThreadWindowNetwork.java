@@ -40,6 +40,7 @@ public class ThreadWindowNetwork implements Runnable {
 				} else if (strSplit[0].equals(NetPlayer.MSG_CUBE)) {
 					level.setCube(Cube.getCubeByNumber(Integer.valueOf(strSplit[1])), Integer.valueOf(strSplit[2]),
 							Integer.valueOf(strSplit[3]), Integer.valueOf(strSplit[4]));
+					System.out.println("Client hat Cube empf");
 				} else if (strSplit[0].equals(NetPlayer.MSG_PLAYERLIST)) {
 					myPlayer.msgReceivePlayerList(strSplit, listPlayer);
 				} else if (strSplit[0].equals(NetPlayer.MSG_EXIT)) {
