@@ -66,7 +66,7 @@ public class Game {
 	}
 
 	public static void host() {
-		threadBomb.stop();
+		//threadBomb.stop();
 		threadServer = new Thread(new ThreadServer());
 		threadServer.start();
 		connect();

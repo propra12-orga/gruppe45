@@ -135,7 +135,7 @@ public class Objects {
 
 	public void DrawPlayer(float x, float y, float z) {
 		texPlayer.bind();
-		DrawCube(x, y, z, 6, 1);
+		DrawCube(x + 2.5f, y + 2.5f, z + 2.5f, 5, 1);
 	}
 
 	public void DrawCubeRamp(float x, float y, float z) {
