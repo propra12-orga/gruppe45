@@ -11,10 +11,10 @@ import org.lwjgl.input.Mouse;
  * 
  */
 public class Control_Mouse extends Control {
-
+	
 	public Control_Mouse(Player player) {
 		super(player);
-		// Mouse.setGrabbed(true);
+		Mouse.setGrabbed(true);
 	}
 
 	public void mouse_Move() {
