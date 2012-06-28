@@ -1,6 +1,7 @@
 package control;
 
 import game.Player;
+import render.Menu;
 
 import org.lwjgl.input.Mouse;
 
@@ -10,7 +11,7 @@ import org.lwjgl.input.Mouse;
  * 
  */
 public class Control_Mouse extends Control {
-
+	
 	public Control_Mouse(Player player) {
 		super(player);
 		Mouse.setGrabbed(true);
