@@ -33,12 +33,14 @@ public class ThreadServer implements Runnable {
 	private int number;
 	private int random;
 
-	// private ThreadBomb threadBomb;
+	private ThreadBomb threadBomb;
 
 	public ThreadServer() {
 		listNetPlayer = new ArrayList<NetPlayer>();
 		netLevel = new NetLevel(LEVEL_X, LEVEL_Y, LEVEL_Z, listNetPlayer);
 		Game.setThreadBomb(new ThreadBomb(netLevel, null, listNetPlayer));
+		// threadBomb = new ThreadBomb(netLevel, null, listNetPlayer);
+		// Game.setThreadBomb(threadBomb);
 		random = 0; // TODO Muss noch zufaellig werden
 		number = 1;
 		try {
@@ -65,7 +67,6 @@ public class ThreadServer implements Runnable {
 					netPlayer.write(NetPlayer.MSG_SERVER_FULL + ":");
 				} else {
 					netPlayer.setBombs(1);
-
 					for (int i = 0; i < (listNetPlayer.size() - 1); i++) {
 						listNetPlayer.get(i).msgSendPlayerList();
 					}

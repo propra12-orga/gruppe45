@@ -1,4 +1,3 @@
-
 package render;
 
 import java.io.FileInputStream;
@@ -15,9 +14,9 @@ public class Objects {
 	byte themeSelection = 1;
 
 	private Texture texBomb, texExplosion, texPaper, texOutside, texObstacle, texHealth, texXtraBomb, texPortal, texBombRange,
-			texBombStrength, texExit, texRamp, texPlayer, texMenuNewGame, texMenuNewGameGravity, texMenuExitProgram, texMenuLoadLevel, texMenuMulti,
-			texMenuServer, texMenuOptions;
-	
+			texBombStrength, texExit, texRamp, texPlayer, texMenuNewGame, texMenuNewGameGravity, texMenuExitProgram,
+			texMenuLoadLevel, texMenuMulti, texMenuServer, texMenuOptions;
+
 	private Texture texOverlayTest;
 
 	public Objects(byte themeSelection) {
@@ -63,7 +62,8 @@ public class Objects {
 			// Menuewuerfel
 			texMenuNewGame = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName + "/newgame.png"));
 			texMenuOptions = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName + "/options.png"));
-			texMenuNewGameGravity = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName + "/newgamegravity.png"));
+			texMenuNewGameGravity = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName
+					+ "/newgamegravity.png"));
 			texMenuExitProgram = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName
 					+ "/exitprogram.png"));
 			texMenuMulti = TextureLoader.getTexture("PNG",
@@ -75,7 +75,7 @@ public class Objects {
 			e.printStackTrace();
 			System.exit(0);
 		}
-	
+
 	}
 
 	public void DrawCubeBomb(float x, float y, float z) {
@@ -135,7 +135,7 @@ public class Objects {
 
 	public void DrawPlayer(float x, float y, float z) {
 		texPlayer.bind();
-		DrawCube(x, y, z, 6, 1);
+		DrawCube(x + 2.5f, y + 2.5f, z + 2.5f, 5, 1);
 	}
 
 	public void DrawCubeRamp(float x, float y, float z) {
@@ -148,12 +148,12 @@ public class Objects {
 		texMenuNewGame.bind();
 		DrawCube(x, y, z, 10, 1);
 	}
-	
+
 	public void DrawMenuCubeNewGameGravity(float x, float y, float z) {
 		texMenuNewGameGravity.bind();
 		DrawCube(x, y, z, 10, 1);
 	}
-	
+
 	public void DrawMenuCubeExitProgram(float x, float y, float z) {
 		texMenuExitProgram.bind();
 		DrawCube(x, y, z, 10, 1);
@@ -163,7 +163,7 @@ public class Objects {
 		texMenuMulti.bind();
 		DrawCube(x, y, z, 10, 1);
 	}
-	
+
 	public void DrawMenuCubeOptions(float x, float y, float z) {
 		texMenuOptions.bind();
 		DrawCube(x, y, z, 10, 1);
@@ -178,7 +178,7 @@ public class Objects {
 		texMenuLoadLevel.bind();
 		DrawCube(x, y, z, 10, 1);
 	}
-	
+
 	public void DrawOverlayTest(float x, float y, float z) {
 		texOverlayTest.bind();
 		DrawOverlay(x, y, z, 1, 1);
@@ -197,13 +197,13 @@ public class Objects {
 	 *            Kantenlaenge
 	 * @param texSize
 	 *            Skalierung der Textur
-	 */	
+	 */
 	public void DrawOverlay(float x, float y, float z, float size, float texSize) {
 		GL11.glColor3f(1, 1, 1);
 		GL11.glBegin(GL11.GL_QUADS);
-		
-	    GL11.glOrtho(0, 800, 600, 0, -1, 1);
-	    GL11.glMatrixMode(GL11.GL_MODELVIEW);
+
+		GL11.glOrtho(0, 800, 600, 0, -1, 1);
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 
 		// Vorne
 		GL11.glTexCoord2f(0, 0);
@@ -219,7 +219,6 @@ public class Objects {
 		GL11.glEnd();
 	}
 
-	
 	public void DrawCube(float x, float y, float z, float size, float texSize) {
 		GL11.glColor3f(1, 1, 1);
 		GL11.glBegin(GL11.GL_QUADS);
