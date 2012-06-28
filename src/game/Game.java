@@ -53,6 +53,10 @@ public class Game {
 		window.close();
 	}
 
+	public static void setThreadBomb(ThreadBomb newThreadBomb) {
+		threadBomb = newThreadBomb;
+	}
+
 	public static ThreadBomb getThreadBomb() {
 		return threadBomb;
 	}
@@ -76,7 +80,6 @@ public class Game {
 	}
 
 	public static void disconnect() {
-		threadBomb.start();
 		openGl.setLevel(level);
 		openGl.setPlayer(player);
 		openGl.setPlayerList(listPlayer);
