@@ -94,7 +94,7 @@ public class ThreadBomb {
 			}
 			for (int i = 0; i < listBomb.size(); i++) {
 				listBomb.get(i).tick();
-				System.out.println("Bombe tickt");
+				System.out.println("tick");
 			}
 			for (int i = 0; i < listExplosion.size(); i++) {
 				listExplosion.get(i).tick();

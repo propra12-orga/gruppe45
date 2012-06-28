@@ -155,7 +155,6 @@ public class Level {
 		if (x >= 0 && y >= 0 && z >= 0 && x < getSizeX() && y < getSizeY() && z < getSizeZ()) {
 			level[x][y][z] = cube;
 		}
-		System.out.println("level.setCube");
 	}
 
 	/**

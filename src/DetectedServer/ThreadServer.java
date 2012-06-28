@@ -1,5 +1,8 @@
 package DetectedServer;
 
+import game.Game;
+import game.ThreadBomb;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -35,7 +38,7 @@ public class ThreadServer implements Runnable {
 	public ThreadServer() {
 		listNetPlayer = new ArrayList<NetPlayer>();
 		netLevel = new NetLevel(LEVEL_X, LEVEL_Y, LEVEL_Z, listNetPlayer);
-		// threadBomb = new ThreadBomb(netLevel, null, listNetPlayer);
+		Game.setThreadBomb(new ThreadBomb(netLevel, null, listNetPlayer));
 		random = 0; // TODO Muss noch zufaellig werden
 		number = 1;
 		try {
