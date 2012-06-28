@@ -22,7 +22,7 @@ public class Level {
 	 * Wahrscheinlichkeit, dass bei zufälliger Levelfüllung ein Hindernis an
 	 * eine freie Stelle gesetzt wird
 	 */
-	final static public float OBSTACLE_PROBABILITY = 0.45f; // Wahrscheinlichkeit
+	final static public float OBSTACLE_PROBABILITY = 0f; // Wahrscheinlichkeit
 															// eines
 															// Hindernisses
 															// an leerer Stelle
@@ -155,7 +155,6 @@ public class Level {
 		if (x >= 0 && y >= 0 && z >= 0 && x < getSizeX() && y < getSizeY() && z < getSizeZ()) {
 			level[x][y][z] = cube;
 		}
-		System.out.println("level.setCube");
 	}
 
 	/**
