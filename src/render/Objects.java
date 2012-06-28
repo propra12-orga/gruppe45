@@ -344,4 +344,71 @@ public class Objects {
 		GL11.glEnd();
 	}
 
+
+
+	/**
+	 * Zeichnet eine Spielfigur
+	 * 
+	 * @param x
+	 *            x-Position
+	 * @param y
+	 *            y-Position
+	 * @param z
+	 *            z-Position
+	 * @param size
+	 *            Kantenlaenge
+	 * @param texSize
+	 *            Skalierung der Textur
+	 */
+	public void DrawPlayer(float x, float y, float z, float size, float angleX, float angleY,float texSize) {
+		GL11.glColor3f(1, 1, 1);
+		GL11.glBegin(GL11.GL_QUADS);
+		// Hinten
+		GL11.glTexCoord2f(0, 0);
+		GL11.glVertex3f(x, y + size, z + size);
+		GL11.glTexCoord2f(0, texSize);
+		GL11.glVertex3f(x, y, z + size);
+		GL11.glTexCoord2f(texSize, texSize);
+		GL11.glVertex3f(x + size, y, z + size);
+		GL11.glTexCoord2f(texSize, 0);
+		GL11.glVertex3f(x + size, y + size, z + size);
+		// Unten
+		GL11.glTexCoord2f(0, 0);
+		GL11.glVertex3f(x + size, y, z);
+		GL11.glTexCoord2f(0, texSize);
+		GL11.glVertex3f(x + size, y, z + size);
+		GL11.glTexCoord2f(texSize, texSize);
+		GL11.glVertex3f(x, y, z + size);
+		GL11.glTexCoord2f(texSize, 0);
+		GL11.glVertex3f(x, y, z);
+		// Links
+		GL11.glTexCoord2f(0, 0);
+		GL11.glVertex3f(x + size, y, z);
+		GL11.glTexCoord2f(0, texSize);
+		GL11.glVertex3f(x + size, y, z + size);
+		GL11.glTexCoord2f(texSize, texSize);
+		GL11.glVertex3f(x + size, y + size, z + size);
+		GL11.glTexCoord2f(texSize, 0);
+		GL11.glVertex3f(x + size, y + size, z + size);
+		// Rechts
+		GL11.glTexCoord2f(0, 0);
+		GL11.glVertex3f(x, y, z);
+		GL11.glTexCoord2f(0, texSize);
+		GL11.glVertex3f(x, y, z + size);
+		GL11.glTexCoord2f(texSize, texSize);
+		GL11.glVertex3f(x, y + size, z + size);
+		GL11.glTexCoord2f(texSize, 0);
+		GL11.glVertex3f(x, y + size, z + size);
+		// Schräge
+		GL11.glTexCoord2f(0, 0);
+		GL11.glVertex3f(x + size, y, z);
+		GL11.glTexCoord2f(0, texSize);
+		GL11.glVertex3f(x, y, z);
+		GL11.glTexCoord2f(texSize, texSize);
+		GL11.glVertex3f(x, y + size, z + size);
+		GL11.glTexCoord2f(texSize, 0);
+		GL11.glVertex3f(x + size, y + size, z + size);
+		GL11.glEnd();
+	}
+
 }
