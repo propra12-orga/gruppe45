@@ -73,7 +73,6 @@ public class Game {
 	}
 
 	public static void connect() {
-		threadBomb.stop();
 		gameMulti = new GameMulti();
 		gameMulti.connect(openGl, controlKeyboard, controlMouse);
 		System.out.println("CONNECT");

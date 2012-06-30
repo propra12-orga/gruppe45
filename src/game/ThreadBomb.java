@@ -64,6 +64,11 @@ public class ThreadBomb {
 		this.listExplosion = new ArrayList<Explosion>();
 		timer = new Timer(MILLISECS_PER_TICK, new TimerBombs());
 		timer.start();
+		System.out.println("TIMER GESTARTET");
+	}
+
+	public void setLevel(Level level) {
+		this.level = level;
 	}
 
 	public void stop() {
@@ -79,6 +84,7 @@ public class ThreadBomb {
 			player.decreaseBombs();
 			listBomb.add(new Bomb(x, y, z, radius, player));
 		}
+		System.out.println("BOMBE IN DEN THREAD");
 	}
 
 	class TimerBombs implements ActionListener {
@@ -94,7 +100,6 @@ public class ThreadBomb {
 			}
 			for (int i = 0; i < listBomb.size(); i++) {
 				listBomb.get(i).tick();
-				System.out.println("tick");
 			}
 			for (int i = 0; i < listExplosion.size(); i++) {
 				listExplosion.get(i).tick();
@@ -109,7 +114,6 @@ public class ThreadBomb {
 		private Player player;
 
 		public Bomb(int x, int y, int z, int radius, Player player) {
-			System.out.println("neue Bombe bei" + x + "x" + y + "x" + z);
 			this.x = x;
 			this.y = y;
 			this.z = z;
