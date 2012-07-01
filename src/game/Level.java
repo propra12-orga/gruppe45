@@ -453,6 +453,8 @@ public class Level {
 				level[this.getSizeX() / 2][exit_y][this.getSizeZ() / 2] = Cube.getCubeByName(Cube.CUBE_EXIT);
 			}
 		}
+		// FIXME Testausgabe Ausgang entfernen
+		System.out.println("Ausgang in Ebene: " + exit_y);
 	}
 
 	/**
@@ -502,16 +504,11 @@ public class Level {
 			}
 		}
 
-		// TODO zum AUSPROBIEREN: Exit verborgen
-		// level[this.getSizeX()-2][this.getSizeY()-2][this.getSizeZ()-2] =
-		// Cube.getCubeByName(Cube.CUBE_OBSTACLE);
 
 		// Setze den Ausgang in eine zufällige der sechs Ecken,
 		// die nicht durch Spieler belegt ist!
 		Random random = new Random();
 		int rnd = 1 + Math.abs(random.nextInt()) % 6;
-
-		// rnd = 4; //TODO zum AUSPROBIEREN: Exit verborgen
 
 		// Skalierbares Level:
 		// Der Ausgang wird bei freiwählbarer Levelausdehnungen in X,Y,Z

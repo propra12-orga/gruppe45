@@ -11,6 +11,7 @@ public class MenuCubeMulti extends Cube {
 
 	@Override
 	public void change(Player player, Level level) {
+		level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), player.getCubeX(), player.getCubeY(), player.getCubeZ());
 		Game.connect();
 	}
 }
