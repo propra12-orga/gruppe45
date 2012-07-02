@@ -5,6 +5,13 @@ import game.Level;
 import game.Player;
 import DetectedServer.NetPlayer;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Random;
+import java.util.Scanner;
+
 /**
  * Der Ausgang muss erreicht werden (nachdem alle Gegner vernichtet wurden), um das Spiel zu gewinnen.
  */
@@ -32,10 +39,52 @@ public class CubeExit extends Cube {
 		System.out.println("Der Sieg bringt Dir " + SCORE + " Punkte!");
 		System.out.println("Du hast damit " + player.getScore() + " Punkte - ganz toll!");
 		
+		System.out.println("");
+		if (player.getScore() >= checkHighscore()){
+			System.out.println("Der alte Highscore lag bei " + checkHighscore() + " Punkten.");
+			System.out.println("Du hast also mit " + player.getScore() + " Punkten einen neuen Rekord!");
+			saveHighscore(player.getScore());
+		} else {
+			System.out.println("Der alte Highscore lag bei " + checkHighscore() + " Punkten.");
+			System.out.println("Mit deinen schwachen " + player.getScore() + " Punkten hast Du hier nichts zu feiern!");
+		}
+		System.out.println("");
+			
 		level.showMenu();
 		// FIXME Netzwerkfähigkeit
 		// FIXME + Abfrage, ob noch mehr als ein Spieler lebt
 		// FIXME + Aufbau des Menüs im Netzwerk
 		player.reinit((level.getSizeX() / 2) * 10 + 5, (level.getSizeY() / 2) * 10 + 5, 15, 0, 0, 100, 0, 1, 1, false);
 	}
+	
+	
+	public void saveHighscore(int theScore) {
+		File file;
+		FileWriter writer;
+		file = new File("save/highscore.txt");
+		try {
+			writer = new FileWriter(file);
+			writer.write(theScore + "");
+			writer.write("\t");
+			writer.write(System.getProperty("line.separator"));
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public int checkHighscore() {
+		try {
+			Scanner scanner = new Scanner(new File("save/highscore.txt"));
+			return scanner.nextInt();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
+	
+	
 }

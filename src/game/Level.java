@@ -23,7 +23,7 @@ public class Level {
 	 * eine freie Stelle gesetzt wird
 	 */
 
-	final static public float OBSTACLE_PROBABILITY = 0.4f; // Wahrscheinlichkeit
+	final static public float OBSTACLE_PROBABILITY = 0.2f; // Wahrscheinlichkeit
 															// eines
 															// Hindernisses
 															// an leerer Stelle
@@ -42,6 +42,8 @@ public class Level {
 	byte themeSelection = THEME_EARTH;
 	// byte themeSelection = THEME_SPACE;
 	// byte themeSelection = THEME_SOCCER;
+	
+	boolean inMenu = true;
 
 	/**
 	 * Ermöglicht das Verstecken des Ausgangs in einem zerstörbaren Block
@@ -167,7 +169,7 @@ public class Level {
 	public void save() {
 		File file;
 		FileWriter writer;
-		file = new File("quicksave.txt");
+		file = new File("save/quicksave.txt");
 		try {
 			writer = new FileWriter(file);
 
@@ -203,7 +205,7 @@ public class Level {
 	 */
 	public void load() {
 		try {
-			Scanner scanner = new Scanner(new File("quicksave.txt"));
+			Scanner scanner = new Scanner(new File("save/quicksave.txt"));
 			for (byte i = 0; i < getSizeX(); i++) {
 				for (byte j = 0; j < getSizeY(); j++) {
 					for (byte k = 0; k < getSizeZ(); k++) {
@@ -233,6 +235,15 @@ public class Level {
 			return level[x][y][z].getCubeName();
 		} else
 			return null;
+	}
+	
+	public boolean isInMenu(){
+		return this.inMenu; 
+	}
+	
+	public void setInMenu(boolean inMenu){
+		this.inMenu = inMenu;
+		
 	}
 
 	// TODO String nur aendern wenn sich auch das Level aendert, neuberechnen
@@ -267,6 +278,7 @@ public class Level {
 		final int Z_VERSCHIEBUNG = 3; // gibt an, wie weit die Menüwand von der
 										// Rückwand entfernt ist
 		// leere das Levelinnere
+		this.inMenu = true;
 		clear();
 		// Baue das Hauptmenü auf
 		level[getSizeX() / 2 + 2][getSizeY() / 2 + 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube

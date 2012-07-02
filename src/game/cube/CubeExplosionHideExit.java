@@ -22,7 +22,7 @@ public class CubeExplosionHideExit extends Cube {
 	    
 		// Man verliert Punkte, wenn man getroffen wird
 		player.addScore(SCORE_HIT_PLAYER);
-		System.out.println("Durch den Treffer verlierst Du " + SCORE_HIT_PLAYER + " Punkte.");
+		System.out.println("Durch den Treffer verlierst Du " + (-1) * SCORE_HIT_PLAYER + " Punkte.");
 		System.out.println("Du hast jetzt nur noch " + player.getScore() + " Punkte!");
 		System.out.println("");
 	}

@@ -28,6 +28,7 @@ public class MenuCubeNewGame extends Cube {
 		}
 		
 		//FIXME Netzwerkfähigkeit
+		level.setInMenu(false);
 		player.reinit(player1_start_x, level.getSizeY()*10-15, 15, 0, 0, 100, 1, 1, 1, false);
 	
 		System.out.println("Du startest mit " + player.getScore() + " Punkten!");

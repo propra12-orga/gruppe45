@@ -138,11 +138,6 @@ public class Objects {
 		texPlayer.bind();
 		DrawCube(x + 2.5f, y + 2.5f, z + 2.5f, 5, 1);
 	}
-	
-	public void DrawPlayerTEST(float x, float y, float z, float angleX, float angleY) {
-		TESTPRUECK.bind();
-		DrawPlayerBack(x + 1f, y + 1f, z + 1f, angleX, angleY, 8, 1);
-	}
 
 	public void DrawCubeRamp(float x, float y, float z) {
 		texRamp.bind();

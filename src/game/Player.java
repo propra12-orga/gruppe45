@@ -17,6 +17,8 @@ import java.util.List;
 public class Player {
 	
 	private static int START_SCORE = 1000;
+	private static int SCORE_RUN_EXPLOSION = -80;
+	private static int SCORE_DISTANCE = -1;
 	// TODO Menüoptionen
 	// Obergrenzen für Playervariablen
 	/**
@@ -58,6 +60,7 @@ public class Player {
 
 	protected Level level;
 
+	private String playername;
 	private int score = START_SCORE; //Hier werden die Punkte des Spielers gesammelt
 	private int healthPoints = 100;
 	int radius = 1;
@@ -85,6 +88,7 @@ public class Player {
 		setPosition(x, y, z);
 		this.level = level;
 		this.listPlayer = listPlayer;
+		this.playername = "Horst";
 	}
 
 	public Player(Level level, float x, float y, float z, List listPlayer, int number) {
@@ -92,6 +96,7 @@ public class Player {
 		this.level = level;
 		this.number = number;
 		this.listPlayer = listPlayer;
+		this.playername = "Horst";
 	}
 
 	/**
@@ -744,6 +749,7 @@ public class Player {
 			this.y += y;
 			this.z += z;
 		} else {
+			
 			// Der Spieler kann durch move() in einem Block landen der nicht
 			// mehr
 			// im Level ist. Sollte er nach der Addition ausserhalt des Levels
@@ -780,6 +786,17 @@ public class Player {
 				accelerationZ = 0;
 			}
 		}
+		
+		
+		// FIXME Keine Benachrichtigung für Wegpunktabzug
+		// Punktesystem: Wenn der Spieler Weg zurücklegt, werden ihm Punkte abgezogen!
+		// Dadurch soll schlechte Orientierung bestraft werden!
+		if ((!((this.getCubeX() == oldCubeX) && (this.getCubeY() == oldCubeY) && (this.getCubeZ() == oldCubeZ))) && (!(level.isInMenu()))) {
+			this.addScore(SCORE_DISTANCE);
+			System.out.println("Punktestand: " + this.getScore());
+		}
+		
+		
 		// TEST Rampe laufen
 		// Würfelwinkel 45° z -> y
 		if (level.getCube(this.getCubeX(), this.getCubeY(), this.getCubeZ()).getCubeName() == Cube.CUBE_SOLID_RAMP) {
@@ -802,11 +819,16 @@ public class Player {
 				&& ((level.getCube((int) this.x / 10, (int) this.y / 10, (int) this.z / 10).getCubeName() == Cube.CUBE_EXPLOSION)
 						|| (level.getCube((int) this.x / 10, (int) this.y / 10, (int) this.z / 10).getCubeName() == Cube.CUBE_EXPLOSION_HIDE_EXIT) || (level
 						.getCube((int) this.x / 10, (int) this.y / 10, (int) this.z / 10).getCubeName() == Cube.CUBE_EXPLOSION_HIDE_ITEM))) {
-			this.hitPlayer(CubeExplosion.DAMAGE_POINTS / 5);
+			this.hitPlayer(CubeExplosion.DAMAGE_POINTS / 3);
+			this.addScore(SCORE_RUN_EXPLOSION);
 
 			// TODO Testausgabe entfernen
+			System.out.println("");
 			System.out.println("Du bist in eine Explosion gelaufen! -" + (CubeExplosion.DAMAGE_POINTS / 5)
 					+ "   Healthpoints: " + this.getHealthPoints());
+			System.out.println("Das kostet dich " + (-1) * SCORE_RUN_EXPLOSION + " Punkte.");
+			System.out.println("Jetzt hast Du nur noch " + this.getScore() + " Punkte!");
+			System.out.println("");
 		}
 
 		// Überprüfe, ob ein Item eingesammelt werden kann
