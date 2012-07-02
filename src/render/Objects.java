@@ -13,9 +13,9 @@ public class Objects {
 	// Wahl, welches Theme benutzt wird
 	byte themeSelection = 1;
 
-	private Texture texBomb, texExplosion, texPaper, texOutside, texObstacle, texHealth, texXtraBomb, texPortal, texBombRange,
+	private Texture texBomb, texExplosion, texPaper, texOutside, texObstacle, texHealth, texXtraBomb, texPortal, texDoubleScore, texBombRange,
 			texBombStrength, texExit, texRamp, texPlayer, texMenuNewGame, texMenuNewGameGravity, texMenuExitProgram,
-			texMenuLoadLevel, texMenuMulti, texMenuServer, texMenuOptions, TESTPRUECK;
+			texMenuLoadLevel, texMenuMulti, texMenuServer, texMenuOptions;
 
 	private Texture texOverlayTest;
 
@@ -24,9 +24,7 @@ public class Objects {
 		// Texturen laden
 		try {
 			// Spielwürfel
-			TESTPRUECK = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/TESTplayerruecken.png"));
 			texOverlayTest = TextureLoader.getTexture("PNG", new FileInputStream("res/overlay/testnumber.png"));
-			texRamp = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/ramp.png"));
 			String tmpThemeName = "earth";
 			switch (themeSelection) {
 			// Normale Welt
@@ -49,6 +47,8 @@ public class Objects {
 					+ "/outsideworld.png"));
 			texObstacle = TextureLoader
 					.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/obstacle.png"));
+			texRamp = TextureLoader
+					.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/ramp.png"));
 			texHealth = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/health.png"));
 			texXtraBomb = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
 					+ "/ItemXtraBomb.png"));
@@ -58,6 +58,8 @@ public class Objects {
 					+ "/ItemBombRange.png"));
 			texBombStrength = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
 					+ "/ItemBombStrength.png"));
+			texDoubleScore = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
+					+ "/ItemDoubleScore.png"));
 			texExit = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/exit.png"));
 			texPlayer = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/player.png"));
 			// Menuewuerfel
@@ -106,6 +108,11 @@ public class Objects {
 
 	public void DrawCubeItemHealth(float x, float y, float z) {
 		texHealth.bind();
+		DrawCube(x + 2.5f, y + 2.5f, z + 2.5f, 5, 1);
+	}
+	
+	public void DrawCubeItemDoubleScore(float x, float y, float z) {
+		texDoubleScore.bind();
 		DrawCube(x + 2.5f, y + 2.5f, z + 2.5f, 5, 1);
 	}
 

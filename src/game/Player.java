@@ -661,6 +661,10 @@ public class Player {
 	public void addScore(int scoredPoints){
 		this.score += scoredPoints;
 	}
+	
+	public void setScore(int score){
+		this.score = score;
+	}
 
 	public void moveForward() {
 		// float accX = (float) Math.sin(angleY) * stepSize;

@@ -33,12 +33,16 @@ public class CubeExit extends Cube {
 	@Override
 	public void change(Player player, Level level) {
 		// TODO Println-Zeile löschen! Ausgabe nur zu Probezwecken!
+		System.out.println("");
 		System.out.println("Du hast den Ausgang erreicht - Glückwunsch!");
 		
+		// Das erreichen des Ausgangs (Spielgewinn) bringt Punkte
 		player.addScore(SCORE);
-		System.out.println("Der Sieg bringt Dir " + SCORE + " Punkte!");
+		System.out.println("Der Sieg bringt dir " + SCORE + " Punkte!");
 		System.out.println("Du hast damit " + player.getScore() + " Punkte - ganz toll!");
 		
+		// Überprüft, ob die erzielten Punkte den bisher gültigen Highscore brechen
+		// und speichert bei Bedarf den neuen Highscore
 		System.out.println("");
 		if (player.getScore() >= checkHighscore()){
 			System.out.println("Der alte Highscore lag bei " + checkHighscore() + " Punkten.");
@@ -57,7 +61,10 @@ public class CubeExit extends Cube {
 		player.reinit((level.getSizeX() / 2) * 10 + 5, (level.getSizeY() / 2) * 10 + 5, 15, 0, 0, 100, 0, 1, 1, false);
 	}
 	
-	
+	/**
+	 * Speichert den Highscore in einer Textdatei
+	 * @param theScore Erzielter Highscore
+	 */
 	public void saveHighscore(int theScore) {
 		File file;
 		FileWriter writer;
@@ -75,6 +82,10 @@ public class CubeExit extends Cube {
 		}
 	}
 
+	/**
+	 * Überprüft den aktuell gespeicherten Highscore
+	 * @return gültiger Highscore
+	 */
 	public int checkHighscore() {
 		try {
 			Scanner scanner = new Scanner(new File("save/highscore.txt"));

@@ -119,6 +119,8 @@ public class OpenGL {
 						objects.DrawCubeItemBombStrength(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_ITEM_PORTAL)) {
 						objects.DrawCubeItemPortal(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
+					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_ITEM_DOUBLE_SCORE)) {
+						objects.DrawCubeItemDoubleScore(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);	
 					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_SOLID)) {
 						objects.DrawCubeSolid(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_OUTSIDE)) {
