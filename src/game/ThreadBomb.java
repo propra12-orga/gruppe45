@@ -88,7 +88,7 @@ public class ThreadBomb {
 			player.decreaseBombs();
 			listBomb.add(new Bomb(x, y, z, radius, player));
 		}
-		System.out.println("BOMBE IN DEN THREAD");
+//		System.out.println("BOMBE IN DEN THREAD");
 	}
 
 	class TimerBombs implements ActionListener {
@@ -247,11 +247,13 @@ public class ThreadBomb {
 								level.getCube(x, y, z).change(listNetPlayer.get(c), level);
 
 								// Ein Spielertreffer bringt Punkte
-								player.addScore(SCORE_HIT_PLAYER);
-								System.out.println("");
-								System.out.println("Der Treffer bringt Dir " + SCORE_HIT_PLAYER + " Punkte.");
-								System.out.println("Du hast jetzt " + player.getScore() + " Punkte!");
-								System.out.println("");
+								if (listNetPlayer.get(c).getNumber() != player.getNumber()) {
+									player.addScore(SCORE_HIT_PLAYER);
+									System.out.println("");
+									System.out.println("Der Treffer bringt Dir " + SCORE_HIT_PLAYER + " Punkte.");
+									System.out.println("Du hast jetzt " + player.getScore() + " Punkte!");
+									System.out.println("");
+								}
 								
 								listNetPlayer.get(c).addAcceleration(Math.signum(x - startX) * 2, Math.signum(y - startY) * 2,
 										Math.signum(z - startZ) * 2);
@@ -283,11 +285,13 @@ public class ThreadBomb {
 								level.getCube(x, y, z).change(listPlayer.get(c), level);
 
 								// Ein Spielertreffer bringt Punkte
-								player.addScore(SCORE_HIT_PLAYER);
-								System.out.println("");
-								System.out.println("Der Treffer bringt Dir " + SCORE_HIT_PLAYER + " Punkte.");
-								System.out.println("Du hast jetzt " + player.getScore() + " Punkte!");
-								System.out.println("");
+								if (listPlayer.get(c).getNumber() != player.getNumber()) {
+									player.addScore(SCORE_HIT_PLAYER);
+									System.out.println("");
+									System.out.println("Der Treffer bringt Dir " + SCORE_HIT_PLAYER + " Punkte.");
+									System.out.println("Du hast jetzt " + player.getScore() + " Punkte!");
+									System.out.println("");
+								}
 								
 								listPlayer.get(c).addAcceleration(Math.signum(x - startX) * 2, Math.signum(y - startY) * 2,
 										Math.signum(z - startZ) * 2);

@@ -150,15 +150,14 @@ public class OpenGL {
 				}
 			}
 		}
-		
-		// Mitspieler zeichnen, falls vorhanden
 		if (listPlayer != null) {
 			for (int i = 0; i < listPlayer.size(); i++) {
 				if (listPlayer.get(i).getNumber() != player.getNumber()) {
-					objects.DrawPlayer(listPlayer.get(i).getX(), listPlayer.get(i).getY(), listPlayer.get(i).getZ());
+					objects.DrawPlayer(listPlayer.get(i).getX()- (sizeOfCube / 2), listPlayer.get(i).getY()- (sizeOfCube / 2), listPlayer.get(i).getZ()- (sizeOfCube / 2));
 				}
 			}
 		}
+		
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glFlush();
 	}

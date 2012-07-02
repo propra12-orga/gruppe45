@@ -15,7 +15,7 @@ public class Objects {
 
 	private Texture texBomb, texExplosion, texPaper, texOutside, texObstacle, texHealth, texXtraBomb, texPortal, texBombRange,
 			texBombStrength, texExit, texRamp, texPlayer, texMenuNewGame, texMenuNewGameGravity, texMenuExitProgram,
-			texMenuLoadLevel, texMenuMulti, texMenuServer, texMenuOptions;
+			texMenuLoadLevel, texMenuMulti, texMenuServer, texMenuOptions, TESTPRUECK;
 
 	private Texture texOverlayTest;
 
@@ -24,6 +24,7 @@ public class Objects {
 		// Texturen laden
 		try {
 			// Spielwürfel
+			TESTPRUECK = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/TESTplayerruecken.png"));
 			texOverlayTest = TextureLoader.getTexture("PNG", new FileInputStream("res/overlay/testnumber.png"));
 			texRamp = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/earth/ramp.png"));
 			String tmpThemeName = "earth";
@@ -136,6 +137,11 @@ public class Objects {
 	public void DrawPlayer(float x, float y, float z) {
 		texPlayer.bind();
 		DrawCube(x + 2.5f, y + 2.5f, z + 2.5f, 5, 1);
+	}
+	
+	public void DrawPlayerTEST(float x, float y, float z, float angleX, float angleY) {
+		TESTPRUECK.bind();
+		DrawPlayerBack(x + 1f, y + 1f, z + 1f, angleX, angleY, 8, 1);
 	}
 
 	public void DrawCubeRamp(float x, float y, float z) {
@@ -408,6 +414,75 @@ public class Objects {
 		GL11.glVertex3f(x, y + size, z + size);
 		GL11.glTexCoord2f(texSize, 0);
 		GL11.glVertex3f(x + size, y + size, z + size);
+		GL11.glEnd();
+	}
+	
+	/**
+	 * Zeichnet eine Spielfigur
+	 * 
+	 * @param x
+	 *            x-Position
+	 * @param y
+	 *            y-Position
+	 * @param z
+	 *            z-Position
+	 * @param size
+	 *            Kantenlaenge
+	 * @param texSize
+	 *            Skalierung der Textur
+	 */
+	public void DrawPlayerBack(float x, float y, float z, float angleX, float angleY, float size, float texSize) {
+		GL11.glColor3f(1, 1, 1);
+		GL11.glBegin(GL11.GL_QUADS);
+		// Hinten
+		GL11.glTexCoord2f(0, 0);
+		GL11.glVertex3f(x + size, y, z);
+		
+		GL11.glTexCoord2f(0, texSize);
+		GL11.glVertex3f(x + (size/2), y + size, z);
+		
+		GL11.glTexCoord2f(texSize, texSize);
+		GL11.glVertex3f(x + (size/2), y + size, z);
+		
+		GL11.glTexCoord2f(texSize, 0);
+		GL11.glVertex3f(x, y, z);
+		
+		// Unten
+//		GL11.glTexCoord2f(0, 0);
+//		GL11.glVertex3f(x + size, y, z);
+//		GL11.glTexCoord2f(0, texSize);
+//		GL11.glVertex3f(x + size, y, z + size);
+//		GL11.glTexCoord2f(texSize, texSize);
+//		GL11.glVertex3f(x, y, z + size);
+//		GL11.glTexCoord2f(texSize, 0);
+//		GL11.glVertex3f(x, y, z);
+//		// Links
+//		GL11.glTexCoord2f(0, 0);
+//		GL11.glVertex3f(x + size, y, z);
+//		GL11.glTexCoord2f(0, texSize);
+//		GL11.glVertex3f(x + size, y, z + size);
+//		GL11.glTexCoord2f(texSize, texSize);
+//		GL11.glVertex3f(x + size, y + size, z + size);
+//		GL11.glTexCoord2f(texSize, 0);
+//		GL11.glVertex3f(x + size, y + size, z + size);
+//		// Rechts
+//		GL11.glTexCoord2f(0, 0);
+//		GL11.glVertex3f(x, y, z);
+//		GL11.glTexCoord2f(0, texSize);
+//		GL11.glVertex3f(x, y, z + size);
+//		GL11.glTexCoord2f(texSize, texSize);
+//		GL11.glVertex3f(x, y + size, z + size);
+//		GL11.glTexCoord2f(texSize, 0);
+//		GL11.glVertex3f(x, y + size, z + size);
+//		// Schräge
+//		GL11.glTexCoord2f(0, 0);
+//		GL11.glVertex3f(x + size, y, z);
+//		GL11.glTexCoord2f(0, texSize);
+//		GL11.glVertex3f(x, y, z);
+//		GL11.glTexCoord2f(texSize, texSize);
+//		GL11.glVertex3f(x, y + size, z + size);
+//		GL11.glTexCoord2f(texSize, 0);
+//		GL11.glVertex3f(x + size, y + size, z + size);
 		GL11.glEnd();
 	}
 
