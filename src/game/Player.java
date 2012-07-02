@@ -15,6 +15,8 @@ import java.util.List;
  * 
  */
 public class Player {
+	
+	private static int START_SCORE = 1000;
 	// TODO Menüoptionen
 	// Obergrenzen für Playervariablen
 	/**
@@ -38,7 +40,7 @@ public class Player {
 
 	final static public float INERTIA = .1f;
 	// final static public float MAX_ACCELERATION = 10;
-
+	
 	boolean gravity = false;
 
 	private int number = 0;
@@ -56,6 +58,7 @@ public class Player {
 
 	protected Level level;
 
+	private int score = START_SCORE; //Hier werden die Punkte des Spielers gesammelt
 	private int healthPoints = 100;
 	int radius = 1;
 	int bombStrengthMultiplier = 1;
@@ -215,6 +218,7 @@ public class Player {
 		setbombStrengthMultiplier(bombStrengthMultiplier);
 		setGravity(gravity);
 		setRadius(bombradius);
+		resetScore();
 	}
 
 	public void setHealthPoints(int healthPoints) {
@@ -631,6 +635,27 @@ public class Player {
 	public void turnLeft(float s) {
 		this.angleY += s;// 0.012f;
 	}
+	
+	/**
+	 * Gibt den aktuellen Punktestand des Spielers zurück
+	 * @return Punktestand
+	 */
+	public int getScore(){
+		return this.score;
+	}
+	
+	public void resetScore(){
+		this.score = START_SCORE;
+	}
+	
+	/**
+	 * Addiert die übergebene Punktezahl zum Punktestand des Spielers
+	 * (negative Übergabe = Punktabzug)
+	 * @param scoredPoints Übergebene Punkte
+	 */
+	public void addScore(int scoredPoints){
+		this.score += scoredPoints;
+	}
 
 	public void moveForward() {
 		// float accX = (float) Math.sin(angleY) * stepSize;
@@ -684,10 +709,16 @@ public class Player {
 
 	// FIXME Player stirbt -> Programmende
 	public void dies() {
+		System.out.println("");
 		System.out.println("Du bist jetzt tot!");
+		this.resetScore();
+		this.addScore(-START_SCORE);
+		System.out.println("Du verlierst alle Deine Punkte!");
+		System.out.println("Punkte nun: " + getScore());
+		System.out.println("");
 		System.exit(0);
 	}
-
+	
 	public float zum_quadrat(float zahl) {
 		return zahl * zahl;
 	}

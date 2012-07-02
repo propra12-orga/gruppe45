@@ -12,6 +12,7 @@ public class MenuCubeNewGame extends Cube {
 	@Override
 	public void change(Player player, Level level) {
 		// TODO Println-Zeile löschen! Ausgabe nur zu Probezwecken!
+		System.out.println("");
 		System.out.println("Neues Spiel gestartet!");
 		level.buildDefaultLevel();
 
@@ -28,6 +29,9 @@ public class MenuCubeNewGame extends Cube {
 		
 		//FIXME Netzwerkfähigkeit
 		player.reinit(player1_start_x, level.getSizeY()*10-15, 15, 0, 0, 100, 1, 1, 1, false);
+	
+		System.out.println("Du startest mit " + player.getScore() + " Punkten!");
+		System.out.println("");
 	}
 
 }

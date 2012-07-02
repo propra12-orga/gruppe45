@@ -12,6 +12,7 @@ public class MenuCubeNewGameGravity extends Cube {
 	@Override
 	public void change(Player player, Level level) {
 		// TODO Println-Zeile löschen! Ausgabe nur zu Probezwecken!
+		System.out.println("");
 		System.out.println("Neues Spiel gestartet!");
 		level.buildGravityLevel();
 		
@@ -23,6 +24,8 @@ public class MenuCubeNewGameGravity extends Cube {
 		level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), (level.getSizeX() -2), 1, 2);
 		level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), (level.getSizeX() -2), 1, 3);
 
+		System.out.println("Du startest mit " + player.getScore() + " Punkten!");
+		System.out.println("");
 	}
 
 }

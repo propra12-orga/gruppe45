@@ -24,6 +24,10 @@ public class ThreadBomb {
 	final float PROBABILITY_BOMB_RANGE = 0.15f;
 	final float PROBABILITY_BOMB_STRENGTH = 0.15f;
 	// Rest ist CUBE_EMPTY
+	
+	final static public int SCORE_OBSTACLE = 50;
+	final static public int SCORE_HIT_PLAYER = 150;
+	final static public int SCORE_KILL = 500;
 
 	final int MILLISECS_PER_TICK = 10;
 	final int FUSE_TIME = 300; // (in Hundertstelsekunden) 3 Sekunden
@@ -206,9 +210,23 @@ public class ThreadBomb {
 				// hinter die Explosion
 				if (level.getCubeName(x, y, z).equals(Cube.CUBE_OBSTACLE_HIDE_EXIT)) {
 					level.setCube(Cube.getCubeByName(Cube.CUBE_EXPLOSION_HIDE_EXIT), x, y, z);
+					// Ein Hinderniswürfel bringt Punkte
+					player.addScore(SCORE_OBSTACLE);
+					System.out.println("");
+					System.out.println("Das zerstörte Wand bringt Dir " + SCORE_OBSTACLE + " Punkte.");
+					System.out.println("Du hast jetzt " + player.getScore() + " Punkte!");
+					System.out.println("");
+					
 					// Ein Hinderniswürfel kann später zu einem Item werden
 				} else if (level.getCubeName(x, y, z).equals(Cube.CUBE_OBSTACLE)) {
 					level.setCube(Cube.getCubeByName(Cube.CUBE_EXPLOSION_HIDE_ITEM), x, y, z);
+					// Ein Hinderniswürfel bringt Punkte
+					player.addScore(SCORE_OBSTACLE);
+					System.out.println("");
+					System.out.println("Das zerstörte Wand bringt Dir " + SCORE_OBSTACLE + " Punkte.");
+					System.out.println("Du hast jetzt " + player.getScore() + " Punkte!");
+					System.out.println("");
+					
 					// alle anderen Würfel (leere, Items, ...) verschwinden
 				} else {
 					level.setCube(Cube.getCubeByName(Cube.CUBE_EXPLOSION), x, y, z);
@@ -228,12 +246,24 @@ public class ThreadBomb {
 								// Spieler werden u. a. Lebenspunkte abgezogen
 								level.getCube(x, y, z).change(listNetPlayer.get(c), level);
 
+								// Ein Spielertreffer bringt Punkte
+								player.addScore(SCORE_HIT_PLAYER);
+								System.out.println("");
+								System.out.println("Der Treffer bringt Dir " + SCORE_HIT_PLAYER + " Punkte.");
+								System.out.println("Du hast jetzt " + player.getScore() + " Punkte!");
+								System.out.println("");
+								
 								listNetPlayer.get(c).addAcceleration(Math.signum(x - startX) * 2, Math.signum(y - startY) * 2,
 										Math.signum(z - startZ) * 2);
 
 								// Abfrage, ob Player noch lebt oder getötet
 								// wurde
 								if (listNetPlayer.get(c).getHealthPoints() <= 0) {
+									// Ein Kill bringt Punkte
+									System.out.println("");
+									player.addScore(SCORE_KILL);
+									System.out.println("Der Kill bringt Dir " + SCORE_KILL + " Punkte.");
+									System.out.println("Du hast nun " + player.getScore() + " Punkte!");
 									listNetPlayer.get(c).dies();
 								}
 							}
@@ -252,12 +282,24 @@ public class ThreadBomb {
 								// Spieler werden u. a. Lebenspunkte abgezogen
 								level.getCube(x, y, z).change(listPlayer.get(c), level);
 
+								// Ein Spielertreffer bringt Punkte
+								player.addScore(SCORE_HIT_PLAYER);
+								System.out.println("");
+								System.out.println("Der Treffer bringt Dir " + SCORE_HIT_PLAYER + " Punkte.");
+								System.out.println("Du hast jetzt " + player.getScore() + " Punkte!");
+								System.out.println("");
+								
 								listPlayer.get(c).addAcceleration(Math.signum(x - startX) * 2, Math.signum(y - startY) * 2,
 										Math.signum(z - startZ) * 2);
 
 								// Abfrage, ob Player noch lebt oder getötet
 								// wurde
 								if (listPlayer.get(c).getHealthPoints() <= 0) {
+									// Ein Kill bringt Punkte
+									System.out.println("");
+									player.addScore(SCORE_KILL);
+									System.out.println("Der Kill bringt Dir " + SCORE_KILL + " Punkte.");
+									System.out.println("Du hast nun " + player.getScore() + " Punkte!");
 									listPlayer.get(c).dies();
 								}
 							}

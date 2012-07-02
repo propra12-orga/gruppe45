@@ -16,9 +16,9 @@ import java.util.List;
 public class ThreadServer implements Runnable {
 
 	final private static int SERVER_PORT = 12345;
-	final private static int LEVEL_X = 20;
-	final private static int LEVEL_Y = 20;
-	final private static int LEVEL_Z = 20;
+	final private static int LEVEL_X = 13;
+	final private static int LEVEL_Y = 13;
+	final private static int LEVEL_Z = 14;
 
 	final public static int SERVER_MAX_PLAYER = 10;
 

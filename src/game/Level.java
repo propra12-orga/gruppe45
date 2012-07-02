@@ -23,7 +23,7 @@ public class Level {
 	 * eine freie Stelle gesetzt wird
 	 */
 
-	final static public float OBSTACLE_PROBABILITY = 0.0f; // Wahrscheinlichkeit
+	final static public float OBSTACLE_PROBABILITY = 0.4f; // Wahrscheinlichkeit
 															// eines
 															// Hindernisses
 															// an leerer Stelle
