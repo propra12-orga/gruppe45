@@ -61,7 +61,7 @@ public class Player {
 	protected Level level;
 
 	private String playername;
-	private int score = START_SCORE; //Hier werden die Punkte des Spielers gesammelt
+	private long score = START_SCORE; //Hier werden die Punkte des Spielers gesammelt
 	private int healthPoints = 100;
 	int radius = 1;
 	int bombStrengthMultiplier = 1;
@@ -645,7 +645,7 @@ public class Player {
 	 * Gibt den aktuellen Punktestand des Spielers zurück
 	 * @return Punktestand
 	 */
-	public int getScore(){
+	public long getScore(){
 		return this.score;
 	}
 	

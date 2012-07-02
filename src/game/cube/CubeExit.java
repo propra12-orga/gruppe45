@@ -65,7 +65,7 @@ public class CubeExit extends Cube {
 	 * Speichert den Highscore in einer Textdatei
 	 * @param theScore Erzielter Highscore
 	 */
-	public void saveHighscore(int theScore) {
+	public void saveHighscore(long theScore) {
 		File file;
 		FileWriter writer;
 		file = new File("save/highscore.txt");
@@ -86,10 +86,10 @@ public class CubeExit extends Cube {
 	 * Überprüft den aktuell gespeicherten Highscore
 	 * @return gültiger Highscore
 	 */
-	public int checkHighscore() {
+	public long checkHighscore() {
 		try {
 			Scanner scanner = new Scanner(new File("save/highscore.txt"));
-			return scanner.nextInt();
+			return scanner.nextLong();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			return 0;
