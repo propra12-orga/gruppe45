@@ -1,6 +1,7 @@
 package control;
 
 import game.Player;
+import render.Menu;
 
 import org.lwjgl.input.Mouse;
 
@@ -10,7 +11,7 @@ import org.lwjgl.input.Mouse;
  * 
  */
 public class Control_Mouse extends Control {
-
+	
 	public Control_Mouse(Player player) {
 		super(player);
 		Mouse.setGrabbed(true);
@@ -24,8 +25,8 @@ public class Control_Mouse extends Control {
 			if (Mouse.isButtonDown(0)) { // Linksklick legt eine Bombe
 				player.setBomb();
 			}
-			if (Mouse.isButtonDown(1)) { // Linksklick legt eine Bombe
-				player.moveForward();
+			if (Mouse.isButtonDown(1)) { // Rechtsklick schaltet den Bombenradius um
+				System.out.println("Rechte Maustaste");
 			}
 		}
 	}

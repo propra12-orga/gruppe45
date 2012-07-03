@@ -12,6 +12,8 @@ import game.Player;
  */
 public class CubeItemPortal extends Cube {
 	
+	final static public int SCORE = 100;
+	
 	CubeItemPortal() {
 		super(Cube.IS_WALKABLE, Cube.IS_COLLECTABLE, Cube.IS_DESTROYABLE); 
 	}
@@ -42,10 +44,16 @@ public class CubeItemPortal extends Cube {
 			} while (!(level.getCube(destCubeX, destCubeY, destCubeZ).isWalkable()));
 		}
 	
+		System.out.println("");
 		System.out.println("Du hast ein Portal betreten!");		
 		level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), player.getCubeX(), player.getCubeY(), player.getCubeZ());
 		System.out.println("Alte Position: x:" + player.getCubeX() + ", y:" + player.getCubeY() + ", z:" + player.getCubeZ());	
 		player.setPlayerPosition(destCubeX, destCubeY, destCubeZ);		
-		System.out.println("Neue Position: x:" + destCubeX + ", y:" + destCubeY + ", z:" + destCubeZ);	
+		System.out.println("Neue Position: x:" + destCubeX + ", y:" + destCubeY + ", z:" + destCubeZ);
+		
+		player.addScore(SCORE);
+		System.out.println("Das Portal bringt Dir " + SCORE + " Punkte.");
+		System.out.println("Du hast jetzt " + player.getScore() + " Punkte!");
+		System.out.println("");
 	}
 }

@@ -1,5 +1,6 @@
 package DetectedServer;
 
+import game.Game;
 import game.ThreadBomb;
 
 import java.io.IOException;
@@ -15,9 +16,9 @@ import java.util.List;
 public class ThreadServer implements Runnable {
 
 	final private static int SERVER_PORT = 12345;
-	final private static int LEVEL_X = 20;
-	final private static int LEVEL_Y = 20;
-	final private static int LEVEL_Z = 20;
+	final private static int LEVEL_X = 13;
+	final private static int LEVEL_Y = 13;
+	final private static int LEVEL_Z = 14;
 
 	final public static int SERVER_MAX_PLAYER = 10;
 
@@ -31,12 +32,15 @@ public class ThreadServer implements Runnable {
 	private NetPlayer netPlayer;
 	private int number;
 	private int random;
+
 	private ThreadBomb threadBomb;
 
 	public ThreadServer() {
 		listNetPlayer = new ArrayList<NetPlayer>();
 		netLevel = new NetLevel(LEVEL_X, LEVEL_Y, LEVEL_Z, listNetPlayer);
-		threadBomb = new ThreadBomb(netLevel, null, listNetPlayer);
+		Game.setThreadBomb(new ThreadBomb(netLevel, null, listNetPlayer));
+		// threadBomb = new ThreadBomb(netLevel, null, listNetPlayer);
+		// Game.setThreadBomb(threadBomb);
 		random = 0; // TODO Muss noch zufaellig werden
 		number = 1;
 		try {
@@ -56,15 +60,17 @@ public class ThreadServer implements Runnable {
 				System.out.println("Server:Neuer Spieler");
 				netPlayer = new NetPlayer(netLevel, spawnPoint[random][0], spawnPoint[random][1], spawnPoint[random][2],
 						listNetPlayer, number++, client);
+				netPlayer.setBombs(1);
+				new Thread(new ThreadClient(netLevel, netPlayer, listNetPlayer)).start();
+				listNetPlayer.add(netPlayer);
 				if (listNetPlayer.size() > SERVER_MAX_PLAYER) {
 					netPlayer.write(NetPlayer.MSG_SERVER_FULL + ":");
 				} else {
 					netPlayer.setBombs(1);
-					listNetPlayer.add(netPlayer);
-					new Thread(new ThreadClient(netLevel, netPlayer, listNetPlayer)).start();
 					for (int i = 0; i < (listNetPlayer.size() - 1); i++) {
 						listNetPlayer.get(i).msgSendPlayerList();
 					}
+
 				}
 			}
 		} catch (IOException e) {

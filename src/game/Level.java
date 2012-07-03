@@ -43,6 +43,8 @@ public class Level {
 	public static byte themeSelection = THEME_EARTH;
 //	public byte themeSelection = THEME_SPACE;
 	// byte themeSelection = THEME_SOCCER;
+	
+	boolean inMenu = true;
 
 	/**
 	 * Ermöglicht das Verstecken des Ausgangs in einem zerstörbaren Block
@@ -70,35 +72,40 @@ public class Level {
 	}
 
 	public void setBomb(int x, int y, int z, Player player) {
-		Game.getThreadBomb().setBomb(x, y, z, player.getRadius(), player, player.getbombStrengthMultiplier());
+		Game.getThreadBomb().setBomb(x, y, z, player.getRadius(), player);
 	}
 
 	/**
 	 * Gibt die Ausdehnung des Levels in x-Richtung
+	 * 
 	 * @return Ausdehnung des Levels in x-Richtung
 	 */
 	public int getSizeX() {
 		return level.length;
 	}
-	
+
 	/**
 	 * Gibt die Ausdehnung des Levels in y-Richtung
+	 * 
 	 * @return Ausdehnung des Levels in y-Richtung
 	 */
 	public int getSizeY() {
 		return level[0].length;
 	}
-	
+
 	/**
 	 * Gibt die Ausdehnung des Levels in z-Richtung
+	 * 
 	 * @return Ausdehnung des Levels in z-Richtung
 	 */
 	public int getSizeZ() {
 		return level[0][0].length;
 	}
-	
+
 	/**
-	 * Dies legt die Wahl der Themas, also die Wahl der Texturen, Sounds etc. fest
+	 * Dies legt die Wahl der Themas, also die Wahl der Texturen, Sounds etc.
+	 * fest
+	 * 
 	 * @return Zahl des gewählten Themas
 	 */
 	public byte getthemeSelection() {
@@ -116,23 +123,27 @@ public class Level {
 
 		//return this.themeSelection;
 	}
-	
+
 	/**
-	 * Hier wird das gewählte Thema, also die verwendeten Texturen, Sounds etc. festgelegt
-	 * @param themeSelection 
-	 * 				1 = Thema "Erde"
-	 * 				2 = Thema "Weltraum"
-	 * 				3 = Thema "Fußball"
+	 * Hier wird das gewählte Thema, also die verwendeten Texturen, Sounds etc.
+	 * festgelegt
+	 * 
+	 * @param themeSelection
+	 *            1 = Thema "Erde" 2 = Thema "Weltraum" 3 = Thema "Fußball"
 	 */
 	public void setthemeSelection(byte themeSelection) {
 		this.themeSelection = themeSelection;
 	}
-	
+
 	/**
 	 * Gibt den Würfel (Art) an einer bestimmten Position in der Spielwelt aus.
-	 * @param x x-Position des Würfels
-	 * @param y y-Position des Würfels
-	 * @param z z-Position des Würfels
+	 * 
+	 * @param x
+	 *            x-Position des Würfels
+	 * @param y
+	 *            y-Position des Würfels
+	 * @param z
+	 *            z-Position des Würfels
 	 * @return Würfelart an der Position (x,y,z) in der Spielwelt
 	 */
 	public Cube getCube(int x, int y, int z) {
@@ -144,11 +155,17 @@ public class Level {
 	}
 
 	/**
-	 * Setzt einen bestimmten übergebenen Würfel an eine bestimmte Position des Levels.
-	 * @param cube eine Instanz dieses Würfeltyps wird an die Position gesetzt
-	 * @param x x-Position an die der Würfel gesetzt wird
-	 * @param y y-Position an die der Würfel gesetzt wird
-	 * @param z z-Position an die der Würfel gesetzt wird
+	 * Setzt einen bestimmten übergebenen Würfel an eine bestimmte Position des
+	 * Levels.
+	 * 
+	 * @param cube
+	 *            eine Instanz dieses Würfeltyps wird an die Position gesetzt
+	 * @param x
+	 *            x-Position an die der Würfel gesetzt wird
+	 * @param y
+	 *            y-Position an die der Würfel gesetzt wird
+	 * @param z
+	 *            z-Position an die der Würfel gesetzt wird
 	 */
 	public void setCube(Cube cube, int x, int y, int z) {
 		if (x >= 0 && y >= 0 && z >= 0 && x < getSizeX() && y < getSizeY() && z < getSizeZ()) {
@@ -159,13 +176,13 @@ public class Level {
 	/**
 	 * Speichert ein Level in einer einfachen Textdatei.
 	 * 
-	 * Derzeit werden nur die entsprechenden Würfel für alle Positionen
-	 * des Levels gespeichert.
+	 * Derzeit werden nur die entsprechenden Würfel für alle Positionen des
+	 * Levels gespeichert.
 	 */
 	public void save() {
 		File file;
 		FileWriter writer;
-		file = new File("quicksave.txt");
+		file = new File("save/quicksave.txt");
 		try {
 			writer = new FileWriter(file);
 
@@ -196,12 +213,12 @@ public class Level {
 	 * Lädt eine Würfelverteilung aus einer Textdatei.
 	 * 
 	 * Derzeit muss die gespeicherte Levelgröße mit der aktuellen Levelgröße
-	 * übereinstimmen.
-	 * Spielerpositionen, Lebenspunkte und weitere Parameter werden noch nicht gespeichert.
+	 * übereinstimmen. Spielerpositionen, Lebenspunkte und weitere Parameter
+	 * werden noch nicht gespeichert.
 	 */
 	public void load() {
 		try {
-			Scanner scanner = new Scanner(new File("quicksave.txt"));
+			Scanner scanner = new Scanner(new File("save/quicksave.txt"));
 			for (byte i = 0; i < getSizeX(); i++) {
 				for (byte j = 0; j < getSizeY(); j++) {
 					for (byte k = 0; k < getSizeZ(); k++) {
@@ -231,6 +248,15 @@ public class Level {
 			return level[x][y][z].getCubeName();
 		} else
 			return null;
+	}
+	
+	public boolean isInMenu(){
+		return this.inMenu; 
+	}
+	
+	public void setInMenu(boolean inMenu){
+		this.inMenu = inMenu;
+		
 	}
 
 	// TODO String nur aendern wenn sich auch das Level aendert, neuberechnen
@@ -265,24 +291,29 @@ public class Level {
 		final int Z_VERSCHIEBUNG = 3; // gibt an, wie weit die Menüwand von der
 										// Rückwand entfernt ist
 		// leere das Levelinnere
+		this.inMenu = true;
 		clear();
 		// Baue das Hauptmenü auf
-		level[getSizeX() / 2 + 2][getSizeY() / 2 + 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_NEW_GAME);
-		level[getSizeX() / 2][getSizeY() / 2 + 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_NEW_GAME_GRAVITY);
-		level[getSizeX() / 2 - 2][getSizeY() / 2 + 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_LOAD_LEVEL);
-		
-		level[getSizeX() / 2 + 2][getSizeY() / 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_SERVER);	
+		level[getSizeX() / 2 + 2][getSizeY() / 2 + 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube
+				.getCubeByName(Cube.MENU_CUBE_NEW_GAME);
+		level[getSizeX() / 2][getSizeY() / 2 + 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube
+				.getCubeByName(Cube.MENU_CUBE_NEW_GAME_GRAVITY);
+		level[getSizeX() / 2 - 2][getSizeY() / 2 + 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube
+				.getCubeByName(Cube.MENU_CUBE_LOAD_LEVEL);
+
+		level[getSizeX() / 2 + 2][getSizeY() / 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_SERVER);
 		level[getSizeX() / 2][getSizeY() / 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_MULTI);
 		level[getSizeX() / 2 - 2][getSizeY() / 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_OPTIONS);
-		
-		level[getSizeX() / 2][getSizeY() / 2 - 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube.getCubeByName(Cube.MENU_CUBE_EXIT_PROGRAM);
+
+		level[getSizeX() / 2][getSizeY() / 2 - 2][getSizeZ() - Z_VERSCHIEBUNG] = Cube
+				.getCubeByName(Cube.MENU_CUBE_EXIT_PROGRAM);
 	}
 
 	/**
 	 * Erzeugt ein leeres Level der in der Klasse Game festgelegten Größe.
 	 * 
-	 * Das leere Level besteht nur aus der Außenwand (CubeOutside);
-	 * das gesamte Levelinnere ist leer (CubeEmpty).
+	 * Das leere Level besteht nur aus der Außenwand (CubeOutside); das gesamte
+	 * Levelinnere ist leer (CubeEmpty).
 	 */
 	public void clear() {
 		for (byte i = 0; i < getSizeX(); i++) {
@@ -297,12 +328,13 @@ public class Level {
 		}
 	}
 
-	// TODO Zufallsverteilung anpassen; Startposition für Spieler beim Erzeugen freiräumen! 
+	// TODO Zufallsverteilung anpassen; Startposition für Spieler beim Erzeugen
+	// freiräumen!
 	/**
 	 * Füllt ein Level zufällig mit Hinderniswürfel.
 	 * 
-	 * Die Wahrscheinlichkeit für ein wird über die Instanzvariable OBSTACLE_PROBABILITY (in *100 %)
-	 * festgelegt.
+	 * Die Wahrscheinlichkeit für ein wird über die Instanzvariable
+	 * OBSTACLE_PROBABILITY (in *100 %) festgelegt.
 	 */
 	public void fillWithObstacles() {
 		for (byte i = 1; i < getSizeX() - 1; i++) {
@@ -324,83 +356,85 @@ public class Level {
 			}
 		}
 	}
-	
+
 	/**
-	 * Setzt eine Rampe, die eine Verbindung zweier getrennter Ebenen
-	 * herstellt. Dabei wird der Eingang und der Ausgang der Rampe
-	 * frei gehalten. Zudem wird ein Geländer, sodass eine Art
-	 * Rampentunnel entsteht.
-	 * Es wird die Position der unteren Rampe übergeben.
-	 * @param x x-Position der unteren Rampe im Levelarray 
-	 * @param y y-Position der unteren Rampe im Levelarray 
-	 * @param z z-Position der unteren Rampe im Levelarray 
+	 * Setzt eine Rampe, die eine Verbindung zweier getrennter Ebenen herstellt.
+	 * Dabei wird der Eingang und der Ausgang der Rampe frei gehalten. Zudem
+	 * wird ein Geländer, sodass eine Art Rampentunnel entsteht. Es wird die
+	 * Position der unteren Rampe übergeben.
+	 * 
+	 * @param x
+	 *            x-Position der unteren Rampe im Levelarray
+	 * @param y
+	 *            y-Position der unteren Rampe im Levelarray
+	 * @param z
+	 *            z-Position der unteren Rampe im Levelarray
 	 */
-	public void setRamp(int x, int y, int z){
+	public void setRamp(int x, int y, int z) {
 		// Lege die Rampen
 		level[x][y][z] = Cube.getCubeByName(Cube.CUBE_SOLID_RAMP);
-		level[x][y+1][z+1] = Cube.getCubeByName(Cube.CUBE_SOLID_RAMP);
+		level[x][y + 1][z + 1] = Cube.getCubeByName(Cube.CUBE_SOLID_RAMP);
 		// Öffne Zugänge und Durchgänge
-		level[x][y+1][z] = Cube.getCubeByName(Cube.CUBE_EMPTY);
-		level[x][y][z-1] = Cube.getCubeByName(Cube.CUBE_EMPTY);
-		level[x][y+2][z] = Cube.getCubeByName(Cube.CUBE_EMPTY);
-		level[x][y+2][z+1] = Cube.getCubeByName(Cube.CUBE_EMPTY);
-		level[x][y+2][z+2] = Cube.getCubeByName(Cube.CUBE_EMPTY);
-		level[x-1][y+2][z+2] = Cube.getCubeByName(Cube.CUBE_EMPTY);
-		level[x+1][y+2][z+2] = Cube.getCubeByName(Cube.CUBE_EMPTY);
-		level[x-1][y+2][z+2] = Cube.getCubeByName(Cube.CUBE_EMPTY);
-		level[x+1][y+2][z+2] = Cube.getCubeByName(Cube.CUBE_EMPTY);
+		level[x][y + 1][z] = Cube.getCubeByName(Cube.CUBE_EMPTY);
+		level[x][y][z - 1] = Cube.getCubeByName(Cube.CUBE_EMPTY);
+		level[x][y + 2][z] = Cube.getCubeByName(Cube.CUBE_EMPTY);
+		level[x][y + 2][z + 1] = Cube.getCubeByName(Cube.CUBE_EMPTY);
+		level[x][y + 2][z + 2] = Cube.getCubeByName(Cube.CUBE_EMPTY);
+		level[x - 1][y + 2][z + 2] = Cube.getCubeByName(Cube.CUBE_EMPTY);
+		level[x + 1][y + 2][z + 2] = Cube.getCubeByName(Cube.CUBE_EMPTY);
+		level[x - 1][y + 2][z + 2] = Cube.getCubeByName(Cube.CUBE_EMPTY);
+		level[x + 1][y + 2][z + 2] = Cube.getCubeByName(Cube.CUBE_EMPTY);
 		// Setze Fundament
-		level[x][y][z+1] = Cube.getCubeByName(Cube.CUBE_SOLID);
-		level[x][y][z+2] = Cube.getCubeByName(Cube.CUBE_SOLID);
-		level[x][y+1][z+2] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x][y][z + 1] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x][y][z + 2] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x][y + 1][z + 2] = Cube.getCubeByName(Cube.CUBE_SOLID);
 		// Setze Umrandung, um Reinlaufen von der Seite zu verhindern
 		// Rechte Seite
-		level[x-1][y][z] = Cube.getCubeByName(Cube.CUBE_SOLID);
-		level[x-1][y][z+1] = Cube.getCubeByName(Cube.CUBE_SOLID);
-		level[x-1][y][z+2] = Cube.getCubeByName(Cube.CUBE_SOLID);
-		level[x-1][y+1][z] = Cube.getCubeByName(Cube.CUBE_SOLID);
-		level[x-1][y+1][z+1] = Cube.getCubeByName(Cube.CUBE_SOLID);
-		level[x-1][y+1][z+2] = Cube.getCubeByName(Cube.CUBE_SOLID);
-		level[x-1][y+2][z] = Cube.getCubeByName(Cube.CUBE_SOLID);
-		level[x-1][y+2][z+1] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x - 1][y][z] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x - 1][y][z + 1] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x - 1][y][z + 2] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x - 1][y + 1][z] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x - 1][y + 1][z + 1] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x - 1][y + 1][z + 2] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x - 1][y + 2][z] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x - 1][y + 2][z + 1] = Cube.getCubeByName(Cube.CUBE_SOLID);
 		// Linke Seite
-		level[x+1][y][z] = Cube.getCubeByName(Cube.CUBE_SOLID);
-		level[x+1][y][z+1] = Cube.getCubeByName(Cube.CUBE_SOLID);
-		level[x+1][y][z+2] = Cube.getCubeByName(Cube.CUBE_SOLID);
-		level[x+1][y+1][z] = Cube.getCubeByName(Cube.CUBE_SOLID);
-		level[x+1][y+1][z+1] = Cube.getCubeByName(Cube.CUBE_SOLID);
-		level[x+1][y+1][z+2] = Cube.getCubeByName(Cube.CUBE_SOLID);
-		level[x+1][y+2][z] = Cube.getCubeByName(Cube.CUBE_SOLID);
-		level[x+1][y+2][z+1] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x + 1][y][z] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x + 1][y][z + 1] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x + 1][y][z + 2] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x + 1][y + 1][z] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x + 1][y + 1][z + 1] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x + 1][y + 1][z + 2] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x + 1][y + 2][z] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x + 1][y + 2][z + 1] = Cube.getCubeByName(Cube.CUBE_SOLID);
 		// Vorderseite, oben
-		level[x-1][y+2][z-1] = Cube.getCubeByName(Cube.CUBE_SOLID);
-		level[x][y+2][z-1] = Cube.getCubeByName(Cube.CUBE_SOLID);
-		level[x+1][y+2][z-1] = Cube.getCubeByName(Cube.CUBE_SOLID);
-		level[x-1][y+1][z-1] = Cube.getCubeByName(Cube.CUBE_SOLID);
-		level[x][y+1][z-1] = Cube.getCubeByName(Cube.CUBE_SOLID);
-		level[x+1][y+1][z-1] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x - 1][y + 2][z - 1] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x][y + 2][z - 1] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x + 1][y + 2][z - 1] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x - 1][y + 1][z - 1] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x][y + 1][z - 1] = Cube.getCubeByName(Cube.CUBE_SOLID);
+		level[x + 1][y + 1][z - 1] = Cube.getCubeByName(Cube.CUBE_SOLID);
 	}
-	
-	/** 
+
+	/**
 	 * Erstellt eines der Standartlevel.
 	 * 
 	 * Dieses Level ist als Schwerkraftlevel gedacht (d. h. Spieler können hier
-	 * nicht schweben).
-	 * Es besteht aus mehreren Ebenen, die über Rampen verbunden sind.
-	 * Jede Ebene folgt dem einfachen Schachbrettmuster.
+	 * nicht schweben). Es besteht aus mehreren Ebenen, die über Rampen
+	 * verbunden sind. Jede Ebene folgt dem einfachen Schachbrettmuster.
 	 */
 	public void buildGravityLevel() {
 		// Baue leeres Level
 		clear();
 
 		// Setze die unzerstörbaren Würfel
-		for (byte i = 1; i < getSizeX()-1; i++) {
-			for (byte j = 1; j < getSizeY()-1; j++) {
-				for (byte k = 1; k < getSizeZ()-1; k++) {
+		for (byte i = 1; i < getSizeX() - 1; i++) {
+			for (byte j = 1; j < getSizeY() - 1; j++) {
+				for (byte k = 1; k < getSizeZ() - 1; k++) {
 					// Jede gerade Ebene wird komplett mit Solids gefüllt
 					if (j % 2 == 0) {
 						level[i][j][k] = Cube.getCubeByName(Cube.CUBE_SOLID);
-					// Muster der ungeraden Ebenen nach Bomberman-Vorbild
+						// Muster der ungeraden Ebenen nach Bomberman-Vorbild
 					} else if ((i % 2 == 0 && k % 2 == 0)) {
 						level[i][j][k] = Cube.getCubeByName(Cube.CUBE_SOLID);
 					}
@@ -410,46 +444,48 @@ public class Level {
 
 		// Fülle die Welt mit Hindernissen
 		fillWithObstacles();
-		
+
 		// Setze Rampen (manuell)
 		for (byte j = 1; j < getSizeY() - 2; j++) {
 			if (j % 2 == 0) {
 				if (j % 4 == 0) {
-					setRamp(getSizeX() - 4, j-1, getSizeZ() - 5);
+					setRamp(getSizeX() - 4, j - 1, getSizeZ() - 5);
 				} else {
-					setRamp(3, j-1, 2);
+					setRamp(3, j - 1, 2);
 				}
-			}					
+			}
 		}
 
 		// Setze Ausgang manuell
 		// TODO setExit mit Überprüfung auf nicht Rampe, Outside, Solid
 		Random random = new Random();
-		int exit_y = 1 + Math.abs(random.nextInt()) % (this.getSizeY()- 2);
+		int exit_y = 1 + Math.abs(random.nextInt()) % (this.getSizeY() - 2);
 
 		if (exit_y % 2 == 0) {
 			exit_y -= 1;
 		}
-		
-		if (level[this.getSizeX()/2][exit_y][this.getSizeZ()/2].getCubeName() == Cube.CUBE_SOLID) {
-			if (level[this.getSizeX()/2-1][exit_y][this.getSizeZ()/2].getCubeName() == Cube.CUBE_OBSTACLE) {
-				level[this.getSizeX()/2-1][exit_y][this.getSizeZ()/2] = Cube.getCubeByName(Cube.CUBE_OBSTACLE_HIDE_EXIT);
+
+		if (level[this.getSizeX() / 2][exit_y][this.getSizeZ() / 2].getCubeName() == Cube.CUBE_SOLID) {
+			if (level[this.getSizeX() / 2 - 1][exit_y][this.getSizeZ() / 2].getCubeName() == Cube.CUBE_OBSTACLE) {
+				level[this.getSizeX() / 2 - 1][exit_y][this.getSizeZ() / 2] = Cube.getCubeByName(Cube.CUBE_OBSTACLE_HIDE_EXIT);
 			} else {
-				level[this.getSizeX()/2-1][exit_y][this.getSizeZ()/2] = Cube.getCubeByName(Cube.CUBE_EXIT);
+				level[this.getSizeX() / 2 - 1][exit_y][this.getSizeZ() / 2] = Cube.getCubeByName(Cube.CUBE_EXIT);
 			}
 		} else {
-			if (level[this.getSizeX()/2][exit_y][this.getSizeZ()/2].getCubeName() == Cube.CUBE_OBSTACLE) {
-				level[this.getSizeX()/2][exit_y][this.getSizeZ()/2] = Cube.getCubeByName(Cube.CUBE_OBSTACLE_HIDE_EXIT);
+			if (level[this.getSizeX() / 2][exit_y][this.getSizeZ() / 2].getCubeName() == Cube.CUBE_OBSTACLE) {
+				level[this.getSizeX() / 2][exit_y][this.getSizeZ() / 2] = Cube.getCubeByName(Cube.CUBE_OBSTACLE_HIDE_EXIT);
 			} else {
-				level[this.getSizeX()/2][exit_y][this.getSizeZ()/2] = Cube.getCubeByName(Cube.CUBE_EXIT);
+				level[this.getSizeX() / 2][exit_y][this.getSizeZ() / 2] = Cube.getCubeByName(Cube.CUBE_EXIT);
 			}
 		}
+		// FIXME Testausgabe Ausgang entfernen
+		System.out.println("Ausgang in Ebene: " + exit_y);
 	}
 
 	/**
-	 * Baut ein einfaches 3D-Level im Schachbrettmuster auf.
-	 * Hier ist die Schwerkraft deaktiviert, d. h. Spieler können
-	 * hier i. d. R. schweben/fliegen.
+	 * Baut ein einfaches 3D-Level im Schachbrettmuster auf. Hier ist die
+	 * Schwerkraft deaktiviert, d. h. Spieler können hier i. d. R.
+	 * schweben/fliegen.
 	 */
 	public void buildDefaultLevel() {
 		int exit_x, exit_y, exit_z; // Hilfsvariablen für zufälligen Ausgang
@@ -493,16 +529,11 @@ public class Level {
 			}
 		}
 
-		// TODO zum AUSPROBIEREN: Exit verborgen
-		// level[this.getSizeX()-2][this.getSizeY()-2][this.getSizeZ()-2] =
-		// Cube.getCubeByName(Cube.CUBE_OBSTACLE);
 
 		// Setze den Ausgang in eine zufällige der sechs Ecken,
 		// die nicht durch Spieler belegt ist!
 		Random random = new Random();
 		int rnd = 1 + Math.abs(random.nextInt()) % 6;
-
-		// rnd = 4; //TODO zum AUSPROBIEREN: Exit verborgen
 
 		// Skalierbares Level:
 		// Der Ausgang wird bei freiwählbarer Levelausdehnungen in X,Y,Z

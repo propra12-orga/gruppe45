@@ -320,7 +320,7 @@ public class Menu extends javax.swing.JFrame {
         lBeginRange.setText("Maximaler Explosionsradius:");
 
         sMaxBombs.setFont(new java.awt.Font("Perpetua Titling MT", 1, 10)); // NOI18N
-        sMaxBombs.setMajorTickSpacing(3);
+        sMaxBombs.setMajorTickSpacing(1);
         sMaxBombs.setMaximum(10);
         sMaxBombs.setMinimum(1);
         sMaxBombs.setMinorTickSpacing(1);
@@ -686,7 +686,7 @@ public class Menu extends javax.swing.JFrame {
     	Game.LEVEL_SIZE_X = Integer.parseInt(Game.options[0]);
     	Game.LEVEL_SIZE_Y = Integer.parseInt(Game.options[1]);
     	Game.LEVEL_SIZE_Z = Integer.parseInt(Game.options[2]);
-		Level.OBSTACLE_PROBABILITY = Float.parseFloat(Game.options[3]);
+		Level.OBSTACLE_PROBABILITY = Float.parseFloat(Game.options[3])/100;
 		
     }
     /**

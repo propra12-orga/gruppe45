@@ -31,7 +31,7 @@ public class Game {
 
 	static private Control_Keyboard controlKeyboard;
 	static private Control_Mouse controlMouse;
-	
+
 	static private GameMulti gameMulti;
 
 	public static void main(String[] argv) {
@@ -61,15 +61,18 @@ public class Game {
 		window.close();
 	}
 
+	public static void setThreadBomb(ThreadBomb newThreadBomb) {
+		threadBomb = newThreadBomb;
+	}
+
 	public static ThreadBomb getThreadBomb() {
 		return threadBomb;
 	}
 	
-	
-
-	public static void newKeyboard(Player player, Level level){
+	public static void newKeyboard(Player player, Level level) {
 		controlKeyboard = new Control_Keyboard(player, level);
 	}
+
 	public static void host() {
 		threadServer = new Thread(new ThreadServer());
 		threadServer.start();
@@ -77,14 +80,12 @@ public class Game {
 	}
 
 	public static void connect() {
-		threadBomb.stop();
 		gameMulti = new GameMulti();
 		gameMulti.connect(openGl, controlKeyboard, controlMouse);
 		System.out.println("CONNECT");
 	}
 
 	public static void disconnect() {
-		threadBomb.start();
 		openGl.setLevel(level);
 		openGl.setPlayer(player);
 		openGl.setPlayerList(listPlayer);

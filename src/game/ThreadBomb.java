@@ -18,12 +18,17 @@ import DetectedServer.NetPlayer;
  */
 public class ThreadBomb {
 
-	final float PROBABILITY_HEALTH = 0.15f; //0.02f (TESTEINSTELLUNGEN)
-	final float PROBABILITY_XTRA_BOMB = 0.15f;
-	final float PROBABILITY_PORTAL = 0.15f;
-	final float PROBABILITY_BOMB_RANGE = 0.15f;
-	final float PROBABILITY_BOMB_STRENGTH = 0.15f;
+	final float PROBABILITY_HEALTH = 0.1f; // 0.02f (TESTEINSTELLUNGEN)
+	final float PROBABILITY_XTRA_BOMB = 0.1f;
+	final float PROBABILITY_PORTAL = 0.1f;
+	final float PROBABILITY_BOMB_RANGE = 0.1f;
+	final float PROBABILITY_BOMB_STRENGTH = 0.1f;
+	final float PROBABILITY_DOUBLE_SCORE = 0.3f;
 	// Rest ist CUBE_EMPTY
+	
+	final static public int SCORE_OBSTACLE = 50;
+	final static public int SCORE_HIT_PLAYER = 150;
+	final static public int SCORE_KILL = 500;
 
 	final int MILLISECS_PER_TICK = 10;
 	final int FUSE_TIME = 300; // (in Hundertstelsekunden) 3 Sekunden
@@ -50,10 +55,11 @@ public class ThreadBomb {
 		if (listPlayer != null) {
 			this.listPlayer = listPlayer;
 			net = false;
+			System.out.println("ServerThreadBomb gestartet");
 		} else if (listNetPlayer != null) {
 			this.listNetPlayer = listNetPlayer;
 			net = true;
-			System.out.println("ServerThreadBomb gestartet");
+			System.out.println("ServerThreadBomb fuers Netzwerk gestartet");
 		} else {
 			System.out.println("ThreadBomb wurde keine Spielerliste uebergeben");
 			System.exit(-1);
@@ -63,6 +69,11 @@ public class ThreadBomb {
 		this.listExplosion = new ArrayList<Explosion>();
 		timer = new Timer(MILLISECS_PER_TICK, new TimerBombs());
 		timer.start();
+		System.out.println("TIMER GESTARTET");
+	}
+
+	public void setLevel(Level level) {
+		this.level = level;
 	}
 
 	public void stop() {
@@ -73,11 +84,12 @@ public class ThreadBomb {
 		timer.start();
 	}
 
-	public void setBomb(int x, int y, int z, int radius, Player player, int strengthMultiplier) {
+	public void setBomb(int x, int y, int z, int radius, Player player) {
 		if (level.getCubeName(x, y, z).equals(Cube.CUBE_EMPTY)) {
 			player.decreaseBombs();
 			listBomb.add(new Bomb(x, y, z, radius, player));
 		}
+//		System.out.println("BOMBE IN DEN THREAD");
 	}
 
 	class TimerBombs implements ActionListener {
@@ -199,9 +211,23 @@ public class ThreadBomb {
 				// hinter die Explosion
 				if (level.getCubeName(x, y, z).equals(Cube.CUBE_OBSTACLE_HIDE_EXIT)) {
 					level.setCube(Cube.getCubeByName(Cube.CUBE_EXPLOSION_HIDE_EXIT), x, y, z);
+					// Ein Hinderniswürfel bringt Punkte
+					player.addScore(SCORE_OBSTACLE);
+					System.out.println("");
+					System.out.println("Das zerstörte Wand bringt dir " + SCORE_OBSTACLE + " Punkte.");
+					System.out.println("Du hast jetzt " + player.getScore() + " Punkte!");
+					System.out.println("");
+					
 					// Ein Hinderniswürfel kann später zu einem Item werden
 				} else if (level.getCubeName(x, y, z).equals(Cube.CUBE_OBSTACLE)) {
 					level.setCube(Cube.getCubeByName(Cube.CUBE_EXPLOSION_HIDE_ITEM), x, y, z);
+					// Ein Hinderniswürfel bringt Punkte
+					player.addScore(SCORE_OBSTACLE);
+					System.out.println("");
+					System.out.println("Das zerstörte Wand bringt dir " + SCORE_OBSTACLE + " Punkte.");
+					System.out.println("Du hast jetzt " + player.getScore() + " Punkte!");
+					System.out.println("");
+					
 					// alle anderen Würfel (leere, Items, ...) verschwinden
 				} else {
 					level.setCube(Cube.getCubeByName(Cube.CUBE_EXPLOSION), x, y, z);
@@ -221,12 +247,26 @@ public class ThreadBomb {
 								// Spieler werden u. a. Lebenspunkte abgezogen
 								level.getCube(x, y, z).change(listNetPlayer.get(c), level);
 
+								// Ein Spielertreffer bringt Punkte
+								if (listNetPlayer.get(c).getNumber() != player.getNumber()) {
+									player.addScore(SCORE_HIT_PLAYER);
+									System.out.println("");
+									System.out.println("Der Treffer bringt dir " + SCORE_HIT_PLAYER + " Punkte.");
+									System.out.println("Du hast jetzt " + player.getScore() + " Punkte!");
+									System.out.println("");
+								}
+								
 								listNetPlayer.get(c).addAcceleration(Math.signum(x - startX) * 2, Math.signum(y - startY) * 2,
 										Math.signum(z - startZ) * 2);
 
 								// Abfrage, ob Player noch lebt oder getötet
 								// wurde
 								if (listNetPlayer.get(c).getHealthPoints() <= 0) {
+									// Ein Kill bringt Punkte
+									System.out.println("");
+									player.addScore(SCORE_KILL);
+									System.out.println("Der Kill bringt dir " + SCORE_KILL + " Punkte.");
+									System.out.println("Du hast nun " + player.getScore() + " Punkte!");
 									listNetPlayer.get(c).dies();
 								}
 							}
@@ -245,12 +285,26 @@ public class ThreadBomb {
 								// Spieler werden u. a. Lebenspunkte abgezogen
 								level.getCube(x, y, z).change(listPlayer.get(c), level);
 
+								// Ein Spielertreffer bringt Punkte
+								if (listPlayer.get(c).getNumber() != player.getNumber()) {
+									player.addScore(SCORE_HIT_PLAYER);
+									System.out.println("");
+									System.out.println("Der Treffer bringt dir " + SCORE_HIT_PLAYER + " Punkte.");
+									System.out.println("Du hast jetzt " + player.getScore() + " Punkte!");
+									System.out.println("");
+								}
+								
 								listPlayer.get(c).addAcceleration(Math.signum(x - startX) * 2, Math.signum(y - startY) * 2,
 										Math.signum(z - startZ) * 2);
 
 								// Abfrage, ob Player noch lebt oder getötet
 								// wurde
 								if (listPlayer.get(c).getHealthPoints() <= 0) {
+									// Ein Kill bringt Punkte
+									System.out.println("");
+									player.addScore(SCORE_KILL);
+									System.out.println("Der Kill bringt dir " + SCORE_KILL + " Punkte.");
+									System.out.println("Du hast nun " + player.getScore() + " Punkte!");
 									listPlayer.get(c).dies();
 								}
 							}
@@ -318,6 +372,10 @@ public class ThreadBomb {
 					} else if (random < (PROBABILITY_HEALTH + PROBABILITY_XTRA_BOMB + PROBABILITY_PORTAL
 							+ PROBABILITY_BOMB_RANGE + PROBABILITY_BOMB_STRENGTH)) {
 						level.setCube(Cube.getCubeByName(Cube.CUBE_ITEM_BOMB_STRENGTH), x, y, z);
+						// ITEM: Double Score (verdoppelt den Punktestand des Spielers)
+					} else if (random < (PROBABILITY_HEALTH + PROBABILITY_XTRA_BOMB + PROBABILITY_PORTAL
+							+ PROBABILITY_BOMB_RANGE + PROBABILITY_BOMB_STRENGTH + PROBABILITY_DOUBLE_SCORE)) {
+						level.setCube(Cube.getCubeByName(Cube.CUBE_ITEM_DOUBLE_SCORE), x, y, z);
 						// ...oder es können leere Würfel entstehen
 					} else {
 						level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), x, y, z);

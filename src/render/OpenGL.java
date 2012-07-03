@@ -60,7 +60,27 @@ public class OpenGL {
 	}
 
 	public void display() {
-
+		
+//		 TEST: Overlay
+//		GL11.glClearColor(0.5f, 0.5f, 0.5f, 0.1f);
+//
+//		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+//
+//		GL11.glMatrixMode(GL11.GL_PROJECTION);
+//		GL11.glLoadIdentity();
+//		float widthHeightRatio = width / height;
+//		GLU.gluPerspective(45, widthHeightRatio, 1, 1000);
+//        GL11.glOrtho(0.0f, width, height, 0.0f, 0.0f, 1.0f);
+//		GLU.gluLookAt(0, 0, 0, 1, 1, 1, 0, 1, 0);
+//		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+//		GL11.glLoadIdentity();
+//		// Level
+//		GL11.glEnable(GL11.GL_TEXTURE_2D);
+//		
+//		objects.DrawOverlayTest(200,200,10);
+//
+//		// ENDE
+		
 		GL11.glClearColor(0.5f, 0.5f, 0.5f, 0.1f);
 
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
@@ -75,12 +95,7 @@ public class OpenGL {
 		// Level
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		
-//		 TEST: Overlay
-//		GL11.glEnable(GL11.GL_BLEND); 
-//		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-//		GL11.glMatrixMode(GL11.GL_PROJECTION);
-//		System.out.println(player.getAngleY());
-//		objects.DrawOverlayTest((float) (player.getX()*Math.cos(player.getAngleY()/(Math.PI / 2))),player.getY(),player.getZ()+2f);
+
 		
 		
 		for (byte i = 0; i < level.getSizeX(); i += 1) {
@@ -104,6 +119,8 @@ public class OpenGL {
 						objects.DrawCubeItemBombStrength(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_ITEM_PORTAL)) {
 						objects.DrawCubeItemPortal(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
+					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_ITEM_DOUBLE_SCORE)) {
+						objects.DrawCubeItemDoubleScore(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);	
 					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_SOLID)) {
 						objects.DrawCubeSolid(i * sizeOfCube, j * sizeOfCube, k * sizeOfCube);
 					} else if (level.getCubeName(i, j, k).equals(Cube.CUBE_OUTSIDE)) {
@@ -135,15 +152,14 @@ public class OpenGL {
 				}
 			}
 		}
-		
-		// Mitspieler zeichnen, falls vorhanden
 		if (listPlayer != null) {
 			for (int i = 0; i < listPlayer.size(); i++) {
 				if (listPlayer.get(i).getNumber() != player.getNumber()) {
-					objects.DrawPlayer(listPlayer.get(i).getX(), listPlayer.get(i).getY(), listPlayer.get(i).getZ());
+					objects.DrawPlayer(listPlayer.get(i).getX()- (sizeOfCube / 2), listPlayer.get(i).getY()- (sizeOfCube / 2), listPlayer.get(i).getZ()- (sizeOfCube / 2));
 				}
 			}
 		}
+		
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glFlush();
 	}

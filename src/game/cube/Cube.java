@@ -31,6 +31,7 @@ public abstract class Cube {
 	final static public String CUBE_ITEM_PORTAL = "CubeItemPortal";
 	final static public String CUBE_ITEM_BOMB_RANGE = "CubeItemBombRange";
 	final static public String CUBE_ITEM_BOMB_STRENGTH = "CubeItemBombStrength";
+	final static public String CUBE_ITEM_DOUBLE_SCORE = "CubeItemDoubleScore";
 	// Menüwürfel
 	final static public String MENU_CUBE_NEW_GAME = "MenuCubeNewGame";
 	final static public String MENU_CUBE_NEW_GAME_GRAVITY = "MenuCubeNewGameGravity";
@@ -47,6 +48,7 @@ public abstract class Cube {
 			new CubeData(new CubeExplosionHideItem(), CUBE_EXPLOSION_HIDE_ITEM),
 			new CubeData(new CubeItemHealth(), CUBE_ITEM_HEALTH), new CubeData(new CubeItemXtraBomb(), CUBE_ITEM_XTRA_BOMB),
 			new CubeData(new CubeItemBombRange(), CUBE_ITEM_BOMB_RANGE), new CubeData(new CubeItemPortal(), CUBE_ITEM_PORTAL),
+			new CubeData(new CubeItemDoubleScore(), CUBE_ITEM_DOUBLE_SCORE),
 			new CubeData(new CubeObstacle(), CUBE_OBSTACLE),
 			new CubeData(new CubeOutside(), CUBE_OUTSIDE),
 			new CubeData(new CubeSolid(), CUBE_SOLID),

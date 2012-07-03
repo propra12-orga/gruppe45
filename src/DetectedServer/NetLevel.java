@@ -16,6 +16,8 @@ public class NetLevel extends Level {
 	}
 
 	public void clear() {
+		// FIXME GravityLevel als Standardlevel einrichten
+		// FIXME + zunächst Spielerstartposition anpassen!!!
 		super.buildDefaultLevel();
 		// TODO 1/3 Stuerzt ohne diese Einschraenkung ab...
 		if (listNetPlayer != null) {
