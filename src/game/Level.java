@@ -21,15 +21,10 @@ public class Level {
 	// TODO Menüoption für ObstacleProbability
 
 	/**
-	 * Wahrscheinlichkeit, dass bei zufälliger Levelfüllung ein Hindernis an
-	 * eine freie Stelle gesetzt wird
-	 */
-	
-	/**
 	 *  Wahrscheinlichkeit eines Hindernisses an leerer Stelle  des Levels (0..1):
 	 */
-	//static public float OBSTACLE_PROBABILITY = Float.parseFloat(Game.options[3]); 
-	static public float OBSTACLE_PROBABILITY = 0.0f;
+	static public float OBSTACLE_PROBABILITY = Float.parseFloat(Game.options[3]); 
+	//static public float OBSTACLE_PROBABILITY = 0.0f;
 
 	// Themenauswahl
 	// TODO Menüintegration

@@ -735,7 +735,7 @@ public class Player {
 	// TODO Testen, ob Abfrage funktioniert
 	protected void move(float x, float y, float z) {
 		final int radius = 2;
-
+		
 		int tmpX = (int) (Math.signum(x) * (Math.abs(x) + radius));
 		int tmpY = (int) (Math.signum(y) * (Math.abs(y) + radius + 3));
 		int tmpZ = (int) (Math.signum(z) * (Math.abs(z) + radius));
@@ -797,7 +797,7 @@ public class Player {
 		// Dadurch soll schlechte Orientierung bestraft werden!
 		if ((!((this.getCubeX() == oldCubeX) && (this.getCubeY() == oldCubeY) && (this.getCubeZ() == oldCubeZ))) && (!(level.isInMenu()))) {
 			this.addScore(SCORE_DISTANCE);
-			System.out.println("Punktestand: " + this.getScore());
+			//System.out.println("Punktestand: " + this.getScore());
 		}
 		
 		

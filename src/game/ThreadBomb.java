@@ -221,7 +221,7 @@ public class ThreadBomb {
 					// Ein Hinderniswürfel bringt Punkte
 					player.addScore(SCORE_OBSTACLE);
 					System.out.println("");
-					System.out.println("Das zerstörte Wand bringt dir " + SCORE_OBSTACLE + " Punkte.");
+					System.out.println("Die zerstörte Wand bringt dir " + SCORE_OBSTACLE + " Punkte.");
 					System.out.println("Du hast jetzt " + player.getScore() + " Punkte!");
 					System.out.println("");
 					

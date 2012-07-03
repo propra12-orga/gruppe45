@@ -95,9 +95,6 @@ public class OpenGL {
 		// Level
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		
-
-		
-		
 		for (byte i = 0; i < level.getSizeX(); i += 1) {
 			for (byte j = 0; j < level.getSizeY(); j += 1) {
 				for (byte k = 0; k < level.getSizeZ(); k += 1) {
