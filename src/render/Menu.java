@@ -391,7 +391,7 @@ public class Menu extends javax.swing.JFrame {
 
         spinMouse.setFont(new java.awt.Font("Perpetua Titling MT", 1, 10)); // NOI18N
         spinMouse.setModel(new javax.swing.SpinnerNumberModel(Float.valueOf(50.0f), Float.valueOf(0.0f), Float.valueOf(100.0f), Float.valueOf(1.0f)));
-        spinMouse.setToolTipText("DIe Sensibilität bestimmt, wie schnell die Bewegung einer Drehung mit der Maus ausgeführt wird. ein höherer Wert sorgt hier für eine schnellere Drehung.");
+        spinMouse.setToolTipText("Die Sensibilität bestimmt, wie schnell die Bewegung einer Drehung mit der Maus ausgeführt wird. ein höherer Wert sorgt hier für eine schnellere Drehung.");
         spinMouse.setName("");
 
         lSpeed.setFont(new java.awt.Font("Perpetua Titling MT", 1, 10)); // NOI18N
@@ -663,15 +663,16 @@ public class Menu extends javax.swing.JFrame {
     	        			writer.write(sBeginRange.getValue()+"");
     	        			writer.write(System.getProperty("line.separator"));
     	        			// Maximale Hitpoints
-    	        			writer.write(spinHealth.getValue()+"");
-    	        			writer.write(System.getProperty("line.separator"));
-    	/*        			//Geschwindigkeit
-    	        			writer.write((Integer)spinSpeed.getValue()*1);
-    	        			writer.write(System.getProperty("line.separator"));
+    	        			//int FU = (Integer) spinHealth.getValue();
+    	        			//writer.write(FU+"");
+    	        			//writer.write(System.getProperty("line.separator"));
+    	        			//Geschwindigkeit
+    	        			//writer.write(spinSpeed.getValue()+"");
+    	        			//writer.write(System.getProperty("line.separator"));
     	        			//Maussensibilität
-    	        			writer.write((Integer)spinMouse.getValue()*1);
-    	        			writer.write(System.getProperty("line.separator"));
-    	 */       			writer.flush();
+    	        			//writer.write(spinMouse.getValue()+"");
+    	        			//writer.write(System.getProperty("line.separator"));
+    	        			writer.flush();
     	        			writer.close();
     	        		} catch (IOException e) {
     	        			e.printStackTrace();
@@ -679,9 +680,6 @@ public class Menu extends javax.swing.JFrame {
     	        		scanOptions();
     	        		initializeOptions();
     }
-    /**
-     * Liest die Einstellungen aus der Datei Optionen.txt aus und speichert diese in dem Array Game.options
-     */
     
     /**
      * Setzt die Werte im Programm
@@ -692,6 +690,35 @@ public class Menu extends javax.swing.JFrame {
     	Game.LEVEL_SIZE_Z = Integer.parseInt(Game.options[2]);
 		Level.OBSTACLE_PROBABILITY = Float.parseFloat(Game.options[3])/100;
 		ThreadBomb.ITEM_PROBABLY = Float.parseFloat(Game.options[6])/300; // 300 = 100 (für Float) * 6 (für Anzahl der Items/2)
+    	if(Game.options[7].equals("1")){
+    		ThreadBomb.HealthOn = 1;
+    	}else{
+    		ThreadBomb.HealthOn = 0;
+    	}
+    	if(Game.options[8].equals("1")){
+    		ThreadBomb.PortalOn = 1;
+    	}else{
+    		ThreadBomb.PortalOn = 0;
+    	}
+    	if(Game.options[9].equals("1")){
+    		ThreadBomb.XtraBombOn = 1;
+    	}else{
+    		ThreadBomb.XtraBombOn = 0;
+    	}
+    	if(Game.options[10].equals("1")){
+    		ThreadBomb.BombRangeOn = 1;
+    	}else{
+    		ThreadBomb.BombRangeOn = 0;
+    	}
+    	Player.MAX_SIMULTAN_BOMBS = Integer.parseInt(Game.options[11]);
+    	Player.MAX_BOMB_RADIUS = Integer.parseInt(Game.options[13]);
+    	if (Integer.parseInt(Game.options[14])< Integer.parseInt(Game.options[13])){
+        	Player.radius = Integer.parseInt(Game.options[14]);    		
+    	}else{
+    	Player.radius = Integer.parseInt(Game.options[13]);
+    	}
+    	//Player.MAX_HEALTH_POINTS = Integer.parseInt(Game.options[15]);
+    	
 		
     }
     /**
@@ -703,8 +730,8 @@ public class Menu extends javax.swing.JFrame {
     	}else{
     		Player.GRAVITY = false;
     	}
-    		System.out.println(Player.GRAVITY);
     		
+    	Player.bombs = Integer.parseInt(Game.options[12]);		
     }
     
     public static void scanOptions(){
@@ -774,7 +801,9 @@ public class Menu extends javax.swing.JFrame {
 		sBeginMaxBombs.setValue(Integer.parseInt(Game.options[12]));
 		sRange.setValue(Integer.parseInt(Game.options[13]));
 		sBeginRange.setValue(Integer.parseInt(Game.options[14]));
-		spinHealth.setValue(Float.parseFloat(Game.options[15]));
+		//spinHealth.setValue(Float.parseFloat(Game.options[15]));
+		//spinSpeed.setValue(Float.parseFloat(Game.options[16]));
+		//spinMouse.setValue(Float.parseFloat(Game.options[17]));
     }
     
     public static void preExecuteOptions(){

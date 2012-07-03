@@ -24,7 +24,7 @@ public class Player {
 	/**
 	 * Obergrenze für die Lebenspunkte eines Spielers
 	 */
-	private static int MAX_HEALTH_POINTS = 150;
+	public static int MAX_HEALTH_POINTS = 150;
 	/**
 	 * Obergrenze für die Anzahl an Bomben, die ein Spieler zur gleichen Zeit
 	 * legen darf.
@@ -33,7 +33,7 @@ public class Player {
 	/**
 	 * Maximale Reichweite von Bomben (ausgehend vom Ursprungspunkt der Bombe)
 	 */
-	private static int MAX_BOMB_RADIUS = 5;
+	public static int MAX_BOMB_RADIUS = 5;
 	/**
 	 * Legt fest, ob ein Spieler schweben/fliegen kann oder ob er zu Boden
 	 * gezogen wird.
@@ -63,9 +63,9 @@ public class Player {
 	private String playername;
 	private long score = START_SCORE; //Hier werden die Punkte des Spielers gesammelt
 	private int healthPoints = 100;
-	int radius = 1;
+	public static int radius = 1;
 	int bombStrengthMultiplier = 1;
-	static public int bombs = 1; // Anzahl der gleichzeitig legbaren Bomben
+	public static int bombs = 1; // Anzahl der gleichzeitig legbaren Bomben
 	int fuseTime = 3000;
 	int explosionTime = 1000;
 	List listPlayer;
