@@ -4,6 +4,7 @@ package render;
 import game.Level;
 import game.Player;
 import game.Game;
+import game.ThreadBomb;
 import control.Control_Keyboard;
 
 import java.awt.*;
@@ -112,6 +113,7 @@ public class Menu extends javax.swing.JFrame {
 
         sLevelZ.setFont(new java.awt.Font("Perpetua Titling MT", 1, 10)); // NOI18N
         sLevelZ.setMajorTickSpacing(5);
+        sLevelZ.setMinimum(10);
         sLevelZ.setMaximum(30);
         sLevelZ.setMinorTickSpacing(1);
         sLevelZ.setPaintLabels(true);
@@ -122,6 +124,7 @@ public class Menu extends javax.swing.JFrame {
 
         sLevelX.setFont(new java.awt.Font("Perpetua Titling MT", 1, 10)); // NOI18N
         sLevelX.setMajorTickSpacing(5);
+        sLevelX.setMinimum(10);
         sLevelX.setMaximum(30);
         sLevelX.setMinorTickSpacing(1);
         sLevelX.setPaintLabels(true);
@@ -132,6 +135,7 @@ public class Menu extends javax.swing.JFrame {
 
         sLevelY.setFont(new java.awt.Font("Perpetua Titling MT", 1, 10)); // NOI18N
         sLevelY.setMajorTickSpacing(5);
+        sLevelY.setMinimum(10);
         sLevelY.setMaximum(30);
         sLevelY.setMinorTickSpacing(1);
         sLevelY.setPaintLabels(true);
@@ -592,7 +596,7 @@ public class Menu extends javax.swing.JFrame {
     	                
     	        		File file;
     	        		FileWriter writer;
-    	        		file = new File("Optionen.txt");
+    	        		file = new File("save/Optionen.txt");
     	        		try {
     	        			writer = new FileWriter(file);
 
@@ -687,6 +691,7 @@ public class Menu extends javax.swing.JFrame {
     	Game.LEVEL_SIZE_Y = Integer.parseInt(Game.options[1]);
     	Game.LEVEL_SIZE_Z = Integer.parseInt(Game.options[2]);
 		Level.OBSTACLE_PROBABILITY = Float.parseFloat(Game.options[3])/100;
+		ThreadBomb.ITEM_PROBABLY = Float.parseFloat(Game.options[6])/300; // 300 = 100 (für Float) * 6 (für Anzahl der Items/2)
 		
     }
     /**
@@ -704,7 +709,7 @@ public class Menu extends javax.swing.JFrame {
     
     public static void scanOptions(){
     	try {
-			Scanner scanner = new Scanner(new File("Optionen.txt"));
+			Scanner scanner = new Scanner(new File("save/Optionen.txt"));
 	    	for(int i = 0;i<Game.options.length-1;i++){
 	    		Game.options[i] = scanner.nextLine();
 	    	}

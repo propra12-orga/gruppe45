@@ -17,13 +17,20 @@ import DetectedServer.NetPlayer;
  * und kann andere Bomben zuenden
  */
 public class ThreadBomb {
-
-	final float PROBABILITY_HEALTH = 0.1f; // 0.02f (TESTEINSTELLUNGEN)
-	final float PROBABILITY_XTRA_BOMB = 0.1f;
-	final float PROBABILITY_PORTAL = 0.1f;
-	final float PROBABILITY_BOMB_RANGE = 0.1f;
-	final float PROBABILITY_BOMB_STRENGTH = 0.1f;
-	final float PROBABILITY_DOUBLE_SCORE = 0.3f;
+	
+	public static float HealthOn = 1;
+	public static float XtraBombOn = 1;
+	public static float PortalOn = 1;
+	public static float BombRangeOn = 1;
+	public static float BombStrangeOn = 1;
+	public static float DoubleScoreOn = 1;
+	public static float ITEM_PROBABLY = 0.1f;
+	final float PROBABILITY_HEALTH = ITEM_PROBABLY; // 0.02f (TESTEINSTELLUNGEN)
+	final float PROBABILITY_XTRA_BOMB = ITEM_PROBABLY;
+	final float PROBABILITY_PORTAL = ITEM_PROBABLY;
+	final float PROBABILITY_BOMB_RANGE = ITEM_PROBABLY;
+	final float PROBABILITY_BOMB_STRENGTH = ITEM_PROBABLY;
+	final float PROBABILITY_DOUBLE_SCORE = ITEM_PROBABLY;
 	// Rest ist CUBE_EMPTY
 	
 	final static public int SCORE_OBSTACLE = 50;
