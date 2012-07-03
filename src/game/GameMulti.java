@@ -20,7 +20,8 @@ import control.Control_Mouse;
 
 public class GameMulti {
 
-	final static private String SERVER_IP = "192.168.2.100";
+	// final static private String SERVER_IP = "192.168.2.100";
+	final static private String SERVER_IP = "localhost";
 	final static private int SERVER_PORT = 12345;
 
 	private Socket server;
@@ -109,6 +110,12 @@ public class GameMulti {
 
 		System.out.println("Netzwerkspiel erfolgreich gestartet");
 
+	}
+
+	protected void finalize() {
+		myPlayer.msgSendExit();
+		// thread.stop();
+		thread = null;
 	}
 
 }

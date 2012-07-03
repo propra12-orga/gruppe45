@@ -1,8 +1,8 @@
 package game.cube;
 
-import render.Menu;
 import game.Level;
 import game.Player;
+import render.Menu;
 
 public class MenuCubeNewGame extends Cube {
 
@@ -12,7 +12,7 @@ public class MenuCubeNewGame extends Cube {
 
 	@Override
 	public void change(Player player, Level level) {
-//		Menu.executeOptions();
+		// Menu.executeOptions();
 		Menu.postInitialize();
 		// TODO Println-Zeile löschen! Ausgabe nur zu Probezwecken!
 		System.out.println("");
@@ -29,11 +29,11 @@ public class MenuCubeNewGame extends Cube {
 				player1_start_x = level.getSizeX() * 10 - 25;
 			}
 		}
-		
-		//FIXME Netzwerkfähigkeit
+
+		// FIXME Netzwerkfähigkeit
 		level.setInMenu(false);
-		player.reinit(player1_start_x, level.getSizeY()*10-15, 15, 0, 0, 100, 1, 1, 1, Player.GRAVITY);
-	
+		player.reinit(player1_start_x, level.getSizeY() * 10 - 15, 15, 0, 0, 100, 1, 1, 1, Player.GRAVITY);
+
 		System.out.println("Du startest mit " + player.getScore() + " Punkten!");
 		System.out.println("");
 	}

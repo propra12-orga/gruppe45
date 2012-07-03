@@ -40,7 +40,6 @@ public class ThreadClient implements Runnable {
 					}
 					for (int i = 0; i < listNetPlayer.size(); i++) {
 						if (listNetPlayer.get(i).getNumber() == Integer.valueOf(strSplit[1])) {
-							listNetPlayer.get(i).dies();
 							listNetPlayer.remove(i);
 							break;
 						}
@@ -49,7 +48,6 @@ public class ThreadClient implements Runnable {
 						listNetPlayer.get(i).msgSendPlayerList();
 					}
 					netPlayer.close();
-					break;
 				} else if (strSplit[0].equals(NetPlayer.MSG_SERVER_MAX_PLAYER)) {
 					// TODO es wird nicht die richtige maximale Spielerzahl
 					// zurueckgegeben

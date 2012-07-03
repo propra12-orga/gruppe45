@@ -14,12 +14,10 @@ import control.Control_Mouse;
 
 public class Game {
 	public static String[] options = new String[16];
-	
+
 	static public int LEVEL_SIZE_X = 13; // X-Ausdehnung der Spielwelt
 	static public int LEVEL_SIZE_Y = 13; // Y-Ausdehnung der Spielwelt
 	static public int LEVEL_SIZE_Z = 14; // Z-Ausdehnung der Spielwelt
-	
-	
 
 	static private List<Player> listPlayer;
 	static private Level level;
@@ -27,7 +25,8 @@ public class Game {
 	static private Window window;
 	static private OpenGL openGl;
 	static private ThreadBomb threadBomb;
-	static private Thread threadServer;
+	static private Thread thread;
+	static private ThreadServer threadServer;
 
 	static private Control_Keyboard controlKeyboard;
 	static private Control_Mouse controlMouse;
@@ -37,7 +36,7 @@ public class Game {
 	public static void main(String[] argv) {
 		Menu.scanOptions();
 		Menu.initializeOptions();
-//		Menu.preExecuteOptions();
+		// Menu.preExecuteOptions();
 		// Die Liste der Mitspieler
 		listPlayer = new ArrayList<Player>();
 		// Das Spielfenster erzeugen
@@ -68,14 +67,15 @@ public class Game {
 	public static ThreadBomb getThreadBomb() {
 		return threadBomb;
 	}
-	
+
 	public static void newKeyboard(Player player, Level level) {
 		controlKeyboard = new Control_Keyboard(player, level);
 	}
 
 	public static void host() {
-		threadServer = new Thread(new ThreadServer());
-		threadServer.start();
+		threadServer = new ThreadServer();
+		thread = new Thread(threadServer);
+		thread.start();
 		connect();
 	}
 
@@ -86,6 +86,17 @@ public class Game {
 	}
 
 	public static void disconnect() {
+		gameMulti = null;
+		if (threadServer != null) {
+			threadServer.delete();
+			threadServer = null;
+		}
+		if (thread != null) {
+			thread.stop();
+		}
+		thread = null;
+		System.gc();
+
 		openGl.setLevel(level);
 		openGl.setPlayer(player);
 		openGl.setPlayerList(listPlayer);
@@ -97,8 +108,6 @@ public class Game {
 		player.setBombs(0);
 		player.setAngleX(0);
 		player.setAngleY(0);
-
-		gameMulti = null;
-		threadServer = null;
+		player.setGravity(false);
 	}
 }

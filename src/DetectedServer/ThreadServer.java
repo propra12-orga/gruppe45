@@ -27,9 +27,12 @@ public class ThreadServer implements Runnable {
 	final private static float[][] spawnPoint = { { 85, 85, 15 }, { 25, 15, 85 } };
 
 	private List<NetPlayer> listNetPlayer;
+	private List<Thread> listThread;
 	private NetLevel netLevel;
 	private ServerSocket server;
 	private NetPlayer netPlayer;
+	private Thread thread;
+	private Thread threadThis;
 	private int number;
 	private int random;
 
@@ -37,6 +40,7 @@ public class ThreadServer implements Runnable {
 
 	public ThreadServer() {
 		listNetPlayer = new ArrayList<NetPlayer>();
+		listThread = new ArrayList<Thread>();
 		netLevel = new NetLevel(LEVEL_X, LEVEL_Y, LEVEL_Z, listNetPlayer);
 		Game.setThreadBomb(new ThreadBomb(netLevel, null, listNetPlayer));
 		// threadBomb = new ThreadBomb(netLevel, null, listNetPlayer);
@@ -61,7 +65,9 @@ public class ThreadServer implements Runnable {
 				netPlayer = new NetPlayer(netLevel, spawnPoint[random][0], spawnPoint[random][1], spawnPoint[random][2],
 						listNetPlayer, number++, client);
 				netPlayer.setBombs(1);
-				new Thread(new ThreadClient(netLevel, netPlayer, listNetPlayer)).start();
+				thread = new Thread(new ThreadClient(netLevel, netPlayer, listNetPlayer));
+				thread.start();
+				listThread.add(thread);
 				listNetPlayer.add(netPlayer);
 				if (listNetPlayer.size() > SERVER_MAX_PLAYER) {
 					netPlayer.write(NetPlayer.MSG_SERVER_FULL + ":");
@@ -70,11 +76,40 @@ public class ThreadServer implements Runnable {
 					for (int i = 0; i < (listNetPlayer.size() - 1); i++) {
 						listNetPlayer.get(i).msgSendPlayerList();
 					}
-
 				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+
+	public void kickAllPlayers() {
+		for (int i = 0; i < listNetPlayer.size(); i++) {
+			listNetPlayer.get(i).msgSendExit();
+		}
+	}
+
+	public void delete() {
+		kickAllPlayers();
+		try {
+			server.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// FIXME Warum funktioniert dieser scheiss Destruktor nicht???
+	// public void finalize() {
+	// System.out.println("Serverthread getötet");
+	//
+	// kickAllPlayers();
+	//
+	// try {
+	// server.close();
+	// System.out.println("Server geschlossen");
+	// } catch (IOException e) {
+	// System.out.println("Server versucht zu schliessen");
+	// e.printStackTrace();
+	// }
+	// }
 }

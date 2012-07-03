@@ -43,6 +43,7 @@ public class ThreadWindowNetwork implements Runnable {
 				} else if (strSplit[0].equals(NetPlayer.MSG_PLAYERLIST)) {
 					myPlayer.msgReceivePlayerList(strSplit, listPlayer);
 				} else if (strSplit[0].equals(NetPlayer.MSG_EXIT)) {
+					System.out.println("Client hat EXIT erhalten");
 					Game.disconnect();
 				}
 			}

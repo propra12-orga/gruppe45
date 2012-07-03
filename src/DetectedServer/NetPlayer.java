@@ -1,5 +1,6 @@
 package DetectedServer;
 
+import game.Game;
 import game.Level;
 import game.Player;
 import game.cube.Cube;
@@ -117,7 +118,7 @@ public class NetPlayer extends Player {
 	}
 
 	public void msgReceiveExit() {
-		super.dies();
+		Game.disconnect();
 	}
 
 	public Level msgReceiveLevel(String[] splitMsg) {
@@ -137,11 +138,6 @@ public class NetPlayer extends Player {
 			tmpPlayer.setHealthPoints(Integer.valueOf(splitMsg[8 + (i * 7)]));
 			listPlayer.add(tmpPlayer);
 		}
-	}
-
-	public void msgReceiveServerDown() {
-		System.out.println("Server wurde heruntergefahren");
-		System.exit(1);
 	}
 
 	public void msgSendPosition() {
@@ -186,7 +182,7 @@ public class NetPlayer extends Player {
 	}
 
 	public void dies() {
-		msgSendExit();
+		// msgSendExit();
 	}
 
 	public void close() {

@@ -15,7 +15,7 @@ import java.util.List;
  * 
  */
 public class Player {
-	
+
 	private static int START_SCORE = 1000;
 	private static int SCORE_RUN_EXPLOSION = -80;
 	private static int SCORE_DISTANCE = -1;
@@ -42,7 +42,7 @@ public class Player {
 
 	final static public float INERTIA = .1f;
 	// final static public float MAX_ACCELERATION = 10;
-	
+
 	public static boolean GRAVITY;
 
 	private int number = 0;
@@ -61,7 +61,8 @@ public class Player {
 	protected Level level;
 
 	private String playername;
-	private long score = START_SCORE; //Hier werden die Punkte des Spielers gesammelt
+	private long score = START_SCORE; // Hier werden die Punkte des Spielers
+										// gesammelt
 	private int healthPoints = 100;
 	public static int radius = 1;
 	int bombStrengthMultiplier = 1;
@@ -640,29 +641,32 @@ public class Player {
 	public void turnLeft(float s) {
 		this.angleY += s;// 0.012f;
 	}
-	
+
 	/**
 	 * Gibt den aktuellen Punktestand des Spielers zurück
+	 * 
 	 * @return Punktestand
 	 */
-	public long getScore(){
+	public long getScore() {
 		return this.score;
 	}
-	
-	public void resetScore(){
+
+	public void resetScore() {
 		this.score = START_SCORE;
 	}
-	
+
 	/**
-	 * Addiert die übergebene Punktezahl zum Punktestand des Spielers
-	 * (negative Übergabe = Punktabzug)
-	 * @param scoredPoints Übergebene Punkte
+	 * Addiert die übergebene Punktezahl zum Punktestand des Spielers (negative
+	 * Übergabe = Punktabzug)
+	 * 
+	 * @param scoredPoints
+	 *            Übergebene Punkte
 	 */
-	public void addScore(int scoredPoints){
+	public void addScore(int scoredPoints) {
 		this.score += scoredPoints;
 	}
-	
-	public void setScore(int score){
+
+	public void setScore(int score) {
 		this.score = score;
 	}
 
@@ -725,9 +729,9 @@ public class Player {
 		System.out.println("Du verlierst alle Deine Punkte!");
 		System.out.println("Punkte nun: " + getScore());
 		System.out.println("");
-		System.exit(0);
+		Game.disconnect();
 	}
-	
+
 	public float zum_quadrat(float zahl) {
 		return zahl * zahl;
 	}
@@ -735,7 +739,7 @@ public class Player {
 	// TODO Testen, ob Abfrage funktioniert
 	protected void move(float x, float y, float z) {
 		final int radius = 2;
-		
+
 		int tmpX = (int) (Math.signum(x) * (Math.abs(x) + radius));
 		int tmpY = (int) (Math.signum(y) * (Math.abs(y) + radius + 3));
 		int tmpZ = (int) (Math.signum(z) * (Math.abs(z) + radius));
@@ -753,7 +757,7 @@ public class Player {
 			this.y += y;
 			this.z += z;
 		} else {
-			
+
 			// Der Spieler kann durch move() in einem Block landen der nicht
 			// mehr
 			// im Level ist. Sollte er nach der Addition ausserhalt des Levels
@@ -790,17 +794,17 @@ public class Player {
 				accelerationZ = 0;
 			}
 		}
-		
-		
+
 		// FIXME Keine Benachrichtigung für Wegpunktabzug
-		// Punktesystem: Wenn der Spieler Weg zurücklegt, werden ihm Punkte abgezogen!
+		// Punktesystem: Wenn der Spieler Weg zurücklegt, werden ihm Punkte
+		// abgezogen!
 		// Dadurch soll schlechte Orientierung bestraft werden!
-		if ((!((this.getCubeX() == oldCubeX) && (this.getCubeY() == oldCubeY) && (this.getCubeZ() == oldCubeZ))) && (!(level.isInMenu()))) {
+		if ((!((this.getCubeX() == oldCubeX) && (this.getCubeY() == oldCubeY) && (this.getCubeZ() == oldCubeZ)))
+				&& (!(level.isInMenu()))) {
 			this.addScore(SCORE_DISTANCE);
-			//System.out.println("Punktestand: " + this.getScore());
+			// System.out.println("Punktestand: " + this.getScore());
 		}
-		
-		
+
 		// TEST Rampe laufen
 		// Würfelwinkel 45° z -> y
 		if (level.getCube(this.getCubeX(), this.getCubeY(), this.getCubeZ()).getCubeName() == Cube.CUBE_SOLID_RAMP) {

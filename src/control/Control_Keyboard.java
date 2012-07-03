@@ -1,14 +1,11 @@
 package control;
 
+import game.Game;
 import game.Level;
 import game.Player;
-import game.cube.Cube;
 
-import java.awt.AWTException;
-import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 
 import javax.swing.Timer;
 
@@ -28,7 +25,7 @@ public class Control_Keyboard extends Control {
 	final int MILLISECS_PER_STEP = 10;
 	public Timer timer;
 	Level level;
-	
+
 	public Control_Keyboard(Player player, Level level) {
 		super(player);
 		this.level = level;
@@ -94,13 +91,11 @@ public class Control_Keyboard extends Control {
 				}
 				// Zurück zum Menü:
 				if (Keyboard.isKeyDown(Keyboard.KEY_T)) {
-					level.showMenu();
-					// FIXME Netzwerkfähig machen
-					player.reinit((level.getSizeX() / 2) * 10 + 5, (level.getSizeY() / 2) * 10 + 5, 15, 0, 0, 100, 0, 1, 1,
-							false);
+					Game.disconnect();
 				}
 				// Programm beenden
 				if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
+					Game.disconnect();
 					System.exit(0);
 				}
 				// Bombe legen:
