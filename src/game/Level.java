@@ -1,6 +1,7 @@
 package game;
 
 import game.cube.Cube;
+import render.Menu;
 import render.Objects;
 
 import java.io.File;
@@ -23,12 +24,12 @@ public class Level {
 	 * Wahrscheinlichkeit, dass bei zufälliger Levelfüllung ein Hindernis an
 	 * eine freie Stelle gesetzt wird
 	 */
-	final static public float OBSTACLE_PROBABILITY = 0.45f; // Wahrscheinlichkeit
-															// eines
-															// Hindernisses
-															// an leerer Stelle
-															// des
-															// Levels (0..1)
+	
+	/**
+	 *  Wahrscheinlichkeit eines Hindernisses an leerer Stelle  des Levels (0..1):
+	 */
+	static public float OBSTACLE_PROBABILITY = Float.parseFloat(Game.options[3]); 
+	
 
 	// Themenauswahl
 	// TODO Menüintegration
@@ -39,8 +40,8 @@ public class Level {
 	/**
 	 * Umschalten zwischen Darstellungsthemen
 	 */
-	byte themeSelection = THEME_EARTH;
-	// byte themeSelection = THEME_SPACE;
+	public static byte themeSelection = THEME_EARTH;
+//	public byte themeSelection = THEME_SPACE;
 	// byte themeSelection = THEME_SOCCER;
 
 	/**
@@ -101,7 +102,19 @@ public class Level {
 	 * @return Zahl des gewählten Themas
 	 */
 	public byte getthemeSelection() {
-		return this.themeSelection;
+		Menu.scanOptions();
+		if(Game.options[4].equals("THEME_EARTH")){
+			return THEME_EARTH;
+		}else if(Game.options[4].equals("THEME_SPACE")){
+			return THEME_SPACE;
+		}else if(Game.options[4].equals("THEME_SOCCER")){
+			return THEME_SOCCER;
+		}else{
+			System.out.println("FAIL!");
+			return THEME_EARTH;
+		}
+
+		//return this.themeSelection;
 	}
 	
 	/**

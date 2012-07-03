@@ -1,9 +1,9 @@
 Spielmodi:
 - Pinker Todesblock des Todes, der nicht sterben kann, der den Spieler verfolgt, während 
 der Spieler versucht, den Ausgangsblock freizusprengen und zu flüchten
-- Modus mit schwerkraft
-- Obstracles haben "Leben"
-- Spieler wird durch die Explosion und durch Beschleuningungsenergie verschoben
+- Modus mit schwerkraft (erledigt)
+- Obstacles haben "Leben"
+- Spieler wird durch die Explosion und durch Beschleuningungsenergie verschoben (erledigt)
 
 - Oszilierende Todeszerquetchungsböcke der Macht
 *******************************************************************************************
@@ -11,7 +11,7 @@ Items:
 *******************************************************************************************
 Einstellungsmöglichkeiten:
 
-- Tapete
+- Tapete (Theme) (erledigt)
 - Levelgröße (ggf. auch Modus für eine Ebene zur besseren Orientierung)
 - Spielmodus
 - Feste Blöcke werden nach Ablauf der Spielzeit nach Zufallsprinzip rot und explodieren nach wenigen Sekunden

@@ -41,7 +41,7 @@ public class Player {
 	
 
 
-	boolean gravity = false;
+	public static boolean GRAVITY;
 
 	private int number = 0;
 
@@ -328,7 +328,7 @@ public class Player {
 	 * @return true = Erdanziehung; false = keine Erdanziehung
 	 */
 	public boolean getGravity() {
-		return this.gravity;
+		return this.GRAVITY;
 	}
 
 	/**
@@ -337,7 +337,7 @@ public class Player {
 	 * @param gravity Status der Erdanziehung
 	 */
 	public void setGravity(boolean gravity) {
-		this.gravity = gravity;
+		this.GRAVITY = gravity;
 	}
 
 	/**

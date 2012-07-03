@@ -193,6 +193,10 @@ public class Control_Keyboard extends Control {
 				if (Keyboard.isKeyDown(Keyboard.KEY_O)) {
 					level.save();
 				}
+				if (Keyboard.isKeyDown(Keyboard.KEY_H)) {
+					Level level = new Level(10,10,10);
+				}
+				
 				if (Keyboard.isKeyDown(Keyboard.KEY_L)) {
 					level.load();
 				}
