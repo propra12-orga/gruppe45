@@ -25,7 +25,6 @@ import java.util.Scanner;
 
 
 public class Menu extends javax.swing.JFrame {
-int[] options = new int[17];
 	public static boolean menuOffen;
 		
 	public Menu() {
@@ -88,8 +87,8 @@ int[] options = new int[17];
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
-                //Bei Fensteraufruf Einstellungen laden:
-                loadOptions(options);
+                scanOptions();
+                loadOptions();
             }
         });
 
@@ -103,9 +102,6 @@ int[] options = new int[17];
         bEnde.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bEndeActionPerformed(evt);
-                saveOptions();                
-                dispose();
-                menuOffen = false;            
             }
         });
 
@@ -576,11 +572,17 @@ int[] options = new int[17];
     }// </editor-fold>//GEN-END:initComponents
 
     private void bEndeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEndeActionPerformed
-        this.dispose();
+        saveOptions();
+//        preExecuteOptions();
+    	this.dispose();
+        menuOffen = false;            
     }//GEN-LAST:event_bEndeActionPerformed
-    
+
+    /**
+     * Speichert die im Optionsfenster eingestellten Werte in der Datei Optionen.txt
+     */
     public void saveOptions(){
-    	/*******************************************************************************************************************
+    	/*#******************************************************************************************************************
     	 * Speicherformat/Reihenfolge
     	 * LevelX, LevelY, LevelZ, Obstacle-Wahrscheinlichkeit, Theme (1 = Earth, 2 = Space, 3 = Fussball), Schwerkraft (1 = ein, 0 = aus), 
     	 * Itemhäufigkeit, Vorhandensein folgender Items (1 = Ja, 0 = Nein): Health, Portal, Bomb+, Range+, 
@@ -606,11 +608,11 @@ int[] options = new int[17];
     	        			writer.write(System.getProperty("line.separator"));
     	        			//5. Theme speichern:
     	        			if(rThemeEarth.isSelected()){
-    	        				writer.write("1");
+    	        				writer.write("THEME_EARTH");
     	        			}else if(rThemeSpace.isSelected()){
-    	        				writer.write("2");
+    	        				writer.write("THEME_SPACE");
     	        			}else if(rThemeEM.isSelected()){
-    	        				writer.write("3");
+    	        				writer.write("THEME_SOCCER");
     	        			}
     	        			writer.write(System.getProperty("line.separator"));
     	        			//6. Schwerkraftsstatus:
@@ -670,72 +672,108 @@ int[] options = new int[17];
     	        		} catch (IOException e) {
     	        			e.printStackTrace();
     	        		}
+    	        		scanOptions();
+    	        		initializeOptions();
+    }
+    /**
+     * Liest die Einstellungen aus der Datei Optionen.txt aus und speichert diese in dem Array Game.options
+     */
+    
+    /**
+     * Setzt die Werte im Programm
+     */
+    public static void initializeOptions(){
+    	Game.LEVEL_SIZE_X = Integer.parseInt(Game.options[0]);
+    	Game.LEVEL_SIZE_Y = Integer.parseInt(Game.options[1]);
+    	Game.LEVEL_SIZE_Z = Integer.parseInt(Game.options[2]);
+		Level.OBSTACLE_PROBABILITY = Float.parseFloat(Game.options[3])/100;
+		
+    }
+    /**
+     * Setzt Werte im Programm, die erst zu einem späteren Zeitpunkt auftreten dürfen (Bsp: Schwerkraft im Menue funktioniert nicht)
+     */
+    public static void postInitialize(){
+    	if(Game.options[5].equals("1")){
+    		Player.GRAVITY = true;
+    	}else{
+    		Player.GRAVITY = false;
+    	}
+    		System.out.println(Player.GRAVITY);
     		
-    	//*******************************************************************************************************************
     }
     
-    public void loadOptions(int[]opt){
-    	/*******************************************************************************************************************
+    public static void scanOptions(){
+    	try {
+			Scanner scanner = new Scanner(new File("Optionen.txt"));
+	    	for(int i = 0;i<Game.options.length-1;i++){
+	    		Game.options[i] = scanner.nextLine();
+	    	}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+    }
+    /**
+     * Lädt die Einstellungen aus dem Array "Game.options" werden auf das Fenster übertragen, sodass 
+     * die Werte den eingestellten Werten entsprechen.
+     */
+    public static void loadOptions(){
+    	/*#******************************************************************************************************************
     	 * Speicherformat/Reihenfolge
     	 * LevelX, LevelY, LevelZ, Obstacle-Wahrscheinlichkeit, Theme (1 = Earth, 2 = Space, 3 = Fussball), Schwerkraft (1 = ein, 0 = aus), 
     	 * Itemhäufigkeit, Vorhandensein folgender Items (1 = Ja, 0 = Nein): Health, Portal, Bomb+, Range+, 
     	 * maximale Bombenzahl, Bombenzahl zu Beginn, maximale Range, Range zu Beginn, 
     	 * maximale Hitpoints, Spielergeschwindigkeit, Maussensibilität
     	*******************************************************************************************************************/
-    	try {
-			Scanner scanner = new Scanner(new File("Optionen.txt"));
-	    	for(int i = 0;i<opt.length-1;i++){
-	    		opt[i] = scanner.nextInt();
-	    	}
-	    	System.out.println(opt[0]);
+		sLevelX.setValue(Integer.parseInt(Game.options[0]));
+		sLevelY.setValue(Integer.parseInt(Game.options[1]));
+		sLevelZ.setValue(Integer.parseInt(Game.options[2]));
+		sObstacle.setValue(Integer.parseInt(Game.options[3]));
 
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-    	System.out.println(opt[0]);
-		sLevelX.setValue(opt[0]);
-		sLevelX.setValue(opt[0]);
-		sLevelY.setValue(opt[1]);
-		sLevelZ.setValue(opt[2]);
-		sObstacle.setValue(opt[3]);
-		if(opt[4] == 1){
+		if(Game.options[4].equals("THEME_EARTH")){
 			rThemeEarth.setSelected(true);
-		}else if(opt[4] == 2){
+		}else if(Game.options[4].equals("THEME_SPACE")){
 			rThemeSpace.setSelected(true);
-		}else if(opt[4] == 3){
+		}else if(Game.options[4].equals("THEME_SOCCER")){
 			rThemeEM.setSelected(true);
 		}
-		if(opt[5] == 1){
+		if(Integer.parseInt(Game.options[5]) == 1){
 			bGravity.setSelected(true);
+			bGravity.setText("Schwerkraft ein");
 		}else{
 			bGravity.setSelected(false);			
+			bGravity.setText("Schwerkraft aus");
 		} 
-		sItem.setValue(opt[6]);
-		if(opt[7] == 1){
+		sItem.setValue(Integer.parseInt(Game.options[6]));
+		if(Integer.parseInt(Game.options[7]) == 1){
 			cHealth.setSelected(true);
 		}else{
 			cHealth.setSelected(false);			
 		}
-		if(opt[8] == 1){
+		if(Integer.parseInt(Game.options[8]) == 1){
 			cPortal.setSelected(true);
 		}else{
 			cPortal.setSelected(false);			
 		}
-		if(opt[9] == 1){
+		if(Integer.parseInt(Game.options[9]) == 1){
 			cBombPlus.setSelected(true);
 		}else{
 			cBombPlus.setSelected(false);			
 		}
-		if(opt[10] == 1){
+		if(Integer.parseInt(Game.options[10]) == 1){
 			cRadius.setSelected(true);
 		}else{
 			cRadius.setSelected(false);			
 		}
-		sMaxBombs.setValue(opt[11]);
-		sBeginMaxBombs.setValue(opt[12]);
-		sRange.setValue(opt[13]);
-		sBeginRange.setValue(opt[14]);
-		spinHealth.setValue(opt[15]);
+		sMaxBombs.setValue(Integer.parseInt(Game.options[11]));
+		sBeginMaxBombs.setValue(Integer.parseInt(Game.options[12]));
+		sRange.setValue(Integer.parseInt(Game.options[13]));
+		sBeginRange.setValue(Integer.parseInt(Game.options[14]));
+		spinHealth.setValue(Float.parseFloat(Game.options[15]));
+    }
+    
+    public static void preExecuteOptions(){
+
     }
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -745,59 +783,58 @@ int[] options = new int[17];
 
 private void bGravityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGravityActionPerformed
         if(bGravity.isSelected()){
-            //Player.gravity = true
             bGravity.setText("Schwerkraft ein");
             bGravity.setToolTipText("Die Schwerkraft im Spiel ist nun eingeschaltet.");
         }else{
-            //Player.gravity = false
             bGravity.setText("Schwerkraft aus");        
+            bGravity.setToolTipText("Die Schwerkraft im Spiel ist nun ausgeschaltet.");
 }//GEN-LAST:event_bGravityActionPerformed
 }
     public static void main(String args[]) {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bEnde;
-    private javax.swing.JToggleButton bGravity;
-    private javax.swing.JCheckBox cBombPlus;
-    private javax.swing.JCheckBox cHealth;
-    private javax.swing.JCheckBox cPortal;
-    private javax.swing.JCheckBox cRadius;
-    private javax.swing.ButtonGroup gTheme;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JLabel lBeginBombs;
-    private javax.swing.JLabel lBeginRange;
-    private javax.swing.JLabel lBombs;
-    private javax.swing.JLabel lDepth;
-    private javax.swing.JLabel lHeight;
-    private javax.swing.JLabel lMaxHealth;
-    private javax.swing.JLabel lMouse;
-    private javax.swing.JLabel lObstacle;
-    private javax.swing.JLabel lOptionen;
-    private javax.swing.JLabel lRange;
-    private javax.swing.JLabel lSpeed;
-    private javax.swing.JLabel lTheme;
-    private javax.swing.JLabel lTheme1;
-    private javax.swing.JLabel lWidth;
-    private javax.swing.JPanel pBombs;
-    private javax.swing.JPanel pItems;
-    private javax.swing.JPanel pLevel;
-    private javax.swing.JPanel pPlayer;
-    private javax.swing.JRadioButton rThemeEM;
-    private javax.swing.JRadioButton rThemeEarth;
-    private javax.swing.JRadioButton rThemeSpace;
-    private javax.swing.JSlider sBeginMaxBombs;
-    private javax.swing.JSlider sBeginRange;
-    private javax.swing.JSlider sItem;
-    private javax.swing.JSlider sLevelX;
-    private javax.swing.JSlider sLevelY;
-    private javax.swing.JSlider sLevelZ;
-    private javax.swing.JSlider sMaxBombs;
-    private javax.swing.JSlider sObstacle;
-    private javax.swing.JSlider sRange;
-    private javax.swing.JSpinner spinHealth;
-    private javax.swing.JSpinner spinMouse;
-    private javax.swing.JSpinner spinSpeed;
+    public static javax.swing.JButton bEnde;
+    public static javax.swing.JToggleButton bGravity;
+    public static javax.swing.JCheckBox cBombPlus;
+    public static javax.swing.JCheckBox cHealth;
+    public static javax.swing.JCheckBox cPortal;
+    public static javax.swing.JCheckBox cRadius;
+    public static javax.swing.ButtonGroup gTheme;
+    public static javax.swing.JSeparator jSeparator1;
+    public static javax.swing.JSeparator jSeparator2;
+    public static javax.swing.JSeparator jSeparator3;
+    public static javax.swing.JLabel lBeginBombs;
+    public static javax.swing.JLabel lBeginRange;
+    public static javax.swing.JLabel lBombs;
+    public static javax.swing.JLabel lDepth;
+    public static javax.swing.JLabel lHeight;
+    public static javax.swing.JLabel lMaxHealth;
+    public static javax.swing.JLabel lMouse;
+    public static javax.swing.JLabel lObstacle;
+    public static javax.swing.JLabel lOptionen;
+    public static javax.swing.JLabel lRange;
+    public static javax.swing.JLabel lSpeed;
+    public static javax.swing.JLabel lTheme;
+    public static javax.swing.JLabel lTheme1;
+    public static javax.swing.JLabel lWidth;
+    public static javax.swing.JPanel pBombs;
+    public static javax.swing.JPanel pItems;
+    public static javax.swing.JPanel pLevel;
+    public static javax.swing.JPanel pPlayer;
+    public static javax.swing.JRadioButton rThemeEM;
+    public static javax.swing.JRadioButton rThemeEarth;
+    public static javax.swing.JRadioButton rThemeSpace;
+    public static javax.swing.JSlider sBeginMaxBombs;
+    public static javax.swing.JSlider sBeginRange;
+    public static javax.swing.JSlider sItem;
+    public static javax.swing.JSlider sLevelX;
+    public static javax.swing.JSlider sLevelY;
+    public static javax.swing.JSlider sLevelZ;
+    public static javax.swing.JSlider sMaxBombs;
+    public static javax.swing.JSlider sObstacle;
+    public static javax.swing.JSlider sRange;
+    public static javax.swing.JSpinner spinHealth;
+    public static javax.swing.JSpinner spinMouse;
+    public static javax.swing.JSpinner spinSpeed;
     // End of variables declaration//GEN-END:variables
 }

@@ -43,7 +43,7 @@ public class Player {
 	final static public float INERTIA = .1f;
 	// final static public float MAX_ACCELERATION = 10;
 	
-	boolean gravity = false;
+	public static boolean GRAVITY;
 
 	private int number = 0;
 
@@ -377,7 +377,7 @@ public class Player {
 	 * @return true = Erdanziehung; false = keine Erdanziehung
 	 */
 	public boolean getGravity() {
-		return this.gravity;
+		return this.GRAVITY;
 	}
 
 	/**
@@ -388,7 +388,7 @@ public class Player {
 	 *            Status der Erdanziehung
 	 */
 	public void setGravity(boolean gravity) {
-		this.gravity = gravity;
+		this.GRAVITY = gravity;
 	}
 
 	/**

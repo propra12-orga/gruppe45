@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.lwjgl.opengl.Display;
 
+import render.Menu;
 import render.OpenGL;
 import render.Window;
 import DetectedServer.ThreadServer;
@@ -12,9 +13,13 @@ import control.Control_Keyboard;
 import control.Control_Mouse;
 
 public class Game {
-	final static public int LEVEL_SIZE_X = 13; // X-Ausdehnung der Spielwelt
-	final static public int LEVEL_SIZE_Y = 13; // Y-Ausdehnung der Spielwelt
-	final static public int LEVEL_SIZE_Z = 14; // Z-Ausdehnung der Spielwelt
+	public static String[] options = new String[17];
+	
+	static public int LEVEL_SIZE_X = 13; // X-Ausdehnung der Spielwelt
+	static public int LEVEL_SIZE_Y = 13; // Y-Ausdehnung der Spielwelt
+	static public int LEVEL_SIZE_Z = 14; // Z-Ausdehnung der Spielwelt
+	
+	
 
 	static private List<Player> listPlayer;
 	static private Level level;
@@ -30,6 +35,9 @@ public class Game {
 	static private GameMulti gameMulti;
 
 	public static void main(String[] argv) {
+		Menu.scanOptions();
+		Menu.initializeOptions();
+//		Menu.preExecuteOptions();
 		// Die Liste der Mitspieler
 		listPlayer = new ArrayList<Player>();
 		// Das Spielfenster erzeugen
@@ -60,7 +68,7 @@ public class Game {
 	public static ThreadBomb getThreadBomb() {
 		return threadBomb;
 	}
-
+	
 	public static void newKeyboard(Player player, Level level) {
 		controlKeyboard = new Control_Keyboard(player, level);
 	}
