@@ -1,6 +1,7 @@
 package render;
 
 import game.Game;
+import game.Level;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -63,9 +64,11 @@ public class HUD {
 
 	public void renderHUD() {
 		GL11.glColor3f(1, 1, 1);
-		DrawEgoview();
-		if (showStats) {
-			DrawStats();
+		if (!(Level.inMenu)){
+			DrawEgoview();
+			if (showStats) {
+				DrawStats();
+			}
 		}
 	}
 

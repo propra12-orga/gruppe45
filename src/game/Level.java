@@ -26,7 +26,7 @@ public class Level {
 	static public float OBSTACLE_PROBABILITY = Float.parseFloat(Game.options[3]); 
 	//static public float OBSTACLE_PROBABILITY = 0.0f;
 
-	boolean inMenu = true;
+	public static boolean inMenu = true;
 
 	/**
 	 * Ermöglicht das Verstecken des Ausgangs in einem zerstörbaren Block
