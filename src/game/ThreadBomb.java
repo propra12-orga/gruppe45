@@ -24,7 +24,7 @@ public class ThreadBomb {
 	public static float BombRangeOn = 1;
 	public static float BombStrangeOn = 1;
 	public static float DoubleScoreOn = 1;
-	public static float ITEM_PROBABLY = 0.1f;
+	public static float ITEM_PROBABLY = 0.15f;
 	final float PROBABILITY_HEALTH = ITEM_PROBABLY; // 0.02f (TESTEINSTELLUNGEN)
 	final float PROBABILITY_XTRA_BOMB = ITEM_PROBABLY;
 	final float PROBABILITY_PORTAL = ITEM_PROBABLY;

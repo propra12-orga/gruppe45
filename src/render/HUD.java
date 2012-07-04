@@ -1,8 +1,11 @@
 package render;
 
+import game.Game;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import render.Objects;
 
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.Texture;
@@ -18,7 +21,7 @@ public class HUD {
 	final private float LETTER_WIDTH = 1 / 128f;
 	final private float LETTER_HEIGHT = 1f;
 	private Texture[] numbers = new Texture[10];
-	private Texture texHand;
+	private Texture texEgoview[] = new Texture[Objects.THEME_COUNT];
 	private Texture texFont;
 	String stats = "Spieler\tTreffer\tTode\n1\t33\t6";
 	final static public int TABSIZE = 9;
@@ -26,8 +29,24 @@ public class HUD {
 	private boolean showStats = false;
 
 	HUD() {
+		String tmpThemeName = "";
+		//this.themeSelection = Byte.parseByte(Game.options[4]);
 		try {
-			texHand = TextureLoader.getTexture("PNG", new FileInputStream("res/overlay/hand.png"));
+			for (byte i = Objects.THEME_EARTH; i < Objects.THEME_COUNT; i++) {
+				switch (i) {
+				// Normale Welt
+				case Objects.THEME_EARTH:
+					tmpThemeName = "earth";
+					break;
+				case Objects.THEME_SPACE:
+					tmpThemeName = "space";
+					break;
+				case Objects.THEME_SOCCER:
+					tmpThemeName = "soccer";
+					break;
+				}
+				texEgoview[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/overlay/" + tmpThemeName + "/self.png"));
+			}
 			texFont = TextureLoader.getTexture("PNG", new FileInputStream("res/overlay/font.png"));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -44,7 +63,7 @@ public class HUD {
 
 	public void renderHUD() {
 		GL11.glColor3f(1, 1, 1);
-		DrawHand();
+		DrawEgoview();
 		if (showStats) {
 			DrawStats();
 		}
@@ -54,8 +73,8 @@ public class HUD {
 		this.showStats = showStats;
 	}
 
-	public void DrawHand() {
-		texHand.bind();
+	public void DrawEgoview() {
+		texEgoview[Objects.themeSelection].bind();
 		GL11.glBegin(GL11.GL_QUADS);
 		GL11.glTexCoord2f(0, 1f);
 		GL11.glVertex3f(-Window.width / 2, -Window.height / 2, 0);

@@ -37,7 +37,7 @@ public class Objects {
 		String tmpThemeName = "";
 		this.themeSelection = Byte.parseByte(Game.options[4]);
 		try {
-			for (byte i = THEME_EARTH; i <= THEME_SOCCER; i++) {
+			for (byte i = THEME_EARTH; i < THEME_COUNT; i++) {
 				switch (i) {
 				// Normale Welt
 				case THEME_EARTH:
