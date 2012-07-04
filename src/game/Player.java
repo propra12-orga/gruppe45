@@ -25,6 +25,7 @@ public class Player {
 	 * Obergrenze für die Lebenspunkte eines Spielers
 	 */
 	public static int MAX_HEALTH_POINTS = 150;
+	final public static int INITIAL_HEALTH_POINTS = 100;
 	/**
 	 * Obergrenze für die Anzahl an Bomben, die ein Spieler zur gleichen Zeit
 	 * legen darf.
@@ -217,16 +218,15 @@ public class Player {
 	 *            boolean gibt an, ob der Spieler von der Erdanziehung
 	 *            beeinflusst wird
 	 */
-	public void reinit(int startpositionX, int startpositionY, int startpositionZ, float angleX, float angleY,
-			int healthPoints, int bombs, int bombradius, int bombStrengthMultiplier, boolean gravity) {
+	public void reinit(int startpositionX, int startpositionY, int startpositionZ, float angleY, int bombs, boolean gravity) {
 		setPosition(startpositionX, startpositionY, startpositionZ);
 		setHealthPoints(healthPoints);
 		setBombs(bombs);
-		setAngleX(angleX);
+		setAngleX(0);
 		setAngleY(angleY);
-		setbombStrengthMultiplier(bombStrengthMultiplier);
+		setbombStrengthMultiplier(1);
 		setGravity(gravity);
-		setRadius(bombradius);
+		setRadius(1);
 		resetScore();
 	}
 

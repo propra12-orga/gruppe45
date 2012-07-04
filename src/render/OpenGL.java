@@ -45,7 +45,7 @@ public class OpenGL {
 		this.height = height;
 		this.player = player;
 		this.level = level;
-		objects = new Objects(level.getthemeSelection());
+		objects = new Objects();
 		hud = new HUD();
 		init();
 	}
@@ -64,7 +64,6 @@ public class OpenGL {
 
 	public void display() {
 		GL11.glViewport(0, 0, width, height);
-
 		GL11.glClearColor(0.5f, 0.5f, 0.5f, 0.1f);
 
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);

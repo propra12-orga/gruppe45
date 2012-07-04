@@ -56,7 +56,7 @@ public class CubeExit extends Cube {
 		// FIXME Netzwerkfähigkeit
 		// FIXME + Abfrage, ob noch mehr als ein Spieler lebt
 		// FIXME + Aufbau des Menüs im Netzwerk
-		player.reinit((level.getSizeX() / 2) * 10 + 5, (level.getSizeY() / 2) * 10 + 5, 15, 0, 0, 100, 0, 1, 1, false);
+		player.reinit((level.getSizeX() / 2) * 10 + 5, (level.getSizeY() / 2) * 10 + 5, 15, 0, 0, false);
 	}
 
 	/**
