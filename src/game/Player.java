@@ -714,7 +714,7 @@ public class Player {
 	}
 
 	public void sinkDown() {
-		move(0, -0.3f, 0);
+			move(0, -0.3f, 0);
 	}
 
 	public void moveDown(float i) {
@@ -886,5 +886,6 @@ public class Player {
 		if (level.getCube((int) this.x / 10, (int) this.y / 10, (int) this.z / 10).isCollectable()) {
 			level.getCube((int) this.x / 10, (int) this.y / 10, (int) this.z / 10).change(this, level);
 		}
+		
 	}
 }
