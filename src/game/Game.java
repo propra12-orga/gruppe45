@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.lwjgl.opengl.Display;
 
+import render.HUD;
 import render.Menu;
 import render.OpenGL;
 import render.Window;
@@ -32,6 +33,7 @@ public class Game {
 	static private Control_Mouse controlMouse;
 
 	static private GameMulti gameMulti;
+	static private HUD hud;
 
 	public static void main(String[] argv) {
 		Menu.scanOptions();
@@ -51,6 +53,7 @@ public class Game {
 		listPlayer.add(player);
 		openGl = new OpenGL(window.getWidth(), window.getHeight(), player, level);
 		controlKeyboard = new Control_Keyboard(player, level);
+		hud = openGl.getHud();
 		controlMouse = new Control_Mouse(player);
 		while (!Display.isCloseRequested()) {
 			openGl.display();
@@ -58,6 +61,10 @@ public class Game {
 			controlMouse.mouse_Move();
 		}
 		window.close();
+	}
+
+	public static HUD getHUD() {
+		return hud;
 	}
 
 	public static void setThreadBomb(ThreadBomb newThreadBomb) {

@@ -50,6 +50,10 @@ public class OpenGL {
 		init();
 	}
 
+	public HUD getHud() {
+		return hud;
+	}
+
 	public void setPlayer(Player player) {
 		this.player = player;
 	}

@@ -153,20 +153,39 @@ public class NetPlayer extends Player {
 	public void msgReceivePlayerList(String[] splitMsg, List<Player> listPlayer) {
 		Player tmpPlayer;
 		listPlayer.clear();
+		// TODO tmp vor die Var schreiben
+		float x, y, z, angleX, angleY;
+		int number, healthPoints, hits, deaths;
+		// ###############
+
+		String stats = "Spieler\tTreffer\tTode\n";
+
 		for (int i = 0; i < Integer.valueOf(splitMsg[1]); i++) {
-			tmpPlayer = new Player(netLevel, Float.valueOf(splitMsg[3 + (i * 9)]), Float.valueOf(splitMsg[4 + (i * 9)]),
-					Float.valueOf(splitMsg[5 + (i * 9)]), listPlayer, Integer.valueOf(splitMsg[2 + (i * 9)]));
-			tmpPlayer.setAngleX(Float.valueOf(splitMsg[6 + (i * 9)]));
-			tmpPlayer.setAngleY(Float.valueOf(splitMsg[7 + (i * 9)]));
-			tmpPlayer.setHealthPoints(Integer.valueOf(splitMsg[8 + (i * 9)]));
-			tmpPlayer.setHits(Integer.valueOf(splitMsg[9 + (i * 9)]));
-			tmpPlayer.setDeaths(Integer.valueOf(splitMsg[10 + (i * 9)]));
+			x = Float.valueOf(splitMsg[3 + (i * 9)]);
+			y = Float.valueOf(splitMsg[4 + (i * 9)]);
+			z = Float.valueOf(splitMsg[5 + (i * 9)]);
+			number = Integer.valueOf(splitMsg[2 + (i * 9)]);
+			angleX = Float.valueOf(splitMsg[6 + (i * 9)]);
+			angleY = Float.valueOf(splitMsg[7 + (i * 9)]);
+			healthPoints = Integer.valueOf(splitMsg[8 + (i * 9)]);
+			hits = Integer.valueOf(splitMsg[9 + (i * 9)]);
+			deaths = Integer.valueOf(splitMsg[10 + (i * 9)]);
+			tmpPlayer = new Player(netLevel, x, y, z, listPlayer, number);
+			tmpPlayer.setAngleX(angleX);
+			tmpPlayer.setAngleY(angleY);
+			tmpPlayer.setHealthPoints(healthPoints);
+			tmpPlayer.setHits(hits);
+			tmpPlayer.setDeaths(deaths);
 			listPlayer.add(tmpPlayer);
-			if (Integer.valueOf(splitMsg[2 + (i * 9)]) == getNumber()) {
-				setHits(Integer.valueOf(splitMsg[9 + (i * 9)]));
-				setDeaths(Integer.valueOf(splitMsg[10 + (i * 9)]));
+			if (number == getNumber()) {
+				setHits(hits);
+				setDeaths(deaths);
+				stats += "DU\t" + hits + "\t" + deaths + "\n";
+			} else {
+				stats += number + "\t" + hits + "\t" + deaths + "\n";
 			}
 		}
+		Game.getHUD().setStats(stats);
 	}
 
 	public void msgSendPosition() {
