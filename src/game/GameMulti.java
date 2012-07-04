@@ -50,11 +50,22 @@ public class GameMulti {
 			strIn = in.readLine();
 			System.out.println(strIn);
 			strSplit = strIn.split(":");
-			if (strSplit[0].equals(NetPlayer.MSG_POSITION)) {
+
+			// TODO durch spawn wird zuerst MSG_PLAYERLIST gesendet
+			// ######################################################
+			if (strSplit[0].equals(NetPlayer.MSG_POSITION) || strSplit[0].equals(NetPlayer.MSG_PLAYERLIST)) {
 				strIn = in.readLine();
 				System.out.println(strIn);
 				strSplit = strIn.split(":");
 			}
+			if (strSplit[0].equals(NetPlayer.MSG_POSITION) || strSplit[0].equals(NetPlayer.MSG_PLAYERLIST)) {
+				strIn = in.readLine();
+				System.out.println(strIn);
+				strSplit = strIn.split(":");
+			}
+			// ######################################################
+			// Oben wird einfach nur die Nachricht verworfen bis MSG_LEVEL kommt
+
 			if (strSplit[0].equals(NetPlayer.MSG_LEVEL)) {
 				level = new NetLevel(Integer.valueOf(strSplit[1]), Integer.valueOf(strSplit[2]), Integer.valueOf(strSplit[3]),
 						null);

@@ -69,7 +69,10 @@ public class Player {
 	public static int bombs = 1; // Anzahl der gleichzeitig legbaren Bomben
 	int fuseTime = 3000;
 	int explosionTime = 1000;
-	List listPlayer;
+	protected List listPlayer;
+
+	private int counterDeaths = 0;
+	private int counterHits = 0;
 
 	/**
 	 * Konstruktor erzeugt einen Spieler
@@ -244,10 +247,12 @@ public class Player {
 	}
 
 	public void accerlate() {
-		move(accelerationX, accelerationY, accelerationZ);
-		accelerationX = getNewAcceleration(accelerationX);
-		accelerationY = getNewAcceleration(accelerationY);
-		accelerationZ = getNewAcceleration(accelerationZ);
+		if (accelerationX != 0 || accelerationY != 0 || accelerationZ != 0) {
+			move(accelerationX, accelerationY, accelerationZ);
+			accelerationX = getNewAcceleration(accelerationX);
+			accelerationY = getNewAcceleration(accelerationY);
+			accelerationZ = getNewAcceleration(accelerationZ);
+		}
 	}
 
 	public void addAcceleration(float accelerationX, float accelerationY, float accelerationZ) {
@@ -734,6 +739,35 @@ public class Player {
 
 	public float zum_quadrat(float zahl) {
 		return zahl * zahl;
+	}
+
+	// TODO Einzelspieleranzeige fuer Einzelspier programmieren
+	public void printScore() {
+		System.out.println("Scoreanzeige fuer Einzelspieler noch nicht programmiert");
+	}
+
+	public int getDeaths() {
+		return counterDeaths;
+	}
+
+	public void setDeaths(int counterDeaths) {
+		this.counterDeaths = counterDeaths;
+	}
+
+	public void increaseDeaths() {
+		counterDeaths++;
+	}
+
+	public void increaseHits() {
+		counterHits++;
+	}
+
+	public int getHits() {
+		return counterHits;
+	}
+
+	public void setHits(int counterHits) {
+		this.counterHits = counterHits;
 	}
 
 	// TODO Testen, ob Abfrage funktioniert

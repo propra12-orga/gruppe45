@@ -30,11 +30,15 @@ public class ThreadWindowNetwork implements Runnable {
 			if (null != (strIn = myPlayer.read())) {
 				strSplit = strIn.split(":");
 				if (strSplit[0].equals(NetPlayer.MSG_POSITION)) {
-					for (int i = 0; i < listPlayer.size(); i++) {
-						if (listPlayer.get(i).getNumber() == Integer.valueOf(strSplit[1])) {
-							listPlayer.get(i).setPosition(Float.valueOf(strSplit[2]), Float.valueOf(strSplit[3]),
-									Float.valueOf(strSplit[4]));
-							break;
+					if (myPlayer.getNumber() == Integer.valueOf(strSplit[1])) {
+						myPlayer.setPosition(Float.valueOf(strSplit[2]), Float.valueOf(strSplit[3]), Float.valueOf(strSplit[4]));
+					} else {
+						for (int i = 0; i < listPlayer.size(); i++) {
+							if (listPlayer.get(i).getNumber() == Integer.valueOf(strSplit[1])) {
+								listPlayer.get(i).setPosition(Float.valueOf(strSplit[2]), Float.valueOf(strSplit[3]),
+										Float.valueOf(strSplit[4]));
+								break;
+							}
 						}
 					}
 				} else if (strSplit[0].equals(NetPlayer.MSG_CUBE)) {

@@ -9,10 +9,20 @@ import java.util.List;
 public class NetLevel extends Level {
 
 	private List<NetPlayer> listNetPlayer = new ArrayList<NetPlayer>();
+	// Zufaellige SpawnPoints
+	// TODO Muss abhaenig von der Levelgroesse sein
+	final private static float[][] spawnPoint = { { 85, 85, 15, 0 }, { 25, 15, 85, 0 } };
 
 	public NetLevel(int x, int y, int z, List<NetPlayer> listNetPlayer) {
 		super(x, y, z);
 		this.listNetPlayer = listNetPlayer;
+	}
+
+	/**
+	 * Gibt einen Spawnpoint als Array (x,y,z,angleY) aus
+	 */
+	public float[] getSpawnPoint() {
+		return spawnPoint[0];
 	}
 
 	public void clear() {
@@ -40,6 +50,8 @@ public class NetLevel extends Level {
 				playerList += ":" + listNetPlayer.get(i).getAngleX();
 				playerList += ":" + listNetPlayer.get(i).getAngleY();
 				playerList += ":" + listNetPlayer.get(i).getHealthPoints();
+				playerList += ":" + listNetPlayer.get(i).getHits();
+				playerList += ":" + listNetPlayer.get(i).getDeaths();
 			}
 		}
 		return i + playerList;

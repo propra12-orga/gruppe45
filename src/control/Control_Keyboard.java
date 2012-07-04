@@ -61,6 +61,10 @@ public class Control_Keyboard extends Control {
 		public void move_Control1() {
 			if (!Menu.menuOffen) {
 
+				// TAB
+				if (Keyboard.isKeyDown(Keyboard.KEY_TAB)) {
+					player.printScore();
+				}
 				// links:
 				if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
 					player.moveLeft();
@@ -125,10 +129,6 @@ public class Control_Keyboard extends Control {
 				// Quickload
 				if (Keyboard.isKeyDown(Keyboard.KEY_L)) {
 					level.load();
-				}
-				// TAB
-				if (Keyboard.isKeyDown(Keyboard.KEY_TAB)) {
-					System.out.println("TAB Taste");
 				}
 			}
 		}

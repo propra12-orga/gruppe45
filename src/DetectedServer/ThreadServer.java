@@ -22,10 +22,6 @@ public class ThreadServer implements Runnable {
 
 	final public static int SERVER_MAX_PLAYER = 10;
 
-	// Zufaellige SpawnPoints
-	// TODO Muss abhaenig von der Levelgroesse sein
-	final private static float[][] spawnPoint = { { 85, 85, 15 }, { 25, 15, 85 } };
-
 	private List<NetPlayer> listNetPlayer;
 	private List<Thread> listThread;
 	private NetLevel netLevel;
@@ -62,9 +58,7 @@ public class ThreadServer implements Runnable {
 			while (true) {
 				Socket client = server.accept();
 				System.out.println("Server:Neuer Spieler");
-				netPlayer = new NetPlayer(netLevel, spawnPoint[random][0], spawnPoint[random][1], spawnPoint[random][2],
-						listNetPlayer, number++, client);
-				netPlayer.setBombs(1);
+				netPlayer = new NetPlayer(netLevel, listNetPlayer, number++, client, listNetPlayer);
 				thread = new Thread(new ThreadClient(netLevel, netPlayer, listNetPlayer));
 				thread.start();
 				listThread.add(thread);

@@ -61,10 +61,22 @@ public class NetPlayer extends Player {
 	PrintWriter out = null;
 	Socket client = null;
 	NetLevel netLevel;
+	List<NetPlayer> listNetPlayer;
 
-	public NetPlayer(NetLevel netLevel, float x, float y, float z, List listPlayer, int number, Socket client) {
-		super(netLevel, x, y, z, listPlayer, number);
+	/**
+	 * Dieser NetPlayer wird vom Server fuer jeden Clienten erzeugt, Aenderungen
+	 * im NetLevel werden direkt an alle Spieler uebertragen
+	 * 
+	 * @param netLevel
+	 * @param listPlayer
+	 * @param number
+	 * @param client
+	 */
+	public NetPlayer(NetLevel netLevel, List listPlayer, int number, Socket client, List listNetPlayer) {
+		super(netLevel, 0, 0, 0, listPlayer, number);
+		setBombs(1);
 		this.netLevel = netLevel;
+		this.listNetPlayer = listNetPlayer;
 		if (client != null) {
 			this.client = client;
 			try {
@@ -74,10 +86,21 @@ public class NetPlayer extends Player {
 				e.printStackTrace();
 			}
 		}
+		spawn();
 	}
 
-	// TODO evtl Klassen unterteilen in Server- und Clientseitig
-	// zB msgSetLevel() darf vom Client nicht aufgerufen werden
+	/**
+	 * Dieser NetPlayer wird vom Client erzeugt, das Level wird bei Aenderungen
+	 * nicht versendet
+	 * 
+	 * @param level
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @param listPlayer
+	 * @param number
+	 * @param client
+	 */
 	public NetPlayer(Level level, float x, float y, float z, List listPlayer, int number, Socket client) {
 		super(level, x, y, z, listPlayer, number);
 		this.client = client;
@@ -131,12 +154,18 @@ public class NetPlayer extends Player {
 		Player tmpPlayer;
 		listPlayer.clear();
 		for (int i = 0; i < Integer.valueOf(splitMsg[1]); i++) {
-			tmpPlayer = new Player(netLevel, Float.valueOf(splitMsg[3 + (i * 7)]), Float.valueOf(splitMsg[4 + (i * 7)]),
-					Float.valueOf(splitMsg[5 + (i * 7)]), listPlayer, Integer.valueOf(splitMsg[2 + (i * 7)]));
-			tmpPlayer.setAngleX(Float.valueOf(splitMsg[6 + (i * 7)]));
-			tmpPlayer.setAngleY(Float.valueOf(splitMsg[7 + (i * 7)]));
-			tmpPlayer.setHealthPoints(Integer.valueOf(splitMsg[8 + (i * 7)]));
+			tmpPlayer = new Player(netLevel, Float.valueOf(splitMsg[3 + (i * 9)]), Float.valueOf(splitMsg[4 + (i * 9)]),
+					Float.valueOf(splitMsg[5 + (i * 9)]), listPlayer, Integer.valueOf(splitMsg[2 + (i * 9)]));
+			tmpPlayer.setAngleX(Float.valueOf(splitMsg[6 + (i * 9)]));
+			tmpPlayer.setAngleY(Float.valueOf(splitMsg[7 + (i * 9)]));
+			tmpPlayer.setHealthPoints(Integer.valueOf(splitMsg[8 + (i * 9)]));
+			tmpPlayer.setHits(Integer.valueOf(splitMsg[9 + (i * 9)]));
+			tmpPlayer.setDeaths(Integer.valueOf(splitMsg[10 + (i * 9)]));
 			listPlayer.add(tmpPlayer);
+			if (Integer.valueOf(splitMsg[2 + (i * 9)]) == getNumber()) {
+				setHits(Integer.valueOf(splitMsg[9 + (i * 9)]));
+				setDeaths(Integer.valueOf(splitMsg[10 + (i * 9)]));
+			}
 		}
 	}
 
@@ -181,8 +210,29 @@ public class NetPlayer extends Player {
 		msgSendPosition();
 	}
 
+	public void printScore() {
+		System.out.println("Umgebracht: " + super.getHits() + ", Gestorben: " + super.getDeaths());
+	}
+
 	public void dies() {
-		// msgSendExit();
+		super.increaseDeaths();
+		spawn();
+	}
+
+	/**
+	 * Diese Methode laessten den Spieler am Spawnpoint neu ins Spiel eintreten
+	 */
+	public void spawn() {
+		float[] spawnPoint = netLevel.getSpawnPoint();
+		setPosition(spawnPoint[0], spawnPoint[1], spawnPoint[2]);
+		setAngleY(spawnPoint[3]);
+		setHealthPoints(MAX_HEALTH_POINTS);
+		// Spieler verliert seine Extrabomben
+		setBombs(1);
+		// TODO Was muss noch alles zurueckgesetzt werden?
+		for (int i = 0; i < listNetPlayer.size(); i++) {
+			listNetPlayer.get(i).msgSendPlayerList();
+		}
 	}
 
 	public void close() {

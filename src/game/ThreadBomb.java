@@ -17,7 +17,7 @@ import DetectedServer.NetPlayer;
  * und kann andere Bomben zuenden
  */
 public class ThreadBomb {
-	
+
 	public static float HealthOn = 1;
 	public static float XtraBombOn = 1;
 	public static float PortalOn = 1;
@@ -32,7 +32,7 @@ public class ThreadBomb {
 	final float PROBABILITY_BOMB_STRENGTH = ITEM_PROBABLY;
 	final float PROBABILITY_DOUBLE_SCORE = ITEM_PROBABLY;
 	// Rest ist CUBE_EMPTY
-	
+
 	final static public int SCORE_OBSTACLE = 50;
 	final static public int SCORE_HIT_PLAYER = 150;
 	final static public int SCORE_KILL = 500;
@@ -96,7 +96,7 @@ public class ThreadBomb {
 			player.decreaseBombs();
 			listBomb.add(new Bomb(x, y, z, radius, player));
 		}
-//		System.out.println("BOMBE IN DEN THREAD");
+		// System.out.println("BOMBE IN DEN THREAD");
 	}
 
 	class TimerBombs implements ActionListener {
@@ -224,7 +224,7 @@ public class ThreadBomb {
 					System.out.println("Die zerstörte Wand bringt dir " + SCORE_OBSTACLE + " Punkte.");
 					System.out.println("Du hast jetzt " + player.getScore() + " Punkte!");
 					System.out.println("");
-					
+
 					// Ein Hinderniswürfel kann später zu einem Item werden
 				} else if (level.getCubeName(x, y, z).equals(Cube.CUBE_OBSTACLE)) {
 					level.setCube(Cube.getCubeByName(Cube.CUBE_EXPLOSION_HIDE_ITEM), x, y, z);
@@ -234,7 +234,7 @@ public class ThreadBomb {
 					System.out.println("Das zerstörte Wand bringt dir " + SCORE_OBSTACLE + " Punkte.");
 					System.out.println("Du hast jetzt " + player.getScore() + " Punkte!");
 					System.out.println("");
-					
+
 					// alle anderen Würfel (leere, Items, ...) verschwinden
 				} else {
 					level.setCube(Cube.getCubeByName(Cube.CUBE_EXPLOSION), x, y, z);
@@ -262,7 +262,7 @@ public class ThreadBomb {
 									System.out.println("Du hast jetzt " + player.getScore() + " Punkte!");
 									System.out.println("");
 								}
-								
+
 								listNetPlayer.get(c).addAcceleration(Math.signum(x - startX) * 2, Math.signum(y - startY) * 2,
 										Math.signum(z - startZ) * 2);
 
@@ -270,10 +270,13 @@ public class ThreadBomb {
 								// wurde
 								if (listNetPlayer.get(c).getHealthPoints() <= 0) {
 									// Ein Kill bringt Punkte
+									// TODO Aber nur wenn man sich nicht selbst
+									// umgebracht hat...
 									System.out.println("");
 									player.addScore(SCORE_KILL);
 									System.out.println("Der Kill bringt dir " + SCORE_KILL + " Punkte.");
 									System.out.println("Du hast nun " + player.getScore() + " Punkte!");
+									player.increaseHits();
 									listNetPlayer.get(c).dies();
 								}
 							}
@@ -300,7 +303,7 @@ public class ThreadBomb {
 									System.out.println("Du hast jetzt " + player.getScore() + " Punkte!");
 									System.out.println("");
 								}
-								
+
 								listPlayer.get(c).addAcceleration(Math.signum(x - startX) * 2, Math.signum(y - startY) * 2,
 										Math.signum(z - startZ) * 2);
 
@@ -379,7 +382,8 @@ public class ThreadBomb {
 					} else if (random < (PROBABILITY_HEALTH + PROBABILITY_XTRA_BOMB + PROBABILITY_PORTAL
 							+ PROBABILITY_BOMB_RANGE + PROBABILITY_BOMB_STRENGTH)) {
 						level.setCube(Cube.getCubeByName(Cube.CUBE_ITEM_BOMB_STRENGTH), x, y, z);
-						// ITEM: Double Score (verdoppelt den Punktestand des Spielers)
+						// ITEM: Double Score (verdoppelt den Punktestand des
+						// Spielers)
 					} else if (random < (PROBABILITY_HEALTH + PROBABILITY_XTRA_BOMB + PROBABILITY_PORTAL
 							+ PROBABILITY_BOMB_RANGE + PROBABILITY_BOMB_STRENGTH + PROBABILITY_DOUBLE_SCORE)) {
 						level.setCube(Cube.getCubeByName(Cube.CUBE_ITEM_DOUBLE_SCORE), x, y, z);
