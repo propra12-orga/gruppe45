@@ -70,7 +70,7 @@ public class Player {
 	public static int bombs = 1; // Anzahl der gleichzeitig legbaren Bomben
 	int fuseTime = 3000;
 	int explosionTime = 1000;
-	protected List listPlayer;
+	protected List<Player> listPlayer;
 
 	private int counterDeaths = 0;
 	private int counterHits = 0;
@@ -220,7 +220,7 @@ public class Player {
 	 */
 	public void reinit(int startpositionX, int startpositionY, int startpositionZ, float angleY, int bombs, boolean gravity) {
 		setPosition(startpositionX, startpositionY, startpositionZ);
-		setHealthPoints(healthPoints);
+		setHealthPoints(INITIAL_HEALTH_POINTS);
 		setBombs(bombs);
 		setAngleX(0);
 		setAngleY(angleY);
@@ -785,13 +785,10 @@ public class Player {
 		int newCubeX = (int) (this.x + tmpX) / 10;
 		int newCubeY = (int) (this.y + tmpY) / 10;
 		int newCubeZ = (int) (this.z + tmpZ) / 10;
-
-		if ((newCubeX == oldCubeX) && (newCubeY == oldCubeY) && (newCubeZ == oldCubeZ)) {
+		
+		if (newCubeX == oldCubeX) {
 			this.x += x;
-			this.y += y;
-			this.z += z;
 		} else {
-
 			// Der Spieler kann durch move() in einem Block landen der nicht
 			// mehr
 			// im Level ist. Sollte er nach der Addition ausserhalt des Levels
@@ -809,6 +806,12 @@ public class Player {
 			} else {
 				accelerationX = 0;
 			}
+		}
+		
+		
+		if (newCubeY == oldCubeY) {
+			this.y += y;
+		} else {
 			if (level.getCube(oldCubeX, newCubeY, oldCubeZ) != null) {
 				if (level.getCube(oldCubeX, newCubeY, oldCubeZ).isWalkable()) {
 					this.y += y;
@@ -818,6 +821,12 @@ public class Player {
 			} else {
 				accelerationY = 0;
 			}
+		}
+		
+		
+		if (newCubeZ == oldCubeZ) {
+			this.z += z;
+		} else {
 			if (level.getCube(oldCubeX, oldCubeY, newCubeZ) != null) {
 				if (level.getCube(oldCubeX, oldCubeY, newCubeZ).isWalkable()) {
 					this.z += z;

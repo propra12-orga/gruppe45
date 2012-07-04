@@ -62,13 +62,10 @@ public class ThreadBomb {
 		if (listPlayer != null) {
 			this.listPlayer = listPlayer;
 			net = false;
-			System.out.println("ServerThreadBomb gestartet");
 		} else if (listNetPlayer != null) {
 			this.listNetPlayer = listNetPlayer;
 			net = true;
-			System.out.println("ServerThreadBomb fuers Netzwerk gestartet");
 		} else {
-			System.out.println("ThreadBomb wurde keine Spielerliste uebergeben");
 			System.exit(-1);
 		}
 		this.level = level;
@@ -76,7 +73,6 @@ public class ThreadBomb {
 		this.listExplosion = new ArrayList<Explosion>();
 		timer = new Timer(MILLISECS_PER_TICK, new TimerBombs());
 		timer.start();
-		System.out.println("TIMER GESTARTET");
 	}
 
 	public void setLevel(Level level) {

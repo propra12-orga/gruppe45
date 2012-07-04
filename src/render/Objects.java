@@ -4,7 +4,6 @@ import game.Game;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import render.Menu;
 
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.Texture;
@@ -15,36 +14,24 @@ public class Objects {
 	// TODO Themewahl über Optionsmeü
 	// Wahl, welches Theme benutzt wird
 	public static byte themeSelection;
-	
+
 	final static public byte THEME_COUNT = 3;
-	
+
 	final static public byte THEME_EARTH = 0;
 	final static public byte THEME_SPACE = 1;
-	final static public byte THEME_SOCCER =2;
+	final static public byte THEME_SOCCER = 2;
 
-	private Texture 
-			texBomb[] = new Texture[THEME_COUNT], 
-			texExplosion[]= new Texture[THEME_COUNT], 
-			texPaper[] = new Texture[THEME_COUNT], 
-			texOutside[] = new Texture[THEME_COUNT], 
-			texObstacle[]=new Texture[THEME_COUNT], 
-			texHealth[]=new Texture[THEME_COUNT], 
-			texXtraBomb[]=new Texture[THEME_COUNT], 
-			texPortal[]=new Texture[THEME_COUNT], 
-			texDoubleScore[]=new Texture[THEME_COUNT], 
-			texBombRange[]=new Texture[THEME_COUNT],
-			texBombStrength[]=new Texture[THEME_COUNT], 
-			texExit[]=new Texture[THEME_COUNT], 
-			texRamp[]=new Texture[THEME_COUNT], 
-			texPlayer[]=new Texture[THEME_COUNT], 
-			texMenuNewGame[]=new Texture[THEME_COUNT], 
-			texMenuNewGameGravity[]=new Texture[THEME_COUNT], 
-			texMenuExitProgram[] = new Texture[THEME_COUNT],
-			texMenuLoadLevel[] = new Texture[THEME_COUNT], 
-			texMenuMulti[] = new Texture[THEME_COUNT], 
-			texMenuServer[] = new Texture[THEME_COUNT], 
+	private Texture texBomb[] = new Texture[THEME_COUNT], texExplosion[] = new Texture[THEME_COUNT],
+			texPaper[] = new Texture[THEME_COUNT], texOutside[] = new Texture[THEME_COUNT],
+			texObstacle[] = new Texture[THEME_COUNT], texHealth[] = new Texture[THEME_COUNT],
+			texXtraBomb[] = new Texture[THEME_COUNT], texPortal[] = new Texture[THEME_COUNT],
+			texDoubleScore[] = new Texture[THEME_COUNT], texBombRange[] = new Texture[THEME_COUNT],
+			texBombStrength[] = new Texture[THEME_COUNT], texExit[] = new Texture[THEME_COUNT],
+			texRamp[] = new Texture[THEME_COUNT], texPlayer[] = new Texture[THEME_COUNT],
+			texMenuNewGame[] = new Texture[THEME_COUNT], texMenuNewGameGravity[] = new Texture[THEME_COUNT],
+			texMenuExitProgram[] = new Texture[THEME_COUNT], texMenuLoadLevel[] = new Texture[THEME_COUNT],
+			texMenuMulti[] = new Texture[THEME_COUNT], texMenuServer[] = new Texture[THEME_COUNT],
 			texMenuOptions[] = new Texture[THEME_COUNT];
-
 
 	public Objects() {
 		String tmpThemeName = "";
@@ -63,23 +50,24 @@ public class Objects {
 					tmpThemeName = "soccer";
 					break;
 				}
-				
+
 				// Weltwuerfel
 				texBomb[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/bomb.png"));
 				texExplosion[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
 						+ "/explosion.png"));
-				texPaper[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/solid.png"));
+				texPaper[i] = TextureLoader.getTexture("PNG",
+						new FileInputStream("res/textures/" + tmpThemeName + "/solid.png"));
 				texOutside[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
 						+ "/outsideworld.png"));
-				texObstacle[i] = TextureLoader
-						.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/obstacle.png"));
-				texRamp[i] = TextureLoader
-						.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/ramp.png"));
-				texHealth[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/health.png"));
+				texObstacle[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
+						+ "/obstacle.png"));
+				texRamp[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/ramp.png"));
+				texHealth[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
+						+ "/health.png"));
 				texXtraBomb[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
 						+ "/ItemXtraBomb.png"));
-				texPortal[i] = TextureLoader
-						.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/ItemPortal.png"));
+				texPortal[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
+						+ "/ItemPortal.png"));
 				texBombRange[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
 						+ "/ItemBombRange.png"));
 				texBombStrength[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
@@ -87,21 +75,23 @@ public class Objects {
 				texDoubleScore[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
 						+ "/ItemDoubleScore.png"));
 				texExit[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/exit.png"));
-				texPlayer[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/player.png"));
+				texPlayer[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
+						+ "/player.png"));
 				// Menuewuerfel
-				texMenuNewGame[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName + "/newgame.png"));
-				texMenuOptions[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName + "/options.png"));
+				texMenuNewGame[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName
+						+ "/newgame.png"));
+				texMenuOptions[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName
+						+ "/options.png"));
 				texMenuNewGameGravity[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName
 						+ "/newgamegravity.png"));
 				texMenuExitProgram[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName
 						+ "/exitprogram.png"));
-				texMenuMulti[i] = TextureLoader.getTexture("PNG",
-						new FileInputStream("res/menu/" + tmpThemeName + "/newmultigame.png"));
-				texMenuServer[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName + "/newserver.png"));
+				texMenuMulti[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName
+						+ "/newmultigame.png"));
+				texMenuServer[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName
+						+ "/newserver.png"));
 				texMenuLoadLevel[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName
 						+ "/loadlevel.png"));
-				
-				
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -109,12 +99,12 @@ public class Objects {
 		}
 
 	}
-	
-	public void setThemeSelection(byte themeSelection){
+
+	public void setThemeSelection(byte themeSelection) {
 		this.themeSelection = themeSelection;
 	}
-	
-	public byte getThemeSelection(){
+
+	public byte getThemeSelection() {
 		return this.themeSelection;
 	}
 
@@ -147,7 +137,7 @@ public class Objects {
 		texHealth[themeSelection].bind();
 		DrawCube(x + 2.5f, y + 2.5f, z + 2.5f, 5, 1);
 	}
-	
+
 	public void DrawCubeItemDoubleScore(float x, float y, float z) {
 		texDoubleScore[themeSelection].bind();
 		DrawCube(x + 2.5f, y + 2.5f, z + 2.5f, 5, 1);
@@ -384,8 +374,6 @@ public class Objects {
 		GL11.glEnd();
 	}
 
-
-
 	/**
 	 * Zeichnet eine Spielfigur
 	 * 
@@ -400,7 +388,7 @@ public class Objects {
 	 * @param texSize
 	 *            Skalierung der Textur
 	 */
-	public void DrawPlayer(float x, float y, float z, float size, float angleX, float angleY,float texSize) {
+	public void DrawPlayer(float x, float y, float z, float size, float angleX, float angleY, float texSize) {
 		GL11.glColor3f(1, 1, 1);
 		GL11.glBegin(GL11.GL_QUADS);
 		// Hinten
@@ -450,7 +438,7 @@ public class Objects {
 		GL11.glVertex3f(x + size, y + size, z + size);
 		GL11.glEnd();
 	}
-	
+
 	/**
 	 * Zeichnet eine Spielfigur
 	 * 
@@ -471,52 +459,52 @@ public class Objects {
 		// Hinten
 		GL11.glTexCoord2f(0, 0);
 		GL11.glVertex3f(x + size, y, z);
-		
+
 		GL11.glTexCoord2f(0, texSize);
-		GL11.glVertex3f(x + (size/2), y + size, z);
-		
+		GL11.glVertex3f(x + (size / 2), y + size, z);
+
 		GL11.glTexCoord2f(texSize, texSize);
-		GL11.glVertex3f(x + (size/2), y + size, z);
-		
+		GL11.glVertex3f(x + (size / 2), y + size, z);
+
 		GL11.glTexCoord2f(texSize, 0);
 		GL11.glVertex3f(x, y, z);
-		
+
 		// Unten
-//		GL11.glTexCoord2f(0, 0);
-//		GL11.glVertex3f(x + size, y, z);
-//		GL11.glTexCoord2f(0, texSize);
-//		GL11.glVertex3f(x + size, y, z + size);
-//		GL11.glTexCoord2f(texSize, texSize);
-//		GL11.glVertex3f(x, y, z + size);
-//		GL11.glTexCoord2f(texSize, 0);
-//		GL11.glVertex3f(x, y, z);
-//		// Links
-//		GL11.glTexCoord2f(0, 0);
-//		GL11.glVertex3f(x + size, y, z);
-//		GL11.glTexCoord2f(0, texSize);
-//		GL11.glVertex3f(x + size, y, z + size);
-//		GL11.glTexCoord2f(texSize, texSize);
-//		GL11.glVertex3f(x + size, y + size, z + size);
-//		GL11.glTexCoord2f(texSize, 0);
-//		GL11.glVertex3f(x + size, y + size, z + size);
-//		// Rechts
-//		GL11.glTexCoord2f(0, 0);
-//		GL11.glVertex3f(x, y, z);
-//		GL11.glTexCoord2f(0, texSize);
-//		GL11.glVertex3f(x, y, z + size);
-//		GL11.glTexCoord2f(texSize, texSize);
-//		GL11.glVertex3f(x, y + size, z + size);
-//		GL11.glTexCoord2f(texSize, 0);
-//		GL11.glVertex3f(x, y + size, z + size);
-//		// Schräge
-//		GL11.glTexCoord2f(0, 0);
-//		GL11.glVertex3f(x + size, y, z);
-//		GL11.glTexCoord2f(0, texSize);
-//		GL11.glVertex3f(x, y, z);
-//		GL11.glTexCoord2f(texSize, texSize);
-//		GL11.glVertex3f(x, y + size, z + size);
-//		GL11.glTexCoord2f(texSize, 0);
-//		GL11.glVertex3f(x + size, y + size, z + size);
+		// GL11.glTexCoord2f(0, 0);
+		// GL11.glVertex3f(x + size, y, z);
+		// GL11.glTexCoord2f(0, texSize);
+		// GL11.glVertex3f(x + size, y, z + size);
+		// GL11.glTexCoord2f(texSize, texSize);
+		// GL11.glVertex3f(x, y, z + size);
+		// GL11.glTexCoord2f(texSize, 0);
+		// GL11.glVertex3f(x, y, z);
+		// // Links
+		// GL11.glTexCoord2f(0, 0);
+		// GL11.glVertex3f(x + size, y, z);
+		// GL11.glTexCoord2f(0, texSize);
+		// GL11.glVertex3f(x + size, y, z + size);
+		// GL11.glTexCoord2f(texSize, texSize);
+		// GL11.glVertex3f(x + size, y + size, z + size);
+		// GL11.glTexCoord2f(texSize, 0);
+		// GL11.glVertex3f(x + size, y + size, z + size);
+		// // Rechts
+		// GL11.glTexCoord2f(0, 0);
+		// GL11.glVertex3f(x, y, z);
+		// GL11.glTexCoord2f(0, texSize);
+		// GL11.glVertex3f(x, y, z + size);
+		// GL11.glTexCoord2f(texSize, texSize);
+		// GL11.glVertex3f(x, y + size, z + size);
+		// GL11.glTexCoord2f(texSize, 0);
+		// GL11.glVertex3f(x, y + size, z + size);
+		// // Schräge
+		// GL11.glTexCoord2f(0, 0);
+		// GL11.glVertex3f(x + size, y, z);
+		// GL11.glTexCoord2f(0, texSize);
+		// GL11.glVertex3f(x, y, z);
+		// GL11.glTexCoord2f(texSize, texSize);
+		// GL11.glVertex3f(x, y + size, z + size);
+		// GL11.glTexCoord2f(texSize, 0);
+		// GL11.glVertex3f(x + size, y + size, z + size);
 		GL11.glEnd();
 	}
 }
