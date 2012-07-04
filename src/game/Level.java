@@ -85,28 +85,6 @@ public class Level {
 	}
 
 	/**
-	 * Dies legt die Wahl der Themas, also die Wahl der Texturen, Sounds etc.
-	 * fest
-	 * 
-	 * @return Zahl des gewählten Themas
-	 */
-//	public byte getthemeSelection() {
-//		Menu.scanOptions();
-//		if(Game.options[4].equals("THEME_EARTH")){
-//			return THEME_EARTH;
-//		}else if(Game.options[4].equals("THEME_SPACE")){
-//			return THEME_SPACE;
-//		}else if(Game.options[4].equals("THEME_SOCCER")){
-//			return THEME_SOCCER;
-//		}else{
-//			System.out.println("FAIL!");
-//			return THEME_EARTH;
-//		}
-//
-//		//return this.themeSelection;
-//	}
-
-	/**
 	 * Gibt den Würfel (Art) an einer bestimmten Position in der Spielwelt aus.
 	 * 
 	 * @param x

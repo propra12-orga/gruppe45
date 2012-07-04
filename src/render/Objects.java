@@ -45,40 +45,21 @@ public class Objects {
 			texMenuServer[] = new Texture[THEME_COUNT], 
 			texMenuOptions[] = new Texture[THEME_COUNT];
 
-	private Texture texTest[] = new Texture[THEME_COUNT];
-	
 
 	public Objects() {
 		String tmpThemeName = "";
 		this.themeSelection = Byte.parseByte(Game.options[4]);
-//		// Texturen laden
 		try {
-//			// Spielwürfel
-//			String tmpThemeName = "earth";
-//			switch (themeSelection) {
-//			// Normale Welt
-//			case 1:
-//				tmpThemeName = "earth";
-//				break;
-//			case 2:
-//				tmpThemeName = "space";
-//				break;
-//			case 3:
-//				tmpThemeName = "soccer";
-//				break;
-//			}
-			
-			//TEST
 			for (byte i = THEME_EARTH; i <= THEME_SOCCER; i++) {
 				switch (i) {
 				// Normale Welt
-				case 0:
+				case THEME_EARTH:
 					tmpThemeName = "earth";
 					break;
-				case 1:
+				case THEME_SPACE:
 					tmpThemeName = "space";
 					break;
-				case 2:
+				case THEME_SOCCER:
 					tmpThemeName = "soccer";
 					break;
 				}
@@ -121,46 +102,7 @@ public class Objects {
 						+ "/loadlevel.png"));
 				
 				
-				texTest[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/solid.png"));
 			}
-			//TEST ENDE
-			
-			// Weltwuerfel
-//			texBomb = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/bomb.png"));
-//			texExplosion = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
-//					+ "/explosion.png"));
-//			texPaper = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/solid.png"));
-//			texOutside = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
-//					+ "/outsideworld.png"));
-//			texObstacle = TextureLoader
-//					.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/obstacle.png"));
-//			texRamp = TextureLoader
-//					.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/ramp.png"));
-//			texHealth = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/health.png"));
-//			texXtraBomb = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
-//					+ "/ItemXtraBomb.png"));
-//			texPortal = TextureLoader
-//					.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/ItemPortal.png"));
-//			texBombRange = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
-//					+ "/ItemBombRange.png"));
-//			texBombStrength = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
-//					+ "/ItemBombStrength.png"));
-//			texDoubleScore = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
-//					+ "/ItemDoubleScore.png"));
-//			texExit = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/exit.png"));
-//			texPlayer = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/player.png"));
-//			// Menuewuerfel
-//			texMenuNewGame = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName + "/newgame.png"));
-//			texMenuOptions = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName + "/options.png"));
-//			texMenuNewGameGravity = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName
-//					+ "/newgamegravity.png"));
-//			texMenuExitProgram = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName
-//					+ "/exitprogram.png"));
-//			texMenuMulti = TextureLoader.getTexture("PNG",
-//					new FileInputStream("res/menu/" + tmpThemeName + "/newmultigame.png"));
-//			texMenuServer = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName + "/newserver.png"));
-//			texMenuLoadLevel = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName
-//					+ "/loadlevel.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(0);
