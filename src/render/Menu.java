@@ -5,6 +5,7 @@ import game.Game;
 import game.Level;
 import game.Player;
 import game.ThreadBomb;
+import render.Objects;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -791,7 +792,7 @@ public class Menu extends javax.swing.JFrame {
 		 * #*********************************************************************
 		 * *********************************************
 		 * Speicherformat/Reihenfolge LevelX, LevelY, LevelZ,
-		 * Obstacle-Wahrscheinlichkeit, Theme (1 = Earth, 2 = Space, 3 =
+		 * Obstacle-Wahrscheinlichkeit, Theme (0 = Earth, 1 = Space, 2 =
 		 * Fussball), Schwerkraft (1 = ein, 0 = aus), Itemhäufigkeit,
 		 * Vorhandensein folgender Items (1 = Ja, 0 = Nein): Health, Portal,
 		 * Bomb+, Range+, maximale Bombenzahl, Bombenzahl zu Beginn, maximale
@@ -819,11 +820,14 @@ public class Menu extends javax.swing.JFrame {
 			writer.write(System.getProperty("line.separator"));
 			// 5. Theme speichern:
 			if (rThemeEarth.isSelected()) {
-				writer.write("THEME_EARTH");
+				writer.write(Objects.THEME_EARTH + "");
+				Objects.themeSelection = Objects.THEME_EARTH;
 			} else if (rThemeSpace.isSelected()) {
-				writer.write("THEME_SPACE");
+				writer.write(Objects.THEME_SPACE + "");
+				Objects.themeSelection = Objects.THEME_SPACE;
 			} else if (rThemeEM.isSelected()) {
-				writer.write("THEME_SOCCER");
+				writer.write(Objects.THEME_SOCCER + "");
+				Objects.themeSelection = Objects.THEME_SOCCER;
 			}
 			writer.write(System.getProperty("line.separator"));
 			// 6. Schwerkraftsstatus:
@@ -974,7 +978,7 @@ public class Menu extends javax.swing.JFrame {
 		 * #*********************************************************************
 		 * *********************************************
 		 * Speicherformat/Reihenfolge LevelX, LevelY, LevelZ,
-		 * Obstacle-Wahrscheinlichkeit, Theme (1 = Earth, 2 = Space, 3 =
+		 * Obstacle-Wahrscheinlichkeit, Theme (0 = Earth, 1 = Space, 2 =
 		 * Fussball), Schwerkraft (1 = ein, 0 = aus), Itemhäufigkeit,
 		 * Vorhandensein folgender Items (1 = Ja, 0 = Nein): Health, Portal,
 		 * Bomb+, Range+, maximale Bombenzahl, Bombenzahl zu Beginn, maximale
@@ -988,11 +992,11 @@ public class Menu extends javax.swing.JFrame {
 		sLevelZ.setValue(Integer.parseInt(Game.options[2]));
 		sObstacle.setValue(Integer.parseInt(Game.options[3]));
 
-		if (Game.options[4].equals("THEME_EARTH")) {
+		if (Byte.parseByte(Game.options[4]) == Objects.THEME_EARTH) {
 			rThemeEarth.setSelected(true);
-		} else if (Game.options[4].equals("THEME_SPACE")) {
+		} else if (Byte.parseByte(Game.options[4]) == Objects.THEME_SPACE) {
 			rThemeSpace.setSelected(true);
-		} else if (Game.options[4].equals("THEME_SOCCER")) {
+		} else if (Byte.parseByte(Game.options[4]) == Objects.THEME_SOCCER) {
 			rThemeEM.setSelected(true);
 		}
 		if (Integer.parseInt(Game.options[5]) == 1) {

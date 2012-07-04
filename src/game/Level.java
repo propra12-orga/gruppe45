@@ -26,19 +26,6 @@ public class Level {
 	static public float OBSTACLE_PROBABILITY = Float.parseFloat(Game.options[3]); 
 	//static public float OBSTACLE_PROBABILITY = 0.0f;
 
-	// Themenauswahl
-	// TODO Menüintegration
-	final static public byte THEME_EARTH = 1;
-	final static public byte THEME_SPACE = 2;
-	final static public byte THEME_SOCCER = 3;
-
-	/**
-	 * Umschalten zwischen Darstellungsthemen
-	 */
-	public static byte themeSelection = THEME_EARTH;
-//	public byte themeSelection = THEME_SPACE;
-	// byte themeSelection = THEME_SOCCER;
-	
 	boolean inMenu = true;
 
 	/**
@@ -103,32 +90,21 @@ public class Level {
 	 * 
 	 * @return Zahl des gewählten Themas
 	 */
-	public byte getthemeSelection() {
-		Menu.scanOptions();
-		if(Game.options[4].equals("THEME_EARTH")){
-			return THEME_EARTH;
-		}else if(Game.options[4].equals("THEME_SPACE")){
-			return THEME_SPACE;
-		}else if(Game.options[4].equals("THEME_SOCCER")){
-			return THEME_SOCCER;
-		}else{
-			System.out.println("FAIL!");
-			return THEME_EARTH;
-		}
-
-		//return this.themeSelection;
-	}
-
-	/**
-	 * Hier wird das gewählte Thema, also die verwendeten Texturen, Sounds etc.
-	 * festgelegt
-	 * 
-	 * @param themeSelection
-	 *            1 = Thema "Erde" 2 = Thema "Weltraum" 3 = Thema "Fußball"
-	 */
-	public void setthemeSelection(byte themeSelection) {
-		this.themeSelection = themeSelection;
-	}
+//	public byte getthemeSelection() {
+//		Menu.scanOptions();
+//		if(Game.options[4].equals("THEME_EARTH")){
+//			return THEME_EARTH;
+//		}else if(Game.options[4].equals("THEME_SPACE")){
+//			return THEME_SPACE;
+//		}else if(Game.options[4].equals("THEME_SOCCER")){
+//			return THEME_SOCCER;
+//		}else{
+//			System.out.println("FAIL!");
+//			return THEME_EARTH;
+//		}
+//
+//		//return this.themeSelection;
+//	}
 
 	/**
 	 * Gibt den Würfel (Art) an einer bestimmten Position in der Spielwelt aus.

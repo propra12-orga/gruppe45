@@ -1,7 +1,10 @@
 package render;
 
+import game.Game;
+
 import java.io.FileInputStream;
 import java.io.IOException;
+import render.Menu;
 
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.Texture;
@@ -11,185 +14,272 @@ public class Objects {
 
 	// TODO Themewahl über Optionsmeü
 	// Wahl, welches Theme benutzt wird
-	byte themeSelection = 1;
+	public static byte themeSelection;
+	
+	final static public byte THEME_COUNT = 3;
+	
+	final static public byte THEME_EARTH = 0;
+	final static public byte THEME_SPACE = 1;
+	final static public byte THEME_SOCCER =2;
 
-	private Texture texBomb, texExplosion, texPaper, texOutside, texObstacle, texHealth, texXtraBomb, texPortal, texDoubleScore, texBombRange,
-			texBombStrength, texExit, texRamp, texPlayer, texMenuNewGame, texMenuNewGameGravity, texMenuExitProgram,
-			texMenuLoadLevel, texMenuMulti, texMenuServer, texMenuOptions;
+	private Texture 
+			texBomb[] = new Texture[THEME_COUNT], 
+			texExplosion[]= new Texture[THEME_COUNT], 
+			texPaper[] = new Texture[THEME_COUNT], 
+			texOutside[] = new Texture[THEME_COUNT], 
+			texObstacle[]=new Texture[THEME_COUNT], 
+			texHealth[]=new Texture[THEME_COUNT], 
+			texXtraBomb[]=new Texture[THEME_COUNT], 
+			texPortal[]=new Texture[THEME_COUNT], 
+			texDoubleScore[]=new Texture[THEME_COUNT], 
+			texBombRange[]=new Texture[THEME_COUNT],
+			texBombStrength[]=new Texture[THEME_COUNT], 
+			texExit[]=new Texture[THEME_COUNT], 
+			texRamp[]=new Texture[THEME_COUNT], 
+			texPlayer[]=new Texture[THEME_COUNT], 
+			texMenuNewGame[]=new Texture[THEME_COUNT], 
+			texMenuNewGameGravity[]=new Texture[THEME_COUNT], 
+			texMenuExitProgram[] = new Texture[THEME_COUNT],
+			texMenuLoadLevel[] = new Texture[THEME_COUNT], 
+			texMenuMulti[] = new Texture[THEME_COUNT], 
+			texMenuServer[] = new Texture[THEME_COUNT], 
+			texMenuOptions[] = new Texture[THEME_COUNT];
 
-	private Texture texOverlayTest;
+	private Texture texTest[] = new Texture[THEME_COUNT];
+	
 
-	public Objects(byte themeSelection) {
-		this.themeSelection = themeSelection;
-		// Texturen laden
+	public Objects() {
+		String tmpThemeName = "";
+		this.themeSelection = Byte.parseByte(Game.options[4]);
+//		// Texturen laden
 		try {
-			// Spielwürfel
-			texOverlayTest = TextureLoader.getTexture("PNG", new FileInputStream("res/overlay/testnumber.png"));
-			String tmpThemeName = "earth";
-			switch (themeSelection) {
-			// Normale Welt
-			case 1:
-				tmpThemeName = "earth";
-				break;
-			case 2:
-				tmpThemeName = "space";
-				break;
-			case 3:
-				tmpThemeName = "soccer";
-				break;
+//			// Spielwürfel
+//			String tmpThemeName = "earth";
+//			switch (themeSelection) {
+//			// Normale Welt
+//			case 1:
+//				tmpThemeName = "earth";
+//				break;
+//			case 2:
+//				tmpThemeName = "space";
+//				break;
+//			case 3:
+//				tmpThemeName = "soccer";
+//				break;
+//			}
+			
+			//TEST
+			for (byte i = THEME_EARTH; i <= THEME_SOCCER; i++) {
+				switch (i) {
+				// Normale Welt
+				case 0:
+					tmpThemeName = "earth";
+					break;
+				case 1:
+					tmpThemeName = "space";
+					break;
+				case 2:
+					tmpThemeName = "soccer";
+					break;
+				}
+				
+				// Weltwuerfel
+				texBomb[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/bomb.png"));
+				texExplosion[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
+						+ "/explosion.png"));
+				texPaper[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/solid.png"));
+				texOutside[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
+						+ "/outsideworld.png"));
+				texObstacle[i] = TextureLoader
+						.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/obstacle.png"));
+				texRamp[i] = TextureLoader
+						.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/ramp.png"));
+				texHealth[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/health.png"));
+				texXtraBomb[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
+						+ "/ItemXtraBomb.png"));
+				texPortal[i] = TextureLoader
+						.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/ItemPortal.png"));
+				texBombRange[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
+						+ "/ItemBombRange.png"));
+				texBombStrength[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
+						+ "/ItemBombStrength.png"));
+				texDoubleScore[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
+						+ "/ItemDoubleScore.png"));
+				texExit[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/exit.png"));
+				texPlayer[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/player.png"));
+				// Menuewuerfel
+				texMenuNewGame[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName + "/newgame.png"));
+				texMenuOptions[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName + "/options.png"));
+				texMenuNewGameGravity[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName
+						+ "/newgamegravity.png"));
+				texMenuExitProgram[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName
+						+ "/exitprogram.png"));
+				texMenuMulti[i] = TextureLoader.getTexture("PNG",
+						new FileInputStream("res/menu/" + tmpThemeName + "/newmultigame.png"));
+				texMenuServer[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName + "/newserver.png"));
+				texMenuLoadLevel[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName
+						+ "/loadlevel.png"));
+				
+				
+				texTest[i] = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/solid.png"));
 			}
+			//TEST ENDE
+			
 			// Weltwuerfel
-			texBomb = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/bomb.png"));
-			texExplosion = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
-					+ "/explosion.png"));
-			texPaper = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/solid.png"));
-			texOutside = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
-					+ "/outsideworld.png"));
-			texObstacle = TextureLoader
-					.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/obstacle.png"));
-			texRamp = TextureLoader
-					.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/ramp.png"));
-			texHealth = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/health.png"));
-			texXtraBomb = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
-					+ "/ItemXtraBomb.png"));
-			texPortal = TextureLoader
-					.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/ItemPortal.png"));
-			texBombRange = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
-					+ "/ItemBombRange.png"));
-			texBombStrength = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
-					+ "/ItemBombStrength.png"));
-			texDoubleScore = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
-					+ "/ItemDoubleScore.png"));
-			texExit = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/exit.png"));
-			texPlayer = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/player.png"));
-			// Menuewuerfel
-			texMenuNewGame = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName + "/newgame.png"));
-			texMenuOptions = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName + "/options.png"));
-			texMenuNewGameGravity = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName
-					+ "/newgamegravity.png"));
-			texMenuExitProgram = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName
-					+ "/exitprogram.png"));
-			texMenuMulti = TextureLoader.getTexture("PNG",
-					new FileInputStream("res/menu/" + tmpThemeName + "/newmultigame.png"));
-			texMenuServer = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName + "/newserver.png"));
-			texMenuLoadLevel = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName
-					+ "/loadlevel.png"));
+//			texBomb = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/bomb.png"));
+//			texExplosion = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
+//					+ "/explosion.png"));
+//			texPaper = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/solid.png"));
+//			texOutside = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
+//					+ "/outsideworld.png"));
+//			texObstacle = TextureLoader
+//					.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/obstacle.png"));
+//			texRamp = TextureLoader
+//					.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/ramp.png"));
+//			texHealth = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/health.png"));
+//			texXtraBomb = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
+//					+ "/ItemXtraBomb.png"));
+//			texPortal = TextureLoader
+//					.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/ItemPortal.png"));
+//			texBombRange = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
+//					+ "/ItemBombRange.png"));
+//			texBombStrength = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
+//					+ "/ItemBombStrength.png"));
+//			texDoubleScore = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName
+//					+ "/ItemDoubleScore.png"));
+//			texExit = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/exit.png"));
+//			texPlayer = TextureLoader.getTexture("PNG", new FileInputStream("res/textures/" + tmpThemeName + "/player.png"));
+//			// Menuewuerfel
+//			texMenuNewGame = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName + "/newgame.png"));
+//			texMenuOptions = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName + "/options.png"));
+//			texMenuNewGameGravity = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName
+//					+ "/newgamegravity.png"));
+//			texMenuExitProgram = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName
+//					+ "/exitprogram.png"));
+//			texMenuMulti = TextureLoader.getTexture("PNG",
+//					new FileInputStream("res/menu/" + tmpThemeName + "/newmultigame.png"));
+//			texMenuServer = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName + "/newserver.png"));
+//			texMenuLoadLevel = TextureLoader.getTexture("PNG", new FileInputStream("res/menu/" + tmpThemeName
+//					+ "/loadlevel.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(0);
 		}
 
 	}
+	
+	public void setThemeSelection(byte themeSelection){
+		this.themeSelection = themeSelection;
+	}
+	
+	public byte getThemeSelection(){
+		return this.themeSelection;
+	}
 
 	public void DrawCubeBomb(float x, float y, float z) {
-		texBomb.bind();
+		texBomb[themeSelection].bind();
 		DrawCube(x + 2.5f, y + 2.5f, z + 2.5f, 5, 1);
 	}
 
 	public void DrawCubeExplosion(float x, float y, float z) {
-		texExplosion.bind();
+		texExplosion[themeSelection].bind();
 		DrawCube(x, y, z, 10, 1);
 	}
 
 	public void DrawCubeSolid(float x, float y, float z) {
-		texPaper.bind();
+		texPaper[themeSelection].bind();
 		DrawCube(x, y, z, 10, 1);
 	}
 
 	public void DrawCubeOutside(float x, float y, float z) {
-		texOutside.bind();
+		texOutside[themeSelection].bind();
 		DrawCube(x, y, z, 10, 1);
 	}
 
 	public void DrawCubeObstacle(float x, float y, float z) {
-		texObstacle.bind();
+		texObstacle[themeSelection].bind();
 		DrawCube(x, y, z, 10, 1);
 	}
 
 	public void DrawCubeItemHealth(float x, float y, float z) {
-		texHealth.bind();
+		texHealth[themeSelection].bind();
 		DrawCube(x + 2.5f, y + 2.5f, z + 2.5f, 5, 1);
 	}
 	
 	public void DrawCubeItemDoubleScore(float x, float y, float z) {
-		texDoubleScore.bind();
+		texDoubleScore[themeSelection].bind();
 		DrawCube(x + 2.5f, y + 2.5f, z + 2.5f, 5, 1);
 	}
 
 	public void DrawCubeItemXtraBomb(float x, float y, float z) {
-		texXtraBomb.bind();
+		texXtraBomb[themeSelection].bind();
 		DrawCube(x + 2.5f, y + 2.5f, z + 2.5f, 5, 1);
 	}
 
 	public void DrawCubeItemBombRange(float x, float y, float z) {
-		texBombRange.bind();
+		texBombRange[themeSelection].bind();
 		DrawCube(x + 2.5f, y + 2.5f, z + 2.5f, 5, 1);
 	}
 
 	public void DrawCubeItemBombStrength(float x, float y, float z) {
-		texBombStrength.bind();
+		texBombStrength[themeSelection].bind();
 		DrawCube(x + 2.5f, y + 2.5f, z + 2.5f, 5, 1);
 	}
 
 	public void DrawCubeItemPortal(float x, float y, float z) {
-		texPortal.bind();
+		texPortal[themeSelection].bind();
 		DrawCube(x + .5f, y + .5f, z + .5f, 9, 1);
 	}
 
 	public void DrawCubeExit(float x, float y, float z) {
-		texExit.bind();
+		texExit[themeSelection].bind();
 		DrawCube(x + 2.5f, y + 2.5f, z + 2.5f, 5, 1);
 	}
 
 	public void DrawPlayer(float x, float y, float z) {
-		texPlayer.bind();
+		texPlayer[themeSelection].bind();
 		DrawCube(x + 2.5f, y + 2.5f, z + 2.5f, 5, 1);
 	}
 
 	public void DrawCubeRamp(float x, float y, float z) {
-		texRamp.bind();
+		texRamp[themeSelection].bind();
 		DrawRamp(x, y, z, 10, 1);
 	}
 
 	// Menüwürfel
 	public void DrawMenuCubeNewGame(float x, float y, float z) {
-		texMenuNewGame.bind();
+		texMenuNewGame[themeSelection].bind();
 		DrawCube(x, y, z, 10, 1);
 	}
 
 	public void DrawMenuCubeNewGameGravity(float x, float y, float z) {
-		texMenuNewGameGravity.bind();
+		texMenuNewGameGravity[themeSelection].bind();
 		DrawCube(x, y, z, 10, 1);
 	}
 
 	public void DrawMenuCubeExitProgram(float x, float y, float z) {
-		texMenuExitProgram.bind();
+		texMenuExitProgram[themeSelection].bind();
 		DrawCube(x, y, z, 10, 1);
 	}
 
 	public void DrawMenuCubeMulti(float x, float y, float z) {
-		texMenuMulti.bind();
+		texMenuMulti[themeSelection].bind();
 		DrawCube(x, y, z, 10, 1);
 	}
 
 	public void DrawMenuCubeOptions(float x, float y, float z) {
-		texMenuOptions.bind();
+		texMenuOptions[themeSelection].bind();
 		DrawCube(x, y, z, 10, 1);
 	}
 
 	public void DrawMenuCubeServer(float x, float y, float z) {
-		texMenuServer.bind();
+		texMenuServer[themeSelection].bind();
 		DrawCube(x, y, z, 10, 1);
 	}
 
 	public void DrawMenuCubeLoadLevel(float x, float y, float z) {
-		texMenuLoadLevel.bind();
+		texMenuLoadLevel[themeSelection].bind();
 		DrawCube(x, y, z, 10, 1);
-	}
-
-	public void DrawOverlayTest(float x, float y, float z) {
-		texOverlayTest.bind();
-		DrawOverlay(x, y, z, 1, 1);
 	}
 
 	/**
