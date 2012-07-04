@@ -211,7 +211,12 @@ public class NetPlayer extends Player {
 	}
 
 	public void printScore() {
-		System.out.println("Umgebracht: " + super.getHits() + ", Gestorben: " + super.getDeaths());
+		// for (int i = 0; i < listPlayer.size(); i++) {
+		// System.out.println("Nr " + listPlayer.get(i).getNumber() +
+		// " Trefferpunkte: " + listPlayer.get(i).getHits()
+		// + ", Todesanzahl: " + listPlayer.get(i).getDeaths());
+		// }
+		System.out.println("Trefferpunkte: " + getHits() + ", Todesanzahl: " + getDeaths());
 	}
 
 	public void dies() {

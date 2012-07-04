@@ -69,7 +69,7 @@ public class Player {
 	public static int bombs = 1; // Anzahl der gleichzeitig legbaren Bomben
 	int fuseTime = 3000;
 	int explosionTime = 1000;
-	protected List listPlayer;
+	protected List<Player> listPlayer;
 
 	private int counterDeaths = 0;
 	private int counterHits = 0;
