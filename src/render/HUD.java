@@ -10,14 +10,25 @@ import org.newdawn.slick.opengl.TextureLoader;
 
 public class HUD {
 
+	final private float STATS_POS_X = -400;
+	final private float STATS_POS_Y = -300;
+
+	// TODO Ich weiss nicht warum hier 128 funktioniert, logisch waere doch 96,
+	// fuerdie Anzahl der Buchstaben??..
+	final private float LETTER_WIDTH = 1 / 128f;
+	final private float LETTER_HEIGHT = 1f;
 	private Texture[] numbers = new Texture[10];
 	private Texture texHand;
-	String hud = "Spieler\tTreffer\tTode\n1\t33\t6";
-	final static public int tabsize = 8;
+	private Texture texFont;
+	String stats = "Spieler\tTreffer\tTode\n1\t33\t6";
+	final static public int TABSIZE = 9;
+
+	private boolean showStats = false;
 
 	HUD() {
 		try {
 			texHand = TextureLoader.getTexture("PNG", new FileInputStream("res/overlay/hand.png"));
+			texFont = TextureLoader.getTexture("PNG", new FileInputStream("res/overlay/font.png"));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -27,22 +38,64 @@ public class HUD {
 		}
 	}
 
+	public void setStats(String stats) {
+		this.stats = stats;
+	}
+
 	public void renderHUD() {
 		GL11.glColor3f(1, 1, 1);
 		DrawHand();
+		if (showStats) {
+			DrawStats();
+		}
+	}
+
+	public void setShowStats(boolean showStats) {
+		this.showStats = showStats;
 	}
 
 	public void DrawHand() {
 		texHand.bind();
 		GL11.glBegin(GL11.GL_QUADS);
-		GL11.glTexCoord2f(0, 1);
+		GL11.glTexCoord2f(0, 1f);
 		GL11.glVertex3f(-Window.width / 2, -Window.height / 2, 0);
 		GL11.glTexCoord2f(0, 0);
 		GL11.glVertex3f(-Window.width / 2, Window.height / 2, 0);
-		GL11.glTexCoord2f(1, 0);
+		GL11.glTexCoord2f(1f, 0);
 		GL11.glVertex3f(Window.width / 2, Window.height / 2, 0);
-		GL11.glTexCoord2f(1, 1);
+		GL11.glTexCoord2f(1f, 1f);
 		GL11.glVertex3f(Window.width / 2, -Window.height / 2, 0);
+		GL11.glEnd();
+	}
+
+	public void DrawStats() {
+		int line = -1;
+		int pos = 0;
+		for (int k = 0; k < stats.length(); k++) {
+			pos++;
+			if (stats.charAt(k) == '\n') {
+				line--;
+				pos = 0;
+			} else if (stats.charAt(k) == '\t') {
+				pos += TABSIZE - (pos % TABSIZE);
+			} else {
+				printLetter(stats.charAt(k), pos * 32 - 400, line * 32 + 300);
+			}
+		}
+	}
+
+	private void printLetter(char code, int x, int y) {
+		code -= 32;
+		texFont.bind();
+		GL11.glBegin(GL11.GL_QUADS);
+		GL11.glTexCoord2f(code * LETTER_WIDTH, LETTER_HEIGHT);
+		GL11.glVertex3f(x, y, 0);
+		GL11.glTexCoord2f(code * LETTER_WIDTH, 0);
+		GL11.glVertex3f(x, y + 32, 0);
+		GL11.glTexCoord2f((code + 1) * LETTER_WIDTH, 0);
+		GL11.glVertex3f(x + 32, y + 32, 0);
+		GL11.glTexCoord2f((code + 1) * LETTER_WIDTH, LETTER_HEIGHT);
+		GL11.glVertex3f(x + 32, y, 0);
 		GL11.glEnd();
 	}
 

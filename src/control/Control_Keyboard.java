@@ -63,7 +63,10 @@ public class Control_Keyboard extends Control {
 
 				// TAB
 				if (Keyboard.isKeyDown(Keyboard.KEY_TAB)) {
-					player.printScore();
+					Game.getHUD().setShowStats(true);
+				} else {
+					// TODO Sollte nur bei Keyrelease aufgerufen werden
+					Game.getHUD().setShowStats(false);
 				}
 				// links:
 				if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
