@@ -1,20 +1,18 @@
 package game.cube;
 
-import java.awt.BorderLayout;
-import java.awt.LayoutManager;
-
-import javax.swing.*;
-
 import game.Game;
 import game.Level;
 import game.Player;
 
+import javax.swing.JOptionPane;
+
 public class MenuCubeMulti extends Cube {
 	public static String IP;
+
 	public MenuCubeMulti() {
 
 		super(Cube.IS_WALKABLE, Cube.IS_COLLECTABLE, Cube.IS_NOT_DESTROYABLE);
-		
+
 	}
 
 	@Override
@@ -22,10 +20,11 @@ public class MenuCubeMulti extends Cube {
 		ipRequest(IP);
 		level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), player.getCubeX(), player.getCubeY(), player.getCubeZ());
 		level.setInMenu(false);
-		Game.connect();
+		Game.connect(IP);
 	}
-	public void ipRequest(String IP_ADRESSE){
+
+	public void ipRequest(String IP_ADRESSE) {
 		IP_ADRESSE = JOptionPane.showInputDialog("Bitte IP eingeben:");
-		System.out.println("Die eingegebene IP-Adresse lautet: " + IP_ADRESSE);		
+		System.out.println("Die eingegebene IP-Adresse lautet: " + IP_ADRESSE);
 	}
 }

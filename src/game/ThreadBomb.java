@@ -58,6 +58,7 @@ public class ThreadBomb {
 
 	final int MILLISECS_PER_CHAT = 300;
 	static int chatTime = 0;
+	public static int prologTime = 0;
 
 	// TODO down/upcasten muss IRGENDWIE gehen!! Um nicht zwei Playerlisten
 	// uebergeben zu muessen
@@ -104,6 +105,9 @@ public class ThreadBomb {
 
 	class TimerBombs implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			if (prologTime < 150000) {
+				prologTime++;
+			}
 			if (!Level.inMenu) {
 				chatTime++;
 				if (chatTime == MILLISECS_PER_CHAT) {

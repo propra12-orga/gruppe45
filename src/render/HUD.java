@@ -29,6 +29,7 @@ public class HUD {
 	private Texture[] numbers = new Texture[10];
 	private Texture texEgoview[] = new Texture[Objects.THEME_COUNT];
 	private Texture texFont;
+	private Texture texProlog;
 	String stats = "";
 	final static public int TABSIZE = 9;
 
@@ -63,6 +64,7 @@ public class HUD {
 						new FileInputStream("res/overlay/" + tmpThemeName + "/self.png"));
 			}
 			texFont = TextureLoader.getTexture("PNG", new FileInputStream("res/overlay/font.png"));
+			texProlog = TextureLoader.getTexture("PNG", new FileInputStream("res/overlay/prolog.png"));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -77,6 +79,7 @@ public class HUD {
 	}
 
 	public void renderHUD() {
+		DrawProlog();
 		if (!(Level.inMenu)) {
 			DrawEgoview();
 			if (showStats) {
@@ -158,6 +161,23 @@ public class HUD {
 				printLetter(chatLog[i].charAt(j), j * 20 - 400, i * 20 - 170, 20);
 			}
 		}
+	}
+
+	private void DrawProlog() {
+		int versch = Game.getThreadBomb().prologTime;
+		versch /= 5;
+		versch -= 200;
+		texProlog.bind();
+		GL11.glBegin(GL11.GL_QUADS);
+		GL11.glTexCoord2f(0, 1f);
+		GL11.glVertex3f(-Window.width / 2, -Window.height / 2 + versch, 0);
+		GL11.glTexCoord2f(0, 0);
+		GL11.glVertex3f(-Window.width / 2, Window.height / 2 + versch, 0);
+		GL11.glTexCoord2f(1f, 0);
+		GL11.glVertex3f(Window.width / 2, Window.height / 2 + versch, 0);
+		GL11.glTexCoord2f(1f, 1f);
+		GL11.glVertex3f(Window.width / 2, -Window.height / 2 + versch, 0);
+		GL11.glEnd();
 	}
 
 	public void addToChatInput(char letter) {

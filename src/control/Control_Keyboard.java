@@ -81,6 +81,9 @@ public class Control_Keyboard extends Control {
 						chatMode = 1;
 					}
 					// links:
+					if (Keyboard.isKeyDown(Keyboard.KEY_O)) {
+						Game.getThreadBomb().prologTime = 15000;
+					}
 					if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
 						player.moveLeft();
 					}
