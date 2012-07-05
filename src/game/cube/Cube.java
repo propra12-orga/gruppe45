@@ -41,6 +41,9 @@ public abstract class Cube {
 	final static public String MENU_CUBE_SERVER = "MenuCubeServer";
 	final static public String MENU_CUBE_OPTIONS = "MenuCubeOptions";
 
+	/**
+	 * Der Datencube verwaltet die verschiedenen Würfeltypen
+	 */
 	final static public CubeData[] cubeData = { new CubeData(new CubeBomb(), CUBE_BOMB),
 			new CubeData(new CubeEmpty(), CUBE_EMPTY), new CubeData(new CubeExit(), CUBE_EXIT),
 			new CubeData(new CubeExplosion(), CUBE_EXPLOSION),
@@ -69,8 +72,10 @@ public abstract class Cube {
 	String name;
 
 	/**
-	 * @param walkable
-	 *            Ist der Wuerfel begehbar(true) oder nicht(false)
+	 * Der Konstruktor erzeugt eine Instanz der Klasse Cube.
+	 * @param walkable gibt an, ob der Würfel begehbar ist
+	 * @param collectable gibt an, ob das Objekt vom Spieler eingesammelt werden kann.
+	 * @param destroyable gibt an, ob der Würfel zerstörbar ist
 	 */
 	Cube(boolean walkable, boolean collectable, boolean destroyable) {
 		this.walkable = walkable;
@@ -78,14 +83,30 @@ public abstract class Cube {
 		this.destroyable = destroyable;
 	}
 
+	/**
+	 * Legt die Bezeichnung eines Würfels fest
+	 * @param name Bezeichnung des Würfels im Klartext
+	 */
 	public void setCubeName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Hiermit kann die Art des Würfels abgefragt
+	 * @return Art des Würfels
+	 */
 	public Cube getCube() {
 		return this;
 	}
 
+	/**
+	 * Über das Netzwerk wird ein Würfel nur über seine
+	 * Nummer im DataCube übergeben.
+	 * Mit dieser Methode wird der zu einer Nummer gehörende
+	 * Würfeltyp ermittelt.
+	 * @param number Nummer des erhaltenen Würfels im DataCube
+	 * @return Würfel, der durch die Nummer übergeben wurde
+	 */
 	static public Cube getCubeByNumber(int number) {
 		if (number >= 0 && number < cubeData.length) {
 			return cubeData[number].getCubeObject();
@@ -94,6 +115,12 @@ public abstract class Cube {
 		}
 	}
 
+	/**
+	 * Mit dieser Methode wird der zu einer Bezeichnung 
+	 * gehörende Würfeltyp ermittelt.
+	 * @param name Name des Würfels
+	 * @return Würfeltyp, der zum Namen gehört
+	 */
 	static public Cube getCubeByName(String name) {
 		for (int i = 0; i < cubeData.length; i++) {
 			if (cubeData[i].getCubeName().equals(name)) {
@@ -103,6 +130,14 @@ public abstract class Cube {
 		return null;
 	}
 
+	/**
+	 * Über das Netzwerk wird ein Würfel nur über seine
+	 * Nummer im DataCube übergeben.
+	 * Mit dieser Methode wird die zu einem Würfel gehörende
+	 * Nummer ermittelt.
+	 * @param cube Würfeltyp
+	 * @return Nummer, die dieser Würfeltyp hat
+	 */
 	static public int getNumberByCube(Cube cube) {
 		for (int i = 0; i < cubeData.length; i++) {
 			if (cubeData[i].getCubeObject().equals(cube)) {
@@ -112,6 +147,11 @@ public abstract class Cube {
 		return -1;
 	}
 
+	/**
+	 * Ermittelt die zu einem Würfeltyp gehörende Bezeichnung.
+	 * @param cube Würfeltyp
+	 * @return Bezeichnung des Würfeltyps
+	 */
 	static public String getNameByCube(Cube cube) {
 		for (int i = 0; i < cubeData.length; i++) {
 			if (cubeData[i].getCubeObject().equals(cube)) {
@@ -122,28 +162,51 @@ public abstract class Cube {
 	}
 
 	/**
-	 * @return Gibt aus ob der Wuerfel begehbar ist
+	 * @return Gibt aus, ob der Wuerfel begehbar ist
 	 */
 	public boolean isWalkable() {
 		return this.walkable;
 	}
 
+	/**
+	 * @return Gibt aus, ob ein Wuerfel eingesammelt werden kann
+	 */
 	public boolean isCollectable() {
 		return this.collectable;
 	}
 
+	/**
+	 * @return Gibt aus, ob ein Wuerfel zerstoerbar ist
+	 */
 	public boolean isDestroyable() {
 		return this.destroyable;
 	}
 
+	/** 
+	 * Gibt die Bezeichnung des Wuerfels an.
+	 * @return Bezeichnung des Wuerfels
+	 */
 	public String getCubeName() {
 		return this.name;
 	}
 
+	/**
+	 * Die abstrakte Methode change() ist dafür verantwortlich,
+	 * was passiert, wenn ein Spieler in einen Würfel geht,
+	 * der einsammelbar (collectable) ist.
+	 */
 	public void change() {
 
 	}
 
+	/**
+	 * Die abstrakte Methode change() ist dafür verantwortlich,
+	 * was passiert, wenn ein Spieler in einen Würfel geht,
+	 * der einsammelbar (collectable) ist.
+	 * Hier wird zusätzlich der Spieler und das Level übergeben.
+	 * @param player Spieler, der es einsammelt
+	 * @param level Level, in dem gespielt wird.
+	 */
 	public void change(Player player, Level level) {
 
 	}

@@ -26,11 +26,6 @@ public class Control_Keyboard extends Control {
 	final int MILLISECS_PER_STEP = 10;
 	public Timer timer;
 	Level level;
-	// 0 - kein Chat
-	// 1 - Enter wurde gedrueckt
-	// 2 - Enter wurde losgelassen, es kann geschrieben werden
-	// 3 - Enter wurde gedrueckt
-	// 4 - Enter wurde losgelassen
 	int chatMode = 0;
 	char letter;
 

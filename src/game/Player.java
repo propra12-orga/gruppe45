@@ -105,14 +105,29 @@ public class Player {
 		setName("Peter");
 	}
 
+	/**
+	 * Gibt den Typ des Players zureuck
+	 * 
+	 * @return
+	 */
 	public String getType() {
 		return "Player";
 	}
 
+	/**
+	 * Setzt den Spielernamen
+	 * 
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Gibt den Spielernamen zurueck
+	 * 
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}
@@ -243,22 +258,46 @@ public class Player {
 		resetScore();
 	}
 
+	/**
+	 * Setzt die Lebenspunkte des Spielers
+	 * 
+	 * @param healthPoints
+	 */
 	public void setHealthPoints(int healthPoints) {
 		this.healthPoints = healthPoints;
 	}
 
+	/**
+	 * Gibt die momentane X-Beschleuningung aus
+	 * 
+	 * @return
+	 */
 	private float getAccX() {
 		return accelerationX;
 	}
 
+	/**
+	 * Gibt die momentane Y-Beschleuningung aus
+	 * 
+	 * @return
+	 */
 	private float getAccY() {
 		return accelerationY;
 	}
 
+	/**
+	 * Gibt die momentane Z-Beschleuningung aus
+	 * 
+	 * @return
+	 */
 	private float getAccZ() {
 		return accelerationZ;
 	}
 
+	/**
+	 * Wendet die Beschleunigung auf den Spieler an und verringert die
+	 * Beschleunigung
+	 */
 	public void accerlate() {
 		if (accelerationX != 0 || accelerationY != 0 || accelerationZ != 0) {
 			move(accelerationX, accelerationY, accelerationZ);
@@ -268,6 +307,13 @@ public class Player {
 		}
 	}
 
+	/**
+	 * Fuegt dem Spieler Beschleunigungkraft hinzu
+	 * 
+	 * @param accelerationX
+	 * @param accelerationY
+	 * @param accelerationZ
+	 */
 	public void addAcceleration(float accelerationX, float accelerationY, float accelerationZ) {
 		this.accelerationX += accelerationX;
 		this.accelerationY += accelerationY;
@@ -281,11 +327,7 @@ public class Player {
 	 * @return
 	 */
 	private float getNewAcceleration(float acceleration) {
-		// if (acceleration > INERTIA) {
 		acceleration /= 20;
-		// } else {
-		// acceleration = 0;
-		// }
 		return acceleration;
 	}
 
@@ -385,6 +427,11 @@ public class Player {
 		this.z = newZ * 10 + 5;
 	}
 
+	/**
+	 * Gibt die Spielernummer aus
+	 * 
+	 * @return
+	 */
 	public int getNumber() {
 		return number;
 	}
@@ -418,12 +465,18 @@ public class Player {
 		setBomb((int) (x / 10), (int) (y / 10), (int) (z / 10));
 	}
 
+	/**
+	 * Legt die Bombe an eine bestimmte Position im Level
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 */
 	public void setBomb(int x, int y, int z) {
 		if (getBombs() > 0) {
 			// TODO der Klient weiss nicht wie viele er leget und muss noch
 			// irgenwie selber mitzaehlen
 			level.setBomb(x, y, z, this);
-			// System.out.println("bombe legen");
 		}
 	}
 
@@ -453,10 +506,20 @@ public class Player {
 		this.radius += 1;
 	}
 
+	/**
+	 * Setzt die Spielerfarbe
+	 * 
+	 * @param color
+	 */
 	public void setColor(float[] color) {
 		this.color = color;
 	}
 
+	/**
+	 * Gibt die Spielerfarbe aus
+	 * 
+	 * @return
+	 */
 	public float[] getColor() {
 		return this.color;
 	}
@@ -578,10 +641,6 @@ public class Player {
 		return getZ() + (float) Math.cos(angleY);
 	}
 
-	public float getDirectionZ() {
-		return (float) Math.cos(angleY);
-	}
-
 	/**
 	 * @return Anzahl der Lebenspunkte des Spielers
 	 */
@@ -605,18 +664,38 @@ public class Player {
 		this.z = z;
 	}
 
+	/**
+	 * Gibt den Pitch-/Neigungswinkel aus
+	 * 
+	 * @return
+	 */
 	public float getAngleX() {
 		return angleX;
 	}
 
+	/**
+	 * Setzt den Pitch-/Neigungswinkel
+	 * 
+	 * @param angleX
+	 */
 	public void setAngleX(float angleX) {
 		this.angleX = angleX;
 	}
 
+	/**
+	 * Gibt den Rollwinkel aus
+	 * 
+	 * @return
+	 */
 	public float getAngleY() {
 		return angleY;
 	}
 
+	/**
+	 * Setzt den Rollwinkel
+	 * 
+	 * @param angleY
+	 */
 	public void setAngleY(float angleY) {
 		this.angleY = angleY;
 	}
@@ -640,22 +719,42 @@ public class Player {
 		this.angleY += yaw;
 	}
 
+	/**
+	 * Laesst den Spieler noch oben gucken
+	 * 
+	 * @param p
+	 */
 	public void turnUp(float p) {
 		if (this.angleX < PI_DIV_2) {
 			this.angleX += p;// 0.009;
 		}
 	}
 
+	/**
+	 * Laesst den Spieler nach unten gucken
+	 * 
+	 * @param q
+	 */
 	public void turnDown(float q) {
 		if (this.angleX > -PI_DIV_2) {
 			this.angleX -= q;// 0.009;
 		}
 	}
 
+	/**
+	 * Laesst den Spieler nach rechts drehen
+	 * 
+	 * @param r
+	 */
 	public void turnRight(float r) {
 		this.angleY -= r;// 0.012f;
 	}
 
+	/**
+	 * Laesst den Spieler nach links drehen
+	 * 
+	 * @param s
+	 */
 	public void turnLeft(float s) {
 		this.angleY += s;// 0.012f;
 	}
@@ -669,6 +768,9 @@ public class Player {
 		return this.score;
 	}
 
+	/**
+	 * Setzt den Punktestand zurueck
+	 */
 	public void resetScore() {
 		setScore(START_SCORE);
 	}
@@ -684,11 +786,19 @@ public class Player {
 		setScore((int) (score + scoredPoints));
 	}
 
+	/**
+	 * Setzt den Punktestans
+	 * 
+	 * @param score
+	 */
 	public void setScore(int score) {
 		this.score = score;
 		Game.getHUD().setStats("Du hast " + score + " Punkte!");
 	}
 
+	/**
+	 * Bewegt den Spieler nach vorne
+	 */
 	public void moveForward() {
 		// float accX = (float) Math.sin(angleY) * stepSize;
 		// float accY = (float) (Math.sin(angleX) * Math.sqrt(Math.sin(angleY) *
@@ -709,36 +819,53 @@ public class Player {
 						* stepSize, (float) Math.cos(angleY) * stepSize);
 	}
 
+	/**
+	 * Bewegt den Spieler nach hinten
+	 */
 	public void moveBackward() {
 		move((float) Math.sin(angleY) * -stepSize,
 				(float) (Math.sin(angleX) * Math.sqrt(Math.sin(angleY) * Math.sin(angleY) + Math.cos(angleY) * Math.cos(angleY)))
 						* -stepSize, (float) Math.cos(angleY) * -stepSize);
 	}
 
+	/**
+	 * Bewegt den Spieler nach links
+	 */
 	public void moveLeft() {
 		move((float) Math.sin(angleY + PI_DIV_2) * stepSize, 0, (float) Math.cos(angleY + PI_DIV_2) * stepSize);
 	}
 
+	/**
+	 * Bewegt den Spieler nach rechts
+	 */
 	public void moveRight() {
 		move((float) Math.sin(angleY - PI_DIV_2) * stepSize, 0, (float) Math.cos(angleY - PI_DIV_2) * stepSize);
 	}
 
+	/**
+	 * Bewegt den Spieler nach unten
+	 */
 	public void moveDown() {
 		move(0, -1, 0);
 	}
 
+	/**
+	 * Laesst den Spieler wegen der Schwerkraft nach unten sinken
+	 */
 	public void sinkDown() {
 		move(0, -0.3f, 0);
 	}
 
-	public void moveDown(float i) {
-		move(0, -i, 0);
-	}
-
+	/**
+	 * Bewegt den Spieler nach oben
+	 */
 	public void moveUp() {
 		move(0, 1, 0);
 	}
 
+	/**
+	 * Laesst den Spieler sterben und geht ins Hauptmenu
+	 */
 	// FIXME Player stirbt -> Programmende
 	public void dies() {
 		System.out.println("");
@@ -751,39 +878,73 @@ public class Player {
 		Game.disconnect();
 	}
 
+	/**
+	 * Quadratzahl ermitteln
+	 * 
+	 * @param zahl
+	 * @return
+	 */
 	public float zum_quadrat(float zahl) {
 		return zahl * zahl;
 	}
 
-	// TODO Einzelspieleranzeige fuer Einzelspier programmieren
-	public void printScore() {
-		System.out.println("Scoreanzeige fuer Einzelspieler noch nicht programmiert");
-	}
-
+	/**
+	 * Gibt die Anzahl der Tode des Spielers
+	 * 
+	 * @return
+	 */
 	public int getDeaths() {
 		return counterDeaths;
 	}
 
+	/**
+	 * Setzt die Anzahl der Tode des Spielers
+	 * 
+	 * @param counterDeaths
+	 */
 	public void setDeaths(int counterDeaths) {
 		this.counterDeaths = counterDeaths;
 	}
 
+	/**
+	 * Erhoeht die Anzahl der Tode des Spielers
+	 */
 	public void increaseDeaths() {
 		counterDeaths++;
 	}
 
+	/**
+	 * Erhoeht die Anzahl der Treffer des Spielers
+	 */
 	public void increaseHits() {
 		counterHits++;
 	}
 
+	/**
+	 * Gibt die Anzahl der Treffer des Spielers
+	 * 
+	 * @return
+	 */
 	public int getHits() {
 		return counterHits;
 	}
 
+	/**
+	 * Setzt die Treffer des Spielers
+	 * 
+	 * @param counterHits
+	 */
 	public void setHits(int counterHits) {
 		this.counterHits = counterHits;
 	}
 
+	/**
+	 * Bewegt den Spieler
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 */
 	// TODO Testen, ob Abfrage funktioniert
 	protected void move(float x, float y, float z) {
 		final int radius = 2;

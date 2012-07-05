@@ -102,15 +102,28 @@ public class NetPlayer extends Player {
 		this.netLevel = null;
 	}
 
+	/**
+	 * Gibt den Typ der Playerklasse aus
+	 */
 	public String getType() {
 		return "NetPlayer";
 	}
 
+	/**
+	 * schreibt dem Server/Clienten eine Nachricht
+	 * 
+	 * @param msg
+	 */
 	public void write(String msg) {
 		out.print(msg + "\n");
 		out.flush();
 	}
 
+	/**
+	 * liesst die Nachricht des Server/Clienten
+	 * 
+	 * @return
+	 */
 	public String read() {
 		String strIn = null;
 		try {
@@ -123,26 +136,51 @@ public class NetPlayer extends Player {
 		return strIn;
 	}
 
+	/**
+	 * Empfaengt eine neue Position
+	 * 
+	 * @param splitMsg
+	 */
 	public void msgReceivePosition(String[] splitMsg) {
 		setPosition(Float.valueOf(splitMsg[2]), Float.valueOf(splitMsg[3]), Float.valueOf(splitMsg[4]));
 		setAngleX(Float.valueOf(splitMsg[5]));
 		setAngleY(Float.valueOf(splitMsg[6]));
 	}
 
+	/**
+	 * Der Client teilt dem Server mit das er eine Bombe legen will
+	 * 
+	 * @param splitMsg
+	 */
 	public void msgReceiveBomb(String[] splitMsg) {
 		super.setBomb(Integer.valueOf(splitMsg[1]), Integer.valueOf(splitMsg[2]), Integer.valueOf(splitMsg[3]));
 	}
 
+	/**
+	 * Der Client geht/wird rausgeschmissen weil der Server ausgeschaltet wurde
+	 */
 	public void msgReceiveExit() {
 		Game.disconnect();
 	}
 
+	/**
+	 * Der Client empfaengt das Level des Servers
+	 * 
+	 * @param splitMsg
+	 * @return
+	 */
 	public Level msgReceiveLevel(String[] splitMsg) {
 		Level level = new Level(Integer.valueOf(splitMsg[1]), Integer.valueOf(splitMsg[2]), Integer.valueOf(splitMsg[3]));
 		level.setLevel(splitMsg);
 		return level;
 	}
 
+	/**
+	 * Der Client empfaengt die Spielerliste des Servers
+	 * 
+	 * @param splitMsg
+	 * @param listPlayer
+	 */
 	public void msgReceivePlayerList(String[] splitMsg, List<Player> listPlayer) {
 		Player tmpPlayer;
 		listPlayer.clear();
@@ -184,23 +222,43 @@ public class NetPlayer extends Player {
 		Game.getHUD().setStats(stats);
 	}
 
+	/**
+	 * Der Client sendet seine aktuelle Position/ bekommt die Position eines
+	 * anderen Spielers
+	 */
 	public void msgSendPosition() {
 		write(MSG_POSITION + ":" + getNumber() + ":" + getX() + ":" + getY() + ":" + getZ() + ":" + getAngleX() + ":"
 				+ getAngleY());
 	}
 
+	/**
+	 * Frage den Server eine Bombe legen zu dürfen
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 */
 	public void msgSendBomb(int x, int y, int z) {
 		write(MSG_BOMB + ":" + x + ":" + y + ":" + z);
 	}
 
+	/**
+	 * Die abgewandelte setBomb setzt keine Bombe sondern teil es dem Server mit
+	 */
 	public void setBomb(int x, int y, int z) {
 		msgSendBomb(x, y, z);
 	}
 
+	/**
+	 * Der Client/Server beendet sein Spiel
+	 */
 	public void msgSendExit() {
 		write(MSG_EXIT + ":" + getNumber());
 	}
 
+	/**
+	 * Der Server sendet sein Level an den Clienten der Klasse
+	 */
 	public void msgSendLevel() {
 		if (netLevel != null) {
 			write(MSG_LEVEL + ":" + netLevel.getSizeX() + ":" + netLevel.getSizeY() + ":" + netLevel.getSizeZ()
@@ -208,27 +266,54 @@ public class NetPlayer extends Player {
 		}
 	}
 
+	/**
+	 * Der Server sendet die Spielerliste an den Clienten der Klasse
+	 */
 	public void msgSendPlayerList() {
 		write(MSG_PLAYERLIST + ":" + netLevel.getPlayerList());
 	}
 
+	/**
+	 * Der Server schickt dem Clienten der Klasse Cube XxYxZ im Level
+	 * 
+	 * @param posX
+	 * @param posY
+	 * @param posZ
+	 */
 	public void msgSendCube(int posX, int posY, int posZ) {
 		write(MSG_CUBE + ":" + Cube.getNumberByCube(netLevel.getCube(posX, posY, posZ)) + ":" + posX + ":" + posY + ":" + posZ);
 	}
 
+	/**
+	 * Sendet eine Chatnachricht an den Server
+	 * 
+	 * @param chat
+	 */
 	public void msgSendChat(String chat) {
 		write(MSG_CHAT + ":" + getNumber() + ":" + chat);
 	}
 
+	/**
+	 * Leitet eine Chatnachricht an alle weiter
+	 * 
+	 * @param chat
+	 * @param number
+	 */
 	public void msgSendChat(String chat, int number) {
 		write(MSG_CHAT + ":" + number + ":" + chat);
 	}
 
+	/**
+	 * Abgewandelte move() sendet dem Server bei jedem Aufruf die neue Position
+	 */
 	protected void move(float x, float y, float z) {
 		super.move(x, y, z);
 		msgSendPosition();
 	}
 
+	/**
+	 * Abgewandelte dies() zaehlt Tode mit und laesst den Spieler neu spawnen
+	 */
 	public void dies() {
 		super.increaseDeaths();
 		spawn();
@@ -250,6 +335,9 @@ public class NetPlayer extends Player {
 		}
 	}
 
+	/**
+	 * Schliesst die Verbindung
+	 */
 	public void close() {
 		try {
 			client.close();
@@ -258,8 +346,10 @@ public class NetPlayer extends Player {
 		}
 	}
 
+	/**
+	 * Macht die setScore von Player unschaedlich
+	 */
 	public void setScore(int score) {
-
 	}
 
 }

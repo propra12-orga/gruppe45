@@ -82,6 +82,7 @@ public class HUD {
 		DrawProlog();
 		if (!(Level.inMenu)) {
 			DrawEgoview();
+			DrawHealthPoints();
 			if (showStats) {
 				DrawStats();
 			}
@@ -105,6 +106,14 @@ public class HUD {
 	public void setShowChatInput(boolean showChatInput) {
 		this.showChatInput = showChatInput;
 		chatInput = "";
+	}
+
+	private void DrawHealthPoints() {
+		String healthPoints = Integer.toString(Game.getPlayer().getHealthPoints());
+		GL11.glColor3f(1, 0, 0);
+		for (int i = 0; i < healthPoints.length(); i++) {
+			printLetter(healthPoints.charAt(i), -400 + 40 * i, -300, 40);
+		}
 	}
 
 	private void DrawEgoview() {
@@ -149,6 +158,7 @@ public class HUD {
 
 	private void DrawChatInput() {
 		String input = ":" + chatInput + "|";
+		GL11.glColor3f(1, 1, 1);
 		for (int k = 0; k < input.length(); k++) {
 			printLetter(input.charAt(k), k * 20 + CHAT_INPUT_POS_X, CHAT_INPUT_POS_Y, 20);
 		}
