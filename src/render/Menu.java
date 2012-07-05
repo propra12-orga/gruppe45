@@ -13,6 +13,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * 
+ * Das Optionsmenue, in dem die Einstellungen für das Spiel vorgenommen werden können.
+ *
+ */
 public class Menu extends javax.swing.JFrame {
 	public static boolean menuOffen;
 
@@ -21,8 +26,10 @@ public class Menu extends javax.swing.JFrame {
 	}
 
 	@SuppressWarnings("unchecked")
-	// <editor-fold defaultstate="collapsed"
-	// desc="Generated Code">//GEN-BEGIN:initComponents
+	
+	/**
+	 * Implementiert die Menueobjekte.
+	 */
 	private void initComponents() {
 
 		gTheme = new javax.swing.ButtonGroup();
@@ -110,7 +117,7 @@ public class Menu extends javax.swing.JFrame {
 		sLevelZ.setPaintLabels(true);
 		sLevelZ.setPaintTicks(true);
 		sLevelZ.setSnapToTicks(true);
-		sLevelZ.setToolTipText("Die Tiefe des Levels. Bei Wert \"0\" wird die Dimension der Levelgröße um 1 verringert.");
+		sLevelZ.setToolTipText("Die Tiefe des Levels.");
 		sLevelZ.setValue(10);
 
 		sLevelX.setFont(new java.awt.Font("Perpetua Titling MT", 1, 10)); // NOI18N
@@ -121,7 +128,7 @@ public class Menu extends javax.swing.JFrame {
 		sLevelX.setPaintLabels(true);
 		sLevelX.setPaintTicks(true);
 		sLevelX.setSnapToTicks(true);
-		sLevelX.setToolTipText("Die Breite des Levels. Bei Wert \"0\" wird die Dimension der Levelgröße um 1 verringert.");
+		sLevelX.setToolTipText("Die Breite des Levels.");
 		sLevelX.setValue(10);
 
 		sLevelY.setFont(new java.awt.Font("Perpetua Titling MT", 1, 10)); // NOI18N
@@ -132,7 +139,7 @@ public class Menu extends javax.swing.JFrame {
 		sLevelY.setPaintLabels(true);
 		sLevelY.setPaintTicks(true);
 		sLevelY.setSnapToTicks(true);
-		sLevelY.setToolTipText("Die Höhe des Levels. Bei Wert \"0\" wird die Dimension der Levelgröße um 1 verringert.");
+		sLevelY.setToolTipText("Die Höhe des Levels.");
 		sLevelY.setValue(10);
 
 		bGravity.setFont(new java.awt.Font("Perpetua Titling MT", 1, 10)); // NOI18N
@@ -774,33 +781,20 @@ public class Menu extends javax.swing.JFrame {
 		getAccessibleContext().setAccessibleName("menu");
 
 		pack();
-	}// </editor-fold>//GEN-END:initComponents
+	}//Ende der Methode initComponents()
 
 	private void bEndeActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_bEndeActionPerformed
 		saveOptions();
 		// preExecuteOptions();
 		this.dispose();
 		menuOffen = false;
-	}// GEN-LAST:event_bEndeActionPerformed
+	}
 
 	/**
 	 * Speichert die im Optionsfenster eingestellten Werte in der Datei
 	 * Optionen.txt
 	 */
 	public void saveOptions() {
-		/*
-		 * #*********************************************************************
-		 * *********************************************
-		 * Speicherformat/Reihenfolge LevelX, LevelY, LevelZ,
-		 * Obstacle-Wahrscheinlichkeit, Theme (0 = Earth, 1 = Space, 2 =
-		 * Fussball), Schwerkraft (1 = ein, 0 = aus), Itemhäufigkeit,
-		 * Vorhandensein folgender Items (1 = Ja, 0 = Nein): Health, Portal,
-		 * Bomb+, Range+, maximale Bombenzahl, Bombenzahl zu Beginn, maximale
-		 * Range, Range zu Beginn, maximale Hitpoints, Spielergeschwindigkeit,
-		 * Maussensibilität
-		 * ******************************************************
-		 * ***********************************************************
-		 */
 
 		File file;
 		FileWriter writer;
@@ -1104,25 +1098,25 @@ public class Menu extends javax.swing.JFrame {
 		}
     }
     
-	private void formWindowOpened(java.awt.event.WindowEvent evt) {// GEN-FIRST:event_formWindowOpened
+	private void formWindowOpened(java.awt.event.WindowEvent evt) {
 		// Daten aus Datei einlesen und alle Regler dementsprechend einsellen.
 		// Daten im Programm ändern.
-	}// GEN-LAST:event_formWindowOpened
-
-	private void bGravityActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_bGravityActionPerformed
+	}
+	/**
+	 * Gute Effekte des Gravity-Buttons
+	 * @param evt
+	 */
+	private void bGravityActionPerformed(java.awt.event.ActionEvent evt) {
 		if (bGravity.isSelected()) {
 			bGravity.setText("Schwerkraft ein");
 			bGravity.setToolTipText("Die Schwerkraft im Spiel ist nun eingeschaltet.");
 		} else {
 			bGravity.setText("Schwerkraft aus");
 			bGravity.setToolTipText("Die Schwerkraft im Spiel ist nun ausgeschaltet.");
-		}// GEN-LAST:event_bGravityActionPerformed
+		}
 	}
 
-	public static void main(String args[]) {
-	}
-
-	// Variables declaration - do not modify//GEN-BEGIN:variables
+	// Variables declaration - do not modify
 	public static javax.swing.JButton bEnde;
 	public static javax.swing.JToggleButton bGravity;
 	public static javax.swing.JCheckBox cBombPlus;
