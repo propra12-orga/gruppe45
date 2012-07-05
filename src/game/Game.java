@@ -75,6 +75,10 @@ public class Game {
 		return threadBomb;
 	}
 
+	public static Player getPlayer() {
+		return player;
+	}
+
 	public static void newKeyboard(Player player, Level level) {
 		controlKeyboard = new Control_Keyboard(player, level);
 	}
