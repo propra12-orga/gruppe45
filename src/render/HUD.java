@@ -89,7 +89,7 @@ public class HUD {
 		GL11.glVertex3f(Window.width / 2, -Window.height / 2, 0);
 		GL11.glEnd();
 	}
-
+	
 	public void DrawStats() {
 		int line = -1;
 		int pos = 0;
