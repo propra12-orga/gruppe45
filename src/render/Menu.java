@@ -953,20 +953,28 @@ public class Menu extends javax.swing.JFrame {
 		} else {
 			Player.GRAVITY = false;
 		}
-
-		Player.START_BOMBS = Integer.parseInt(Game.options[12]);
+		if(Integer.parseInt(Game.options[12])<Integer.parseInt(Game.options[11])){
+			Player.START_BOMBS = Integer.parseInt(Game.options[12]);
+		}else{
+			Player.START_BOMBS = Integer.parseInt(Game.options[11]);
+		}
 	}
 
 	public static void scanOptions() {
+		File file;
+		file = new File("save/Optionen.txt");
+		if(file.exists()){
 		try {
-			Scanner scanner = new Scanner(new File("save/Optionen.txt"));
+			Scanner scanner = new Scanner(file);
 			for (int i = 0; i < Game.options.length - 1; i++) {
 				Game.options[i] = scanner.nextLine();
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-//			optionsRescue();
+		}
+		}else{
 			System.out.println("Die Datei Optionen.txt konnte nicht gefunden werden. Sie wurde mit den Standardeinstellungen erstellt.");
+			optionsRescue();
 		}
 
 	}
@@ -1039,7 +1047,7 @@ public class Menu extends javax.swing.JFrame {
 		spinMouse.setValue(Float.parseFloat(Game.options[17]));
 	}
 
-/*    public static void optionsRescue(){
+    public static void optionsRescue(){
 		File file;
 		FileWriter writer;
 		file = new File("save/Optionen.txt");
@@ -1053,7 +1061,7 @@ public class Menu extends javax.swing.JFrame {
 			writer.write(System.getProperty("line.separator"));
 			writer.write("0");
 			writer.write(System.getProperty("line.separator"));
-			writer.write(Objects.THEME_EARTH);
+			writer.write("0");
 			writer.write(System.getProperty("line.separator"));
 			writer.write("0");
 			writer.write(System.getProperty("line.separator"));
@@ -1089,7 +1097,7 @@ public class Menu extends javax.swing.JFrame {
 			e.printStackTrace();
 		}
     }
-    */
+    
 	private void formWindowOpened(java.awt.event.WindowEvent evt) {// GEN-FIRST:event_formWindowOpened
 		// Daten aus Datei einlesen und alle Regler dementsprechend einsellen.
 		// Daten im Programm ändern.
