@@ -40,7 +40,7 @@ public class Player {
 	 * gezogen wird.
 	 */
 	private static int MAX_BOMB_STRENGTH_MULTIPLIER = 3;
-	public static int START_BOMBS = 0;
+	public static int START_BOMBS = 1;
 
 	final static public float INERTIA = .1f;
 	// final static public float MAX_ACCELERATION = 10;
