@@ -17,14 +17,12 @@ public class MenuCubeMulti extends Cube {
 
 	@Override
 	public void change(Player player, Level level) {
-		ipRequest(IP);
 		level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), player.getCubeX(), player.getCubeY(), player.getCubeZ());
 		level.setInMenu(false);
-		Game.connect(IP);
+		Game.connect(getIP());
 	}
 
-	public void ipRequest(String IP_ADRESSE) {
-		IP_ADRESSE = JOptionPane.showInputDialog("Bitte IP eingeben:");
-		System.out.println("Die eingegebene IP-Adresse lautet: " + IP_ADRESSE);
+	public String getIP() {
+		return JOptionPane.showInputDialog("Bitte IP eingeben:");
 	}
 }
