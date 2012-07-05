@@ -19,13 +19,7 @@ public class MenuCubeNewGameGravity extends Cube {
 		// FIXME Netzwerkfähigkeit
 		// TODO An skalierbares Level anpassen
 		level.setInMenu(false);
-<<<<<<< HEAD
-		System.out.println("START_BOMBS: "+Player.START_BOMBS);
 		player.reinit(level.getSizeX() * 10 - 15, 15, 15, 0, Player.START_BOMBS, true);
-		System.out.println("START_BOMBS: "+Player.START_BOMBS);
-=======
-		player.reinit(level.getSizeX() * 10 - 15, 15, 15, 0, 1, true);
->>>>>>> 209b04bf19d4890686b291eecadc5e3aaf36cab4
 		// TODO Nur testing - Startplatzfreiräumen
 		level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), (level.getSizeX() - 2), 1, 1);
 		level.setCube(Cube.getCubeByName(Cube.CUBE_EMPTY), (level.getSizeX() - 2), 1, 2);
