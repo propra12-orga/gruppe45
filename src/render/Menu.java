@@ -984,21 +984,23 @@ public class Menu extends javax.swing.JFrame {
 	 * Lädt die Einstellungen aus dem Array "Game.options" werden auf das
 	 * Fenster übertragen, sodass die Werte den eingestellten Werten
 	 * entsprechen.
+	 * 
+	 * Reihenfolge:
+	 * 0.-2. Levelgrösse (x,y,z)
+	 * 3. Obstacle-Wahrscheinlichkeit
+	 * 4. Theme (0 = Earth, 1 = Space, 2 = Fussball)
+	 * 5. Schwerkraft (1 = ein, 0 = aus)
+	 * 6. Itemhäufigkeit
+	 * 7.-10. Vorhandensein folgender Items (1 = Ja, 0 = Nein): Health, Portal, Bomb+, Range+
+	 * 11. maximale Bombenzahl
+	 * 12. Bombenzahl zu Beginn
+	 * 13. maximale Range
+	 * 14. Range zu Beginn
+	 * 15. maximale Lebenspunkte
+	 * 16. Spielergeschwindigkeit
+	 * 17. Maussensibilität
 	 */
 	public static void loadOptions() {
-		/*
-		 * #*********************************************************************
-		 * *********************************************
-		 * Speicherformat/Reihenfolge LevelX, LevelY, LevelZ,
-		 * Obstacle-Wahrscheinlichkeit, Theme (0 = Earth, 1 = Space, 2 =
-		 * Fussball), Schwerkraft (1 = ein, 0 = aus), Itemhäufigkeit,
-		 * Vorhandensein folgender Items (1 = Ja, 0 = Nein): Health, Portal,
-		 * Bomb+, Range+, maximale Bombenzahl, Bombenzahl zu Beginn, maximale
-		 * Range, Range zu Beginn, maximale Hitpoints, Spielergeschwindigkeit,
-		 * Maussensibilität
-		 * ******************************************************
-		 * ***********************************************************
-		 */
 		sLevelX.setValue(Integer.parseInt(Game.options[0]));
 		sLevelY.setValue(Integer.parseInt(Game.options[1]));
 		sLevelZ.setValue(Integer.parseInt(Game.options[2]));
@@ -1048,6 +1050,9 @@ public class Menu extends javax.swing.JFrame {
 		spinMouse.setValue(Float.parseFloat(Game.options[17]));
 	}
 
+	/**
+	 * Schützt das Programm vor einem Absturz, indem eine neue Datei "Optionen.txt" mit Standardeinstellungen erzeugt wird..
+	 */
     public static void optionsRescue(){
 		File file;
 		FileWriter writer;
