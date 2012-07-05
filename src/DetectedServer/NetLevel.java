@@ -52,6 +52,7 @@ public class NetLevel extends Level {
 				playerList += ":" + listNetPlayer.get(i).getHealthPoints();
 				playerList += ":" + listNetPlayer.get(i).getHits();
 				playerList += ":" + listNetPlayer.get(i).getDeaths();
+				playerList += ":" + listNetPlayer.get(i).getName();
 			}
 		}
 		return i + playerList;

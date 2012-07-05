@@ -13,10 +13,6 @@ import java.net.Socket;
 import java.util.List;
 
 public class NetPlayer extends Player {
-	// SendX()
-	// ReceiveX(String strIn)
-	//
-	// ThreadWindowNetwork
 	// Client an Server
 	// #POSITION:number:x:y:z:angleX:angleY:health
 	// move()
@@ -46,22 +42,15 @@ public class NetPlayer extends Player {
 	// Server an alle Clienten(globale Spielnachrichten)
 	// #CUBE:x:y:z:cubenumber
 	final static public String MSG_CUBE = "10";
-	// setCube()
-	// #POSITION:number:x:y:z:angleX:angleY:health
-	// final static public int MSG_POSITION = 11;
-	// wenn Spielerposition empfangen wird
-	// #EXIT:number
-	// final static public int MSG_EXIT = 11;
-	// wenn Spielerexit empfangen wird
-	// #SERVERDOWN
-	final static public String MSG_SERVERDOWN = "12";
-	// Wenn Server heruntergefahren wird
+	// Der Server oder der Client bekommt eine neue Chatnachricht
+	// #CHAT:number:
+	final static public String MSG_CHAT = "12";
 
-	BufferedReader in = null;
-	PrintWriter out = null;
-	Socket client = null;
-	NetLevel netLevel;
-	List<NetPlayer> listNetPlayer;
+	private BufferedReader in = null;
+	private PrintWriter out = null;
+	private Socket client = null;
+	private NetLevel netLevel;
+	private List<NetPlayer> listNetPlayer;
 
 	/**
 	 * Dieser NetPlayer wird vom Server fuer jeden Clienten erzeugt, Aenderungen
@@ -113,6 +102,10 @@ public class NetPlayer extends Player {
 		this.netLevel = null;
 	}
 
+	public String getType() {
+		return "NetPlayer";
+	}
+
 	public void write(String msg) {
 		out.print(msg + "\n");
 		out.flush();
@@ -156,33 +149,36 @@ public class NetPlayer extends Player {
 		// TODO tmp vor die Var schreiben
 		float x, y, z, angleX, angleY;
 		int number, healthPoints, hits, deaths;
+		String name;
 		// ###############
 
 		String stats = "Spieler\tTreffer\tTode\n";
 
 		for (int i = 0; i < Integer.valueOf(splitMsg[1]); i++) {
-			x = Float.valueOf(splitMsg[3 + (i * 9)]);
-			y = Float.valueOf(splitMsg[4 + (i * 9)]);
-			z = Float.valueOf(splitMsg[5 + (i * 9)]);
-			number = Integer.valueOf(splitMsg[2 + (i * 9)]);
-			angleX = Float.valueOf(splitMsg[6 + (i * 9)]);
-			angleY = Float.valueOf(splitMsg[7 + (i * 9)]);
-			healthPoints = Integer.valueOf(splitMsg[8 + (i * 9)]);
-			hits = Integer.valueOf(splitMsg[9 + (i * 9)]);
-			deaths = Integer.valueOf(splitMsg[10 + (i * 9)]);
+			x = Float.valueOf(splitMsg[3 + (i * 10)]);
+			y = Float.valueOf(splitMsg[4 + (i * 10)]);
+			z = Float.valueOf(splitMsg[5 + (i * 10)]);
+			number = Integer.valueOf(splitMsg[2 + (i * 10)]);
+			angleX = Float.valueOf(splitMsg[6 + (i * 10)]);
+			angleY = Float.valueOf(splitMsg[7 + (i * 10)]);
+			healthPoints = Integer.valueOf(splitMsg[8 + (i * 10)]);
+			hits = Integer.valueOf(splitMsg[9 + (i * 10)]);
+			deaths = Integer.valueOf(splitMsg[10 + (i * 10)]);
+			name = splitMsg[11 + (i * 10)];
 			tmpPlayer = new Player(netLevel, x, y, z, listPlayer, number);
 			tmpPlayer.setAngleX(angleX);
 			tmpPlayer.setAngleY(angleY);
 			tmpPlayer.setHealthPoints(healthPoints);
 			tmpPlayer.setHits(hits);
 			tmpPlayer.setDeaths(deaths);
+			tmpPlayer.setName(name);
 			listPlayer.add(tmpPlayer);
 			if (number == getNumber()) {
 				setHits(hits);
 				setDeaths(deaths);
-				stats += "DU\t" + hits + "\t" + deaths + "\n";
+				stats += "ICH\t" + hits + "\t" + deaths + "\n";
 			} else {
-				stats += number + "\t" + hits + "\t" + deaths + "\n";
+				stats += number + ":" + name + "\t" + hits + "\t" + deaths + "\n";
 			}
 		}
 		Game.getHUD().setStats(stats);
@@ -220,22 +216,17 @@ public class NetPlayer extends Player {
 		write(MSG_CUBE + ":" + Cube.getNumberByCube(netLevel.getCube(posX, posY, posZ)) + ":" + posX + ":" + posY + ":" + posZ);
 	}
 
-	public void msgSendServerDown() {
-		write(MSG_SERVERDOWN + ":");
+	public void msgSendChat(String chat) {
+		write(MSG_CHAT + ":" + getNumber() + ":" + chat);
+	}
+
+	public void msgSendChat(String chat, int number) {
+		write(MSG_CHAT + ":" + number + ":" + chat);
 	}
 
 	protected void move(float x, float y, float z) {
 		super.move(x, y, z);
 		msgSendPosition();
-	}
-
-	public void printScore() {
-		// for (int i = 0; i < listPlayer.size(); i++) {
-		// System.out.println("Nr " + listPlayer.get(i).getNumber() +
-		// " Trefferpunkte: " + listPlayer.get(i).getHits()
-		// + ", Todesanzahl: " + listPlayer.get(i).getDeaths());
-		// }
-		System.out.println("Trefferpunkte: " + getHits() + ", Todesanzahl: " + getDeaths());
 	}
 
 	public void dies() {
@@ -265,6 +256,10 @@ public class NetPlayer extends Player {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void setScore(int score) {
+
 	}
 
 }

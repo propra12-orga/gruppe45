@@ -54,9 +54,12 @@ public class ThreadClient implements Runnable {
 					netPlayer.write(NetPlayer.MSG_SERVER_MAX_PLAYER + ":0");
 				} else if (strSplit[0].equals(NetPlayer.MSG_SERVER_COUNT_PLAYER)) {
 					netPlayer.write(NetPlayer.MSG_SERVER_COUNT_PLAYER + ":" + listNetPlayer.size());
+				} else if (strSplit[0].equals(NetPlayer.MSG_CHAT)) {
+					for (int i = 0; i < listNetPlayer.size(); i++) {
+						listNetPlayer.get(i).msgSendChat(strSplit[2], Integer.valueOf(strSplit[1]));
+					}
 				}
 			}
 		}
 	}
-
 }
