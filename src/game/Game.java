@@ -14,7 +14,7 @@ import control.Control_Keyboard;
 import control.Control_Mouse;
 
 public class Game {
-	public static String[] options = new String[16];
+	public static String[] options = new String[19];
 
 	static public int LEVEL_SIZE_X = 13; // X-Ausdehnung der Spielwelt
 	static public int LEVEL_SIZE_Y = 13; // Y-Ausdehnung der Spielwelt
