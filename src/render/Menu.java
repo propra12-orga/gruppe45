@@ -931,7 +931,13 @@ public class Menu extends javax.swing.JFrame {
 		} else {
 			ThreadBomb.BombRangeOn = 0;
 		}
+		
 		Player.MAX_SIMULTAN_BOMBS = Integer.parseInt(Game.options[11]);
+		if(Integer.parseInt(Game.options[12])<Integer.parseInt(Game.options[11])){
+			Player.START_BOMBS = Integer.parseInt(Game.options[12]);
+		}else{
+			Player.START_BOMBS = Integer.parseInt(Game.options[11]);
+		}
 		Player.MAX_BOMB_RADIUS = Integer.parseInt(Game.options[13]);
 		if (Integer.parseInt(Game.options[14]) < Integer.parseInt(Game.options[13])) {
 			Player.radius = Integer.parseInt(Game.options[14]);
@@ -954,19 +960,23 @@ public class Menu extends javax.swing.JFrame {
 			Player.GRAVITY = false;
 		}
 
-		Player.START_BOMBS = Integer.parseInt(Game.options[12]);
 	}
 
 	public static void scanOptions() {
+		File file;
+		file = new File("save/Optionen.txt");
+		if(file.exists()){
 		try {
-			Scanner scanner = new Scanner(new File("save/Optionen.txt"));
+			Scanner scanner = new Scanner(file);
 			for (int i = 0; i < Game.options.length - 1; i++) {
 				Game.options[i] = scanner.nextLine();
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-//			optionsRescue();
+		}
+		}else{
 			System.out.println("Die Datei Optionen.txt konnte nicht gefunden werden. Sie wurde mit den Standardeinstellungen erstellt.");
+			optionsRescue();
 		}
 
 	}
@@ -975,21 +985,23 @@ public class Menu extends javax.swing.JFrame {
 	 * Lädt die Einstellungen aus dem Array "Game.options" werden auf das
 	 * Fenster übertragen, sodass die Werte den eingestellten Werten
 	 * entsprechen.
+	 * 
+	 * Reihenfolge:
+	 * 0.-2. Levelgrösse (x,y,z)
+	 * 3. Obstacle-Wahrscheinlichkeit
+	 * 4. Theme (0 = Earth, 1 = Space, 2 = Fussball)
+	 * 5. Schwerkraft (1 = ein, 0 = aus)
+	 * 6. Itemhäufigkeit
+	 * 7.-10. Vorhandensein folgender Items (1 = Ja, 0 = Nein): Health, Portal, Bomb+, Range+
+	 * 11. maximale Bombenzahl
+	 * 12. Bombenzahl zu Beginn
+	 * 13. maximale Range
+	 * 14. Range zu Beginn
+	 * 15. maximale Lebenspunkte
+	 * 16. Spielergeschwindigkeit
+	 * 17. Maussensibilität
 	 */
 	public static void loadOptions() {
-		/*
-		 * #*********************************************************************
-		 * *********************************************
-		 * Speicherformat/Reihenfolge LevelX, LevelY, LevelZ,
-		 * Obstacle-Wahrscheinlichkeit, Theme (0 = Earth, 1 = Space, 2 =
-		 * Fussball), Schwerkraft (1 = ein, 0 = aus), Itemhäufigkeit,
-		 * Vorhandensein folgender Items (1 = Ja, 0 = Nein): Health, Portal,
-		 * Bomb+, Range+, maximale Bombenzahl, Bombenzahl zu Beginn, maximale
-		 * Range, Range zu Beginn, maximale Hitpoints, Spielergeschwindigkeit,
-		 * Maussensibilität
-		 * ******************************************************
-		 * ***********************************************************
-		 */
 		sLevelX.setValue(Integer.parseInt(Game.options[0]));
 		sLevelY.setValue(Integer.parseInt(Game.options[1]));
 		sLevelZ.setValue(Integer.parseInt(Game.options[2]));
@@ -1039,7 +1051,10 @@ public class Menu extends javax.swing.JFrame {
 		spinMouse.setValue(Float.parseFloat(Game.options[17]));
 	}
 
-/*    public static void optionsRescue(){
+	/**
+	 * Schützt das Programm vor einem Absturz, indem eine neue Datei "Optionen.txt" mit Standardeinstellungen erzeugt wird..
+	 */
+    public static void optionsRescue(){
 		File file;
 		FileWriter writer;
 		file = new File("save/Optionen.txt");
@@ -1053,7 +1068,7 @@ public class Menu extends javax.swing.JFrame {
 			writer.write(System.getProperty("line.separator"));
 			writer.write("0");
 			writer.write(System.getProperty("line.separator"));
-			writer.write(Objects.THEME_EARTH);
+			writer.write("0");
 			writer.write(System.getProperty("line.separator"));
 			writer.write("0");
 			writer.write(System.getProperty("line.separator"));
@@ -1089,7 +1104,7 @@ public class Menu extends javax.swing.JFrame {
 			e.printStackTrace();
 		}
     }
-    */
+    
 	private void formWindowOpened(java.awt.event.WindowEvent evt) {// GEN-FIRST:event_formWindowOpened
 		// Daten aus Datei einlesen und alle Regler dementsprechend einsellen.
 		// Daten im Programm ändern.
