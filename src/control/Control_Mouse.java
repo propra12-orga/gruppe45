@@ -24,9 +24,6 @@ public class Control_Mouse extends Control {
 			if (Mouse.isButtonDown(0)) { // Linksklick legt eine Bombe
 				player.setBomb();
 			}
-			if (Mouse.isButtonDown(1)) { // Rechtsklick schaltet den
-											// Bombenradius um
-			}
 		}
 	}
 
