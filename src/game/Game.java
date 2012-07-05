@@ -83,11 +83,11 @@ public class Game {
 		threadServer = new ThreadServer();
 		thread = new Thread(threadServer);
 		thread.start();
-		connect();
+		connect("localhost");
 	}
 
-	public static void connect() {
-		gameMulti = new GameMulti();
+	public static void connect(String ip) {
+		gameMulti = new GameMulti(ip);
 		gameMulti.connect(openGl, controlKeyboard, controlMouse);
 		System.out.println("CONNECT");
 	}

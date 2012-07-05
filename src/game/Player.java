@@ -40,6 +40,7 @@ public class Player {
 	 * gezogen wird.
 	 */
 	private static int MAX_BOMB_STRENGTH_MULTIPLIER = 3;
+	public static int START_BOMBS = 1;
 
 	final static public float INERTIA = .1f;
 	// final static public float MAX_ACCELERATION = 10;
@@ -66,7 +67,7 @@ public class Player {
 	private int healthPoints = 100;
 	public static int radius = 1;
 	int bombStrengthMultiplier = 1;
-	public static int bombs = 1; // Anzahl der gleichzeitig legbaren Bomben
+	public int bombs = 1; // Anzahl der gleichzeitig legbaren Bomben
 	int fuseTime = 3000;
 	int explosionTime = 1000;
 	protected List<Player> listPlayer;
