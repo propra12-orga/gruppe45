@@ -2,6 +2,7 @@ package game.cube;
 
 import game.Level;
 import game.Player;
+import render.HUD;
 
 public class CubeExplosion extends Cube {
 	
