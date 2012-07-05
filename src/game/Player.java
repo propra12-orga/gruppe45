@@ -50,7 +50,7 @@ public class Player {
 
 	final private double PI_DIV_2 = (Math.PI / 2);
 	protected float x = 0, y = 0, z = 0;
-	private float stepSize = 1f;
+	public static float stepSize = 1f;
 	private float[] color;
 	protected float angleY = 0;
 	protected float angleX = 0;
