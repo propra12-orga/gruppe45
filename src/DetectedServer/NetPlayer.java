@@ -63,7 +63,7 @@ public class NetPlayer extends Player {
 	 */
 	public NetPlayer(NetLevel netLevel, List listPlayer, int number, Socket client, List listNetPlayer) {
 		super(netLevel, 0, 0, 0, listPlayer, number);
-		setBombs(1);
+		setBombs(Player.START_BOMBS);
 		this.netLevel = netLevel;
 		this.listNetPlayer = listNetPlayer;
 		if (client != null) {
