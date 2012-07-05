@@ -954,7 +954,7 @@ public class Menu extends javax.swing.JFrame {
 			Player.GRAVITY = false;
 		}
 
-		Player.bombs = Integer.parseInt(Game.options[12]);
+		Player.START_BOMBS = Integer.parseInt(Game.options[12]);
 	}
 
 	public static void scanOptions() {
