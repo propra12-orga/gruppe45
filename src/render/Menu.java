@@ -931,7 +931,13 @@ public class Menu extends javax.swing.JFrame {
 		} else {
 			ThreadBomb.BombRangeOn = 0;
 		}
+		
 		Player.MAX_SIMULTAN_BOMBS = Integer.parseInt(Game.options[11]);
+		if(Integer.parseInt(Game.options[12])<Integer.parseInt(Game.options[11])){
+			Player.START_BOMBS = Integer.parseInt(Game.options[12]);
+		}else{
+			Player.START_BOMBS = Integer.parseInt(Game.options[11]);
+		}
 		Player.MAX_BOMB_RADIUS = Integer.parseInt(Game.options[13]);
 		if (Integer.parseInt(Game.options[14]) < Integer.parseInt(Game.options[13])) {
 			Player.radius = Integer.parseInt(Game.options[14]);
@@ -952,11 +958,6 @@ public class Menu extends javax.swing.JFrame {
 			Player.GRAVITY = true;
 		} else {
 			Player.GRAVITY = false;
-		}
-		if(Integer.parseInt(Game.options[12])<Integer.parseInt(Game.options[11])){
-			Player.START_BOMBS = Integer.parseInt(Game.options[12]);
-		}else{
-			Player.START_BOMBS = Integer.parseInt(Game.options[11]);
 		}
 	}
 

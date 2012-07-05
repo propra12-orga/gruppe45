@@ -18,8 +18,6 @@ import java.util.Scanner;
  */
 public class Level {
 
-	// TODO Menüoption für ObstacleProbability
-
 	/**
 	 *  Wahrscheinlichkeit eines Hindernisses an leerer Stelle  des Levels (0..1):
 	 */
@@ -150,7 +148,6 @@ public class Level {
 			writer.flush();
 			writer.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -277,8 +274,6 @@ public class Level {
 		}
 	}
 
-	// TODO Zufallsverteilung anpassen; Startposition für Spieler beim Erzeugen
-	// freiräumen!
 	/**
 	 * Füllt ein Level zufällig mit Hinderniswürfel.
 	 * 
