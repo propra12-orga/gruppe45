@@ -874,15 +874,15 @@ public class Menu extends javax.swing.JFrame {
 			writer.write(sBeginRange.getValue() + "");
 			writer.write(System.getProperty("line.separator"));
 			// Maximale Hitpoints
-			// int FU = (Integer) spinHealth.getValue();
-			// writer.write(FU+"");
-			// writer.write(System.getProperty("line.separator"));
-			// Geschwindigkeit
-			// writer.write(spinSpeed.getValue()+"");
-			// writer.write(System.getProperty("line.separator"));
-			// Maussensibilität
-			// writer.write(spinMouse.getValue()+"");
-			// writer.write(System.getProperty("line.separator"));
+			int parse = (Integer) spinHealth.getValue();
+			writer.write(parse+"");
+			writer.write(System.getProperty("line.separator"));
+			//Geschwindigkeit
+			writer.write(spinSpeed.getValue()+"");
+			writer.write(System.getProperty("line.separator"));
+			//Maussensibilität
+			writer.write(spinMouse.getValue()+"");
+			writer.write(System.getProperty("line.separator"));
 			writer.flush();
 			writer.close();
 		} catch (IOException e) {
@@ -938,7 +938,8 @@ public class Menu extends javax.swing.JFrame {
 		} else {
 			Player.radius = Integer.parseInt(Game.options[13]);
 		}
-		// Player.MAX_HEALTH_POINTS = Integer.parseInt(Game.options[15]);
+		Player.MAX_HEALTH_POINTS = Integer.parseInt(Game.options[15]);
+    	Player.stepSize = Float.parseFloat(Game.options[16]);
 
 	}
 
@@ -964,6 +965,8 @@ public class Menu extends javax.swing.JFrame {
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+//			optionsRescue();
+			System.out.println("Die Datei Optionen.txt konnte nicht gefunden werden. Sie wurde mit den Standardeinstellungen erstellt.");
 		}
 
 	}
@@ -1031,15 +1034,62 @@ public class Menu extends javax.swing.JFrame {
 		sBeginMaxBombs.setValue(Integer.parseInt(Game.options[12]));
 		sRange.setValue(Integer.parseInt(Game.options[13]));
 		sBeginRange.setValue(Integer.parseInt(Game.options[14]));
-		// spinHealth.setValue(Float.parseFloat(Game.options[15]));
-		// spinSpeed.setValue(Float.parseFloat(Game.options[16]));
-		// spinMouse.setValue(Float.parseFloat(Game.options[17]));
+		spinHealth.setValue(Integer.parseInt((Game.options[15])));
+		spinSpeed.setValue(Float.parseFloat(Game.options[16]));
+		spinMouse.setValue(Float.parseFloat(Game.options[17]));
 	}
 
-	public static void preExecuteOptions() {
-
-	}
-
+/*    public static void optionsRescue(){
+		File file;
+		FileWriter writer;
+		file = new File("save/Optionen.txt");
+		try {
+			writer = new FileWriter(file);
+			writer.write("10");
+			writer.write(System.getProperty("line.separator"));
+			writer.write("10");
+			writer.write(System.getProperty("line.separator"));
+			writer.write("10");
+			writer.write(System.getProperty("line.separator"));
+			writer.write("0");
+			writer.write(System.getProperty("line.separator"));
+			writer.write(Objects.THEME_EARTH);
+			writer.write(System.getProperty("line.separator"));
+			writer.write("0");
+			writer.write(System.getProperty("line.separator"));
+			writer.write("100");
+			writer.write(System.getProperty("line.separator"));
+			writer.write("1");
+			writer.write(System.getProperty("line.separator"));
+			writer.write("1");
+			writer.write(System.getProperty("line.separator"));
+			writer.write("1");
+			writer.write(System.getProperty("line.separator"));
+			writer.write("1");
+			writer.write(System.getProperty("line.separator"));
+			writer.write("5");
+			writer.write(System.getProperty("line.separator"));
+			writer.write("1");
+			writer.write(System.getProperty("line.separator"));
+			writer.write("5");
+			writer.write(System.getProperty("line.separator"));
+			writer.write("1");
+			writer.write(System.getProperty("line.separator"));
+			writer.write("100");
+			writer.write(System.getProperty("line.separator"));
+			writer.write("1");
+			writer.write(System.getProperty("line.separator"));
+			writer.write("50");
+			writer.write(System.getProperty("line.separator"));
+			writer.flush();
+			writer.close();
+			scanOptions();
+			initializeOptions();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    */
 	private void formWindowOpened(java.awt.event.WindowEvent evt) {// GEN-FIRST:event_formWindowOpened
 		// Daten aus Datei einlesen und alle Regler dementsprechend einsellen.
 		// Daten im Programm ändern.
