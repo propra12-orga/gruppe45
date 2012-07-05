@@ -61,8 +61,7 @@ public class Player {
 
 	protected Level level;
 
-	private String playername;
-	private long score = START_SCORE; // Hier werden die Punkte des Spielers
+	private int score = START_SCORE; // Hier werden die Punkte des Spielers
 										// gesammelt
 	private int healthPoints = 100;
 	public static int radius = 1;
@@ -74,6 +73,7 @@ public class Player {
 
 	private int counterDeaths = 0;
 	private int counterHits = 0;
+	private String name;
 
 	/**
 	 * Konstruktor erzeugt einen Spieler
@@ -93,7 +93,7 @@ public class Player {
 		setPosition(x, y, z);
 		this.level = level;
 		this.listPlayer = listPlayer;
-		this.playername = "Horst";
+		setName("Peter");
 	}
 
 	public Player(Level level, float x, float y, float z, List listPlayer, int number) {
@@ -101,7 +101,19 @@ public class Player {
 		this.level = level;
 		this.number = number;
 		this.listPlayer = listPlayer;
-		this.playername = "Horst";
+		setName("Peter");
+	}
+
+	public String getType() {
+		return "Player";
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 	/**
@@ -657,7 +669,7 @@ public class Player {
 	}
 
 	public void resetScore() {
-		this.score = START_SCORE;
+		setScore(START_SCORE);
 	}
 
 	/**
@@ -668,11 +680,12 @@ public class Player {
 	 *            Übergebene Punkte
 	 */
 	public void addScore(int scoredPoints) {
-		this.score += scoredPoints;
+		setScore((int) (score + scoredPoints));
 	}
 
 	public void setScore(int score) {
 		this.score = score;
+		Game.getHUD().setStats("Du hast " + score + " Punkte!");
 	}
 
 	public void moveForward() {
@@ -714,7 +727,7 @@ public class Player {
 	}
 
 	public void sinkDown() {
-			move(0, -0.3f, 0);
+		move(0, -0.3f, 0);
 	}
 
 	public void moveDown(float i) {
@@ -785,7 +798,7 @@ public class Player {
 		int newCubeX = (int) (this.x + tmpX) / 10;
 		int newCubeY = (int) (this.y + tmpY) / 10;
 		int newCubeZ = (int) (this.z + tmpZ) / 10;
-		
+
 		if (newCubeX == oldCubeX) {
 			this.x += x;
 		} else {
@@ -807,8 +820,7 @@ public class Player {
 				accelerationX = 0;
 			}
 		}
-		
-		
+
 		if (newCubeY == oldCubeY) {
 			this.y += y;
 		} else {
@@ -822,8 +834,7 @@ public class Player {
 				accelerationY = 0;
 			}
 		}
-		
-		
+
 		if (newCubeZ == oldCubeZ) {
 			this.z += z;
 		} else {
@@ -886,6 +897,6 @@ public class Player {
 		if (level.getCube((int) this.x / 10, (int) this.y / 10, (int) this.z / 10).isCollectable()) {
 			level.getCube((int) this.x / 10, (int) this.y / 10, (int) this.z / 10).change(this, level);
 		}
-		
+
 	}
 }

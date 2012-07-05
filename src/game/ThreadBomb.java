@@ -57,6 +57,9 @@ public class ThreadBomb {
 	private boolean net;
 	private Player tmpPlayer;
 
+	final int MILLISECS_PER_CHAT = 300;
+	static int chatTime = 0;
+
 	// TODO down/upcasten muss IRGENDWIE gehen!! Um nicht zwei Playerlisten
 	// uebergeben zu muessen
 	public ThreadBomb(Level level, List<Player> listPlayer, List<NetPlayer> listNetPlayer) {
@@ -74,6 +77,10 @@ public class ThreadBomb {
 		this.listExplosion = new ArrayList<Explosion>();
 		timer = new Timer(MILLISECS_PER_TICK, new TimerBombs());
 		timer.start();
+	}
+
+	public void resetChatTime() {
+		chatTime = 0;
 	}
 
 	public void setLevel(Level level) {
@@ -98,6 +105,13 @@ public class ThreadBomb {
 
 	class TimerBombs implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			if (!Level.inMenu) {
+				chatTime++;
+				if (chatTime == MILLISECS_PER_CHAT) {
+					Game.getHUD().addToChatLog("");
+					chatTime = 0;
+				}
+			}
 			if (net) {
 				for (int i = 0; i < listNetPlayer.size(); i++) {
 					listNetPlayer.get(i).accerlate();

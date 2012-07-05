@@ -110,6 +110,8 @@ public class Game {
 		controlKeyboard.setPlayer(player);
 		controlMouse.setPlayer(player);
 
+		hud.setStats("");
+
 		level.showMenu();
 		player.setPosition((level.getSizeX() / 2) * 10 + 5, (level.getSizeY() / 2) * 10 + 5, 15);
 		player.setBombs(0);

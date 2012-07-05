@@ -1,23 +1,39 @@
-Spielmodi:
-- Pinker Todesblock des Todes, der nicht sterben kann, der den Spieler verfolgt, während 
-der Spieler versucht, den Ausgangsblock freizusprengen und zu flüchten
-- Modus mit schwerkraft (erledigt)
-- Obstacles haben "Leben"
-- Spieler wird durch die Explosion und durch Beschleuningungsenergie verschoben (erledigt)
-
-- Oszilierende Todeszerquetchungsböcke der Macht
+###########################################################################################
+#                                                                                         #
+#                                                                                         #
+#                          WAS ERLEDIGT IST, LOESCHEN                                     #
+#                                                                                         #
+#                           (Zur Uebersichtlichkeit)                                      #
+#                                                                                         #
+###########################################################################################
 *******************************************************************************************
-Items:
+                               Einstellungsmöglichkeiten
 *******************************************************************************************
-Einstellungsmöglichkeiten:
-
-- Tapete (Theme) (erledigt)
+- IP im Menu einstellen können
+- Name des Spielers im Menu einstellen können (SPIELER DARF KEINEN DOPPELPUNKT ENTHALTEN)
 - Levelgröße (ggf. auch Modus für eine Ebene zur besseren Orientierung)
 - Spielmodus
 - Feste Blöcke werden nach Ablauf der Spielzeit nach Zufallsprinzip rot und explodieren nach wenigen Sekunden
-
-
 *******************************************************************************************
-Neue Blockarten:
+                                   Spielelemente
 *******************************************************************************************
-- Portal Cubes (Teleport zu anderem Portal oder an Zufallsposition)
+- Man muss sehen koennen wie viel Zeit noch bleibt bis eine Bombe explodiert
+- Einen Pfeil der die Bombe explodieren laesst
+- Wenn man getroffen wird kommt der rote Rand
+- Rauch/Blendgranaten
+- Bomben kosten auch Punkte
+- Pinker Todesblock des Todes, der nicht sterben kann, der den Spieler verfolgt, während 
+der Spieler versucht, den Ausgangsblock freizusprengen und zu flüchten
+- Oszilierende Todeszerquetchungsböcke der Macht
+*******************************************************************************************
+                                        Items
+*******************************************************************************************
+/
+*******************************************************************************************
+                                    Neue Blockarten
+*******************************************************************************************
+/
+*******************************************************************************************
+                                        Themen
+*******************************************************************************************
+/
